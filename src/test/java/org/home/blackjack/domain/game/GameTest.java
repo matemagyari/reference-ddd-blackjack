@@ -8,20 +8,17 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.home.blackjack.TestFixture;
-import org.home.blackjack.domain.core.GameId;
-import org.home.blackjack.domain.core.PlayerId;
-import org.home.blackjack.domain.coreservice.EventDispatcher;
-import org.home.blackjack.domain.event.DomainEvent;
-import org.home.blackjack.domain.game.Deck;
-import org.home.blackjack.domain.game.DeckFactory;
-import org.home.blackjack.domain.game.GameImpl;
+import org.home.blackjack.domain.common.DomainEvent;
+import org.home.blackjack.domain.common.EventDispatcher;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.Card.Rank;
 import org.home.blackjack.domain.game.core.Card.Suite;
+import org.home.blackjack.domain.game.core.GameId;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
-import org.home.blackjack.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
+import org.home.blackjack.domain.shared.PlayerId;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,6 +56,11 @@ public class GameTest {
 		eventDispatcher = new EventDispatcherStub();
 		testObj = new GameImpl(dealer, player, deckFactory, eventDispatcher);
 		testObj.setGameId(gameId);
+	}
+	
+	@After
+	public void after() {
+		eventDispatcher.print();
 	}
 
 	@Test(expected = PlayerActionOutOfTurnException.class)
@@ -258,15 +260,19 @@ public class GameTest {
 			eventsInChronologicalOrder.add(event);
 		}
 		
+		public void print() {
+			for (DomainEvent event : eventsInChronologicalOrder) {
+				System.out.println(event);
+			}
+		}
+
 		DomainEvent last() {
-			return eventsInChronologicalOrder.get(eventsInChronologicalOrder.size()-1);
+			return eventsInChronologicalOrder.get(eventsInChronologicalOrder.size()- 1);
 		}
-		
+
 		DomainEvent get(int order) {
-			return eventsInChronologicalOrder.get(order-1);
+			return eventsInChronologicalOrder.get(order - 1);
 		}
-		
-		
-		
+
 	}
 }

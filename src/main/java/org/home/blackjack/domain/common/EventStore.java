@@ -1,4 +1,4 @@
-package org.home.blackjack.domain.coreservice;
+package org.home.blackjack.domain.common;
 
 public interface EventStore {
 

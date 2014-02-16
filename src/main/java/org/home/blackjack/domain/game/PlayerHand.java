@@ -6,10 +6,10 @@ import java.util.Set;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.home.blackjack.domain.core.PlayerId;
-import org.home.blackjack.domain.exception.DomainException;
+import org.home.blackjack.domain.common.DomainException;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.Card.Rank;
+import org.home.blackjack.domain.shared.PlayerId;
 
 import com.google.common.collect.Sets;
 

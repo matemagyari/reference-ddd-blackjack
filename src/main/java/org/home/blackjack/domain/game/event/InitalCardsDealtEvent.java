@@ -1,6 +1,6 @@
 package org.home.blackjack.domain.game.event;
 
-import org.home.blackjack.domain.core.GameId;
+import org.home.blackjack.domain.game.core.GameId;
 
 public class InitalCardsDealtEvent extends GameEvent {
 

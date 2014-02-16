@@ -1,6 +1,6 @@
 package org.home.blackjack.domain.player;
 
-import org.home.blackjack.domain.core.PlayerId;
+import org.home.blackjack.domain.shared.PlayerId;
 
 /**
  * An aggregate root of a single entity. It is eventually consistent with the

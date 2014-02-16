@@ -1,6 +1,5 @@
-package org.home.blackjack.domain.coreservice;
+package org.home.blackjack.domain.common;
 
-import org.home.blackjack.domain.event.DomainEvent;
 
 /**
  * Probably there will be an event container that will be flushed at the end of

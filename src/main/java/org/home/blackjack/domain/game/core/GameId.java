@@ -1,4 +1,6 @@
-package org.home.blackjack.domain.core;
+package org.home.blackjack.domain.game.core;
+
+import org.home.blackjack.domain.common.NumericId;
 
 
 /**

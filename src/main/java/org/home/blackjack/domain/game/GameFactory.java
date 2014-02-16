@@ -2,8 +2,8 @@ package org.home.blackjack.domain.game;
 
 import javax.inject.Inject;
 
-import org.home.blackjack.domain.core.PlayerId;
-import org.home.blackjack.domain.coreservice.EventDispatcher;
+import org.home.blackjack.domain.common.EventDispatcher;
+import org.home.blackjack.domain.shared.PlayerId;
 
 public class GameFactory {
 	
