@@ -1,7 +1,9 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.game;
 
 import java.util.Collections;
 import java.util.List;
+
+import org.home.blackjack.domain.core.Card;
 
 import com.google.common.collect.Lists;
 

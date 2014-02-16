@@ -1,4 +1,4 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.core;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -13,10 +13,10 @@ public class Card {
 		this.rank = rank;
 	}
 	
-	static enum Suite {
+	public static enum Suite {
 		CLUB, HEART, DIAMOND, SPADE
 	}
-	static enum Rank {
+	public static enum Rank {
 		
 		TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10), ACE(11);
 

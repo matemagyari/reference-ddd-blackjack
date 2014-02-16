@@ -2,9 +2,9 @@ package org.home.blackjack;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.home.blackjack.domain.Card;
-import org.home.blackjack.domain.Deck;
-import org.home.blackjack.domain.PlayerId;
+import org.home.blackjack.domain.core.Card;
+import org.home.blackjack.domain.core.PlayerId;
+import org.home.blackjack.domain.game.Deck;
 
 public class TestFixture {
 	

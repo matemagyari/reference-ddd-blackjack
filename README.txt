@@ -6,7 +6,7 @@ The http endpoints are implemented with REST and also with servlets.
 
 It will have a simple UI in browser. The players can join the game, will be randomly matched to other players. There will also be a leaderboard showing the win records. 
 
-For the rules of the game, check org.home.blackjack.domain.Game.
+For the rules of the game, check org.home.blackjack.domain.game.Game.
 
 The DDD concepts/patterns the project show examples are:
 

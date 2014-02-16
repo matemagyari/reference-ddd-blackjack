@@ -1,0 +1,6 @@
+
+Example cycles caused by org.home.blackjack.domain.event
+
+org.home.blackjack.domain.core -->
+org.home.blackjack.domain.event -->
+-------------------------------

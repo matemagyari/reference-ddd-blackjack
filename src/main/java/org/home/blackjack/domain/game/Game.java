@@ -1,7 +1,11 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.game;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.home.blackjack.domain.core.Card;
+import org.home.blackjack.domain.core.GameId;
+import org.home.blackjack.domain.core.PlayerId;
+import org.home.blackjack.domain.coreservice.EventDispatcher;
 import org.home.blackjack.domain.event.GameFinishedEvent;
 import org.home.blackjack.domain.event.InitalCardsDealtEvent;
 import org.home.blackjack.domain.event.PlayerCardDealtEvent;
@@ -38,12 +42,9 @@ import org.home.blackjack.domain.exception.PlayerTriedToActAfterStandException;
  * Difference 2: There are only two available actions: 1. hit - draw card 2.
  * stand - stop drawing cards
  * 
- * Difference 3: result is only calculated once both players have stopped, so
- * players don't bust immediately.
+ * Difference 3: all cards in initial deal are face down
  * 
- * Difference 4: all cards in initial deal are face down
- * 
- * Difference 5: players can stand any time, regardless of the value of their
+ * Difference 4: players can stand any time, regardless of the value of their
  * hands
  * 
  * 
@@ -91,27 +92,28 @@ public class Game {
 		if (state != GameState.BEFORE_INITIAL_DEAL) {
 			throw new IllegalStateException(gameId + " initial deal has been already made");
 		}
-		dealForPlayer();
-		dealForDealer();
-		dealForPlayer();
-		dealForDealer();
-		//eventDispatcher.dispatch(new InitalCardsDealtEvent(getGameId(),actionCounter.get()));
+		dealFor(playerHand);
+		dealFor(dealerHand);
+		dealFor(playerHand);
+		dealFor(dealerHand);
+		eventDispatcher.dispatch(new InitalCardsDealtEvent(getGameId(),actionCounter.get()));
 	}
 
-	private void dealForPlayer() {
-		playerHits(playerHand.getPlayerId());
-	}
-
-	private void dealForDealer() {
-		playerHits(dealerHand.getPlayerId());
+	private void dealFor(PlayerHand hand) {
+		playerHits(hand.getPlayerId());
+		
 	}
 
 	public void playerHits(PlayerId player) {
 		PlayerHand hand = handOf(player);
 		lastToAct = hand;
 		Card card = deck.draw();
-		hand.isDealtWith(card);
+		int score = hand.isDealtWith(card);
 		eventDispatcher.dispatch(new PlayerCardDealtEvent(getGameId(),nextSequenceId(), player, other(player).getPlayerId(), card));
+		if (score > TARGET) {
+			state = GameState.FINISHED;
+			eventDispatcher.dispatch(new GameFinishedEvent(getGameId(),nextSequenceId(), other(player).getPlayerId()));
+		}
 	}
 
 	public void playerStands(PlayerId player) {
@@ -161,7 +163,7 @@ public class Game {
 	}
 	
 	private PlayerHand other(PlayerId player) {
-		return playerHand.getPlayerId().equals(player) ? playerHand : dealerHand;
+		return playerHand.getPlayerId().equals(player) ? dealerHand : playerHand;
 	}
 
 	public boolean isFinished() {

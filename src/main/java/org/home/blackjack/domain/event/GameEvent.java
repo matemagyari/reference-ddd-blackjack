@@ -3,7 +3,7 @@ package org.home.blackjack.domain.event;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.home.blackjack.domain.GameId;
+import org.home.blackjack.domain.core.GameId;
 
 /**
  * Domain Event (Value Object)

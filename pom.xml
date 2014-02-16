@@ -57,7 +57,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.home.blackjack</groupId>
+				<groupId>org.tindalos.principle</groupId>
 				<artifactId>principle</artifactId>
 				<version>0.24</version>
 				<configuration>
@@ -83,7 +83,7 @@
 								<violationsThreshold>3</violationsThreshold>
 							</sap>
 							<racd>
-								<threshold>0.45</threshold>
+								<threshold>0.50</threshold>
 							</racd>
 						</packageCoupling>
 					</checks>

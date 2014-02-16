@@ -1,11 +1,13 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.game;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.home.blackjack.domain.Card.Rank;
+import org.home.blackjack.domain.core.Card;
+import org.home.blackjack.domain.core.PlayerId;
+import org.home.blackjack.domain.core.Card.Rank;
 import org.home.blackjack.domain.exception.DomainException;
 
 import com.google.common.collect.Sets;

@@ -1,4 +1,4 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.core;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

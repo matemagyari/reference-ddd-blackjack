@@ -1,4 +1,6 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.game;
+
+import org.home.blackjack.domain.core.Card;
 
 /**
  * Factory.

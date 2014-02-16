@@ -1,4 +1,7 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.player;
+
+import org.home.blackjack.domain.core.PlayerId;
+import org.home.blackjack.domain.game.Game;
 
 /**
  * An aggregate root of a single entity. It is eventually consistent with the

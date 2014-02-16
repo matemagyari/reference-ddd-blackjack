@@ -1,6 +1,8 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.game;
 
 import org.home.blackjack.domain.event.GameFinishedEvent;
+import org.home.blackjack.domain.player.PlayerRecord;
+import org.home.blackjack.domain.player.PlayerRecordRepository;
 
 /**
  * This should be refactored, since we must lock the DB for the update. It means

@@ -1,4 +1,4 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.coreservice;
 
 import org.home.blackjack.domain.event.DomainEvent;
 

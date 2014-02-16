@@ -1,4 +1,4 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.domain.game;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,13 +8,20 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.home.blackjack.TestFixture;
-import org.home.blackjack.domain.Card.Rank;
-import org.home.blackjack.domain.Card.Suite;
+import org.home.blackjack.domain.core.Card;
+import org.home.blackjack.domain.core.GameId;
+import org.home.blackjack.domain.core.PlayerId;
+import org.home.blackjack.domain.core.Card.Rank;
+import org.home.blackjack.domain.core.Card.Suite;
+import org.home.blackjack.domain.coreservice.EventDispatcher;
 import org.home.blackjack.domain.event.DomainEvent;
 import org.home.blackjack.domain.event.GameFinishedEvent;
 import org.home.blackjack.domain.event.PlayerCardDealtEvent;
 import org.home.blackjack.domain.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.exception.PlayerTriedToActAfterStandException;
+import org.home.blackjack.domain.game.Deck;
+import org.home.blackjack.domain.game.DeckFactory;
+import org.home.blackjack.domain.game.Game;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -135,6 +142,36 @@ public class GameTest {
 		dealerDraws();
 		playerStops();
 		dealerStops();
+		assertTheWinnerIs(player);
+	}
+	
+	@Test
+	public void playerBusts() {
+		prepareDeckInOrder(
+				card(Suite.CLUB, Rank.TEN)
+				, card(Suite.SPADE, Rank.TWO)
+				, card(Suite.DIAMOND, Rank.SEVEN)
+				, card(Suite.HEART, Rank.JACK)
+				, card(Suite.DIAMOND, Rank.FIVE)
+				);
+		dealInitialCards();
+		playerDraws();
+		assertTheWinnerIs(dealer);
+	}
+	
+	@Test
+	public void dealerBusts() {
+		prepareDeckInOrder(
+				card(Suite.CLUB, Rank.TWO)
+				, card(Suite.SPADE, Rank.EIGHT)
+				, card(Suite.DIAMOND, Rank.SEVEN)
+				, card(Suite.HEART, Rank.JACK)
+				, card(Suite.DIAMOND, Rank.THREE)
+				, card(Suite.DIAMOND, Rank.FOUR)
+				);
+		dealInitialCards();
+		playerDraws();
+		dealerDraws();
 		assertTheWinnerIs(player);
 	}
 	

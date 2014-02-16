@@ -2,9 +2,9 @@ package org.home.blackjack.domain.event;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.home.blackjack.domain.Card;
-import org.home.blackjack.domain.GameId;
-import org.home.blackjack.domain.PlayerId;
+import org.home.blackjack.domain.core.Card;
+import org.home.blackjack.domain.core.GameId;
+import org.home.blackjack.domain.core.PlayerId;
 
 public class PlayerCardDealtEvent extends GameEvent {
 
