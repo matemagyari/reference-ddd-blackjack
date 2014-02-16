@@ -1,4 +1,4 @@
-package org.home.blackjack.domain.event;
+package org.home.blackjack.domain.game.event;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;

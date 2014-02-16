@@ -13,3 +13,6 @@ The DDD concepts/patterns the project show examples are:
 Transactional consistency requirements: See them in Game class
 Eventual consistency requirements:
 1. Leaderboard's values must correspond to the aggregated results of the individual Game results
+
+Package structure
+util - general functionality not belonging to any layer in particular

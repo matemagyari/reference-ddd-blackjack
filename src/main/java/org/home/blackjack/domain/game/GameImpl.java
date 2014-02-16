@@ -3,18 +3,18 @@ package org.home.blackjack.domain.game;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.Validate;
-import org.home.blackjack.domain.core.Card;
 import org.home.blackjack.domain.core.GameId;
 import org.home.blackjack.domain.core.PlayerId;
 import org.home.blackjack.domain.coreservice.EventDispatcher;
-import org.home.blackjack.domain.event.GameFinishedEvent;
-import org.home.blackjack.domain.event.InitalCardsDealtEvent;
-import org.home.blackjack.domain.event.PlayerCardDealtEvent;
-import org.home.blackjack.domain.event.PlayerStandsEvent;
 import org.home.blackjack.domain.exception.DomainException;
-import org.home.blackjack.domain.exception.PlayerActionAfterGameFinishedException;
-import org.home.blackjack.domain.exception.PlayerActionOutOfTurnException;
-import org.home.blackjack.domain.exception.PlayerTriedToActAfterStandException;
+import org.home.blackjack.domain.game.core.Card;
+import org.home.blackjack.domain.game.event.GameFinishedEvent;
+import org.home.blackjack.domain.game.event.InitalCardsDealtEvent;
+import org.home.blackjack.domain.game.event.PlayerCardDealtEvent;
+import org.home.blackjack.domain.game.event.PlayerStandsEvent;
+import org.home.blackjack.domain.game.exception.PlayerActionAfterGameFinishedException;
+import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
+import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
 
 /**
  * Aggregate Root

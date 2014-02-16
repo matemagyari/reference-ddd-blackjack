@@ -1,4 +1,4 @@
-package org.home.blackjack.domain.event;
+package org.home.blackjack.domain.game.event;
 
 import org.home.blackjack.domain.core.GameId;
 

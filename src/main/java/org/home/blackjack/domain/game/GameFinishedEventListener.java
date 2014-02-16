@@ -1,6 +1,6 @@
 package org.home.blackjack.domain.game;
 
-import org.home.blackjack.domain.event.GameFinishedEvent;
+import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.player.PlayerRecord;
 import org.home.blackjack.domain.player.PlayerRecordRepository;
 

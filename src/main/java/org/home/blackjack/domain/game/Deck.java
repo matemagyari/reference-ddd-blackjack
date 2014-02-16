@@ -3,7 +3,7 @@ package org.home.blackjack.domain.game;
 import java.util.Collections;
 import java.util.List;
 
-import org.home.blackjack.domain.core.Card;
+import org.home.blackjack.domain.game.core.Card;
 
 import com.google.common.collect.Lists;
 

@@ -1,4 +1,4 @@
-package org.home.blackjack.domain.exception;
+package org.home.blackjack.domain.game.exception;
 
 import org.home.blackjack.domain.core.PlayerId;
 
