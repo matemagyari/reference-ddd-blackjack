@@ -1,5 +1,6 @@
 package org.home.blackjack.domain.event;
 
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.domain.core.Card;
@@ -15,6 +16,9 @@ public class PlayerCardDealtEvent extends GameEvent {
 
 	public PlayerCardDealtEvent(GameId gameId, int sequenceNumber, PlayerId player, PlayerId otherPlayer, Card card) {
 		super(gameId, sequenceNumber);
+		Validate.notNull(player);
+		Validate.notNull(otherPlayer);
+		Validate.notNull(card);
 		this.player = player;
 		this.otherPlayer = otherPlayer;
 		this.card = card;

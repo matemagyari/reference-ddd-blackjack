@@ -68,6 +68,7 @@
 								<param>infrastructure</param>
 								<param>app</param>
 								<param>domain</param>
+								<param>util</param>
 							</layers>
 							<violationsThreshold>0</violationsThreshold>
 						</layering>

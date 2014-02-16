@@ -1,5 +1,6 @@
 package org.home.blackjack.domain.event;
 
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.domain.core.GameId;
@@ -11,6 +12,7 @@ public class GameFinishedEvent extends GameEvent {
 
 	public GameFinishedEvent(GameId gameId, int sequenceNumber, PlayerId winner) {
 		super(gameId, sequenceNumber);
+		Validate.notNull(winner);
 		this.winner = winner;
 	}
 	

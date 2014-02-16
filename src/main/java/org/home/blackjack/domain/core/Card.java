@@ -1,5 +1,6 @@
 package org.home.blackjack.domain.core;
 
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -9,6 +10,8 @@ public class Card {
 	private final Suite suite;
 	
 	public Card(Suite suite, Rank rank) {
+		Validate.notNull(suite);
+		Validate.notNull(rank);
 		this.suite = suite;
 		this.rank = rank;
 	}

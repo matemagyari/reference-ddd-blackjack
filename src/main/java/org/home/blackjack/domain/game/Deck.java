@@ -8,7 +8,7 @@ import org.home.blackjack.domain.core.Card;
 import com.google.common.collect.Lists;
 
 /**
- * Entity inside {@link Game}. It cannot be referenced outside of the aggregate,
+ * Entity inside {@link GameImpl}. It cannot be referenced outside of the aggregate,
  * lest something could call 'draw' and change the state of the aggregate from
  * outside of it.
  * 
@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
  * @author Mate
  * 
  */
-public class Deck {
+class Deck {
 
 	private final List<Card> cards;
 

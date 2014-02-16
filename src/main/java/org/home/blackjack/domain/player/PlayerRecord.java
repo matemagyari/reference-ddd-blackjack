@@ -1,13 +1,12 @@
 package org.home.blackjack.domain.player;
 
 import org.home.blackjack.domain.core.PlayerId;
-import org.home.blackjack.domain.game.Game;
 
 /**
  * An aggregate root of a single entity. It is eventually consistent with the
- * aggregated content of {@link Game} entities. From the state of a {@link Game}
+ * aggregated content of {@link GameImpl} entities. From the state of a {@link GameImpl}
  * instance, the result can be derived, so for any player the winNumber of
- * {@link PlayerRecord} should equal the number of {@link Game}-s she has won.
+ * {@link PlayerRecord} should equal the number of {@link GameImpl}-s she has won.
  * 
  * But eventual consistency is enough.
  * 

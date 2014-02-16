@@ -1,10 +1,12 @@
-package org.home.blackjack.app.service;
+package org.home.blackjack.app.game.client;
 
 import org.home.blackjack.domain.event.EventStore;
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.GameRepository;
+import org.home.blackjack.util.hexagonal.DrivenPort;
 
 /**
+ * Driven port.
  * App service for player action use-case.
  * 
  * The EventStore should be flushed only after the aggregate has been persisted.
@@ -12,7 +14,7 @@ import org.home.blackjack.domain.game.GameRepository;
  * @author Mate
  * 
  */
-public class GameActionHandler {
+public class GameActionHandler implements DrivenPort {
 
 	private GameRepository gameRepository;
 	private EventStore eventStore;
@@ -21,10 +23,12 @@ public class GameActionHandler {
 
 		// TODO locking starts for gameId
 		Game game = gameRepository.find(action.getGameId());
-		if (GameActionType.HIT == action.getActionType()) {
+		if (GameActionType.HIT == action.getType()) {
 			game.playerHits(action.getPlayer());
-		} else if (GameActionType.STAND == action.getActionType()) {
+		} else if (GameActionType.STAND == action.getType()) {
 			game.playerStands(action.getPlayer());
+		} else {
+			throw new IllegalArgumentException("Unknown action type " + action.getType());
 		}
 		
 		gameRepository.update(game);

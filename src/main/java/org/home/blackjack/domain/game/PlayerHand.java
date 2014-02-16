@@ -3,6 +3,7 @@ package org.home.blackjack.domain.game;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.domain.core.Card;
@@ -13,8 +14,8 @@ import org.home.blackjack.domain.exception.DomainException;
 import com.google.common.collect.Sets;
 
 /**
- * Entity inside the {@link Game} aggregate root. It's id ({@link PlayerId}) is only unique inside the aggregate.
- * Nothing can reference it outside of {@link Game}, otherwise calling isDealtWith could violate the invariant
+ * Entity inside the {@link GameImpl} aggregate root. It's id ({@link PlayerId}) is only unique inside the aggregate.
+ * Nothing can reference it outside of {@link GameImpl}, otherwise calling isDealtWith could violate the invariant
  * 
  * It could have also been implemented as a Value Object, should we choose to implement 'deal' in the following way
  * 	public PlayerHand deal(Card card) {
@@ -22,11 +23,11 @@ import com.google.common.collect.Sets;
  *      newCards.add(card);
  *		return new PlayerHand(playerId, newCards);
  *	}
- *	In that case it would be handled differently in {@link Game}.
+ *	In that case it would be handled differently in {@link GameImpl}.
  * @author Mate
  *
  */
-public class PlayerHand {
+class PlayerHand {
 	
 	private final PlayerId playerId;
 	private final Set<Card> cards;
@@ -41,6 +42,8 @@ public class PlayerHand {
 	}
 	
 	private PlayerHand(PlayerId playerId, Set<Card> cards) {
+		Validate.notNull(playerId);
+		Validate.notNull(cards);
 		this.playerId = playerId;
 		this.cards = cards;
 	}

@@ -17,8 +17,8 @@ public abstract class GameEvent implements DomainEvent {
 
 	//TODO check that it's not null
 	public GameEvent(GameId gameId, int sequenceNumber) {
-		this.sequenceNumber = sequenceNumber;
 		Validate.notNull(gameId);
+		this.sequenceNumber = sequenceNumber;
 		this.gameId = gameId;
 	}
 	

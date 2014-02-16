@@ -21,7 +21,7 @@ import org.home.blackjack.domain.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.domain.game.Deck;
 import org.home.blackjack.domain.game.DeckFactory;
-import org.home.blackjack.domain.game.Game;
+import org.home.blackjack.domain.game.GameImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,8 +31,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.google.common.collect.Lists;
 
 /**
- * This is not a unit test, but testing the Game mechanism as a whole.
- * It tests the Game mechanism, and check the events.
+ * This is not a unit test, but testing the GameImpl mechanism as a whole.
+ * It tests the GameImpl mechanism, and check the events.
  * 
  * @author Mate
  * 
@@ -40,7 +40,7 @@ import com.google.common.collect.Lists;
 @RunWith(MockitoJUnitRunner.class)
 public class GameTest {
 
-	private Game testObj;
+	private GameImpl testObj;
 	private PlayerId dealer = TestFixture.aPlayer();
 	private PlayerId player = TestFixture.aPlayer();
 	private GameId gameId = new GameId(12l);
@@ -57,7 +57,7 @@ public class GameTest {
 	public void setup() {
 		when(deckFactory.createNew()).thenReturn(deck);
 		eventDispatcher = new EventDispatcherStub();
-		testObj = new Game(dealer, player, deckFactory, eventDispatcher);
+		testObj = new GameImpl(dealer, player, deckFactory, eventDispatcher);
 		testObj.setGameId(gameId);
 	}
 

@@ -8,14 +8,12 @@ import org.home.blackjack.domain.coreservice.EventDispatcher;
 public class GameFactory {
 	
 	@Inject
-	private GameRepository gameRepository;
-	@Inject
 	private DeckFactory deckFactory;
 	@Inject
 	private EventDispatcher eventDispatcher;
 	
 	public Game createNewGame(PlayerId dealer, PlayerId player) {
-		return new Game(dealer, player, deckFactory, eventDispatcher);
+		return new GameImpl(dealer, player, deckFactory, eventDispatcher);
 	}
 
 }
