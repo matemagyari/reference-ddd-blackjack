@@ -4,11 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.beans.beancontext.BeanContext;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.inject.Inject;
 
 import org.home.blackjack.EventBusStub;
 import org.home.blackjack.ReflectionHelper;
@@ -19,7 +16,6 @@ import org.home.blackjack.domain.game.Card.Suite;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
-import org.home.blackjack.domain.player.Player;
 import org.home.blackjack.domain.player.PlayerID;
 import org.home.blackjack.infrastructure.JUGIDGenerationStrategy;
 import org.junit.After;
@@ -45,9 +41,6 @@ public class GameTest {
 	@Mock
 	private DeckFactory deckFactory;
 
-	@Inject
-	private BeanContext beanContext;
-
 	private static EventBusStub eventBus;
 
 	private Game testObj;
@@ -65,8 +58,6 @@ public class GameTest {
 	public static void setUpStatic() throws NoSuchFieldException, IllegalAccessException {
 
 		eventBus = new EventBusStub();
-		ReflectionHelper.setField("eventBus", eventBus, Game.class);
-		ReflectionHelper.setField("eventBus", eventBus, Player.class);
 
 		ReflectionHelper.setField("idGenerationStrategy", new JUGIDGenerationStrategy(), ID.class);
 	}
@@ -75,7 +66,7 @@ public class GameTest {
 	public void setUp() {
 
 		when(deckFactory.createNew()).thenReturn(deck);
-		testObj = new Game(gameID, dealer, player, deckFactory);
+		testObj = new Game(gameID, dealer, player, deckFactory, eventBus);
 	}
 
 	@After

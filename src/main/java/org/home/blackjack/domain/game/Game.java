@@ -2,8 +2,6 @@ package org.home.blackjack.domain.game;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.Validate;
 import org.home.blackjack.domain.AggregateRoot;
 import org.home.blackjack.domain.common.DomainException;
@@ -63,18 +61,14 @@ public class Game extends AggregateRoot<GameID> {
 	private PlayerHand lastToAct;
 	private GameState state;
 
-	@Inject
-	private static EventBus eventBus;
-
 	/**
 	 * The reason why we pass Factories instead of simply passing a {@link Deck} and two {@link PlayerHand}-s is because
 	 * they are entities, and nothing can hold a reference on them but the aggregate root (so nothing could pass them to
 	 * it). Were they Value Objects, that would be another situation.
-	 * 
 	 */
-	public Game(GameID id, PlayerID dealer, PlayerID player, DeckFactory deckFactory) {
+	public Game(GameID id, PlayerID dealer, PlayerID player, DeckFactory deckFactory, EventBus eventBus) {
 
-		super(id);
+		super(id,eventBus);
 		Validate.notNull(dealer);
 		Validate.notNull(player);
 
@@ -94,7 +88,7 @@ public class Game extends AggregateRoot<GameID> {
 		dealFor(dealerHand);
 		dealFor(playerHand);
 		dealFor(dealerHand);
-		eventBus.publish(new InitalCardsDealtEvent(getID(), actionCounter.get()));
+		eventBus().publish(new InitalCardsDealtEvent(getID(), actionCounter.get()));
 	}
 
 	private void dealFor(PlayerHand hand) {
@@ -107,17 +101,17 @@ public class Game extends AggregateRoot<GameID> {
 		lastToAct = hand;
 		Card card = deck.draw();
 		int score = hand.isDealtWith(card);
-		eventBus.publish(new PlayerCardDealtEvent(getID(), nextSequenceId(), player, other(player).getPlayerID(), card));
+		eventBus().publish(new PlayerCardDealtEvent(getID(), nextSequenceId(), player, other(player).getPlayerID(), card));
 		if (score > TARGET) {
 			state = GameState.FINISHED;
-			eventBus.publish(new GameFinishedEvent(getID(), nextSequenceId(), other(player).getPlayerID()));
+			eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), other(player).getPlayerID()));
 		}
 	}
 
 	public void playerStands(PlayerID player) {
 		PlayerHand hand = handOf(player);
 		hand.stand();
-		eventBus.publish(new PlayerStandsEvent(getID(), nextSequenceId(), player));
+		eventBus().publish(new PlayerStandsEvent(getID(), nextSequenceId(), player));
 		if (lastToAct.stopped()) {
 			state = GameState.FINISHED;
 			declareWinner();
@@ -129,7 +123,7 @@ public class Game extends AggregateRoot<GameID> {
 		int playerScore = playerHand.score();
 		boolean dealerWon = playerScore > TARGET || diffFromTarget(playerScore) > diffFromTarget(dealerHand.score());
 		PlayerID winner = dealerWon ? dealerHand.getPlayerID() : playerHand.getPlayerID();
-		eventBus.publish(new GameFinishedEvent(getID(), nextSequenceId(), winner));
+		eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), winner));
 	}
 
 	private static int diffFromTarget(int score) {

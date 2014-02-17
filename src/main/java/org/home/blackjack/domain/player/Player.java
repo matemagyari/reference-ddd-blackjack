@@ -1,7 +1,5 @@
 package org.home.blackjack.domain.player;
 
-import javax.inject.Inject;
-
 import org.home.blackjack.domain.AggregateRoot;
 import org.home.blackjack.domain.common.EventBus;
 import org.home.blackjack.domain.game.Game;
@@ -16,26 +14,26 @@ import org.home.blackjack.domain.game.Game;
  * @author Mate
  * 
  */
-public final class Player extends AggregateRoot<PlayerID> {
+public class Player extends AggregateRoot<PlayerID> {
 
-	private PlayerScore score;
+	private final PlayerName name;
+	private int winNumber = 0;
 
-	@Inject
-	private static EventBus eventBus;
+	public Player(final PlayerID id, final PlayerName name, EventBus eventBus) {
 
-	public Player(final PlayerID id) {
-
-		super(id);
-		this.score = new PlayerScore();
+		super(id, eventBus);
+		this.name = name;
 	}
 
 	public void recordWin() {
-
-		score = score.increment();
+		winNumber++;
 	}
 
 	public int getWinNumber() {
+		return winNumber;
+	}
 
-		return score.wonGamesCount();
+	public PlayerName getName() {
+		return name;
 	}
 }
