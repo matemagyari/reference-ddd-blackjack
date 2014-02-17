@@ -1,14 +1,8 @@
 package org.home.blackjack.domain.player;
 
-import org.home.blackjack.domain.shared.PlayerId;
-import org.home.blackjack.util.marker.hexagonal.DrivingPort;
+import org.home.blackjack.domain.Repository;
 
-public interface PlayerRepository extends DrivingPort {
+public interface PlayerRepository extends Repository<PlayerID, Player> {
 
-	Player find(PlayerId winner);
-
-	void update(Player player);
-
-	void create(Player player);
-
+	// will contain Player specific repository methods, if any
 }

@@ -1,12 +1,8 @@
 package org.home.blackjack.domain.game;
 
-import org.home.blackjack.domain.game.core.GameId;
-import org.home.blackjack.util.marker.hexagonal.DrivingPort;
+import org.home.blackjack.domain.Repository;
 
-public interface GameRepository extends DrivingPort {
+public interface GameRepository extends Repository<GameID, Game> {
 
-	Game find(GameId gameId);
-
-	void update(Game game);
-
+	// will contain Game specific repository logic, if any
 }

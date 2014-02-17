@@ -2,18 +2,20 @@ package org.home.blackjack.domain.game;
 
 import javax.inject.Inject;
 
-import org.home.blackjack.domain.common.EventPublisher;
-import org.home.blackjack.domain.shared.PlayerId;
+import org.home.blackjack.domain.common.EventBus;
+import org.home.blackjack.domain.player.PlayerID;
 
 public class GameFactory {
-	
+
+	@Inject
+	private EventBus eventBus;
+
 	@Inject
 	private DeckFactory deckFactory;
-	@Inject
-	private EventPublisher eventPublisher;
-	
-	public Game createNewGame(PlayerId dealer, PlayerId player) {
-		return new GameImpl(dealer, player, deckFactory, eventPublisher);
+
+	public Game createNewGame(PlayerID dealer, PlayerID player) {
+
+		return new Game(new GameID(), dealer, player, deckFactory, eventBus);
 	}
 
 }
