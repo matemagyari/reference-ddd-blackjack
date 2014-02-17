@@ -28,6 +28,7 @@ public class GameActionApplicationService implements DrivenPort {
 		// TODO locking starts for gameID
 		Game game = gameRepository.get(gameID);
 		game.playerHits(playerID);
+		// gameRepository.put(game);
 		// TODO locking ends for gameID
 
 		/*
@@ -43,6 +44,7 @@ public class GameActionApplicationService implements DrivenPort {
 		// TODO locking starts for gameID
 		Game game = gameRepository.get(gameID);
 		game.playerStands(playerID);
+		// gameRepository.put(game);
 		// TODO locking ends for gameID
 
 		/*
