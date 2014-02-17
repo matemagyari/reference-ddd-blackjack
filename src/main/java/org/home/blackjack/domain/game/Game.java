@@ -57,7 +57,7 @@ public class Game extends AggregateRoot<GameID> {
 
 	private static final int TARGET = 21;
 	private final Deck deck;
-	private final Player dealerHand;
+	private final Player dealer;
 	private final Player player;
 	private final AtomicInteger actionCounter;
 	private Player lastToAct;
@@ -68,16 +68,16 @@ public class Game extends AggregateRoot<GameID> {
 	 * they are entities, and nothing can hold a reference on them but the aggregate root (so nothing could pass them to
 	 * it). Were they Value Objects, that would be another situation.
 	 */
-	public Game(GameID id, PlayerID dealer, PlayerID player, DeckFactory deckFactory, EventBus eventBus) {
+	public Game(GameID id, PlayerID dealerId, PlayerID playerId, DeckFactory deckFactory, EventBus eventBus) {
 
 		super(id, eventBus);
-		Validate.notNull(dealer);
-		Validate.notNull(player);
+		Validate.notNull(dealerId);
+		Validate.notNull(playerId);
 
 		this.deck = deckFactory.createNew();
-		this.dealerHand = Player.createEmptyFor(dealer);
-		this.player = Player.createEmptyFor(player);
-		this.lastToAct = this.dealerHand;
+		this.dealer = Player.createEmptyFor(dealerId);
+		this.player = Player.createEmptyFor(playerId);
+		this.lastToAct = this.dealer;
 		this.state = GameState.BEFORE_INITIAL_DEAL;
 		this.actionCounter = new AtomicInteger();
 	}
@@ -87,9 +87,9 @@ public class Game extends AggregateRoot<GameID> {
 			throw new IllegalStateException(getID() + " initial deal has been already made");
 		}
 		dealFor(player);
-		dealFor(dealerHand);
+		dealFor(dealer);
 		dealFor(player);
-		dealFor(dealerHand);
+		dealFor(dealer);
 		eventBus().publish(new InitalCardsDealtEvent(getID(), actionCounter.get()));
 	}
 
@@ -124,8 +124,8 @@ public class Game extends AggregateRoot<GameID> {
 
 	private void declareWinner() {
 		int playerScore = player.score();
-		boolean dealerWon = playerScore > TARGET || diffFromTarget(playerScore) > diffFromTarget(dealerHand.score());
-		PlayerID winner = dealerWon ? dealerHand.getPlayerID() : player.getPlayerID();
+		boolean dealerWon = playerScore > TARGET || diffFromTarget(playerScore) > diffFromTarget(dealer.score());
+		PlayerID winner = dealerWon ? dealer.getPlayerID() : player.getPlayerID();
 		eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), winner));
 	}
 
@@ -134,11 +134,11 @@ public class Game extends AggregateRoot<GameID> {
 	}
 
 	private Player handOf(PlayerID playerID) {
-		if (dealerHand.isOf(playerID)) {
-			checkValidity(dealerHand, player);
-			return dealerHand;
+		if (dealer.isOf(playerID)) {
+			checkValidity(dealer, player);
+			return dealer;
 		} else if (player.isOf(playerID)) {
-			checkValidity(player, dealerHand);
+			checkValidity(player, dealer);
 			return player;
 		} else {
 			throw new DomainException("Invalid player has tried to act in this Game");
@@ -158,7 +158,7 @@ public class Game extends AggregateRoot<GameID> {
 	}
 
 	private Player other(PlayerID player) {
-		return this.player.getPlayerID().equals(player) ? dealerHand : this.player;
+		return this.player.getPlayerID().equals(player) ? dealer : this.player;
 	}
 
 	public boolean isFinished() {
