@@ -11,6 +11,9 @@ import org.home.blackjack.util.ddd.pattern.EventBus;
  * 
  * But eventual consistency is enough.
  * 
+ * This {@link Player} is not the same as {@link org.home.blackjack.domain.game.Player}. They are two different
+ * aspects of a player.
+ * 
  * @author Mate
  * 
  */

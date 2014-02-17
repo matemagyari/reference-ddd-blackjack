@@ -93,33 +93,33 @@ public class Game extends AggregateRoot<GameID> {
 		eventBus().publish(new InitalCardsDealtEvent(getID(), actionCounter.get()));
 	}
 
-	private void dealFor(Player hand) {
-		playerHits(hand.getPlayerID());
+	private void dealFor(Player player) {
+		playerHits(player.getPlayerID());
 
 	}
 
-	public void playerHits(PlayerID player) {
-		Player hand = handOf(player);
-		lastToAct = hand;
+	public void playerHits(PlayerID playerId) {
+		Player player = handOf(playerId);
+		lastToAct = player;
 		Card card = deck.draw();
-		int score = hand.isDealtWith(card);
+		int score = player.isDealtWith(card);
 		eventBus().publish(
-				new PlayerCardDealtEvent(getID(), nextSequenceId(), player, other(player).getPlayerID(), card));
+				new PlayerCardDealtEvent(getID(), nextSequenceId(), playerId, other(playerId).getPlayerID(), card));
 		if (score > TARGET) {
 			state = GameState.FINISHED;
-			eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), other(player).getPlayerID()));
+			eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), other(playerId).getPlayerID()));
 		}
 	}
 
-	public void playerStands(PlayerID player) {
-		Player hand = handOf(player);
-		hand.stand();
-		eventBus().publish(new PlayerStandsEvent(getID(), nextSequenceId(), player));
+	public void playerStands(PlayerID playerId) {
+		Player player = handOf(playerId);
+		player.stand();
+		eventBus().publish(new PlayerStandsEvent(getID(), nextSequenceId(), playerId));
 		if (lastToAct.stopped()) {
 			state = GameState.FINISHED;
 			declareWinner();
 		}
-		lastToAct = hand;
+		lastToAct = player;
 	}
 
 	private void declareWinner() {
