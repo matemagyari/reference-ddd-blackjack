@@ -1,8 +1,8 @@
 package org.home.blackjack.domain.game;
 
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
-import org.home.blackjack.domain.player.PlayerRecord;
-import org.home.blackjack.domain.player.PlayerRecordRepository;
+import org.home.blackjack.domain.player.Player;
+import org.home.blackjack.domain.player.PlayerRepository;
 
 /**
  * This should be refactored, since we must lock the DB for the update. It means
@@ -15,12 +15,12 @@ import org.home.blackjack.domain.player.PlayerRecordRepository;
  */
 public class GameFinishedEventListener {
 
-	private PlayerRecordRepository playerRecordRepository;
+	private PlayerRepository playerRepository;
 
 	public void receive(GameFinishedEvent event) {
-		PlayerRecord playerRecord = playerRecordRepository.find(event.getWinner());
-		playerRecord.recordWin();
-		playerRecordRepository.update(playerRecord);
+		Player player = playerRepository.find(event.getWinner());
+		player.recordWin();
+		playerRepository.update(player);
 	}
 
 }
