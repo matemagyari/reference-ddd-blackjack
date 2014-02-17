@@ -6,6 +6,7 @@ import org.apache.commons.lang3.Validate;
 import org.home.blackjack.domain.common.DomainException;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.GameID;
+import org.home.blackjack.domain.game.event.GameEvent;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.event.InitalCardsDealtEvent;
 import org.home.blackjack.domain.game.event.PlayerCardDealtEvent;
@@ -90,12 +91,11 @@ public class Game extends AggregateRoot<GameID> {
 		dealFor(dealer);
 		dealFor(player);
 		dealFor(dealer);
-		eventBus().publish(new InitalCardsDealtEvent(getID(), actionCounter.get()));
+		publish(new InitalCardsDealtEvent(getID(), actionCounter.get()));
 	}
 
 	private void dealFor(Player player) {
 		playerHits(player.getPlayerID());
-
 	}
 
 	public void playerHits(PlayerID playerId) {
@@ -103,18 +103,18 @@ public class Game extends AggregateRoot<GameID> {
 		lastToAct = player;
 		Card card = deck.draw();
 		int score = player.isDealtWith(card);
-		eventBus().publish(
+		publish(
 				new PlayerCardDealtEvent(getID(), nextSequenceId(), playerId, other(playerId).getPlayerID(), card));
 		if (score > TARGET) {
 			state = GameState.FINISHED;
-			eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), other(playerId).getPlayerID()));
+			publish(new GameFinishedEvent(getID(), nextSequenceId(), other(playerId).getPlayerID()));
 		}
 	}
 
 	public void playerStands(PlayerID playerId) {
 		Player player = handOf(playerId);
 		player.stand();
-		eventBus().publish(new PlayerStandsEvent(getID(), nextSequenceId(), playerId));
+		publish(new PlayerStandsEvent(getID(), nextSequenceId(), playerId));
 		if (lastToAct.stopped()) {
 			state = GameState.FINISHED;
 			declareWinner();
@@ -126,7 +126,7 @@ public class Game extends AggregateRoot<GameID> {
 		int playerScore = player.score();
 		boolean dealerWon = playerScore > TARGET || diffFromTarget(playerScore) > diffFromTarget(dealer.score());
 		PlayerID winner = dealerWon ? dealer.getPlayerID() : player.getPlayerID();
-		eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), winner));
+		publish(new GameFinishedEvent(getID(), nextSequenceId(), winner));
 	}
 
 	private static int diffFromTarget(int score) {
@@ -155,6 +155,10 @@ public class Game extends AggregateRoot<GameID> {
 			throw new PlayerTriedToActAfterStandException(playerTryingToAct.getPlayerID());
 		}
 
+	}
+	
+	private void publish(GameEvent event) {
+		eventBus().publish(event);
 	}
 
 	private Player other(PlayerID player) {

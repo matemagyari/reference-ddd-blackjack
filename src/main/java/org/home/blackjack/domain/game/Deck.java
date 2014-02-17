@@ -28,15 +28,18 @@ class Deck {
 	}
 
 	// only used for tests
-	public static Deck createPrepared(Card... cardsInOrder) {
-		return new Deck(cardsInOrder);
+	public static Deck createPrepared(Card... cards) {
+		return new Deck(cards);
 	}
 
 	// only used for tests
 	private Deck(Card... cardsInOrder) {
 		this.cards = Lists.newArrayList(cardsInOrder);
 	}
-
+	private Deck(List<Card> cards) {
+		this.cards = Lists.newArrayList(cards);
+	}
+	
 	private Deck() {
 		this.cards = Lists.newArrayList();
 		for (Card.Rank rank : Card.Rank.values()) {
@@ -50,5 +53,12 @@ class Deck {
 	public Card draw() {
 		return this.cards.remove(0);
 	}
+
+	public Deck mergeWith(Deck anotherDeck) {
+		List<Card> newCardSet = Lists.newArrayList(this.cards);
+		newCardSet.addAll(anotherDeck.cards);
+		return new Deck(newCardSet);
+	}
+	
 
 }

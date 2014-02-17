@@ -15,5 +15,11 @@ class DeckFactory {
 	public Deck createNew() {
 		return Deck.createNew52();
 	}
-
+	public Deck createNewFromMultipleDecks(int deckNumber) {
+		Deck deck = Deck.createNew52();
+		for(int i=0; i< deckNumber-1;i++) {
+			deck = deck.mergeWith(Deck.createNew52());
+		}
+		return deck;
+	}
 }

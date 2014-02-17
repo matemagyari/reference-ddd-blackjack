@@ -1,6 +1,8 @@
 package org.home.blackjack.domain.game;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.Validate;
@@ -11,6 +13,7 @@ import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.Card.Rank;
 import org.home.blackjack.domain.shared.PlayerID;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 /**
@@ -31,18 +34,18 @@ import com.google.common.collect.Sets;
 class Player {
 
     private final PlayerID playerID;
-    private final Set<Card> cards;
+    private final List<Card> cards;
     private boolean stopped;
 
     public static Player createEmptyFor(PlayerID playerID) {
-        return new Player(playerID, new HashSet<Card>());
+        return new Player(playerID, new ArrayList<Card>());
     }
 
     public static Player createStarterFor(PlayerID playerID, Card card1, Card card2) {
-        return new Player(playerID, Sets.newHashSet(card1, card2));
+        return new Player(playerID, Lists.newArrayList(card1, card2));
     }
 
-    private Player(PlayerID playerID, Set<Card> cards) {
+    private Player(PlayerID playerID, List<Card> cards) {
         Validate.notNull(playerID);
         Validate.notNull(cards);
         this.playerID = playerID;
