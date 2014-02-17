@@ -3,7 +3,7 @@ package org.home.blackjack.app.game.client;
 import org.home.blackjack.domain.common.EventStore;
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.GameRepository;
-import org.home.blackjack.util.hexagonal.DrivenPort;
+import org.home.blackjack.util.marker.hexagonal.DrivenPort;
 
 /**
  * Driven port.
@@ -14,7 +14,7 @@ import org.home.blackjack.util.hexagonal.DrivenPort;
  * @author Mate
  * 
  */
-public class GameActionHandler implements DrivenPort {
+public class GameActionApplicationService implements DrivenPort {
 
 	private GameRepository gameRepository;
 	private EventStore eventStore;

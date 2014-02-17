@@ -1,7 +1,7 @@
 This is a reference DDD project, implementing a simplified Blackjack game engine.
 The architecture is Hexagonal.
 
-It exposes http endpoints to interact with and provides in-memory (a simple map-based and a Hazelcast based) persistence.
+It exposes http and websocket endpoints to interact with and provides in-memory (a simple map-based and a Hazelcast based) persistence.
 The http endpoints are implemented with REST and also with servlets.
 
 It will have a simple UI in browser. The players can join the game, will be randomly matched to other players. There will also be a leaderboard showing the win records. 
@@ -16,3 +16,11 @@ Eventual consistency requirements:
 
 Package structure
 util - general functionality not belonging to any layer in particular
+
+Visibility scopes are deliberately restricted to package level, wherever possible to encourage loose coupling and encapsulation on package level.
+
+
+There are two Subdomains/internal Bounded Contexts, Game and Player. They are integrated by Shared Kernel. 
+
+The project extensively uses marker interfaces for Hexagonal Architecture/DDD building blocks/patterns/concepts to make the intentions clearer. 
+They are under the *.util.marker package. Other way could have been to use annotations.

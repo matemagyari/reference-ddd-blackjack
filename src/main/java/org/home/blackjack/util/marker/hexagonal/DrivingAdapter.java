@@ -1,4 +1,4 @@
-package org.home.blackjack.util.hexagonal;
+package org.home.blackjack.util.marker.hexagonal;
 
 /**
  * Marker interface for Driving Adapters. They are attached on Driving Ports. See Hexagonal Architecture.
@@ -6,6 +6,6 @@ package org.home.blackjack.util.hexagonal;
  * @author Mate
  *
  */
-public interface DrivingAdapter extends Adapter {
+public interface DrivingAdapter<T extends DrivingPort> extends Adapter {
 
 }

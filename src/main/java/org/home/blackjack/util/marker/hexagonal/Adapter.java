@@ -1,4 +1,4 @@
-package org.home.blackjack.util.hexagonal;
+package org.home.blackjack.util.marker.hexagonal;
 
 /**
  * Marker interface for Adapters. They are attached on Ports. See Hexagonal Architecture.
