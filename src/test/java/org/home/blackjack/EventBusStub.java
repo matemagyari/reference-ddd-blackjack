@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import org.home.blackjack.domain.common.DomainEvent;
-import org.home.blackjack.domain.common.EventBus;
+import org.home.blackjack.util.ddd.pattern.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.EventBus;
 
 import com.google.common.collect.Lists;
 

@@ -1,8 +1,8 @@
 package org.home.blackjack.domain.player;
 
-import org.home.blackjack.domain.AggregateRoot;
-import org.home.blackjack.domain.common.EventBus;
 import org.home.blackjack.domain.game.Game;
+import org.home.blackjack.util.ddd.pattern.AggregateRoot;
+import org.home.blackjack.util.ddd.pattern.EventBus;
 
 /**
  * An aggregate root of a single entity. It is eventually consistent with the aggregated content of {@link Game}

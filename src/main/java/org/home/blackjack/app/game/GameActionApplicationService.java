@@ -3,8 +3,8 @@ package org.home.blackjack.app.game;
 import javax.inject.Inject;
 
 import org.home.blackjack.domain.game.Game;
-import org.home.blackjack.domain.game.GameID;
 import org.home.blackjack.domain.game.GameRepository;
+import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.player.PlayerID;
 import org.home.blackjack.util.marker.hexagonal.DrivenPort;
 

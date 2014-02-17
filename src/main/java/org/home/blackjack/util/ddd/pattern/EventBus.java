@@ -1,4 +1,5 @@
-package org.home.blackjack.domain.common;
+package org.home.blackjack.util.ddd.pattern;
+
 
 /**
  * Probably there will be an event container that will be flushed at the end of the transaction after the aggregates are

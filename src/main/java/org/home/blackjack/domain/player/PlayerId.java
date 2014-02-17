@@ -1,6 +1,6 @@
 package org.home.blackjack.domain.player;
 
-import org.home.blackjack.domain.ID;
+import org.home.blackjack.util.ddd.pattern.ID;
 
 /**
  * Value Object

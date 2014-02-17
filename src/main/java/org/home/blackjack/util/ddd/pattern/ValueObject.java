@@ -1,4 +1,4 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.util.ddd.pattern;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

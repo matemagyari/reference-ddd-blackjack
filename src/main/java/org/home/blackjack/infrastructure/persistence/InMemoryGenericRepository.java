@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.home.blackjack.domain.AggregateRoot;
-import org.home.blackjack.domain.ID;
-import org.home.blackjack.domain.Repository;
+import org.home.blackjack.util.ddd.pattern.AggregateRoot;
+import org.home.blackjack.util.ddd.pattern.ID;
+import org.home.blackjack.util.ddd.pattern.Repository;
 
 /**
  * Generic in-memory implementation of the Repository interface.

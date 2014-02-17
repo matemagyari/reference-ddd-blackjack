@@ -1,4 +1,4 @@
-package org.home.blackjack.domain;
+package org.home.blackjack.util.ddd.pattern;
 
 import org.joda.time.DateTime;
 

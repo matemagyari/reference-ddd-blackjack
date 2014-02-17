@@ -3,9 +3,9 @@ package org.home.blackjack.domain.game;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.Validate;
-import org.home.blackjack.domain.AggregateRoot;
 import org.home.blackjack.domain.common.DomainException;
-import org.home.blackjack.domain.common.EventBus;
+import org.home.blackjack.domain.game.core.Card;
+import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.event.InitalCardsDealtEvent;
 import org.home.blackjack.domain.game.event.PlayerCardDealtEvent;
@@ -14,14 +14,16 @@ import org.home.blackjack.domain.game.exception.PlayerActionAfterGameFinishedExc
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.domain.player.PlayerID;
+import org.home.blackjack.util.ddd.pattern.AggregateRoot;
+import org.home.blackjack.util.ddd.pattern.EventBus;
 
 /**
  * Aggregate Root
  * 
- * Contains entities of {@link Deck} and {@link PlayerHand}. The invariants are constraints on the state of the
+ * Contains entities of {@link Deck} and {@link Player}. The invariants are constraints on the state of the
  * aggregate, that should hold at any point in time (transactional consistency).
  * 
- * The state of the aggregate is the superposition of the states of its entities ({@link PlayerHand}-s) and the value of
+ * The state of the aggregate is the superposition of the states of its entities ({@link Player}-s) and the value of
  * its Value Objects. That's why it can't pass the entities' references away, otherwise their state could be changed
  * outside of the aggregate, breaking the invariants.
  * 
@@ -55,14 +57,14 @@ public class Game extends AggregateRoot<GameID> {
 
 	private static final int TARGET = 21;
 	private final Deck deck;
-	private final PlayerHand dealerHand;
-	private final PlayerHand playerHand;
+	private final Player dealerHand;
+	private final Player player;
 	private final AtomicInteger actionCounter;
-	private PlayerHand lastToAct;
+	private Player lastToAct;
 	private GameState state;
 
 	/**
-	 * The reason why we pass Factories instead of simply passing a {@link Deck} and two {@link PlayerHand}-s is because
+	 * The reason why we pass Factories instead of simply passing a {@link Deck} and two {@link Player}-s is because
 	 * they are entities, and nothing can hold a reference on them but the aggregate root (so nothing could pass them to
 	 * it). Were they Value Objects, that would be another situation.
 	 */
@@ -73,8 +75,8 @@ public class Game extends AggregateRoot<GameID> {
 		Validate.notNull(player);
 
 		this.deck = deckFactory.createNew();
-		this.dealerHand = PlayerHand.createEmptyFor(dealer);
-		this.playerHand = PlayerHand.createEmptyFor(player);
+		this.dealerHand = Player.createEmptyFor(dealer);
+		this.player = Player.createEmptyFor(player);
 		this.lastToAct = this.dealerHand;
 		this.state = GameState.BEFORE_INITIAL_DEAL;
 		this.actionCounter = new AtomicInteger();
@@ -84,20 +86,20 @@ public class Game extends AggregateRoot<GameID> {
 		if (state != GameState.BEFORE_INITIAL_DEAL) {
 			throw new IllegalStateException(getID() + " initial deal has been already made");
 		}
-		dealFor(playerHand);
+		dealFor(player);
 		dealFor(dealerHand);
-		dealFor(playerHand);
+		dealFor(player);
 		dealFor(dealerHand);
 		eventBus().publish(new InitalCardsDealtEvent(getID(), actionCounter.get()));
 	}
 
-	private void dealFor(PlayerHand hand) {
+	private void dealFor(Player hand) {
 		playerHits(hand.getPlayerID());
 
 	}
 
 	public void playerHits(PlayerID player) {
-		PlayerHand hand = handOf(player);
+		Player hand = handOf(player);
 		lastToAct = hand;
 		Card card = deck.draw();
 		int score = hand.isDealtWith(card);
@@ -110,7 +112,7 @@ public class Game extends AggregateRoot<GameID> {
 	}
 
 	public void playerStands(PlayerID player) {
-		PlayerHand hand = handOf(player);
+		Player hand = handOf(player);
 		hand.stand();
 		eventBus().publish(new PlayerStandsEvent(getID(), nextSequenceId(), player));
 		if (lastToAct.stopped()) {
@@ -121,9 +123,9 @@ public class Game extends AggregateRoot<GameID> {
 	}
 
 	private void declareWinner() {
-		int playerScore = playerHand.score();
+		int playerScore = player.score();
 		boolean dealerWon = playerScore > TARGET || diffFromTarget(playerScore) > diffFromTarget(dealerHand.score());
-		PlayerID winner = dealerWon ? dealerHand.getPlayerID() : playerHand.getPlayerID();
+		PlayerID winner = dealerWon ? dealerHand.getPlayerID() : player.getPlayerID();
 		eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), winner));
 	}
 
@@ -131,20 +133,20 @@ public class Game extends AggregateRoot<GameID> {
 		return Math.abs(TARGET - score);
 	}
 
-	private PlayerHand handOf(PlayerID playerID) {
+	private Player handOf(PlayerID playerID) {
 		if (dealerHand.isOf(playerID)) {
-			checkValidity(dealerHand, playerHand);
+			checkValidity(dealerHand, player);
 			return dealerHand;
-		} else if (playerHand.isOf(playerID)) {
-			checkValidity(playerHand, dealerHand);
-			return playerHand;
+		} else if (player.isOf(playerID)) {
+			checkValidity(player, dealerHand);
+			return player;
 		} else {
 			throw new DomainException("Invalid player has tried to act in this Game");
 		}
 
 	}
 
-	private void checkValidity(PlayerHand playerTryingToAct, PlayerHand otherPlayer) {
+	private void checkValidity(Player playerTryingToAct, Player otherPlayer) {
 		if (playerTryingToAct.equals(lastToAct) && otherPlayer.notStopped()) {
 			throw new PlayerActionOutOfTurnException(playerTryingToAct.getPlayerID());
 		} else if (isFinished()) {
@@ -155,8 +157,8 @@ public class Game extends AggregateRoot<GameID> {
 
 	}
 
-	private PlayerHand other(PlayerID player) {
-		return playerHand.getPlayerID().equals(player) ? dealerHand : playerHand;
+	private Player other(PlayerID player) {
+		return this.player.getPlayerID().equals(player) ? dealerHand : this.player;
 	}
 
 	public boolean isFinished() {

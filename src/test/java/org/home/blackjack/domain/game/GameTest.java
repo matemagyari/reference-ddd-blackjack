@@ -9,15 +9,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.home.blackjack.EventBusStub;
 import org.home.blackjack.ReflectionHelper;
-import org.home.blackjack.domain.ID;
-import org.home.blackjack.domain.IDGenerationStrategy;
-import org.home.blackjack.domain.game.Card.Rank;
-import org.home.blackjack.domain.game.Card.Suite;
+import org.home.blackjack.domain.game.core.Card;
+import org.home.blackjack.domain.game.core.Card.Rank;
+import org.home.blackjack.domain.game.core.Card.Suite;
+import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.domain.player.PlayerID;
 import org.home.blackjack.infrastructure.JUGIDGenerationStrategy;
+import org.home.blackjack.util.ddd.pattern.ID;
+import org.home.blackjack.util.ddd.pattern.IDGenerationStrategy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -41,12 +43,12 @@ public class GameTest {
 	@Mock
 	private DeckFactory deckFactory;
 
-	private static EventBusStub eventBus;
+	private EventBusStub eventBus = new EventBusStub();
 
 	private Game testObj;
 
 	@Mock
-	IDGenerationStrategy idGenerationStrategy;
+	private IDGenerationStrategy idGenerationStrategy;
 
 	private PlayerID dealer = new PlayerID();
 	private PlayerID player = new PlayerID();
@@ -56,8 +58,6 @@ public class GameTest {
 
 	@BeforeClass
 	public static void setUpStatic() throws NoSuchFieldException, IllegalAccessException {
-
-		eventBus = new EventBusStub();
 
 		ReflectionHelper.setField("idGenerationStrategy", new JUGIDGenerationStrategy(), ID.class);
 	}

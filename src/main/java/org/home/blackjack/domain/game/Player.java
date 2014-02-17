@@ -7,7 +7,8 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.domain.common.DomainException;
-import org.home.blackjack.domain.game.Card.Rank;
+import org.home.blackjack.domain.game.core.Card;
+import org.home.blackjack.domain.game.core.Card.Rank;
 import org.home.blackjack.domain.player.PlayerID;
 
 import com.google.common.collect.Sets;
@@ -18,27 +19,27 @@ import com.google.common.collect.Sets;
  * violate the invariant
  * 
  * It could have also been implemented as a Value Object, should we choose to implement 'deal' in the following way
- * public PlayerHand deal(Card card) { Set<Card> newCards = Sets.newHashSet(this.cards); newCards.add(card); return new
- * PlayerHand(playerID, newCards); } In that case it would be handled differently in {@link Game}.
+ * public Player deal(Card card) { Set<Card> newCards = Sets.newHashSet(this.cards); newCards.add(card); return new
+ * Player(playerID, newCards); } In that case it would be handled differently in {@link Game}.
  * 
  * @author Mate
  * 
  */
-class PlayerHand {
+class Player {
 
 	private final PlayerID playerID;
 	private final Set<Card> cards;
 	private boolean stopped;
 
-	public static PlayerHand createEmptyFor(PlayerID playerID) {
-		return new PlayerHand(playerID, new HashSet<Card>());
+	public static Player createEmptyFor(PlayerID playerID) {
+		return new Player(playerID, new HashSet<Card>());
 	}
 
-	public static PlayerHand createStarterFor(PlayerID playerID, Card card1, Card card2) {
-		return new PlayerHand(playerID, Sets.newHashSet(card1, card2));
+	public static Player createStarterFor(PlayerID playerID, Card card1, Card card2) {
+		return new Player(playerID, Sets.newHashSet(card1, card2));
 	}
 
-	private PlayerHand(PlayerID playerID, Set<Card> cards) {
+	private Player(PlayerID playerID, Set<Card> cards) {
 		Validate.notNull(playerID);
 		Validate.notNull(cards);
 		this.playerID = playerID;
@@ -100,9 +101,9 @@ class PlayerHand {
 	public boolean equals(Object that) {
 		if (that == null)
 			return false;
-		if (!(that instanceof PlayerHand))
+		if (!(that instanceof Player))
 			return false;
-		PlayerHand castThat = (PlayerHand) that;
+		Player castThat = (Player) that;
 		return new EqualsBuilder().append(this.playerID, castThat.playerID).append(this.cards, castThat.cards)
 				.append(this.stopped, castThat.stopped).isEquals();
 	}
@@ -114,7 +115,7 @@ class PlayerHand {
 
 	@Override
 	public String toString() {
-		return "PlayerHand [playerID=" + playerID + ", cards=" + cards + ", stopped=" + stopped + "]";
+		return "Player [playerID=" + playerID + ", cards=" + cards + ", stopped=" + stopped + "]";
 	}
 
 }
