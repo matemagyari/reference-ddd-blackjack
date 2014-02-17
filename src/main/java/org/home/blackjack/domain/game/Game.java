@@ -68,7 +68,7 @@ public class Game extends AggregateRoot<GameID> {
 	 */
 	public Game(GameID id, PlayerID dealer, PlayerID player, DeckFactory deckFactory, EventBus eventBus) {
 
-		super(id,eventBus);
+		super(id, eventBus);
 		Validate.notNull(dealer);
 		Validate.notNull(player);
 
@@ -101,7 +101,8 @@ public class Game extends AggregateRoot<GameID> {
 		lastToAct = hand;
 		Card card = deck.draw();
 		int score = hand.isDealtWith(card);
-		eventBus().publish(new PlayerCardDealtEvent(getID(), nextSequenceId(), player, other(player).getPlayerID(), card));
+		eventBus().publish(
+				new PlayerCardDealtEvent(getID(), nextSequenceId(), player, other(player).getPlayerID(), card));
 		if (score > TARGET) {
 			state = GameState.FINISHED;
 			eventBus().publish(new GameFinishedEvent(getID(), nextSequenceId(), other(player).getPlayerID()));
