@@ -10,9 +10,13 @@ For the rules of the game, check org.home.blackjack.domain.game.GameImpl.
 
 The DDD concepts/patterns the project show examples are:
 
-Transactional consistency requirements: See them in Game class
-Eventual consistency requirements:
-1. Leaderboard's values must correspond to the aggregated results of the individual Game results
+Aggregate design:
+- Transactional consistency requirements = True Invariants. Enforced inside aggregates: see org.home.blackjack.domain.game.GameImpl
+- Eventual consistency requirements - consistency rules amoung multiple aggregate instances
+    1. A player's win number in PlayerRecord aggregate must equal the number of Game instances in which she won 
+    2. The sum of wins for all the PlayerRecord instances must equal the number of Game instances
+- Entities: e.g. Deck, PlayerHand
+- aggregates reference each other by id. E.g. Game -> PlayerRecord
 
 Package structure
 util - general functionality not belonging to any layer in particular
