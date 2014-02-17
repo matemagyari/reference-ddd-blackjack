@@ -6,12 +6,12 @@ The http endpoints are implemented with REST and also with servlets.
 
 It will have a simple UI in browser. The players can join the game, will be randomly matched to other players. There will also be a leaderboard showing the win records. 
 
-For the rules of the game, check org.home.blackjack.domain.game.GameImpl.
+For the rules of the game, check org.home.blackjack.domain.game.Game.
 
 The DDD concepts/patterns the project show examples are:
 
 Aggregate design:
-- Transactional consistency requirements = True Invariants. Enforced inside aggregates: see org.home.blackjack.domain.game.GameImpl
+- Transactional consistency requirements = True Invariants. Enforced inside aggregates: see org.home.blackjack.domain.game.Game
 - Eventual consistency requirements - consistency rules among multiple aggregate instances
     1. A player's win number in PlayerRecord aggregate must equal the number of Game instances in which she won 
     2. The sum of wins for all the PlayerRecord instances must equal the number of Game instances

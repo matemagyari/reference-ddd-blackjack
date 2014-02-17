@@ -4,32 +4,35 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.util.List;
+import java.beans.beancontext.BeanContext;
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.home.blackjack.TestFixture;
-import org.home.blackjack.domain.common.DomainEvent;
-import org.home.blackjack.domain.common.EventPublisher;
-import org.home.blackjack.domain.game.core.Card;
-import org.home.blackjack.domain.game.core.Card.Rank;
-import org.home.blackjack.domain.game.core.Card.Suite;
-import org.home.blackjack.domain.game.core.GameId;
+import javax.inject.Inject;
+
+import org.home.blackjack.EventBusStub;
+import org.home.blackjack.ReflectionHelper;
+import org.home.blackjack.domain.ID;
+import org.home.blackjack.domain.IDGenerationStrategy;
+import org.home.blackjack.domain.game.Card.Rank;
+import org.home.blackjack.domain.game.Card.Suite;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
-import org.home.blackjack.domain.shared.PlayerId;
+import org.home.blackjack.domain.player.Player;
+import org.home.blackjack.domain.player.PlayerID;
+import org.home.blackjack.infrastructure.JUGIDGenerationStrategy;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.google.common.collect.Lists;
-
 /**
- * This is not a unit test, but testing the GameImpl mechanism as a whole.
- * It tests the GameImpl mechanism, and check the events.
+ * This is not a unit test, but testing the Game mechanism as a whole. It tests the Game mechanism, and check the
+ * events.
  * 
  * @author Mate
  * 
@@ -37,30 +40,48 @@ import com.google.common.collect.Lists;
 @RunWith(MockitoJUnitRunner.class)
 public class GameTest {
 
-	private GameImpl testObj;
-	private PlayerId dealer = TestFixture.aPlayer();
-	private PlayerId player = TestFixture.aPlayer();
-	private GameId gameId = new GameId(12l);
-	private AtomicInteger actionCounter = new AtomicInteger();
-	
 	@Mock
 	private Deck deck;
 	@Mock
 	private DeckFactory deckFactory;
-	private EventDispatcherStub eventDispatcher;
-	
-	
-	@Before
-	public void setup() {
-		when(deckFactory.createNew()).thenReturn(deck);
-		eventDispatcher = new EventDispatcherStub();
-		testObj = new GameImpl(dealer, player, deckFactory, eventDispatcher);
-		testObj.setGameId(gameId);
+
+	@Inject
+	private BeanContext beanContext;
+
+	private static EventBusStub eventBus;
+
+	private Game testObj;
+
+	@Mock
+	IDGenerationStrategy idGenerationStrategy;
+
+	private PlayerID dealer = new PlayerID();
+	private PlayerID player = new PlayerID();
+	private GameID gameID = new GameID();
+
+	private AtomicInteger actionCounter = new AtomicInteger();
+
+	@BeforeClass
+	public static void setUpStatic() throws NoSuchFieldException, IllegalAccessException {
+
+		eventBus = new EventBusStub();
+		ReflectionHelper.setField("eventBus", eventBus, Game.class);
+		ReflectionHelper.setField("eventBus", eventBus, Player.class);
+
+		ReflectionHelper.setField("idGenerationStrategy", new JUGIDGenerationStrategy(), ID.class);
 	}
-	
+
+	@Before
+	public void setUp() {
+
+		when(deckFactory.createNew()).thenReturn(deck);
+		testObj = new Game(gameID, dealer, player, deckFactory);
+	}
+
 	@After
-	public void after() {
-		eventDispatcher.print();
+	public void tearDown() throws IOException, ClassNotFoundException {
+
+		eventBus.print();
 	}
 
 	@Test(expected = PlayerActionOutOfTurnException.class)
@@ -78,7 +99,6 @@ public class GameTest {
 		playerDraws();
 	}
 
-	
 	@Test(expected = PlayerActionOutOfTurnException.class)
 	public void playerTriesToDrawThenStopInARow() {
 		prepareDeckForLongerGame();
@@ -87,7 +107,6 @@ public class GameTest {
 		playerStops();
 	}
 
-	
 	@Test(expected = PlayerTriedToActAfterStandException.class)
 	public void playerTriesToActAfterStand() {
 		prepareDeckForLongerGame();
@@ -96,29 +115,21 @@ public class GameTest {
 		dealerDraws();
 		playerDraws();
 	}
-	
+
 	@Test
-	public void playerWinsWithBlackJack() {
-		prepareDeckInOrder(
-				card(Suite.CLUB, Rank.ACE)
-				, card(Suite.SPADE, Rank.KING)
-				, card(Suite.DIAMOND, Rank.TEN)
-				, card(Suite.HEART, Rank.TEN)
-				);
+	public void playerWinsWithBlackJack() throws IOException, ClassNotFoundException {
+		prepareDeckInOrder(card(Suite.CLUB, Rank.ACE), card(Suite.SPADE, Rank.KING), card(Suite.DIAMOND, Rank.TEN),
+				card(Suite.HEART, Rank.TEN));
 		dealInitialCards();
 		playerStops();
 		dealerStops();
 		assertTheWinnerIs(player);
-	}	
-	
+	}
+
 	@Test
-	public void dealerWinsWithBlackJack() {
-		prepareDeckInOrder(
-				card(Suite.CLUB, Rank.KING)
-				, card(Suite.SPADE, Rank.ACE)
-				, card(Suite.DIAMOND, Rank.TEN)
-				, card(Suite.HEART, Rank.JACK)
-				);
+	public void dealerWinsWithBlackJack() throws IOException, ClassNotFoundException {
+		prepareDeckInOrder(card(Suite.CLUB, Rank.KING), card(Suite.SPADE, Rank.ACE), card(Suite.DIAMOND, Rank.TEN),
+				card(Suite.HEART, Rank.JACK));
 		dealInitialCards();
 		playerStops();
 		dealerStops();
@@ -126,17 +137,10 @@ public class GameTest {
 	}
 
 	@Test
-	public void playerWinsAfterSeveralHitsWith18Against17() {
-		prepareDeckInOrder(
-				card(Suite.CLUB, Rank.TWO)
-				, card(Suite.SPADE, Rank.TWO)
-				, card(Suite.DIAMOND, Rank.SEVEN)
-				, card(Suite.HEART, Rank.JACK)
-				, card(Suite.DIAMOND, Rank.FIVE)
-				, card(Suite.HEART, Rank.THREE)
-				, card(Suite.DIAMOND, Rank.FOUR)
-				, card(Suite.HEART, Rank.TWO)
-				);
+	public void playerWinsAfterSeveralHitsWith18Against17() throws IOException, ClassNotFoundException {
+		prepareDeckInOrder(card(Suite.CLUB, Rank.TWO), card(Suite.SPADE, Rank.TWO), card(Suite.DIAMOND, Rank.SEVEN),
+				card(Suite.HEART, Rank.JACK), card(Suite.DIAMOND, Rank.FIVE), card(Suite.HEART, Rank.THREE),
+				card(Suite.DIAMOND, Rank.FOUR), card(Suite.HEART, Rank.TWO));
 		dealInitialCards();
 		playerDraws();
 		dealerDraws();
@@ -146,42 +150,32 @@ public class GameTest {
 		dealerStops();
 		assertTheWinnerIs(player);
 	}
-	
+
 	@Test
-	public void playerBusts() {
-		prepareDeckInOrder(
-				card(Suite.CLUB, Rank.TEN)
-				, card(Suite.SPADE, Rank.TWO)
-				, card(Suite.DIAMOND, Rank.SEVEN)
-				, card(Suite.HEART, Rank.JACK)
-				, card(Suite.DIAMOND, Rank.FIVE)
-				);
+	public void playerBusts() throws IOException, ClassNotFoundException {
+		prepareDeckInOrder(card(Suite.CLUB, Rank.TEN), card(Suite.SPADE, Rank.TWO), card(Suite.DIAMOND, Rank.SEVEN),
+				card(Suite.HEART, Rank.JACK), card(Suite.DIAMOND, Rank.FIVE));
 		dealInitialCards();
 		playerDraws();
 		assertTheWinnerIs(dealer);
 	}
-	
+
 	@Test
-	public void dealerBusts() {
-		prepareDeckInOrder(
-				card(Suite.CLUB, Rank.TWO)
-				, card(Suite.SPADE, Rank.EIGHT)
-				, card(Suite.DIAMOND, Rank.SEVEN)
-				, card(Suite.HEART, Rank.JACK)
-				, card(Suite.DIAMOND, Rank.THREE)
-				, card(Suite.DIAMOND, Rank.FOUR)
-				);
+	public void dealerBusts() throws IOException, ClassNotFoundException {
+		prepareDeckInOrder(card(Suite.CLUB, Rank.TWO), card(Suite.SPADE, Rank.EIGHT), card(Suite.DIAMOND, Rank.SEVEN),
+				card(Suite.HEART, Rank.JACK), card(Suite.DIAMOND, Rank.THREE), card(Suite.DIAMOND, Rank.FOUR));
 		dealInitialCards();
 		playerDraws();
 		dealerDraws();
 		assertTheWinnerIs(player);
 	}
-	
-	private void assertTheWinnerIs(PlayerId winner) {
+
+	private void assertTheWinnerIs(PlayerID winner) throws IOException, ClassNotFoundException {
 		assertTrue(testObj.isFinished());
-		assertEquals(new GameFinishedEvent(gameId, actionCounter.get(), winner), eventDispatcher.last());
+		eventBus.print();
+		assertEquals(new GameFinishedEvent(gameID, actionCounter.get(), winner), eventBus.last());
 	}
-	
+
 	private void dealInitialCards() {
 		testObj.dealInitialCards();
 		actionCounter.incrementAndGet();
@@ -197,28 +191,28 @@ public class GameTest {
 	private void dealerDraws() {
 		hits(dealer, player);
 	}
-	
-	private void hits(PlayerId playerToAct, PlayerId otherPlayer) {
+
+	private void hits(PlayerID playerToAct, PlayerID otherPlayer) {
 		try {
 			testObj.playerHits(playerToAct);
 			actionCounter.incrementAndGet();
 			/*
-			PlayerCardDealtEvent domainEvent = (PlayerCardDealtEvent) eventDispatcher.get(actionCounter.get()-1);
-			assertEquals(gameId, domainEvent.getGameId());
-			assertEquals(actionCounter.get(), domainEvent.getSequenceNumber());
-			assertEquals(playerToAct, domainEvent.getPlayer());
-			assertEquals(otherPlayer, domainEvent.getOtherPlayer());
-			*/
+			 * PlayerCardDealtEvent domainEvent = (PlayerCardDealtEvent) eventDispatcher.get(actionCounter.get()-1);
+			 * assertEquals(gameID, domainEvent.getGameID()); assertEquals(actionCounter.get(),
+			 * domainEvent.getSequenceNumber()); assertEquals(playerToAct, domainEvent.getPlayer());
+			 * assertEquals(otherPlayer, domainEvent.getOtherPlayer());
+			 */
 		} catch (RuntimeException ex) {
 			throw ex;
 		}
 	}
-	
+
 	private void playerStops() {
 		testObj.playerStands(player);
 		actionCounter.incrementAndGet();
 
 	}
+
 	private void dealerStops() {
 		testObj.playerStands(dealer);
 		actionCounter.incrementAndGet();
@@ -231,48 +225,14 @@ public class GameTest {
 	private void prepareDeckInOrder(Card firstCard, Card... cards) {
 		when(deck.draw()).thenReturn(firstCard, cards);
 	}
+
 	private void prepareDeckForLongerGame() {
-		prepareDeckInOrder(
-				card(Suite.CLUB, Rank.TWO)
-				, card(Suite.DIAMOND, Rank.TWO)
-				, card(Suite.HEART, Rank.TWO)
-				, card(Suite.SPADE, Rank.TWO)
-				, card(Suite.CLUB, Rank.THREE)
-				, card(Suite.DIAMOND, Rank.THREE)
-				, card(Suite.HEART, Rank.THREE)
-				, card(Suite.SPADE, Rank.THREE)
-				, card(Suite.CLUB, Rank.FOUR)
-				, card(Suite.DIAMOND, Rank.FOUR)
-				, card(Suite.HEART, Rank.FOUR)
-				, card(Suite.SPADE, Rank.FOUR)
-				, card(Suite.CLUB, Rank.FIVE)
-				, card(Suite.DIAMOND, Rank.FIVE)
-				, card(Suite.HEART, Rank.FIVE)
-				, card(Suite.SPADE, Rank.FIVE)			
-				);
-	}
-	
-	private static class EventDispatcherStub implements EventPublisher {
 
-		private final List<DomainEvent> eventsInChronologicalOrder = Lists.newArrayList();
-		
-		public void publish(DomainEvent event) {
-			eventsInChronologicalOrder.add(event);
-		}
-		
-		public void print() {
-			for (DomainEvent event : eventsInChronologicalOrder) {
-				System.out.println(event);
-			}
-		}
-
-		DomainEvent last() {
-			return eventsInChronologicalOrder.get(eventsInChronologicalOrder.size()- 1);
-		}
-
-		DomainEvent get(int order) {
-			return eventsInChronologicalOrder.get(order - 1);
-		}
-
+		prepareDeckInOrder(card(Suite.CLUB, Rank.TWO), card(Suite.DIAMOND, Rank.TWO), card(Suite.HEART, Rank.TWO),
+				card(Suite.SPADE, Rank.TWO), card(Suite.CLUB, Rank.THREE), card(Suite.DIAMOND, Rank.THREE),
+				card(Suite.HEART, Rank.THREE), card(Suite.SPADE, Rank.THREE), card(Suite.CLUB, Rank.FOUR),
+				card(Suite.DIAMOND, Rank.FOUR), card(Suite.HEART, Rank.FOUR), card(Suite.SPADE, Rank.FOUR),
+				card(Suite.CLUB, Rank.FIVE), card(Suite.DIAMOND, Rank.FIVE), card(Suite.HEART, Rank.FIVE),
+				card(Suite.SPADE, Rank.FIVE));
 	}
 }

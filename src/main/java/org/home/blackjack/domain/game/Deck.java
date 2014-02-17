@@ -3,18 +3,14 @@ package org.home.blackjack.domain.game;
 import java.util.Collections;
 import java.util.List;
 
-import org.home.blackjack.domain.game.core.Card;
-
 import com.google.common.collect.Lists;
 
 /**
- * Entity inside {@link GameImpl}. It cannot be referenced outside of the aggregate,
- * lest something could call 'draw' and change the state of the aggregate from
- * outside of it.
+ * Entity inside {@link Game}. It cannot be referenced outside of the aggregate, lest something could call 'draw' and
+ * change the state of the aggregate from outside of it.
  * 
- * Also could have been implemented as a Value Object, but then the 'draw'
- * should return not only a {@link Card}, but also a new {@link Deck} without
- * that {@link Card}
+ * Also could have been implemented as a Value Object, but then the 'draw' should return not only a {@link Card}, but
+ * also a new {@link Deck} without that {@link Card}
  * 
  * Could have more than 52 {@link Cards}-s, because it can be built up from multiple 52-decks.
  * 
