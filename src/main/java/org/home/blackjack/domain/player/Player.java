@@ -1,6 +1,7 @@
 package org.home.blackjack.domain.player;
 
 import org.home.blackjack.domain.game.Game;
+import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.util.ddd.pattern.AggregateRoot;
 import org.home.blackjack.util.ddd.pattern.EventBus;
 

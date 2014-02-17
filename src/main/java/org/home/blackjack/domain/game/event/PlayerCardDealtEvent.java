@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.GameID;
-import org.home.blackjack.domain.player.PlayerID;
+import org.home.blackjack.domain.shared.PlayerID;
 
 public class PlayerCardDealtEvent extends GameEvent {
 

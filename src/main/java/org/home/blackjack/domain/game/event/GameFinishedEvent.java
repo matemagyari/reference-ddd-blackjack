@@ -4,7 +4,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.domain.game.core.GameID;
-import org.home.blackjack.domain.player.PlayerID;
+import org.home.blackjack.domain.shared.PlayerID;
 
 public class GameFinishedEvent extends GameEvent {
 

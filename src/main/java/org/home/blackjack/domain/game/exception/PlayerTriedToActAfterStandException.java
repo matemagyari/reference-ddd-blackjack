@@ -1,7 +1,7 @@
 package org.home.blackjack.domain.game.exception;
 
 import org.home.blackjack.domain.common.DomainException;
-import org.home.blackjack.domain.player.PlayerID;
+import org.home.blackjack.domain.shared.PlayerID;
 
 @SuppressWarnings("serial")
 public class PlayerTriedToActAfterStandException extends DomainException {

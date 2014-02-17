@@ -9,13 +9,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.domain.common.DomainException;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.Card.Rank;
-import org.home.blackjack.domain.player.PlayerID;
+import org.home.blackjack.domain.shared.PlayerID;
 
 import com.google.common.collect.Sets;
 
 /**
  * Entity inside the {@link Game} aggregate root. It's id (
- * {@link org.home.blackjack.domain.player.PlayerID}) is only unique inside the
+ * {@link org.home.blackjack.domain.shared.PlayerID}) is only unique inside the
  * aggregate. Nothing can reference it outside of {@link Game}, otherwise
  * calling isDealtWith could violate the invariant
  * 

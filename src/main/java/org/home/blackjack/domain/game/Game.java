@@ -13,7 +13,7 @@ import org.home.blackjack.domain.game.event.PlayerStandsEvent;
 import org.home.blackjack.domain.game.exception.PlayerActionAfterGameFinishedException;
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
-import org.home.blackjack.domain.player.PlayerID;
+import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.util.ddd.pattern.AggregateRoot;
 import org.home.blackjack.util.ddd.pattern.EventBus;
 

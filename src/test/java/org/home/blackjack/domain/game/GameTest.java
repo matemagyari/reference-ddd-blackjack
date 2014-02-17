@@ -16,7 +16,7 @@ import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
-import org.home.blackjack.domain.player.PlayerID;
+import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.infrastructure.JUGIDGenerationStrategy;
 import org.home.blackjack.util.ddd.pattern.ID;
 import org.home.blackjack.util.ddd.pattern.IDGenerationStrategy;
