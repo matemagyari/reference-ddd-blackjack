@@ -129,9 +129,15 @@ public class GameTest {
 
 	@Test
 	public void playerWinsAfterSeveralHitsWith18Against17() throws IOException, ClassNotFoundException {
-		prepareDeckInOrder(card(Suite.CLUB, Rank.TWO), card(Suite.SPADE, Rank.TWO), card(Suite.DIAMOND, Rank.SEVEN),
-				card(Suite.HEART, Rank.JACK), card(Suite.DIAMOND, Rank.FIVE), card(Suite.HEART, Rank.THREE),
-				card(Suite.DIAMOND, Rank.FOUR), card(Suite.HEART, Rank.TWO));
+		prepareDeckInOrder(
+		        card(Suite.CLUB, Rank.TWO)
+		        , card(Suite.SPADE, Rank.TWO)
+		        , card(Suite.DIAMOND, Rank.SEVEN)
+		        , card(Suite.HEART, Rank.JACK)
+				, card(Suite.DIAMOND, Rank.FIVE)
+				, card(Suite.HEART, Rank.THREE)
+				, card(Suite.DIAMOND, Rank.FOUR)
+				, card(Suite.HEART, Rank.TWO));
 		dealInitialCards();
 		playerDraws();
 		dealerDraws();
@@ -144,8 +150,12 @@ public class GameTest {
 
 	@Test
 	public void playerBusts() throws IOException, ClassNotFoundException {
-		prepareDeckInOrder(card(Suite.CLUB, Rank.TEN), card(Suite.SPADE, Rank.TWO), card(Suite.DIAMOND, Rank.SEVEN),
-				card(Suite.HEART, Rank.JACK), card(Suite.DIAMOND, Rank.FIVE));
+		prepareDeckInOrder(
+		        card(Suite.CLUB, Rank.TEN)
+		        , card(Suite.SPADE, Rank.TWO)
+		        , card(Suite.DIAMOND, Rank.SEVEN)
+		        , card(Suite.HEART, Rank.JACK)
+				, card(Suite.DIAMOND, Rank.FIVE));
 		dealInitialCards();
 		playerDraws();
 		assertTheWinnerIs(dealer);
@@ -153,8 +163,13 @@ public class GameTest {
 
 	@Test
 	public void dealerBusts() throws IOException, ClassNotFoundException {
-		prepareDeckInOrder(card(Suite.CLUB, Rank.TWO), card(Suite.SPADE, Rank.EIGHT), card(Suite.DIAMOND, Rank.SEVEN),
-				card(Suite.HEART, Rank.JACK), card(Suite.DIAMOND, Rank.THREE), card(Suite.DIAMOND, Rank.FOUR));
+		prepareDeckInOrder(
+		        card(Suite.CLUB, Rank.TWO)
+		        , card(Suite.SPADE, Rank.EIGHT)
+		        , card(Suite.DIAMOND, Rank.SEVEN)
+		        , card(Suite.HEART, Rank.JACK)
+				, card(Suite.DIAMOND, Rank.THREE)
+				, card(Suite.DIAMOND, Rank.FOUR));
 		dealInitialCards();
 		playerDraws();
 		dealerDraws();
