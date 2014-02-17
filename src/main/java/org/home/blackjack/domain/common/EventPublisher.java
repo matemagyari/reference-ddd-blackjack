@@ -11,8 +11,8 @@ package org.home.blackjack.domain.common;
  * @author Mate
  * 
  */
-public interface EventDispatcher {
+public interface EventPublisher {
 
-	void dispatch(DomainEvent event);
+	void publish(DomainEvent event);
 
 }

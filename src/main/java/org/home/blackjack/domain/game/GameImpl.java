@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.Validate;
 import org.home.blackjack.domain.common.DomainException;
-import org.home.blackjack.domain.common.EventDispatcher;
+import org.home.blackjack.domain.common.EventPublisher;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.GameId;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
@@ -65,7 +65,7 @@ class GameImpl implements Game {
 	private final Deck deck;
 	private final PlayerHand dealerHand;
 	private final PlayerHand playerHand;
-	private final EventDispatcher eventDispatcher;
+	private final EventPublisher eventPublisher;
 	private final AtomicInteger actionCounter;
 	private PlayerHand lastToAct;
 	private GameState state;
@@ -77,14 +77,14 @@ class GameImpl implements Game {
 	 * pass them to it). Were they Value Objects, that would be another
 	 * situation.
 	 * 
-	 * @param eventDispatcher
+	 * @param eventPublisher
 	 */
-	public GameImpl(PlayerId dealer, PlayerId player, DeckFactory deckFactory, EventDispatcher eventDispatcher) {
+	public GameImpl(PlayerId dealer, PlayerId player, DeckFactory deckFactory, EventPublisher eventPublisher) {
 		
 		Validate.notNull(dealer);
 		Validate.notNull(player);
 		
-		this.eventDispatcher = eventDispatcher;
+		this.eventPublisher = eventPublisher;
 		this.deck = deckFactory.createNew();
 		this.dealerHand = PlayerHand.createEmptyFor(dealer);
 		this.playerHand = PlayerHand.createEmptyFor(player);
@@ -101,7 +101,7 @@ class GameImpl implements Game {
 		dealFor(dealerHand);
 		dealFor(playerHand);
 		dealFor(dealerHand);
-		eventDispatcher.dispatch(new InitalCardsDealtEvent(getGameId(),actionCounter.get()));
+		eventPublisher.publish(new InitalCardsDealtEvent(getGameId(),actionCounter.get()));
 	}
 
 	private void dealFor(PlayerHand hand) {
@@ -114,17 +114,17 @@ class GameImpl implements Game {
 		lastToAct = hand;
 		Card card = deck.draw();
 		int score = hand.isDealtWith(card);
-		eventDispatcher.dispatch(new PlayerCardDealtEvent(getGameId(),nextSequenceId(), player, other(player).getPlayerId(), card));
+		eventPublisher.publish(new PlayerCardDealtEvent(getGameId(),nextSequenceId(), player, other(player).getPlayerId(), card));
 		if (score > TARGET) {
 			state = GameState.FINISHED;
-			eventDispatcher.dispatch(new GameFinishedEvent(getGameId(),nextSequenceId(), other(player).getPlayerId()));
+			eventPublisher.publish(new GameFinishedEvent(getGameId(),nextSequenceId(), other(player).getPlayerId()));
 		}
 	}
 
 	public void playerStands(PlayerId player) {
 		PlayerHand hand = handOf(player);
 		hand.stand();
-		eventDispatcher.dispatch(new PlayerStandsEvent(getGameId(),nextSequenceId(), player));
+		eventPublisher.publish(new PlayerStandsEvent(getGameId(),nextSequenceId(), player));
 		if (lastToAct.stopped()) {
 			state = GameState.FINISHED;
 			declareWinner();
@@ -136,7 +136,7 @@ class GameImpl implements Game {
 		int playerScore = playerHand.score();
 		boolean dealerWon = playerScore > TARGET || diffFromTarget(playerScore) > diffFromTarget(dealerHand.score());
 		PlayerId winner = dealerWon ? dealerHand.getPlayerId() : playerHand.getPlayerId();
-		eventDispatcher.dispatch(new GameFinishedEvent(getGameId(),nextSequenceId(), winner));
+		eventPublisher.publish(new GameFinishedEvent(getGameId(),nextSequenceId(), winner));
 	}
 
 	private static int diffFromTarget(int score) {

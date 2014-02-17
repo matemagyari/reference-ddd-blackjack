@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.home.blackjack.TestFixture;
 import org.home.blackjack.domain.common.DomainEvent;
-import org.home.blackjack.domain.common.EventDispatcher;
+import org.home.blackjack.domain.common.EventPublisher;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.Card.Rank;
 import org.home.blackjack.domain.game.core.Card.Suite;
@@ -252,11 +252,11 @@ public class GameTest {
 				);
 	}
 	
-	private static class EventDispatcherStub implements EventDispatcher {
+	private static class EventDispatcherStub implements EventPublisher {
 
 		private final List<DomainEvent> eventsInChronologicalOrder = Lists.newArrayList();
 		
-		public void dispatch(DomainEvent event) {
+		public void publish(DomainEvent event) {
 			eventsInChronologicalOrder.add(event);
 		}
 		

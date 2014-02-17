@@ -12,11 +12,19 @@ The DDD concepts/patterns the project show examples are:
 
 Aggregate design:
 - Transactional consistency requirements = True Invariants. Enforced inside aggregates: see org.home.blackjack.domain.game.GameImpl
-- Eventual consistency requirements - consistency rules amoung multiple aggregate instances
+- Eventual consistency requirements - consistency rules among multiple aggregate instances
     1. A player's win number in PlayerRecord aggregate must equal the number of Game instances in which she won 
     2. The sum of wins for all the PlayerRecord instances must equal the number of Game instances
 - Entities: e.g. Deck, PlayerHand
+- aggregate roots: GameImpl,PlayerRecord
 - aggregates reference each other by id. E.g. Game -> PlayerRecord
+
+Value Objects: e.g. Card, PlayerId, GameId
+Factories: GameFactory, DeckFactory
+
+Bounded Contexts:
+- remote Bounded Context:  might be a Tournament one
+- local Bounded Context: I think the two subdomains (Game and Player) can be regarded as local Bounded Contexts. They integrate through Shared Kernel
 
 Package structure
 util - general functionality not belonging to any layer in particular
@@ -24,7 +32,7 @@ util - general functionality not belonging to any layer in particular
 Visibility scopes are deliberately restricted to package level, wherever possible to encourage loose coupling and encapsulation on package level.
 
 
-There are two Subdomains/internal Bounded Contexts, Game and Player. They are integrated by Shared Kernel. 
+
 
 The project extensively uses marker interfaces for Hexagonal Architecture/DDD building blocks/patterns/concepts to make the intentions clearer. 
 They are under the *.util.marker package. Other way could have been to use annotations.
