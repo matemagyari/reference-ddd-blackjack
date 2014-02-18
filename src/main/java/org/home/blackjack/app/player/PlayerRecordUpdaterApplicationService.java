@@ -15,6 +15,7 @@ public class PlayerRecordUpdaterApplicationService {
 		// TODO lock acquire
 		Player player = playerRepository.get(winner);
 		player.recordWin();
+		playerRepository.put(player);
 		//TODO lock release
 		
 	}

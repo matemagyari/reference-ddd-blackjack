@@ -4,7 +4,7 @@ import org.home.blackjack.util.ddd.pattern.DomainEvent;
 
 public interface EventSubscriber<T extends DomainEvent> {
 
-	boolean subscribedTo(T event);
+	boolean subscribedTo(DomainEvent event);
 
 	void handleEvent(T event);
 

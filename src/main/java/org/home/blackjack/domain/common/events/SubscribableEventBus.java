@@ -7,4 +7,6 @@ public interface SubscribableEventBus {
 	
 	void register(EventSubscriber<? extends DomainEvent> subscriber);
 
+	void flush();
+
 }
