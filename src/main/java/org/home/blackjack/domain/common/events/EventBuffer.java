@@ -8,14 +8,14 @@ import java.util.concurrent.Executors;
 import javax.inject.Named;
 
 import org.home.blackjack.util.ddd.pattern.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.EventBus;
+import org.home.blackjack.util.ddd.pattern.EventPublisher;
 
 /**
  * @author Mate
  *
  */
 @Named
-public class EventBuffer implements EventBus, SubscribableEventBus {
+public class EventBuffer implements EventPublisher, SubscribableEventBus {
 	
 	private final ThreadLocal<List<EventSubscriber<? extends DomainEvent>>> registeredSubscribers = new ThreadLocal<List<EventSubscriber<? extends DomainEvent>>>();
 	private final ThreadLocal<List<DomainEvent>> bufferedEvents = new ThreadLocal<List<DomainEvent>>();

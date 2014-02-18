@@ -16,7 +16,7 @@ import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.util.ddd.pattern.AggregateRoot;
-import org.home.blackjack.util.ddd.pattern.EventBus;
+import org.home.blackjack.util.ddd.pattern.EventPublisher;
 
 /**
  * Aggregate Root
@@ -69,9 +69,9 @@ public class Game extends AggregateRoot<GameID> {
 	 * they are entities, and nothing can hold a reference on them but the aggregate root (so nothing could pass them to
 	 * it). Were they Value Objects, that would be another situation.
 	 */
-	public Game(GameID id, PlayerID dealerId, PlayerID playerId, DeckFactory deckFactory, EventBus eventBus) {
+	public Game(GameID id, PlayerID dealerId, PlayerID playerId, DeckFactory deckFactory, EventPublisher eventPublisher) {
 
-		super(id, eventBus);
+		super(id, eventPublisher);
 		Validate.notNull(dealerId);
 		Validate.notNull(playerId);
 

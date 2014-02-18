@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.home.blackjack.EventBusStub;
+import org.home.blackjack.EventPublisherStub;
 import org.home.blackjack.ReflectionHelper;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.Card.Rank;
@@ -43,7 +43,7 @@ public class GameTest {
 	@Mock
 	private DeckFactory deckFactory;
 
-	private EventBusStub eventBus = new EventBusStub();
+	private EventPublisherStub eventBus = new EventPublisherStub();
 
 	private Game testObj;
 
@@ -71,7 +71,6 @@ public class GameTest {
 
 	@After
 	public void tearDown() throws IOException, ClassNotFoundException {
-
 		eventBus.print();
 	}
 
@@ -109,8 +108,11 @@ public class GameTest {
 
 	@Test
 	public void playerWinsWithBlackJack() throws IOException, ClassNotFoundException {
-		prepareDeckInOrder(card(Suite.CLUB, Rank.ACE), card(Suite.SPADE, Rank.KING), card(Suite.DIAMOND, Rank.TEN),
-				card(Suite.HEART, Rank.TEN));
+		prepareDeckInOrder(
+				card(Suite.CLUB, Rank.ACE)
+				,card(Suite.SPADE, Rank.KING)
+				,card(Suite.DIAMOND, Rank.TEN)
+				,card(Suite.HEART, Rank.TEN));
 		dealInitialCards();
 		playerStops();
 		dealerStops();
@@ -119,8 +121,11 @@ public class GameTest {
 
 	@Test
 	public void dealerWinsWithBlackJack() throws IOException, ClassNotFoundException {
-		prepareDeckInOrder(card(Suite.CLUB, Rank.KING), card(Suite.SPADE, Rank.ACE), card(Suite.DIAMOND, Rank.TEN),
-				card(Suite.HEART, Rank.JACK));
+		prepareDeckInOrder(
+				card(Suite.CLUB, Rank.KING)
+				,card(Suite.SPADE, Rank.ACE)
+				,card(Suite.DIAMOND, Rank.TEN)
+				,card(Suite.HEART, Rank.JACK));
 		dealInitialCards();
 		playerStops();
 		dealerStops();

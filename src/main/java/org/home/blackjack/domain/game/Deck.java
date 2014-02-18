@@ -54,10 +54,8 @@ class Deck {
 		return this.cards.remove(0);
 	}
 
-	public Deck mergeWith(Deck anotherDeck) {
-		List<Card> newCardSet = Lists.newArrayList(this.cards);
-		newCardSet.addAll(anotherDeck.cards);
-		return new Deck(newCardSet);
+	public void mergeWith(Deck anotherDeck) {
+		this.cards.addAll(anotherDeck.cards);
 	}
 	
 

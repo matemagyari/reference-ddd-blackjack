@@ -9,7 +9,7 @@ package org.home.blackjack.util.ddd.pattern;
  * @author Mate
  * 
  */
-public interface EventBus {
+public interface EventPublisher {
 
 	void publish(DomainEvent event);
 }

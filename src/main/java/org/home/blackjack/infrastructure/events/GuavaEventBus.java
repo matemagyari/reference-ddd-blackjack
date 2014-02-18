@@ -1,7 +1,7 @@
 package org.home.blackjack.infrastructure.events;
 
 import org.home.blackjack.util.ddd.pattern.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.EventBus;
+import org.home.blackjack.util.ddd.pattern.EventPublisher;
 
 /**
  * Base EventBus implementation based on Guava.
@@ -9,7 +9,7 @@ import org.home.blackjack.util.ddd.pattern.EventBus;
  * @author michele.sollecito
  */
 // @Named
-public class GuavaEventBus implements EventBus {
+public class GuavaEventBus implements EventPublisher {
 
     @Override
 	public void publish(final DomainEvent event) {

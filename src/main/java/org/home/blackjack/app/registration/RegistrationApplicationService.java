@@ -6,13 +6,13 @@ import org.home.blackjack.domain.player.Player;
 import org.home.blackjack.domain.player.PlayerName;
 import org.home.blackjack.domain.player.PlayerRepository;
 import org.home.blackjack.domain.shared.PlayerID;
-import org.home.blackjack.util.ddd.pattern.EventBus;
+import org.home.blackjack.util.ddd.pattern.EventPublisher;
 import org.home.blackjack.util.marker.hexagonal.DrivenPort;
 
 public final class RegistrationApplicationService implements DrivenPort {
 
 	@Inject
-	private EventBus eventBus;
+	private EventPublisher eventBus;
 
 	@Inject
 	private PlayerRepository playerRepository;
