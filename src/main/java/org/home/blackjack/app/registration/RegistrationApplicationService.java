@@ -19,6 +19,6 @@ public final class RegistrationApplicationService implements DrivenPort {
 
 	public void playerJoins(final PlayerID playerID, final PlayerName playerName) {
 
-		playerRepository.put(new Player(playerID, playerName, eventBus));
+		playerRepository.create(new Player(playerID, playerName, eventBus));
 	}
 }

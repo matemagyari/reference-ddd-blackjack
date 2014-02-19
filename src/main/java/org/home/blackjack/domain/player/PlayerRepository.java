@@ -5,5 +5,10 @@ import org.home.blackjack.util.ddd.pattern.Repository;
 
 public interface PlayerRepository extends Repository<PlayerID, Player> {
 
-	// will contain Player specific repository methods, if any
+	void update(Player player);
+
+	Player find(PlayerID winner);
+
+	void create(Player player);
+
 }

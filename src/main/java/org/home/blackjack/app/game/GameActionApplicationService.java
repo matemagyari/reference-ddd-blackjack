@@ -3,12 +3,14 @@ package org.home.blackjack.app.game;
 
 import javax.inject.Inject;
 
+import org.home.blackjack.app.event.ExternalEventPublisher;
 import org.home.blackjack.app.player.PlayerRecordUpdaterApplicationService;
 import org.home.blackjack.domain.common.events.EventSubscriber;
 import org.home.blackjack.domain.common.events.SubscribableEventBus;
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.GameRepository;
 import org.home.blackjack.domain.game.core.GameID;
+import org.home.blackjack.domain.game.event.GameEvent;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.util.ddd.pattern.DomainEvent;
 import org.home.blackjack.util.locking.FinegrainedLockable;
@@ -34,12 +36,17 @@ public class GameActionApplicationService implements DrivenPort {
 	private PlayerRecordUpdaterApplicationService playerRecordUpdaterApplicationService;
 	@Inject
 	private FinegrainedLockable<GameID> lockableGameRepository;
+	@Inject
+	private ExternalEventPublisher externalEventPublisher;
+	
+	
 	
 	private final LockTemplate lockTemplate = new LockTemplate();
 
 	public void handlePlayerAction(final GameAction gameAction) {
 
 		subscribeForGameFinishedEvent();
+		subscribeForGeneralGameEvent();
 		
 		lockTemplate.doWithLock(lockableGameRepository, gameAction.getGameID(),  new VoidWriteLockingAction<GameID>() {
             @Override
@@ -52,13 +59,13 @@ public class GameActionApplicationService implements DrivenPort {
 	}
 
     private void performTransaction(GameAction gameAction) {
-        Game game = gameRepository.get(gameAction.getGameID());
+        Game game = gameRepository.find(gameAction.getGameID());
 		if (gameAction.getGameActionType() == GameActionType.HIT) {
 			game.playerHits(gameAction.getPlayerID());
 		} else if (gameAction.getGameActionType() == GameActionType.STAND) {
 			game.playerHits(gameAction.getPlayerID());
 		}
-		gameRepository.put(game);
+		gameRepository.update(game);
     }
 
 	private void subscribeForGameFinishedEvent() {
@@ -71,6 +78,23 @@ public class GameActionApplicationService implements DrivenPort {
 			public void handleEvent(GameFinishedEvent event) {
 				playerRecordUpdaterApplicationService.playerWon(event.getWinner());
 			}
+		});
+	}
+	
+	//this events go outside of the Bounded Context
+	private void subscribeForGeneralGameEvent() {
+		eventBuffer.register(new EventSubscriber<GameEvent>() {
+
+			@Override
+			public boolean subscribedTo(DomainEvent event) {
+				return event instanceof GameEvent;
+			}
+
+			@Override
+			public void handleEvent(GameEvent event) {
+				externalEventPublisher.publish(event);
+			}
+
 		});
 	}
 }
