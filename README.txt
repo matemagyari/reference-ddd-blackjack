@@ -11,23 +11,34 @@ For the rules of the game, check org.home.blackjack.domain.game.Game.
 The DDD concepts/patterns the project show examples are:
 
 Aggregate design:
-- Transactional consistency requirements = True Invariants. Enforced inside aggregates: see org.home.blackjack.domain.game.Game
-- Eventual consistency requirements - consistency rules among multiple aggregate instances
+* Transactional consistency requirements = True Invariants. Enforced inside aggregates: see org.home.blackjack.domain.game.Game
+* Eventual consistency requirements - consistency rules among multiple aggregate instances
     1. A player's win number in PlayerRecord aggregate must equal the number of Game instances in which she won 
     2. The sum of wins for all the PlayerRecord instances must equal the number of Game instances
-- Entities: e.g. Deck, PlayerHand
-- aggregate roots: GameImpl,PlayerRecord
-- aggregates reference each other by id. E.g. Game -> PlayerRecord
+* Entities: e.g. org.home.blackjack.domain.game.Deck, org.home.blackjack.domain.game.Player
+* aggregate roots: Game,Player
+* aggregates can only reference to each other by id. See Game -> Player
 
-Value Objects: e.g. Card, PlayerId, GameId
+Value Objects: e.g. Card, PlayerId, GameId (all entity ids are value objects)
 Factories: GameFactory, DeckFactory
 
-Bounded Contexts:
-- remote Bounded Context:  might be a Tournament one
-- local Bounded Context: I think the two subdomains (Game and Player) can be regarded as local Bounded Contexts. They integrate through Shared Kernel
+Domain events:
 
-Package structure
+
+Structure - should go to Parent
+* Bounded Contexts: the Blackjack Core is the local Bounded Context, communicating with the BlackJack Tournament remote Bounded Context
+* Subdomains: there is an ideal one-to-one mapping between subdomains and Bounded Contexts. the Blackjack Core BC implements
+
+* Modules
+    ** Game: contains the Game aggregate 
+    ** Player: contains the Player aggregate
+    ** their only common dependency is PlayerId (in shared package)
+
+Package structure (layers of onion from inside out)
 util - general functionality not belonging to any layer in particular
+domain
+app
+infrastructure
 
 Visibility scopes are deliberately restricted to package level, wherever possible to encourage loose coupling and encapsulation on package level.
 
