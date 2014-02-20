@@ -82,6 +82,8 @@ public class Game extends AggregateRoot<GameID> {
 		this.state = GameState.BEFORE_INITIAL_DEAL;
 		this.actionCounter = new AtomicInteger();
 	}
+	
+	public static Game reinstantiate(GameID id, PlayerID dealerId, PlayerID playerId, Deck deck, EventPublisher eventPublisher)
 
 	public void dealInitialCards() {
 		if (state != GameState.BEFORE_INITIAL_DEAL) {

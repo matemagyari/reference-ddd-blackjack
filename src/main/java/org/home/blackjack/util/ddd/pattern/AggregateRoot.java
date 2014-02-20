@@ -17,7 +17,7 @@ public abstract class AggregateRoot<T extends ID> extends Entity<T> {
         this.eventPublisher = eventPublisher;
 	}
 
-	public EventPublisher eventPublisher() {
+	protected EventPublisher eventPublisher() {
 		return eventPublisher;
 	}
 
