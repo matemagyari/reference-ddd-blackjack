@@ -158,7 +158,7 @@ public class Game extends AggregateRoot<GameID> {
 	}
 	
 	private void publish(GameEvent event) {
-		eventBus().publish(event);
+		eventPublisher().publish(event);
 	}
 
 	private Player other(PlayerID player) {

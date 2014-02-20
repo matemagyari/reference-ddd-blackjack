@@ -30,7 +30,7 @@ public class Player extends AggregateRoot<PlayerID> {
 	}
 
 	public void recordWin() {
-		eventBus().publish(new PlayerWonEvent(getID()));
+		eventPublisher().publish(new PlayerWonEvent(getID()));
 		winNumber++;
 	}
 

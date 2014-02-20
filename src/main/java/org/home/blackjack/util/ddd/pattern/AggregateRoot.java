@@ -9,22 +9,16 @@ import org.apache.commons.lang3.Validate;
  */
 public abstract class AggregateRoot<T extends ID> extends Entity<T> {
 
-	private EventPublisher eventBus;
+	private final EventPublisher eventPublisher;
 
-	protected AggregateRoot(final T id, final EventPublisher eventBus) {
-
+	protected AggregateRoot(final T id, final EventPublisher eventPublisher) {
 		super(id);
-		setEventBus(eventBus);
+		Validate.notNull(eventPublisher);
+        this.eventPublisher = eventPublisher;
 	}
 
-	public EventPublisher eventBus() {
-
-		return eventBus;
+	public EventPublisher eventPublisher() {
+		return eventPublisher;
 	}
 
-	private void setEventBus(final EventPublisher eventBus) {
-
-		Validate.notNull(eventBus);
-		this.eventBus = eventBus;
-	}
 }
