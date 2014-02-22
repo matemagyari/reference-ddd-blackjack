@@ -3,7 +3,7 @@ package org.home.blackjack.domain.table.event;
 import java.util.List;
 
 import org.home.blackjack.domain.shared.PlayerID;
-import org.home.blackjack.domain.table.TableID;
+import org.home.blackjack.domain.table.core.TableID;
 
 import com.google.common.collect.Lists;
 

@@ -9,7 +9,7 @@ import org.apache.commons.lang3.Validate;
  */
 public abstract class AggregateRoot<T extends ID> extends Entity<T> {
 
-	private final EventPublisher eventPublisher;
+	private final transient EventPublisher eventPublisher;
 
 	protected AggregateRoot(final T id, final EventPublisher eventPublisher) {
 		super(id);

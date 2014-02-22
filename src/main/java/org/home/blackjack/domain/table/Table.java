@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.home.blackjack.domain.common.DomainException;
 import org.home.blackjack.domain.shared.PlayerID;
+import org.home.blackjack.domain.table.core.TableID;
 import org.home.blackjack.domain.table.event.PlayerIsSeatedEvent;
 import org.home.blackjack.domain.table.event.TableClearedEvent;
 import org.home.blackjack.domain.table.event.TableEvent;

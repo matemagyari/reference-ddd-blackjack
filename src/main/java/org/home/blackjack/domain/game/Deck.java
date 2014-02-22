@@ -57,6 +57,10 @@ class Deck {
 	public void mergeWith(Deck anotherDeck) {
 		this.cards.addAll(anotherDeck.cards);
 	}
-	
 
+	@Override
+	public String toString() {
+		return "Deck [cards=" + cards + "]";
+	}
+	
 }

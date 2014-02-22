@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.home.blackjack.domain.game.event.NoTablesAvailable;
 import org.home.blackjack.domain.shared.PlayerID;
+import org.home.blackjack.domain.table.core.TableID;
 import org.home.blackjack.util.ddd.pattern.EventPublisher;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.locking.LockTemplate;

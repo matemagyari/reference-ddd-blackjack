@@ -1,0 +1,39 @@
+package org.home.blackjack.infrastructure.persistence.game.inmemory;
+
+import static org.junit.Assert.assertEquals;
+
+import org.home.blackjack.domain.game.Game;
+import org.home.blackjack.domain.game.GameFixture;
+import org.junit.Test;
+
+public class InMemoryGamePersistenceAssemblerTest {
+
+	private InMemoryGamePersistenceAssembler testObj = new InMemoryGamePersistenceAssembler();
+
+	@Test
+	public void newGame() {
+		Game game = GameFixture.aGame();
+		assertIdenticalTransformBackAndForth(game);
+	}
+
+	@Test
+	public void gameInProcess() {
+		Game game = GameFixture.aGame();
+		game.dealInitialCards();
+		
+		assertIdenticalTransformBackAndForth(game);
+	}
+	
+	private void assertIdenticalTransformBackAndForth(Game game) {
+		
+		InMemoryPersistenceGame persistenceGame = testObj.toPersistence(game);
+		Game reinstantiatedGame = testObj.toDomain(persistenceGame);
+		
+		assertEquals(game, reinstantiatedGame);
+		fieldsMatch(game, reinstantiatedGame);
+	}
+	
+	private static boolean fieldsMatch(Game original, Game reinstantiated) {
+		return original.toString().equals(reinstantiated.toString());
+	}
+}

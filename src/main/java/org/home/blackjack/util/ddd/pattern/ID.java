@@ -2,8 +2,6 @@ package org.home.blackjack.util.ddd.pattern;
 
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import org.joda.time.DateTime;
 
 /**
@@ -14,8 +12,12 @@ import org.joda.time.DateTime;
  */
 public abstract class ID extends ValueObject {
 
-	@Inject
-	private static IDGenerationStrategy idGenerationStrategy;
+	private static IDGenerationStrategy idGenerationStrategy = new IDGenerationStrategy() {
+		@Override
+		public UUID generate() {
+			return UUID.randomUUID();
+		}
+	};
 	private UUID internal;
 
 	private DateTime creationDate;
@@ -24,7 +26,7 @@ public abstract class ID extends ValueObject {
 
 		UUID internal = idGenerationStrategy.generate();
 		setInternal(internal);
-		setCreationDate(new DateTime(internal.timestamp()));
+		//setCreationDate(new DateTime(internal.timestamp()));
 	}
 
 	protected final DateTime getCreationDate() {
@@ -44,7 +46,7 @@ public abstract class ID extends ValueObject {
 
 		this.creationDate = creationDate;
 	}
-
+	
 	@Override
 	public String toString() {
 

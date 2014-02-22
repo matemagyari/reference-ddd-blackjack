@@ -83,8 +83,6 @@ public class Game extends AggregateRoot<GameID> {
 		this.actionCounter = new AtomicInteger();
 	}
 	
-	public static Game reinstantiate(GameID id, PlayerID dealerId, PlayerID playerId, Deck deck, EventPublisher eventPublisher)
-
 	public void dealInitialCards() {
 		if (state != GameState.BEFORE_INITIAL_DEAL) {
 			throw new IllegalStateException(getID() + " initial deal has been already made");
@@ -180,4 +178,11 @@ public class Game extends AggregateRoot<GameID> {
 		AFTER_INITIAL_DEAL,
 		FINISHED
 	}
+
+	@Override
+	public String toString() {
+		return "Game [dealer=" + dealer + ", player=" + player + ", actionCounter=" + actionCounter + ", lastToAct=" + lastToAct
+				+ ", state=" + state + ", deck=" + deck + "]";
+	}
+	
 }
