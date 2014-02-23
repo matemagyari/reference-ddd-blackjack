@@ -39,8 +39,6 @@ public class GameActionApplicationService implements DrivenPort {
 	@Inject
 	private ExternalEventPublisher externalEventPublisher;
 	
-	
-	
 	private final LockTemplate lockTemplate = new LockTemplate();
 
 	public void handlePlayerAction(final GameAction gameAction) {

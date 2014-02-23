@@ -1,16 +1,9 @@
 package org.home.blackjack.domain.game.core;
 
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.home.blackjack.util.ddd.pattern.ValueObject;
 
-/**
- * Value Object
- * 
- * @author Mate
- * 
- */
-public class Card {
+public class Card extends ValueObject {
 
 	public final Rank rank;
 	private final Suite suite;
@@ -55,19 +48,6 @@ public class Card {
 
 	public int value() {
 		return rank.value;
-	}
-
-	@Override
-	public boolean equals(Object that) {
-		if (!(that instanceof Card))
-			return false;
-		Card castThat = (Card) that;
-		return new EqualsBuilder().append(this.rank, castThat.rank).append(this.suite, castThat.suite).isEquals();
-	}
-
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(rank).append(suite).hashCode();
 	}
 
 	@Override

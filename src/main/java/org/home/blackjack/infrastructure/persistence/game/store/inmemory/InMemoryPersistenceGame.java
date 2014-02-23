@@ -1,4 +1,4 @@
-package org.home.blackjack.infrastructure.persistence.game.inmemory;
+package org.home.blackjack.infrastructure.persistence.game.store.inmemory;
 
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceObject;

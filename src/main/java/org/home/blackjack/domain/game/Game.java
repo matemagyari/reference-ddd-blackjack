@@ -95,7 +95,7 @@ public class Game extends AggregateRoot<GameID> {
 	}
 
 	private void dealFor(Player player) {
-		playerHits(player.getPlayerID());
+		playerHits(player.getID());
 	}
 
 	public void playerHits(PlayerID playerId) {
@@ -104,10 +104,10 @@ public class Game extends AggregateRoot<GameID> {
 		Card card = deck.draw();
 		int score = player.isDealtWith(card);
 		publish(
-				new PlayerCardDealtEvent(getID(), nextSequenceId(), playerId, other(playerId).getPlayerID(), card));
+				new PlayerCardDealtEvent(getID(), nextSequenceId(), playerId, other(playerId).getID(), card));
 		if (score > TARGET) {
 			state = GameState.FINISHED;
-			publish(new GameFinishedEvent(getID(), nextSequenceId(), other(playerId).getPlayerID()));
+			publish(new GameFinishedEvent(getID(), nextSequenceId(), other(playerId).getID()));
 		}
 	}
 
@@ -125,7 +125,7 @@ public class Game extends AggregateRoot<GameID> {
 	private void declareWinner() {
 		int playerScore = player.score();
 		boolean dealerWon = playerScore > TARGET || diffFromTarget(playerScore) > diffFromTarget(dealer.score());
-		PlayerID winner = dealerWon ? dealer.getPlayerID() : player.getPlayerID();
+		PlayerID winner = dealerWon ? dealer.getID() : player.getID();
 		publish(new GameFinishedEvent(getID(), nextSequenceId(), winner));
 	}
 
@@ -148,11 +148,11 @@ public class Game extends AggregateRoot<GameID> {
 
 	private void checkValidity(Player playerTryingToAct, Player otherPlayer) {
 		if (playerTryingToAct.equals(lastToAct) && otherPlayer.notStopped()) {
-			throw new PlayerActionOutOfTurnException(playerTryingToAct.getPlayerID());
+			throw new PlayerActionOutOfTurnException(playerTryingToAct.getID());
 		} else if (isFinished()) {
-			throw new PlayerActionAfterGameFinishedException(playerTryingToAct.getPlayerID());
+			throw new PlayerActionAfterGameFinishedException(playerTryingToAct.getID());
 		} else if (playerTryingToAct.stopped()) {
-			throw new PlayerTriedToActAfterStandException(playerTryingToAct.getPlayerID());
+			throw new PlayerTriedToActAfterStandException(playerTryingToAct.getID());
 		}
 
 	}
@@ -162,7 +162,7 @@ public class Game extends AggregateRoot<GameID> {
 	}
 
 	private Player other(PlayerID player) {
-		return this.player.getPlayerID().equals(player) ? dealer : this.player;
+		return this.player.getID().equals(player) ? dealer : this.player;
 	}
 
 	public boolean isFinished() {

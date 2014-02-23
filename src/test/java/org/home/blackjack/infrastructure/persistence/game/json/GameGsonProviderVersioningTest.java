@@ -12,6 +12,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.GameFixture;
+import org.home.blackjack.infrastructure.persistence.game.store.json.GameGsonProvider;
 import org.junit.Before;
 import org.junit.Test;
 

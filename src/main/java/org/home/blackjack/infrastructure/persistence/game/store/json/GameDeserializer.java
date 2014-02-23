@@ -1,4 +1,4 @@
-package org.home.blackjack.infrastructure.persistence.game.json;
+package org.home.blackjack.infrastructure.persistence.game.store.json;
 
 import java.lang.reflect.Type;
 

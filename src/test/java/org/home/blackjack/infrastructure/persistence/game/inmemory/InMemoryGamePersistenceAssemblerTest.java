@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.GameFixture;
+import org.home.blackjack.infrastructure.persistence.game.store.inmemory.InMemoryGamePersistenceAssembler;
+import org.home.blackjack.infrastructure.persistence.game.store.inmemory.InMemoryPersistenceGame;
 import org.junit.Test;
 
 public class InMemoryGamePersistenceAssemblerTest {

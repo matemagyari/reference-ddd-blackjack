@@ -1,20 +1,16 @@
 package org.home.blackjack.domain.game;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.domain.common.DomainException;
 import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.Card.Rank;
 import org.home.blackjack.domain.shared.PlayerID;
+import org.home.blackjack.util.ddd.pattern.Entity;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 /**
  * Entity inside the {@link Game} aggregate root. It's id (
@@ -31,9 +27,8 @@ import com.google.common.collect.Sets;
  * @author Mate
  * 
  */
-class Player {
+class Player extends Entity<PlayerID> {
 
-    private final PlayerID playerID;
     private final List<Card> cards;
     private boolean stopped;
 
@@ -44,29 +39,26 @@ class Player {
     public static Player createStarterFor(PlayerID playerID, Card card1, Card card2) {
         return new Player(playerID, Lists.newArrayList(card1, card2));
     }
+    
 
     private Player(PlayerID playerID, List<Card> cards) {
+    	super(playerID);
         Validate.notNull(playerID);
         Validate.notNull(cards);
-        this.playerID = playerID;
         this.cards = cards;
     }
 
     public boolean isOf(PlayerID aPlayerID) {
-        return playerID.equals(aPlayerID);
+        return getID().equals(aPlayerID);
     }
 
     public int isDealtWith(Card card) {
         if (stopped) {
-            throw new DomainException(playerID + " is dealt a card after stop");
+            throw new DomainException(getID() + " is dealt a card after stop");
         }
         assert !cards.contains(card);
         this.cards.add(card);
         return score();
-    }
-
-    public PlayerID getPlayerID() {
-        return playerID;
     }
 
     public boolean notStopped() {
@@ -105,23 +97,8 @@ class Player {
     }
 
     @Override
-    public boolean equals(Object that) {
-        if (that == null)
-            return false;
-        if (!(that instanceof Player))
-            return false;
-        Player castThat = (Player) that;
-        return new EqualsBuilder().append(this.playerID, castThat.playerID).append(this.cards, castThat.cards).append(this.stopped, castThat.stopped).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(playerID).append(cards).append(stopped).hashCode();
-    }
-
-    @Override
     public String toString() {
-        return "Player [playerID=" + playerID + ", cards=" + cards + ", stopped=" + stopped + "]";
+        return "Player [getID()=" + getID() + ", cards=" + cards + ", stopped=" + stopped + "]";
     }
 
 }

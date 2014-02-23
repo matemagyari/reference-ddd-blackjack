@@ -13,9 +13,10 @@
       "playerID":{
          "internal":"1119f563-a2fa-4125-b1ce-073e05a7d2c2"
       },
-      "cards":[],
+      "cards":[{"rank":"ACE","suite":"HEART"},{"rank":"SEVEN","suite":"HEART"}],
       "stopped":false
    },
+   "counter":{"value":4},
    "id":{
       "internal":"63d456cd-f8ce-4b51-9211-cbc66921451a"
    }

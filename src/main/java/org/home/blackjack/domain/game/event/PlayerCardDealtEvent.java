@@ -37,23 +37,6 @@ public class PlayerCardDealtEvent extends GameEvent {
 	}
 
 	@Override
-	public boolean equals(Object that) {
-		if (that == null)
-			return false;
-		if (!that.getClass().equals(this.getClass()))
-			return false;
-		PlayerCardDealtEvent castThat = (PlayerCardDealtEvent) that;
-		return new EqualsBuilder().appendSuper(super.equals(that)).append(this.player, castThat.player)
-				.append(this.otherPlayer, castThat.otherPlayer).append(this.card, castThat.card).isEquals();
-	}
-
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().appendSuper(super.hashCode()).append(player).append(otherPlayer).append(card)
-				.hashCode();
-	}
-
-	@Override
 	public String toString() {
 		return "PlayerCardDealtEvent [player=" + player + ", otherPlayer=" + otherPlayer + ", card=" + card
 				+ ", gameID=" + gameID + ", sequenceNumber=" + sequenceNumber + "]";

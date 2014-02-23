@@ -1,6 +1,11 @@
 package org.home.blackjack.infrastructure.persistence.shared;
 
 
+/**
+ * Infrastructure Service. Transforms any objects to json and back.
+ * @author Mate
+ *
+ */
 public abstract class GsonBasedAssembler {
 
 	private final GsonProvider gsonProvider;

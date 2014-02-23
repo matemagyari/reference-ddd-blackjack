@@ -1,4 +1,4 @@
-package org.home.blackjack.infrastructure.persistence.game.mongo;
+package org.home.blackjack.infrastructure.persistence.game.store.mongo;
 
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceObject;

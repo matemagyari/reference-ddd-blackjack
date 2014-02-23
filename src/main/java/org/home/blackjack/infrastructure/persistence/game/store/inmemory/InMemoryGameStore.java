@@ -1,10 +1,10 @@
-package org.home.blackjack.infrastructure.persistence.game.inmemory;
+package org.home.blackjack.infrastructure.persistence.game.store.inmemory;
 
 import java.util.Map;
 
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.core.GameID;
-import org.home.blackjack.infrastructure.persistence.game.GameStore;
+import org.home.blackjack.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceObjectId;
 

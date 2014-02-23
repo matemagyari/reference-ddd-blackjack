@@ -10,6 +10,7 @@ import org.home.blackjack.domain.player.PlayerRepository;
 import org.home.blackjack.domain.player.event.PlayerWonEvent;
 import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.util.ddd.pattern.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.EventPublisher;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.locking.LockTemplate;
 import org.home.blackjack.util.locking.VoidWriteLockingAction;
@@ -35,7 +36,6 @@ public class PlayerRecordUpdaterApplicationService {
 			@Override
 			public void withWriteLock(PlayerID key) {
 				performTransaction(key);
-
 			}
 		});
 
@@ -44,6 +44,12 @@ public class PlayerRecordUpdaterApplicationService {
 
 	private void performTransaction(PlayerID winner) {
 		Player player = playerRepository.find(winner);
+		player.setEventPublisher(new EventPublisher() {
+			@Override
+			public void publish(DomainEvent event) {
+				externalEventPublisher.publish(event);
+			}
+		});
 		player.recordWin();
 		playerRepository.update(player);
 	}

@@ -7,4 +7,5 @@ public interface GameRepository extends Repository<GameID, Game> {
 
 	Game find(GameID gameID);
 	void update(Game game);
+	void create(Game game);
 }

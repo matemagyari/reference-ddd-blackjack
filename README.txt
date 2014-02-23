@@ -20,7 +20,14 @@ Aggregate design:
 * aggregates can only reference to each other by id. See Game -> Player
 
 Value Objects: e.g. Card, PlayerId, GameId (all entity ids are value objects)
-Factories: GameFactory, DeckFactory
+Entities: e.g. Player under Game module
+* id generation: 
+Domain Services:
+* "Internal" services: GameFactory, DeckFactory
+* Representing external dependencies (in front of an ACL):
+
+Infrastructure Services:
+* e.g. the assemblers serializing/deserializing Domain objects, IDGenerationStrategy
 
 Domain events:
 
