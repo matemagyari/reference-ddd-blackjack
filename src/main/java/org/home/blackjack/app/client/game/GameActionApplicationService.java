@@ -1,8 +1,10 @@
-package org.home.blackjack.app.game;
+package org.home.blackjack.app.client.game;
 
 
 import javax.inject.Inject;
 
+import org.home.blackjack.app.eventhandler.GameEventHandler;
+import org.home.blackjack.app.eventhandler.GameFinishedEventHandler;
 import org.home.blackjack.domain.common.events.SubscribableEventBus;
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.GameRepository;

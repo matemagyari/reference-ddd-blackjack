@@ -1,4 +1,4 @@
-package org.home.blackjack.app.game;
+package org.home.blackjack.app.client.game;
 
 import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.shared.PlayerID;

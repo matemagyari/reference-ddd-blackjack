@@ -16,6 +16,9 @@ public abstract class AggregateRoot<T extends ID> extends Entity<T> {
 		Validate.notNull(eventPublisher);
         this.eventPublisher = eventPublisher;
 	}
+	protected AggregateRoot(final T id) {
+	   this(id, null);
+	}
 
 	protected EventPublisher eventPublisher() {
 		return eventPublisher;

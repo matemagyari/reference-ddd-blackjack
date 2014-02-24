@@ -1,4 +1,4 @@
-package org.home.blackjack.app.game;
+package org.home.blackjack.app.eventhandler;
 
 import javax.inject.Inject;
 import javax.inject.Named;

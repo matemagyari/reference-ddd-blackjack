@@ -1,4 +1,4 @@
-package org.home.blackjack.app.player;
+package org.home.blackjack.app.client.player;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -20,7 +20,7 @@ import org.home.blackjack.util.locking.VoidWriteLockingAction;
  * @author mate.magyari
  * 
  */
-public class SeatingService {
+public class OldSeatingService {
 
 	private FinegrainedLockable<TableID> lockableTableRepository;
 	private TableRepository tableRepository;
