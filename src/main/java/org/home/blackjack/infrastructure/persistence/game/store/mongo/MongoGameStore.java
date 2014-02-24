@@ -1,6 +1,7 @@
 package org.home.blackjack.infrastructure.persistence.game.store.mongo;
 
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.core.GameID;
@@ -34,6 +35,16 @@ public class MongoGameStore implements GameStore {
 		jsonMap.put(mpg.id(), mpg.getJson());
 		
 	}
+	@Override
+	public void create(PersistenceObject<Game> po) {
+	    MongoPersistenceGame mpg = (MongoPersistenceGame) po;
+	    jsonMap.put(mpg.id(), mpg.getJson());
+	}
+	
+    @Override
+    public Lock getLockForKey(GameID key) {
+        throw new org.apache.commons.lang.NotImplementedException("TODO mmagyari");
+    }
 
 
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:hz="http://www.hazelcast.com/schema/spring"
+	xmlns:cache="http://www.springframework.org/schema/cache" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                        http://www.springframework.org/schema/cache 
+                        http://www.springframework.org/schema/cache/spring-cache.xsd
+                        http://www.hazelcast.com/schema/spring http://www.hazelcast.com/schema/spring/hazelcast-spring-2.3.xsd">
+
+	
+	<hz:hazelcast id="buddiesSystemHazelcastInstance" scope="singleton"	lazy-init="true">
+		<hz:config>
+
+			<hz:instance-name>onlineStoreHazelcastInstance</hz:instance-name>
+			<hz:group name="${hazelcast.group.name}" password="password" />
+
+			<hz:properties>
+				<hz:property name="hazelcast.logging.type">log4j</hz:property>
+			</hz:properties>
+			<hz:network port="5701" port-auto-increment="true">
+				<hz:join>
+					<hz:multicast enabled="${hz.multicast.join.type}" multicast-group="224.2.2.3" multicast-port="54327" />
+					<hz:tcp-ip enabled="${hz.tcpip.join.type}">
+						<hz:members>${hazelcastMembers}</hz:members>
+					</hz:tcp-ip>
+					<hz:aws enabled="${hz.aws.join.type}" access-key="AKIAILWLHJH6CYQ3C2GQ"
+						secret-key="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"
+						security-group-name="gib" region="eu-west-1" tag-key="type"
+						tag-value="${hazelcast.amz.cluster.name}" />
+				</hz:join>
+				<hz:symmetric-encryption enabled="false" />
+				<hz:asymmetric-encryption enabled="false" />
+			</hz:network>
+			
+			<hz:executor-service name="hzExecutor"
+				core-pool-size="60" max-pool-size="100" keep-alive-seconds="600" />
+			
+			<hz:map name="onlinePlayerSession" backup-count="1" max-size="0"
+				eviction-percentage="80" read-backup-data="false" cache-value="false"
+				storage-type="HEAP" max-idle-seconds="0" eviction-policy="NONE"
+				merge-policy="hz.ADD_NEW_ENTRY" />
+				<!-- 
+				 -->
+			<hz:map name="socialSystem" backup-count="1" max-size="5000"
+				eviction-percentage="70" read-backup-data="false" cache-value="true"
+				storage-type="HEAP" max-idle-seconds="${facebookfriends.cache.expiretime}" time-to-live-seconds="${facebookfriends.cache.expiretime}" eviction-policy="NONE"
+				merge-policy="hz.ADD_NEW_ENTRY" />
+		</hz:config>
+	</hz:hazelcast>
+
+	<cache:annotation-driven />
+    <bean id="cacheManager" class="com.hazelcast.spring.cache.HazelcastCacheManager">
+        <property name="hazelcastInstance" ref="buddiesSystemHazelcastInstance"/>
+    </bean>
+</beans>

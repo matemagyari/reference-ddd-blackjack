@@ -1,6 +1,9 @@
 package org.home.blackjack.infrastructure.persistence.game.store.inmemory;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.core.GameID;
@@ -13,6 +16,7 @@ import com.google.common.collect.Maps;
 public class InMemoryGameStore implements GameStore {
 	
 	private final Map<InMemoryPersistenceGameId, String> jsonMap = Maps.newHashMap();
+	private final ConcurrentMap<GameID, Lock> locks = Maps.newConcurrentMap();
 
 	private InMemoryGamePersistenceAssembler gameStoreAssembler;
 	
@@ -33,4 +37,16 @@ public class InMemoryGameStore implements GameStore {
 		InMemoryPersistenceGame mpg = (InMemoryPersistenceGame) po;
 		jsonMap.put(mpg.id(), mpg.getJson());
 	}
+
+    @Override
+    public void create(PersistenceObject<Game> po) {
+        InMemoryPersistenceGame mpg = (InMemoryPersistenceGame) po;
+        jsonMap.put(mpg.id(), mpg.getJson());
+    }
+
+    @Override
+    public Lock getLockForKey(GameID key) {
+        locks.putIfAbsent(key, new ReentrantLock());
+        return locks.get(key);
+    }
 }
