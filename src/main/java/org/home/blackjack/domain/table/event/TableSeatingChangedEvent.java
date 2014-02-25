@@ -5,7 +5,7 @@ import java.util.List;
 import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.domain.table.core.TableID;
 
-import com.beust.jcommander.internal.Lists;
+import com.google.common.collect.Lists;
 
 public class TableSeatingChangedEvent extends TableEvent {
 

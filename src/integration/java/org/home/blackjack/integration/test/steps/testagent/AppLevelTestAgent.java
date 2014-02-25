@@ -5,7 +5,6 @@ import org.home.blackjack.integration.test.util.CucumberService;
 
 public class AppLevelTestAgent extends TestAgent {
     
-    
     @Override
     public void reset() {
     }

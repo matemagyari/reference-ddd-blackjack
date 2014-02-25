@@ -2,7 +2,6 @@ package org.home.blackjack.util.locking.aspect;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.concurrent.locks.Lock;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;

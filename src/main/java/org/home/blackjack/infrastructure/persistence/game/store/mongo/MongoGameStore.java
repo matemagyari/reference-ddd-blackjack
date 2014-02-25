@@ -43,7 +43,7 @@ public class MongoGameStore implements GameStore {
 	
     @Override
     public Lock getLockForKey(GameID key) {
-        throw new org.apache.commons.lang.NotImplementedException("TODO mmagyari");
+        return null;
     }
 
 
