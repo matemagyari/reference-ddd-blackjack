@@ -11,12 +11,8 @@
                         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
                         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<import resource="classpath:META-INF/applicationContext-buddies-system-applevel.xml" />
+	<import resource="classpath:META-INF/applicationContext-blackjack-core-applevel.xml" />
 	
-	<context:component-scan
-		base-package="
-		org.home.blackjack.infrastructure
-		,org.home.blackjack.messaging.app" />
 	<aop:aspectj-autoproxy />
 	
 

@@ -1,6 +1,7 @@
 package org.home.blackjack.domain.table;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.home.blackjack.domain.table.core.TableID;
 
@@ -8,6 +9,7 @@ import org.home.blackjack.domain.table.core.TableID;
  * Domain service. Responsible for creating tables.
  *
  */
+@Named
 public class LobbyManager {
 	
 	private static final int NUM_OF_TABLES = 9;

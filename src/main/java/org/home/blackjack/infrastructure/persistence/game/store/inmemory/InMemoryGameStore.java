@@ -5,6 +5,9 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.annotation.Resource;
+import javax.inject.Named;
+
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.infrastructure.persistence.game.store.GameStore;
@@ -13,11 +16,13 @@ import org.home.blackjack.infrastructure.persistence.shared.PersistenceObjectId;
 
 import com.google.common.collect.Maps;
 
+@Named
 public class InMemoryGameStore implements GameStore {
 	
 	private final Map<InMemoryPersistenceGameId, String> jsonMap = Maps.newHashMap();
 	private final ConcurrentMap<GameID, Lock> locks = Maps.newConcurrentMap();
 
+	@Resource
 	private InMemoryGamePersistenceAssembler gameStoreAssembler;
 	
 	@Override

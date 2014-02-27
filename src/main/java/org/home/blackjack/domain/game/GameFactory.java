@@ -3,6 +3,7 @@ package org.home.blackjack.domain.game;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.shared.PlayerID;
@@ -12,6 +13,7 @@ import org.home.blackjack.util.ddd.pattern.EventPublisher;
 /**
  * Factory. Not a real member of the Domain, rather a technical necessity.
  */
+@Named
 public class GameFactory {
 
 	@Inject

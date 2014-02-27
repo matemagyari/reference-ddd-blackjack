@@ -1,11 +1,14 @@
 package org.home.blackjack.infrastructure.persistence.game.store.inmemory;
 
+import javax.inject.Named;
+
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.infrastructure.persistence.game.store.json.GameGsonProvider;
 import org.home.blackjack.infrastructure.persistence.shared.GsonBasedAssembler;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.util.ddd.pattern.ID;
 
+@Named
 public class InMemoryGamePersistenceAssembler extends GsonBasedAssembler implements PersistenceAssembler<Game, InMemoryPersistenceGame> {
 
 	public InMemoryGamePersistenceAssembler() {

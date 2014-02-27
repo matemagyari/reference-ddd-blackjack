@@ -20,7 +20,9 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 	
 	@Resource
 	private EventPublisher eventPublisher;
+	@Resource
 	private final GameStore gameStore;
+	@Resource
 	private final PersistenceAssembler<Game, PersistenceObject<Game>> gameStoreAssembler;
 	
 	public SerializingGameRepository(GameStore gameStore) {

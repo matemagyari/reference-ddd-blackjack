@@ -1,6 +1,7 @@
 package org.home.blackjack.app.client.player;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.home.blackjack.app.eventhandler.TableIsFullEventHandler;
 import org.home.blackjack.domain.common.events.SubscribableEventBus;
@@ -12,6 +13,7 @@ import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.locking.LockTemplate;
 import org.home.blackjack.util.locking.VoidWriteLockingAction;
 
+@Named
 public class SeatingApplicationService {
 	
 	@Inject

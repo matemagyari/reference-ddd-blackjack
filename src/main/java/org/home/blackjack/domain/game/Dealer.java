@@ -3,6 +3,7 @@ package org.home.blackjack.domain.game;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.domain.table.core.TableID;
@@ -11,6 +12,7 @@ import org.home.blackjack.domain.table.core.TableID;
  * Domain Service
  *
  */
+@Named
 public class Dealer {
 	
     @Inject
