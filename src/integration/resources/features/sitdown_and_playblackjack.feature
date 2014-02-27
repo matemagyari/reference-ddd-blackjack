@@ -1,3 +1,5 @@
+Feature: players sit down and play. One wins
+
 Scenario: players sit down and play. One wins
 
 Given a prepared deck with cards in order
@@ -5,39 +7,38 @@ Given a prepared deck with cards in order
 | 7s    |
 | Ad    |
 
-Given there is a table with id '12'
-And table '12' is empty
+And there is an empty table with id '12'
 
-Then tables in lobby
+Then players can see tables in lobby
 | tableId | players |
 | 12      |         |
 
 
 When player '1' sits to table '12'
 
-Then observer sees tables in lobby
+Then players can see tables in lobby
 | tableId | players |
 | 12      | 1       |
 
 When player '2' sits to table '12'
 
-Then observer sees in lobby
+Then players can see tables in lobby
 | tableId | players |
 | 12      | 1,2     |
 
 Then game started on table '12'
-And player '1' has been dealt '7s'
-And player '2' has been dealt 'Ad'
-And player '1' has been dealt 'Ad'
-And player '2' has been dealt 'Ad'
+And player '1' has been dealt '7s' at table '12'
+And player '2' has been dealt 'Ad' at table '12'
+And player '1' has been dealt 'Ad' at table '12'
+And player '2' has been dealt 'Ad' at table '12'
 
-When player '1' hits
-Then player '1' has been dealt '7s'
+When player '1' hits at table '12'
+Then player '1' has been dealt '7s' at table '12'
 
-When player '2' hits
-Then player '1' has been dealt '7s'
+When player '2' hits at table '12'
+Then player '1' has been dealt '7s' at table '12'
 
-Then player '1' won
+Then player '1' won at table '12'
 
 
 

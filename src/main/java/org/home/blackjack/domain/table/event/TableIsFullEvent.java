@@ -1,19 +1,23 @@
 package org.home.blackjack.domain.table.event;
 
-import org.home.blackjack.domain.game.Game;
+import java.util.List;
+
+import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.domain.table.core.TableID;
+
+import com.google.common.collect.Lists;
 
 public class TableIsFullEvent extends TableEvent {
 
-	private Game game;
+	private List<PlayerID> players;
 
-	public TableIsFullEvent(TableID id, Game game) {
+	public TableIsFullEvent(TableID id, List<PlayerID> players) {
 		super(id);
-		this.game = game;
+		this.players = Lists.newArrayList(players);
 	}
-
-	public Game getGame() {
-		return game;
+	
+	public List<PlayerID> players() {
+		return Lists.newArrayList(players);
 	}
 
 }

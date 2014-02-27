@@ -9,10 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface WithPessimisticLock {
     
-    Class<? extends Exception>[] on();
-
-    int times() default 1;
-    
     String repository();
     String key();
     

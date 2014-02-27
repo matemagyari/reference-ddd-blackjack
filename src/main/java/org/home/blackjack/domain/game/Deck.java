@@ -19,7 +19,7 @@ import com.google.common.collect.Lists;
  * @author Mate
  * 
  */
-class Deck {
+public class Deck {
 
 	private final List<Card> cards;
 

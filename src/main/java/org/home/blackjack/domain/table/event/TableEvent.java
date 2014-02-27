@@ -11,7 +11,7 @@ public abstract class TableEvent implements DomainEvent {
         this.id = id;
     }
     
-    public TableID getTableId() {
+    public TableID tableId() {
         return id;
     }
 }

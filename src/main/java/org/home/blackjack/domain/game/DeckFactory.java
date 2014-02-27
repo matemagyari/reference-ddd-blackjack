@@ -10,7 +10,7 @@ import org.home.blackjack.domain.game.core.Card;
  * @author Mate
  * 
  */
-class DeckFactory {
+public class DeckFactory {
 
 	public Deck createNew() {
 		return Deck.createNew52();

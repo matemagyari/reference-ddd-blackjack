@@ -13,4 +13,8 @@ public interface TableRepository extends Repository<TableID, Table> {
 
 	void update(Table table);
 
+	void create(Table table);
+
+	void clear();
+
 }

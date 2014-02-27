@@ -72,10 +72,6 @@ public class PessimisticLockingAspect {
 
     private Object proceed(ProceedingJoinPoint pjp, WithPessimisticLock withLockAnnotation) throws Throwable {
 
-        int times = withLockAnnotation.times();
-
-        Class<? extends Throwable>[] withLockOn = withLockAnnotation.on();
-
         Assert.assertTrue("@WithLock{times} should be greater than 0!",times > 0);
 
         Assert.assertTrue("@WithLock{on} should have at least one Throwable!", withLockOn.length > 0 );
@@ -86,7 +82,7 @@ public class PessimisticLockingAspect {
 
     }
 
-    private Object tryProceeding(ProceedingJoinPoint pjp, int times, Class<? extends Throwable>[] withLockOn) throws Throwable {
+    private Object tryProceeding(ProceedingJoinPoint pjp) throws Throwable {
 
         try {
 

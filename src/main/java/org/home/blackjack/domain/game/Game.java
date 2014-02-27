@@ -8,6 +8,7 @@ import org.home.blackjack.domain.game.core.Card;
 import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.game.event.GameEvent;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
+import org.home.blackjack.domain.game.event.GameStartedEvent;
 import org.home.blackjack.domain.game.event.InitalCardsDealtEvent;
 import org.home.blackjack.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.domain.game.event.PlayerStandsEvent;
@@ -15,6 +16,7 @@ import org.home.blackjack.domain.game.exception.PlayerActionAfterGameFinishedExc
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.domain.shared.PlayerID;
+import org.home.blackjack.domain.table.core.TableID;
 import org.home.blackjack.util.ddd.pattern.AggregateRoot;
 import org.home.blackjack.util.ddd.pattern.EventPublisher;
 
@@ -63,18 +65,21 @@ public class Game extends AggregateRoot<GameID> {
 	private final AtomicInteger actionCounter;
 	private Player lastToAct;
 	private GameState state;
+	private TableID tableId;
 
 	/**
 	 * The reason why we pass Factories instead of simply passing a {@link Deck} and two {@link Player}-s is because
 	 * they are entities, and nothing can hold a reference on them but the aggregate root (so nothing could pass them to
 	 * it). Were they Value Objects, that would be another situation.
 	 */
-	public Game(GameID id, PlayerID dealerId, PlayerID playerId, DeckFactory deckFactory, EventPublisher eventPublisher) {
+	public Game(GameID id, TableID tableId, PlayerID dealerId, PlayerID playerId, DeckFactory deckFactory, EventPublisher eventPublisher) {
 
 		super(id, eventPublisher);
 		Validate.notNull(dealerId);
 		Validate.notNull(playerId);
+		Validate.notNull(tableId);
 
+		this.tableId = tableId;
 		this.deck = deckFactory.createNew();
 		this.dealer = Player.createEmptyFor(dealerId);
 		this.player = Player.createEmptyFor(playerId);
@@ -87,11 +92,12 @@ public class Game extends AggregateRoot<GameID> {
 		if (state != GameState.BEFORE_INITIAL_DEAL) {
 			throw new IllegalStateException(getID() + " initial deal has been already made");
 		}
+		publish(new GameStartedEvent(getID(), nextSequenceId(), tableId));
 		dealFor(player);
 		dealFor(dealer);
 		dealFor(player);
 		dealFor(dealer);
-		publish(new InitalCardsDealtEvent(getID(), actionCounter.get()));
+		publish(new InitalCardsDealtEvent(getID(), nextSequenceId()));
 	}
 
 	private void dealFor(Player player) {
