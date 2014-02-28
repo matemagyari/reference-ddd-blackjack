@@ -5,10 +5,10 @@ import javax.inject.Inject;
 
 import org.home.blackjack.app.eventhandler.GameEventHandler;
 import org.home.blackjack.app.eventhandler.GameFinishedEventHandler;
-import org.home.blackjack.domain.common.events.SubscribableEventBus;
 import org.home.blackjack.domain.game.Game;
 import org.home.blackjack.domain.game.GameRepository;
 import org.home.blackjack.domain.game.core.GameID;
+import org.home.blackjack.util.ddd.pattern.events.SubscribableEventBus;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.locking.LockTemplate;
 import org.home.blackjack.util.locking.VoidWriteLockingAction;

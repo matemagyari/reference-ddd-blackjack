@@ -1,7 +1,7 @@
 package org.home.blackjack.infrastructure.events;
 
-import org.home.blackjack.util.ddd.pattern.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.EventPublisher;
+import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
 
 /**
  * Base EventBus implementation based on Guava.

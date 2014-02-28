@@ -1,6 +1,7 @@
 package org.home.blackjack.util.ddd.pattern;
 
 import org.apache.commons.lang3.Validate;
+import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
 
 /**
  * Class defining common behaviour for Aggregate Roots. Created to be addressed by Repositories.

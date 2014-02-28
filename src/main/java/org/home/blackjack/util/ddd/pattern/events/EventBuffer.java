@@ -1,4 +1,4 @@
-package org.home.blackjack.domain.common.events;
+package org.home.blackjack.util.ddd.pattern.events;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,6 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Named;
 
-import org.home.blackjack.util.ddd.pattern.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.EventPublisher;
 
 /**
  * @author Mate

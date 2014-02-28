@@ -10,7 +10,7 @@ import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.infrastructure.persistence.player.store.PlayerStore;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.EventPublisher;
+import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
 
 @Named
 public class SerializingPlayerRepository implements PlayerRepository {

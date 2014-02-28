@@ -9,7 +9,7 @@ import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.event.GameStartedEvent;
 import org.home.blackjack.domain.table.core.TableID;
-import org.home.blackjack.util.ddd.pattern.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.junit.Assert;
 
 import com.google.common.collect.Lists;

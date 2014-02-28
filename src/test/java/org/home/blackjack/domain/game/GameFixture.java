@@ -2,8 +2,8 @@ package org.home.blackjack.domain.game;
 
 import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.shared.PlayerID;
-import org.home.blackjack.util.ddd.pattern.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.EventPublisher;
+import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
 
 
 public class GameFixture {

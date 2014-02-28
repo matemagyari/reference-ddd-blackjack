@@ -12,7 +12,7 @@ import org.home.blackjack.domain.game.exception.GameNotFoundException;
 import org.home.blackjack.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.EventPublisher;
+import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 
 @Named

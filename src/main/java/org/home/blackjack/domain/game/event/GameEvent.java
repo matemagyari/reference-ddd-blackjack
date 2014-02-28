@@ -2,8 +2,8 @@ package org.home.blackjack.domain.game.event;
 
 import org.apache.commons.lang3.Validate;
 import org.home.blackjack.domain.game.core.GameID;
-import org.home.blackjack.util.ddd.pattern.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.ValueObject;
+import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 
 /**
  * Domain Event (Value Object)

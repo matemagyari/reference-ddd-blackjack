@@ -1,6 +1,5 @@
-package org.home.blackjack.domain.common.events;
+package org.home.blackjack.util.ddd.pattern.events;
 
-import org.home.blackjack.util.ddd.pattern.DomainEvent;
 
 
 public interface SubscribableEventBus {

@@ -4,9 +4,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.home.blackjack.app.event.ExternalEventPublisher;
-import org.home.blackjack.domain.common.events.EventSubscriber;
 import org.home.blackjack.domain.table.event.TableEvent;
-import org.home.blackjack.util.ddd.pattern.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.events.EventSubscriber;
 
 @Named
 public class TableEventHandler implements EventSubscriber<TableEvent> {

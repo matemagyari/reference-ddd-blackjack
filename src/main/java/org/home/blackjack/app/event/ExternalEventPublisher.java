@@ -1,6 +1,6 @@
 package org.home.blackjack.app.event;
 
-import org.home.blackjack.util.ddd.pattern.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 
 /**
  * This events go out of the Bounded Context.

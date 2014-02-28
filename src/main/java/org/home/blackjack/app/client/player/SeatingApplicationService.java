@@ -4,11 +4,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.home.blackjack.app.eventhandler.TableIsFullEventHandler;
-import org.home.blackjack.domain.common.events.SubscribableEventBus;
 import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.domain.table.Table;
 import org.home.blackjack.domain.table.TableRepository;
 import org.home.blackjack.domain.table.core.TableID;
+import org.home.blackjack.util.ddd.pattern.events.SubscribableEventBus;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.locking.LockTemplate;
 import org.home.blackjack.util.locking.VoidWriteLockingAction;

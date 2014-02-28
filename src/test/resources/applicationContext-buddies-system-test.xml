@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:activemq="http://activemq.apache.org/schema/core"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.4.0.xsd">
+
+    <import resource="classpath:/META-INF/applicationContext-buddies-system-with-messaging.xml"/>
+
+    <activemq:connectionFactory id="coreConnectionFactory" brokerURL="vm://localhost?broker.persistent=false"
+                                dispatchAsync="false" />
+
+    <!-- to override active mq broker settings -->
+    <bean id="coreConnectionFactoryOverrider"
+          class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+        <property name="properties">
+            <props>
+                <prop key="serializedMessageGateway.jmsBroker">activemq</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
