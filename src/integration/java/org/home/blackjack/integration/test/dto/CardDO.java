@@ -10,35 +10,38 @@ import com.google.common.collect.Maps;
 
 public class CardDO {
 	
-	private static Map<String, Suite> suiteMap = Maps.newHashMap();
-	private static Map<String, Rank> rankMap = Maps.newHashMap();
+	private static Map<Character, Suite> suiteMap = Maps.newHashMap();
+	private static Map<Character, Rank> rankMap = Maps.newHashMap();
 	
 	static {
-		suiteMap.put("s", Suite.SPADE);
-		suiteMap.put("c", Suite.CLUB);
-		suiteMap.put("d", Suite.DIAMOND);
-		suiteMap.put("h", Suite.HEART);
+		suiteMap.put('s', Suite.SPADE);
+		suiteMap.put('c', Suite.CLUB);
+		suiteMap.put('d', Suite.DIAMOND);
+		suiteMap.put('h', Suite.HEART);
 		
-		rankMap.put("2", Rank.TWO);
-		rankMap.put("3", Rank.THREE);
-		rankMap.put("4", Rank.FOUR);
-		rankMap.put("5", Rank.FIVE);
-		rankMap.put("6", Rank.SIX);
-		rankMap.put("7", Rank.SEVEN);
-		rankMap.put("8", Rank.EIGHT);
-		rankMap.put("9", Rank.NINE);
-		rankMap.put("10", Rank.TEN);
-		rankMap.put("J", Rank.JACK);
-		rankMap.put("Q", Rank.QUEEN);
-		rankMap.put("K", Rank.KING);
-		rankMap.put("A", Rank.ACE);
+		rankMap.put('2', Rank.TWO);
+		rankMap.put('3', Rank.THREE);
+		rankMap.put('4', Rank.FOUR);
+		rankMap.put('5', Rank.FIVE);
+		rankMap.put('6', Rank.SIX);
+		rankMap.put('7', Rank.SEVEN);
+		rankMap.put('8', Rank.EIGHT);
+		rankMap.put('9', Rank.NINE);
+		rankMap.put('T', Rank.TEN);
+		rankMap.put('J', Rank.JACK);
+		rankMap.put('Q', Rank.QUEEN);
+		rankMap.put('K', Rank.KING);
+		rankMap.put('A', Rank.ACE);
 	}
 	public String cards;
 	
 	public Card card() {
-		Suite suite = suiteMap.get(cards.charAt(1));
-		Rank rank = rankMap.get(cards.charAt(0));
-		return new Card(suite, rank);
+		return toCard(cards);
 	}
 
+	public static Card toCard(String value) {
+		Suite suite = suiteMap.get(value.charAt(1));
+		Rank rank = rankMap.get(value.charAt(0));
+		return new Card(suite, rank);
+	}
 }

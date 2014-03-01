@@ -18,7 +18,7 @@ import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandExcept
 import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.domain.table.core.TableID;
 import org.home.blackjack.util.ddd.pattern.AggregateRoot;
-import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisher;
 
 /**
  * Aggregate Root
@@ -72,9 +72,9 @@ public class Game extends AggregateRoot<GameID> {
 	 * they are entities, and nothing can hold a reference on them but the aggregate root (so nothing could pass them to
 	 * it). Were they Value Objects, that would be another situation.
 	 */
-	public Game(GameID id, TableID tableId, PlayerID dealerId, PlayerID playerId, DeckFactory deckFactory, EventPublisher eventPublisher) {
+	public Game(GameID id, TableID tableId, PlayerID dealerId, PlayerID playerId, DeckFactory deckFactory, DomainEventPublisher domainEventPublisher) {
 
-		super(id, eventPublisher);
+		super(id, domainEventPublisher);
 		Validate.notNull(dealerId);
 		Validate.notNull(playerId);
 		Validate.notNull(tableId);
@@ -109,11 +109,10 @@ public class Game extends AggregateRoot<GameID> {
 		lastToAct = player;
 		Card card = deck.draw();
 		int score = player.isDealtWith(card);
-		publish(
-				new PlayerCardDealtEvent(getID(), nextSequenceId(), playerId, other(playerId).getID(), card));
+		PlayerID other = other(playerId).getID();
+		publish(new PlayerCardDealtEvent(getID(), nextSequenceId(), playerId, other, card));
 		if (score > TARGET) {
-			state = GameState.FINISHED;
-			publish(new GameFinishedEvent(getID(), nextSequenceId(), other(playerId).getID()));
+			finish(other);
 		}
 	}
 
@@ -122,7 +121,6 @@ public class Game extends AggregateRoot<GameID> {
 		player.stand();
 		publish(new PlayerStandsEvent(getID(), nextSequenceId(), playerId));
 		if (lastToAct.stopped()) {
-			state = GameState.FINISHED;
 			declareWinner();
 		}
 		lastToAct = player;
@@ -132,7 +130,12 @@ public class Game extends AggregateRoot<GameID> {
 		int playerScore = player.score();
 		boolean dealerWon = playerScore > TARGET || diffFromTarget(playerScore) > diffFromTarget(dealer.score());
 		PlayerID winner = dealerWon ? dealer.getID() : player.getID();
-		publish(new GameFinishedEvent(getID(), nextSequenceId(), winner));
+		finish(winner);
+	}
+	
+	private void finish(PlayerID winner) {
+		state = GameState.FINISHED;
+		publish(new GameFinishedEvent(getID(), tableId, nextSequenceId(), winner));
 	}
 
 	private static int diffFromTarget(int score) {
@@ -164,7 +167,7 @@ public class Game extends AggregateRoot<GameID> {
 	}
 	
 	private void publish(GameEvent event) {
-		eventPublisher().publish(event);
+		domainEventPublisher().publish(event);
 	}
 
 	private Player other(PlayerID player) {

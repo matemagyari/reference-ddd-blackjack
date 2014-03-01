@@ -29,7 +29,7 @@ public class Player extends AggregateRoot<PlayerID> {
 	}
 
 	public void recordWin() {
-		eventPublisher().publish(new PlayerWonEvent(getID()));
+		domainEventPublisher().publish(new PlayerWonEvent(getID()));
 		winNumber++;
 	}
 

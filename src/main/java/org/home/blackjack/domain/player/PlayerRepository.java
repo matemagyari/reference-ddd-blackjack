@@ -11,4 +11,6 @@ public interface PlayerRepository extends Repository<PlayerID, Player> {
 
 	void create(Player player);
 
+	void clear();
+
 }

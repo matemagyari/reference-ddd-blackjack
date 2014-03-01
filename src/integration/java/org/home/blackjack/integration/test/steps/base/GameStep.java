@@ -34,6 +34,11 @@ public class GameStep {
 		testAgent.reset();
 	}
 
+	@Given("^player '(\\d+)' is registered$")
+	public void givenRegisteredPlayer(Integer playerId) {
+		testAgent.givenRegisteredPlayer(playerId);
+	}
+
 	@Given("^a prepared deck with cards in order$")
 	public void givenAPreparedDeck(List<CardDO> cards) {
 		testAgent.givenAPreparedDeck(cards);
@@ -47,6 +52,11 @@ public class GameStep {
 	@Then("^players can see tables in lobby$")
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
 		testAgent.thenTablesSeenInLobby(tables);
+	}
+	
+	@Then("^players can see player '(\\d+)' stands at table '(\\d+)'$")
+	public void thenPlayersLastActionWasStand(Integer playerId, Integer tableId) {
+		testAgent.thenPlayersLastActionWasStand(playerId, tableId);
 	}
 
 	@When("^player '(\\d+)' sits to table '(\\d+)'$")
@@ -67,6 +77,11 @@ public class GameStep {
 	@When("^player '(\\d+)' hits at table '(\\d+)'$")
 	public void playerHits(Integer playerId, Integer tableId) {
 		testAgent.playerHits(playerId, tableId);
+	}
+
+	@When("^player '(\\d+)' stands at table '(\\d+)'$")
+	public void playerStands(Integer playerId, Integer tableId) {
+		testAgent.playerStands(playerId, tableId);
 	}
 
 	@Then("^player '(\\d+)' won at table '(\\d+)'$")

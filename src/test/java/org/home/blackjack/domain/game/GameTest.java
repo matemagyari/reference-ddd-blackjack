@@ -17,6 +17,7 @@ import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.domain.game.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.domain.shared.PlayerID;
+import org.home.blackjack.domain.table.core.TableID;
 import org.home.blackjack.infrastructure.JUGIDGenerationStrategy;
 import org.home.blackjack.util.ddd.pattern.ID;
 import org.home.blackjack.util.ddd.pattern.IDGenerationStrategy;
@@ -50,9 +51,10 @@ public class GameTest {
 	@Mock
 	private IDGenerationStrategy idGenerationStrategy;
 
-	private PlayerID dealer = new PlayerID();
-	private PlayerID player = new PlayerID();
-	private GameID gameID = new GameID();
+	private PlayerID dealer = GameFixture.aPlayerID();
+	private PlayerID player = GameFixture.aPlayerID();
+	private GameID gameID = GameFixture.aGameID();
+	private TableID tableID = GameFixture.aTableID();
 
 	private AtomicInteger actionCounter = new AtomicInteger();
 
@@ -66,7 +68,7 @@ public class GameTest {
 	public void setUp() {
 
 		when(deckFactory.createNew()).thenReturn(deck);
-		testObj = new Game(gameID, dealer, player, deckFactory, eventBus);
+		testObj = new Game(gameID,tableID, dealer, player, deckFactory, eventBus);
 	}
 
 	@After
@@ -184,13 +186,17 @@ public class GameTest {
 	private void assertTheWinnerIs(PlayerID winner) throws IOException, ClassNotFoundException {
 		assertTrue(testObj.isFinished());
 		eventBus.print();
-		assertEquals(new GameFinishedEvent(gameID, actionCounter.get(), winner), eventBus.last());
+		assertEquals(new GameFinishedEvent(gameID,tableID, actionCounter.get(), winner), eventBus.last());
 	}
 
 	private void dealInitialCards() {
 		testObj.dealInitialCards();
+		//four cards dealt
 		actionCounter.incrementAndGet();
 		actionCounter.incrementAndGet();
+		actionCounter.incrementAndGet();
+		actionCounter.incrementAndGet();
+		//two events dispatched
 		actionCounter.incrementAndGet();
 		actionCounter.incrementAndGet();
 	}

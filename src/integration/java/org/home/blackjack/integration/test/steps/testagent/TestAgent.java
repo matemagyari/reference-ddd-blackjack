@@ -3,6 +3,9 @@ package org.home.blackjack.integration.test.steps.testagent;
 import java.util.List;
 import java.util.Map;
 
+import org.home.blackjack.domain.player.Player;
+import org.home.blackjack.domain.player.PlayerName;
+import org.home.blackjack.domain.player.PlayerRepository;
 import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.domain.table.Table;
 import org.home.blackjack.domain.table.TableRepository;
@@ -23,6 +26,7 @@ public abstract class TestAgent {
 	
 	protected FakeDeckFactory fakeDeckFactory;
 	protected TableRepository tableRepository;
+	protected PlayerRepository playerRepository;
 	
 	
     public TestAgent() {
@@ -32,6 +36,7 @@ public abstract class TestAgent {
     protected void initDependencies() {
     	fakeDeckFactory = cucumberService().getBean(FakeDeckFactory.class);
     	tableRepository = cucumberService().getBean(TableRepository.class);
+    	playerRepository = cucumberService().getBean(PlayerRepository.class);
     }
     
     protected abstract CucumberService cucumberService();
@@ -39,6 +44,7 @@ public abstract class TestAgent {
     public void reset() {
     	fakeDeckFactory.reset();
     	tableRepository.clear();
+    	playerRepository.clear();
     	tableIdMap.clear();
     }
     
@@ -77,6 +83,15 @@ public abstract class TestAgent {
 
 	public abstract void playerHits(Integer playerId, Integer tableId);
 
+	public abstract void playerStands(Integer playerId, Integer tableId);
+
 	public abstract void thenPlayerWon(Integer playerId, Integer tableId);
+
+	public abstract void thenPlayersLastActionWasStand(Integer playerId, Integer tableId);
+
+	public void givenRegisteredPlayer(Integer playerId) {
+		playerRepository.create(new Player(generatePlayerId(playerId), new PlayerName("xx")));
+	}
+
 
 }

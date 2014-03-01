@@ -46,5 +46,8 @@ public class MongoGameStore implements GameStore {
         return null;
     }
 
-
+	@Override
+	public void clear() {
+		jsonMap.clear();
+	}
 }

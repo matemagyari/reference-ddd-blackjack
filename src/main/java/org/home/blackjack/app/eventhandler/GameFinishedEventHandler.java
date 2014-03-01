@@ -1,6 +1,6 @@
 package org.home.blackjack.app.eventhandler;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.app.event.ExternalEventPublisher;
@@ -9,26 +9,28 @@ import org.home.blackjack.domain.player.Player;
 import org.home.blackjack.domain.player.PlayerRepository;
 import org.home.blackjack.domain.player.event.PlayerWonEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.events.EventSubscriber;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
 
 @Named
-public class GameFinishedEventHandler implements EventSubscriber<GameFinishedEvent> {
+public class GameFinishedEventHandler implements DomainEventSubscriber<GameFinishedEvent> {
     
-    @Inject
+    @Resource
     private PlayerRepository playerRepository;
-    @Inject
+    @Resource
     private ExternalEventPublisher externalEventPublisher;
 
+    @Override
     public boolean subscribedTo(DomainEvent event) {
         return event instanceof GameFinishedEvent;
     }
 
+    @Override
     public void handleEvent(GameFinishedEvent event) {
-        Player player = playerRepository.find(event.getWinner());
+        Player player = playerRepository.find(event.winner());
         player.recordWin();
         playerRepository.update(player);
         
-        externalEventPublisher.publish(new PlayerWonEvent(event.getWinner()));
+        externalEventPublisher.publish(new PlayerWonEvent(event.winner()));
     }
 
 }

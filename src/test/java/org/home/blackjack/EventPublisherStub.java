@@ -5,12 +5,12 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisher;
 
 import com.google.common.collect.Lists;
 
 @Named
-public class EventPublisherStub implements EventPublisher {
+public class EventPublisherStub implements DomainEventPublisher {
 
 	private final List<DomainEvent> eventsInChronologicalOrder = Lists.newArrayList();
 

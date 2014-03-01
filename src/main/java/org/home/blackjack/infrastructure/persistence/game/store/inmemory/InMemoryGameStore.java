@@ -54,4 +54,10 @@ public class InMemoryGameStore implements GameStore {
         locks.putIfAbsent(key, new ReentrantLock());
         return locks.get(key);
     }
+
+	@Override
+	public void clear() {
+		jsonMap.clear();
+		locks.clear();
+	}
 }

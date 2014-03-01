@@ -2,7 +2,7 @@ package org.home.blackjack.infrastructure.persistence.game;
 
 import java.util.concurrent.locks.Lock;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.home.blackjack.domain.game.Game;
@@ -12,19 +12,16 @@ import org.home.blackjack.domain.game.exception.GameNotFoundException;
 import org.home.blackjack.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
+import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 
 @Named
 public class SerializingGameRepository implements GameRepository, FinegrainedLockable<GameID> {
 	
-	@Resource
-	private EventPublisher eventPublisher;
-	@Resource
 	private final GameStore gameStore;
-	@Resource
 	private final PersistenceAssembler<Game, PersistenceObject<Game>> gameStoreAssembler;
 	
+	@Inject
 	public SerializingGameRepository(GameStore gameStore) {
 		this.gameStore = gameStore;
 		this.gameStoreAssembler = gameStore.assembler();
@@ -37,7 +34,7 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 			throw new GameNotFoundException(gameID);
 		}
 		Game game = gameStoreAssembler.toDomain(po);
-		game.setEventPublisher(eventPublisher);
+		game.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
 		return game;
 	}
 

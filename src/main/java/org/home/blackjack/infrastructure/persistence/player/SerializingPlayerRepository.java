@@ -1,6 +1,6 @@
 package org.home.blackjack.infrastructure.persistence.player;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.home.blackjack.domain.player.Player;
@@ -10,16 +10,15 @@ import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.infrastructure.persistence.player.store.PlayerStore;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.events.EventPublisher;
+import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 
 @Named
 public class SerializingPlayerRepository implements PlayerRepository {
 	
-	@Resource
-	private EventPublisher eventPublisher;
 	private final PlayerStore playerStore;
 	private final PersistenceAssembler<Player, PersistenceObject<Player>> playerStoreAssembler;
 	
+	@Inject
 	public SerializingPlayerRepository(PlayerStore playerStore) {
 		this.playerStore = playerStore;
 		this.playerStoreAssembler = playerStore.assembler();
@@ -32,7 +31,7 @@ public class SerializingPlayerRepository implements PlayerRepository {
 			throw new PlayerNotFoundException(playerID);
 		}
 		Player player = playerStoreAssembler.toDomain(po);
-		player.setEventPublisher(eventPublisher);
+		player.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
 		return player;
 	}
 
@@ -46,6 +45,11 @@ public class SerializingPlayerRepository implements PlayerRepository {
 	public void create(Player player) {
 		PersistenceObject<Player> po = playerStoreAssembler.toPersistence(player);
 		playerStore.create(po);
+	}
+
+	@Override
+	public void clear() {
+		playerStore.clear();
 	}
 
 	

@@ -6,4 +6,5 @@ public interface PersistenceStore<DOMAIN, PO extends PersistenceObject<DOMAIN>, 
 	PO find(POID id);
 	void update(PO po);
 	void create(PO po);
+	void clear();
 }

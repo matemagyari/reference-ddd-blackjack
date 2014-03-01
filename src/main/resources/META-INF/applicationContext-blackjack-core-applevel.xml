@@ -30,7 +30,7 @@
 
 	<!-- Persistence Config -->
 	<bean id="gameStore"
-		class="gamesys.poker.commons.infrastructure.spring.SwitchableBeanFactory">
+		class="org.home.blackjack.util.SwitchableBeanFactory">
 		<property name="useBean" value="${blackjack.persistence.type}" />
 		<property name="mappings">
 			<util:map id="gameStores">

@@ -13,15 +13,15 @@ import javax.inject.Named;
  *
  */
 @Named
-public class EventBuffer implements EventPublisher, SubscribableEventBus {
+public class EventBuffer {
 	
-	private final ThreadLocal<List<EventSubscriber<? extends DomainEvent>>> registeredSubscribers = new ThreadLocal<List<EventSubscriber<? extends DomainEvent>>>();
+	private final ThreadLocal<List<DomainEventSubscriber<? extends DomainEvent>>> registeredSubscribers = new ThreadLocal<List<DomainEventSubscriber<? extends DomainEvent>>>();
 	private final ThreadLocal<List<DomainEvent>> bufferedEvents = new ThreadLocal<List<DomainEvent>>();
 	
 	private final Executor executor;
 	
 	public EventBuffer() {
-		registeredSubscribers.set(new ArrayList<EventSubscriber<? extends DomainEvent>>());
+		registeredSubscribers.set(new ArrayList<DomainEventSubscriber<? extends DomainEvent>>());
 		bufferedEvents.set(new ArrayList<DomainEvent>());
 		executor = Executors.newFixedThreadPool(100);
 	}
@@ -30,7 +30,7 @@ public class EventBuffer implements EventPublisher, SubscribableEventBus {
 		bufferedEvents.get().add(event);
 	}
 
-	public void register(EventSubscriber<? extends DomainEvent> subscriber) {
+	public void register(DomainEventSubscriber<? extends DomainEvent> subscriber) {
 		registeredSubscribers.get().add(subscriber);
 	}
 
@@ -42,7 +42,7 @@ public class EventBuffer implements EventPublisher, SubscribableEventBus {
 	}
 
 	private void process(final DomainEvent nextEvent) {
-		for (final EventSubscriber subscriber : registeredSubscribers.get()) {
+		for (final DomainEventSubscriber subscriber : registeredSubscribers.get()) {
 			if (subscriber.subscribedTo(nextEvent)) {
 				executor.execute(new Runnable() {
 					@Override

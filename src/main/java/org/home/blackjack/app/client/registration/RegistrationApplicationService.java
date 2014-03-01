@@ -1,6 +1,6 @@
 package org.home.blackjack.app.client.registration;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.domain.player.Player;
@@ -12,7 +12,7 @@ import org.home.blackjack.util.marker.hexagonal.DrivenPort;
 @Named
 public final class RegistrationApplicationService implements DrivenPort {
 
-	@Inject
+	@Resource
 	private PlayerRepository playerRepository;
 
 	public void playerJoins(final PlayerName playerName) {

@@ -1,47 +1,40 @@
 package org.home.blackjack.app.client.player;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.app.eventhandler.TableIsFullEventHandler;
+import org.home.blackjack.domain.common.Validator;
 import org.home.blackjack.domain.shared.PlayerID;
 import org.home.blackjack.domain.table.Table;
 import org.home.blackjack.domain.table.TableRepository;
 import org.home.blackjack.domain.table.core.TableID;
+import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.ddd.pattern.events.SubscribableEventBus;
-import org.home.blackjack.util.locking.FinegrainedLockable;
-import org.home.blackjack.util.locking.LockTemplate;
-import org.home.blackjack.util.locking.VoidWriteLockingAction;
 
 @Named
 public class SeatingApplicationService {
 	
-	@Inject
-	private SubscribableEventBus eventBuffer;
-	@Inject
+	@Resource
 	private TableRepository tableRepository;
-	@Inject
+	@Resource
 	private TableIsFullEventHandler tableIsFullEventHandler;
-	@Inject
-	private FinegrainedLockable<TableID> lockableTableRepository;
 	
-	private final LockTemplate lockTemplate = new LockTemplate();
+	public void seatPlayer(final PlayerID playerID, final TableID tableID) {
+		Validator.notNull(playerID, tableID);
 	
-	public void seatPlayerInTransaction(final PlayerID playerID, final TableID tableID) {
-	
-		eventBuffer.register(tableIsFullEventHandler);
+		SubscribableEventBus eventBus = LightweightDomainEventBus.subscribableEventBusInstance();
+		eventBus.reset();
+		eventBus.register(tableIsFullEventHandler);
 		
-		lockTemplate.doWithLock(lockableTableRepository, tableID,  new VoidWriteLockingAction<TableID>() {
-            @Override
-            public void withWriteLock(TableID key) {
-            	seatPlayer(playerID, tableID);
-            }
-        } );
-
-		eventBuffer.flush();
+		seatPlayerInTransaction(playerID, tableID);
+		
+		eventBus.flush();
+		
 	}
 	
-	public void seatPlayer(PlayerID playerID, TableID tableID) {
+	private void seatPlayerInTransaction(PlayerID playerID, TableID tableID) {
+		Validator.notNull(playerID, tableID);
 		
 		Table table = tableRepository.find(tableID);
 		boolean playerSeated = table.playerSits(playerID);
@@ -51,6 +44,8 @@ public class SeatingApplicationService {
 	}
 
 	public void unseatPlayers(TableID tableID) {
+		Validator.notNull(tableID);
+		
 		Table table = tableRepository.find(tableID);
 		table.clearTable();
 		tableRepository.update(table);

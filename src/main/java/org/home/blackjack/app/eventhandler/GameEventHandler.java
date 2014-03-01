@@ -1,17 +1,18 @@
 package org.home.blackjack.app.eventhandler;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.app.event.ExternalEventPublisher;
 import org.home.blackjack.domain.game.event.GameEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.events.EventSubscriber;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
 
 @Named
-public class GameEventHandler implements EventSubscriber<GameEvent> {
-    
-    @Inject
+//public class GameEventHandler extends BufferingAsyncDomainEventSubscriber<GameEvent> {
+public class GameEventHandler implements DomainEventSubscriber<GameEvent> {
+   
+    @Resource
     private ExternalEventPublisher externalEventPublisher;
 
     @Override
@@ -19,9 +20,10 @@ public class GameEventHandler implements EventSubscriber<GameEvent> {
         return event instanceof GameEvent;
     }
 
-    @Override
-    public void handleEvent(GameEvent event) {
-        externalEventPublisher.publish(event);
-    }
+
+	@Override
+	public void handleEvent(GameEvent event) {
+		externalEventPublisher.publish(event);
+	}
 
 }

@@ -6,10 +6,10 @@ import javax.inject.Named;
 import org.home.blackjack.app.event.ExternalEventPublisher;
 import org.home.blackjack.domain.table.event.TableEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.events.EventSubscriber;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
 
 @Named
-public class TableEventHandler implements EventSubscriber<TableEvent> {
+public class TableEventHandler implements DomainEventSubscriber<TableEvent> {
     
     @Inject
     private ExternalEventPublisher externalEventPublisher;

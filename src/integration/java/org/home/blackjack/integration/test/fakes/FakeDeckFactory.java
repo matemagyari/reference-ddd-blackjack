@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 
 public class FakeDeckFactory extends DeckFactory {
 	
-	private List<Card> preparedCards;
+	private List<Card> preparedCards = Lists.newArrayList();
 	
 	@Override
 	public Deck createNew() {
