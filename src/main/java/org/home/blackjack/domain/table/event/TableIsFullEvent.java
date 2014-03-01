@@ -14,7 +14,6 @@ public class TableIsFullEvent extends TableEvent {
 	public TableIsFullEvent(TableID id, List<PlayerID> players) {
 		super(id);
 		this.players = Lists.newArrayList(players);
-		System.err.println("TableIsFullEvent created!!!");
 	}
 	
 	public List<PlayerID> players() {

@@ -24,7 +24,6 @@ public class TableIsFullEventHandler implements DomainEventSubscriber<TableIsFul
     }
     @Override
     public void handleEvent(TableIsFullEvent event) {
-    	System.err.println("TableIsFullEventHandler!!! " + Thread.currentThread() + " " + this);
     	SubscribableEventBus eventBus = LightweightDomainEventBus.subscribableEventBusInstance();
 		eventBus.reset();
     	eventBus.register(gameEventHandler);

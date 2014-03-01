@@ -26,6 +26,10 @@ public abstract class CucumberService {
     public <T> T getBean(Class<T> clazz) {
         return  context().getBean(clazz);
     }
+
+    public Object getBean(String name) {
+        return  context().getBean(name);
+    }
     
     private ClassPathXmlApplicationContext context() {
         return contexts.get(appContextXmlPath);

@@ -5,7 +5,8 @@ import java.util.List;
 import org.home.blackjack.app.client.game.GameAction;
 import org.home.blackjack.app.client.game.GameActionApplicationService;
 import org.home.blackjack.app.client.game.GameActionType;
-import org.home.blackjack.app.client.player.SeatingApplicationService;
+import org.home.blackjack.app.client.seating.SeatingApplicationService;
+import org.home.blackjack.app.client.seating.SeatingApplicationServiceImpl;
 import org.home.blackjack.domain.game.core.GameID;
 import org.home.blackjack.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.domain.game.event.PlayerCardDealtEvent;
@@ -53,7 +54,7 @@ public class AppLevelTestAgent extends TestAgent {
 
 	@Override
 	public void playerSitsToTable(Integer playerId, Integer tableId) {
-		seatingApplicationService.seatPlayer(getRealPlayerId(playerId), getRealTableId(tableId));
+		seatingApplicationService.seatPlayer(getRealTableId(tableId), getRealPlayerId(playerId));
 
 	}
 
@@ -88,12 +89,12 @@ public class AppLevelTestAgent extends TestAgent {
 
 	@Override
 	public void playerHits(Integer playerId, Integer tableId) {
-		gameActionApplicationService.handlePlayerAction(new GameAction(gameID, getRealPlayerId(playerId), GameActionType.HIT));
+		gameActionApplicationService.handlePlayerAction(gameID, new GameAction(gameID, getRealPlayerId(playerId), GameActionType.HIT));
 	}
 
 	@Override
 	public void playerStands(Integer playerId, Integer tableId) {
-		gameActionApplicationService.handlePlayerAction(new GameAction(gameID, getRealPlayerId(playerId), GameActionType.STAND));
+		gameActionApplicationService.handlePlayerAction(gameID, new GameAction(gameID, getRealPlayerId(playerId), GameActionType.STAND));
 	}
 
 	@Override

@@ -15,7 +15,10 @@
 		base-package="org.home.blackjack.domain
 		,org.home.blackjack.app
 		,org.home.blackjack.infrastructure.persistence" />
+
 	<aop:aspectj-autoproxy />
+	
+	<bean id="lockAspect" class="org.home.blackjack.util.locking.aspect.PessimisticLockingAspect"/>
 
 
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

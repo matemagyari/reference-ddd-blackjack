@@ -1,4 +1,4 @@
-package org.home.blackjack.app.client.player;
+package org.home.blackjack.app.client.seating;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
@@ -11,16 +11,19 @@ import org.home.blackjack.domain.table.TableRepository;
 import org.home.blackjack.domain.table.core.TableID;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.ddd.pattern.events.SubscribableEventBus;
+import org.home.blackjack.util.locking.aspect.WithPessimisticLock;
 
 @Named
-public class SeatingApplicationService {
+public class SeatingApplicationServiceImpl implements SeatingApplicationService {
 	
 	@Resource
 	private TableRepository tableRepository;
 	@Resource
 	private TableIsFullEventHandler tableIsFullEventHandler;
 	
-	public void seatPlayer(final PlayerID playerID, final TableID tableID) {
+	@WithPessimisticLock(repository=TableRepository.class)
+	@Override
+	public void seatPlayer(final TableID tableID, final PlayerID playerID) {
 		Validator.notNull(playerID, tableID);
 	
 		SubscribableEventBus eventBus = LightweightDomainEventBus.subscribableEventBusInstance();
@@ -43,6 +46,7 @@ public class SeatingApplicationService {
 		}
 	}
 
+	@Override
 	public void unseatPlayers(TableID tableID) {
 		Validator.notNull(tableID);
 		

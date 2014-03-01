@@ -75,5 +75,12 @@ public class MessagingTestAgent extends TestAgent {
 		
 	}
 
+
+	@Override
+	public void thenPlayersLastActionWasStand(Integer playerId, Integer tableId) {
+		// TODO Auto-generated method stub
+		
+	}
+
     
 }

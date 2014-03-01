@@ -9,7 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface WithPessimisticLock {
     
-    String repository();
-    String key();
-    
+    Class<?> repository();
 }

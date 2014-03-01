@@ -2,7 +2,7 @@ package org.home.blackjack.domain.game;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.domain.shared.PlayerID;
@@ -15,9 +15,9 @@ import org.home.blackjack.domain.table.core.TableID;
 @Named
 public class Dealer {
 	
-    @Inject
+    @Resource
     private GameRepository gameRepository;
-    @Inject
+    @Resource
     private GameFactory gameFactory;
 
 	public void startANewGameOnTable(TableID tableId, List<PlayerID> players) {
