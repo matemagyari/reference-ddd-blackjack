@@ -3,7 +3,7 @@ package org.home.blackjack.core.domain.table;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.home.blackjack.core.domain.table.core.TableID;
+import org.home.blackjack.core.domain.shared.TableID;
 
 /**
  * Domain service. Responsible for creating tables.

@@ -99,6 +99,16 @@
 			<artifactId>spring-aop</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -197,50 +207,4 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.tindalos.principle</groupId>
-				<artifactId>principle</artifactId>
-				<version>0.24</version>
-				<configuration>
-					<basePackage>org.home.blackjack</basePackage>
-					<checks>
-						<layering>
-							<layers>
-								<param>infrastructure</param>
-								<param>app</param>
-								<param>domain</param>
-								<param>util</param>
-							</layers>
-							<violationsThreshold>0</violationsThreshold>
-						</layering>
-						<packageCoupling>
-							<adp>
-								<violationsThreshold>0</violationsThreshold>
-							</adp>
-							<sdp>
-								<violationsThreshold>5</violationsThreshold>
-							</sdp>
-							<sap>
-								<maxDistance>0.5</maxDistance>
-								<violationsThreshold>5</violationsThreshold>
-							</sap>
-							<racd>
-								<threshold>0.50</threshold>
-							</racd>
-						</packageCoupling>
-					</checks>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 </project>

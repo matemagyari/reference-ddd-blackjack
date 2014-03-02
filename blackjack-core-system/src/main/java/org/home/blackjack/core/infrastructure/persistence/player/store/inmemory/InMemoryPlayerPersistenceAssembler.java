@@ -3,7 +3,7 @@ package org.home.blackjack.core.infrastructure.persistence.player.store.inmemory
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.player.Player;
-import org.home.blackjack.core.infrastructure.persistence.player.store.inmemory.json.PlayerGsonProvider;
+import org.home.blackjack.core.infrastructure.persistence.player.store.json.PlayerGsonProvider;
 import org.home.blackjack.core.infrastructure.persistence.shared.GsonBasedAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.util.ddd.pattern.ID;

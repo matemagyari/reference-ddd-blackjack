@@ -22,11 +22,11 @@ public abstract class CucumberService {
             contexts.put(appContextXmlPath, ctx);
         }
     }
-
+/*
     public <T> T getBean(Class<T> clazz) {
         return  context().getBean(clazz);
     }
-
+*/
     public Object getBean(String name) {
         return  context().getBean(name);
     }

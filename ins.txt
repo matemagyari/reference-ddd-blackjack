@@ -1,0 +1,324 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Blackjack Parent
+[INFO] Utils
+[INFO] Blackjack
+[INFO] Wallet
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Blackjack Parent 0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ blackjack-parent ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.3.1:install (default-install) @ blackjack-parent ---
+[INFO] Installing c:\Users\Mate\Documents\gitrepos\blackjack\pom.xml to C:\Users\Mate\.m2\repository\org\home\blackjack\blackjack-parent\0.1-SNAPSHOT\blackjack-parent-0.1-SNAPSHOT.pom
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Utils 0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] The artifact org.apache.commons:commons-io:jar:1.3.2 has been relocated to commons-io:commons-io:jar:1.3.2
+[INFO] 
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ blackjack-utils ---
+[INFO] Deleting C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-utils\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ blackjack-utils ---
+[debug] execute contextualize
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-utils\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ blackjack-utils ---
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 34 source files to C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-utils\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ blackjack-utils ---
+[debug] execute contextualize
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-utils\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ blackjack-utils ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ blackjack-utils ---
+[INFO] No tests to run.
+[INFO] Surefire report directory: C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-utils\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.3.2:jar (default-jar) @ blackjack-utils ---
+[INFO] Building jar: C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-utils\target\blackjack-utils-0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.3.1:install (default-install) @ blackjack-utils ---
+[INFO] Installing C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-utils\target\blackjack-utils-0.1-SNAPSHOT.jar to C:\Users\Mate\.m2\repository\org\home\blackjack\blackjack-utils\0.1-SNAPSHOT\blackjack-utils-0.1-SNAPSHOT.jar
+[INFO] Installing C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-utils\pom.xml to C:\Users\Mate\.m2\repository\org\home\blackjack\blackjack-utils\0.1-SNAPSHOT\blackjack-utils-0.1-SNAPSHOT.pom
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Blackjack 0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] The artifact org.apache.commons:commons-io:jar:1.3.2 has been relocated to commons-io:commons-io:jar:1.3.2
+[INFO] 
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ blackjack ---
+[INFO] Deleting C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ blackjack ---
+[debug] execute contextualize
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 5 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ blackjack ---
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 82 source files to C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\classes
+[INFO] 
+[INFO] --- principle:0.24:check (default) @ blackjack ---
+[WARNING] /target/classes not found! Invalid directory or JAR file: ./target/classes/org/home/blackjack/core
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ blackjack ---
+[debug] execute contextualize
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 6 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ blackjack ---
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 8 source files to C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ blackjack ---
+[INFO] Surefire report directory: C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.home.blackjack.core.domain.game.GameTest
+org.home.blackjack.core.domain.game.event.GameStartedEvent@e2dca93e
+PlayerCardDealtEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70164e8d-a1fb-11e3-be39-50b7c35741cb, card=[TWO - CLUB], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=702c478e-a1fb-11e3-be39-50b7c35741cb, card=[TWO - SPADE], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70164e8d-a1fb-11e3-be39-50b7c35741cb, card=[SEVEN - DIAMOND], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=702c478e-a1fb-11e3-be39-50b7c35741cb, card=[JACK - HEART], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@41585d6b
+PlayerCardDealtEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70164e8d-a1fb-11e3-be39-50b7c35741cb, card=[FIVE - DIAMOND], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerCardDealtEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=702c478e-a1fb-11e3-be39-50b7c35741cb, card=[THREE - HEART], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+PlayerCardDealtEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70164e8d-a1fb-11e3-be39-50b7c35741cb, card=[FOUR - DIAMOND], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=8]
+PlayerCardDealtEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=702c478e-a1fb-11e3-be39-50b7c35741cb, card=[TWO - HEART], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=9]
+PlayerStandsEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=10]
+PlayerStandsEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=11]
+GameFinishedEvent [winner=702c478e-a1fb-11e3-be39-50b7c35741cb, tableID=70526d30-a1fb-11e3-be39-50b7c35741cb, gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=12]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@e2dca93e
+PlayerCardDealtEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70164e8d-a1fb-11e3-be39-50b7c35741cb, card=[TWO - CLUB], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=702c478e-a1fb-11e3-be39-50b7c35741cb, card=[TWO - SPADE], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70164e8d-a1fb-11e3-be39-50b7c35741cb, card=[SEVEN - DIAMOND], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=702c478e-a1fb-11e3-be39-50b7c35741cb, card=[JACK - HEART], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@41585d6b
+PlayerCardDealtEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70164e8d-a1fb-11e3-be39-50b7c35741cb, card=[FIVE - DIAMOND], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerCardDealtEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=702c478e-a1fb-11e3-be39-50b7c35741cb, card=[THREE - HEART], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+PlayerCardDealtEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70164e8d-a1fb-11e3-be39-50b7c35741cb, card=[FOUR - DIAMOND], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=8]
+PlayerCardDealtEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=702c478e-a1fb-11e3-be39-50b7c35741cb, card=[TWO - HEART], gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=9]
+PlayerStandsEvent [player=702c478e-a1fb-11e3-be39-50b7c35741cb, gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=10]
+PlayerStandsEvent [player=70164e8d-a1fb-11e3-be39-50b7c35741cb, gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=11]
+GameFinishedEvent [winner=702c478e-a1fb-11e3-be39-50b7c35741cb, tableID=70526d30-a1fb-11e3-be39-50b7c35741cb, gameID=70406bcf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=12]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@1176776
+PlayerCardDealtEvent [player=70d076d2-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70bd3cf1-a1fb-11e3-be39-50b7c35741cb, card=[TWO - CLUB], gameID=70e27833-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=70bd3cf1-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70d076d2-a1fb-11e3-be39-50b7c35741cb, card=[TWO - DIAMOND], gameID=70e27833-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=70d076d2-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70bd3cf1-a1fb-11e3-be39-50b7c35741cb, card=[TWO - HEART], gameID=70e27833-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=70bd3cf1-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70d076d2-a1fb-11e3-be39-50b7c35741cb, card=[TWO - SPADE], gameID=70e27833-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@4af1ce67
+PlayerCardDealtEvent [player=70d076d2-a1fb-11e3-be39-50b7c35741cb, otherPlayer=70bd3cf1-a1fb-11e3-be39-50b7c35741cb, card=[THREE - CLUB], gameID=70e27833-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@9a99c2e
+PlayerCardDealtEvent [player=711bb0a6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7108ebf5-a1fb-11e3-be39-50b7c35741cb, card=[TWO - CLUB], gameID=712ceeb7-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=7108ebf5-a1fb-11e3-be39-50b7c35741cb, otherPlayer=711bb0a6-a1fb-11e3-be39-50b7c35741cb, card=[TWO - DIAMOND], gameID=712ceeb7-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=711bb0a6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7108ebf5-a1fb-11e3-be39-50b7c35741cb, card=[TWO - HEART], gameID=712ceeb7-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=7108ebf5-a1fb-11e3-be39-50b7c35741cb, otherPlayer=711bb0a6-a1fb-11e3-be39-50b7c35741cb, card=[TWO - SPADE], gameID=712ceeb7-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@7581283
+PlayerCardDealtEvent [player=711bb0a6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7108ebf5-a1fb-11e3-be39-50b7c35741cb, card=[THREE - CLUB], gameID=712ceeb7-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@d2483e56
+PlayerCardDealtEvent [player=71642b5a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71529f29-a1fb-11e3-be39-50b7c35741cb, card=[ACE - CLUB], gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=71529f29-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71642b5a-a1fb-11e3-be39-50b7c35741cb, card=[KING - SPADE], gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=71642b5a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71529f29-a1fb-11e3-be39-50b7c35741cb, card=[TEN - DIAMOND], gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=71529f29-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71642b5a-a1fb-11e3-be39-50b7c35741cb, card=[TEN - HEART], gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@e7ff060f
+PlayerStandsEvent [player=71642b5a-a1fb-11e3-be39-50b7c35741cb, gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerStandsEvent [player=71529f29-a1fb-11e3-be39-50b7c35741cb, gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+GameFinishedEvent [winner=71642b5a-a1fb-11e3-be39-50b7c35741cb, tableID=718ac62c-a1fb-11e3-be39-50b7c35741cb, gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=8]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@d2483e56
+PlayerCardDealtEvent [player=71642b5a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71529f29-a1fb-11e3-be39-50b7c35741cb, card=[ACE - CLUB], gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=71529f29-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71642b5a-a1fb-11e3-be39-50b7c35741cb, card=[KING - SPADE], gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=71642b5a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71529f29-a1fb-11e3-be39-50b7c35741cb, card=[TEN - DIAMOND], gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=71529f29-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71642b5a-a1fb-11e3-be39-50b7c35741cb, card=[TEN - HEART], gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@e7ff060f
+PlayerStandsEvent [player=71642b5a-a1fb-11e3-be39-50b7c35741cb, gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerStandsEvent [player=71529f29-a1fb-11e3-be39-50b7c35741cb, gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+GameFinishedEvent [winner=71642b5a-a1fb-11e3-be39-50b7c35741cb, tableID=718ac62c-a1fb-11e3-be39-50b7c35741cb, gameID=7176f00b-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=8]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@6765d81e
+PlayerCardDealtEvent [player=71bb731e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71a8393d-a1fb-11e3-be39-50b7c35741cb, card=[TWO - CLUB], gameID=71cc630f-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=71a8393d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71bb731e-a1fb-11e3-be39-50b7c35741cb, card=[TWO - DIAMOND], gameID=71cc630f-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=71bb731e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71a8393d-a1fb-11e3-be39-50b7c35741cb, card=[TWO - HEART], gameID=71cc630f-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=71a8393d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71bb731e-a1fb-11e3-be39-50b7c35741cb, card=[TWO - SPADE], gameID=71cc630f-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@312ebab
+org.home.blackjack.core.domain.game.event.GameStartedEvent@d7151816
+PlayerCardDealtEvent [player=72052652-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71f2fde1-a1fb-11e3-be39-50b7c35741cb, card=[KING - CLUB], gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=71f2fde1-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72052652-a1fb-11e3-be39-50b7c35741cb, card=[ACE - SPADE], gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=72052652-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71f2fde1-a1fb-11e3-be39-50b7c35741cb, card=[TEN - DIAMOND], gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=71f2fde1-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72052652-a1fb-11e3-be39-50b7c35741cb, card=[JACK - HEART], gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@7b0c9ab7
+PlayerStandsEvent [player=72052652-a1fb-11e3-be39-50b7c35741cb, gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerStandsEvent [player=71f2fde1-a1fb-11e3-be39-50b7c35741cb, gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+GameFinishedEvent [winner=71f2fde1-a1fb-11e3-be39-50b7c35741cb, tableID=7230ca34-a1fb-11e3-be39-50b7c35741cb, gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=8]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@d7151816
+PlayerCardDealtEvent [player=72052652-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71f2fde1-a1fb-11e3-be39-50b7c35741cb, card=[KING - CLUB], gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=71f2fde1-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72052652-a1fb-11e3-be39-50b7c35741cb, card=[ACE - SPADE], gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=72052652-a1fb-11e3-be39-50b7c35741cb, otherPlayer=71f2fde1-a1fb-11e3-be39-50b7c35741cb, card=[TEN - DIAMOND], gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=71f2fde1-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72052652-a1fb-11e3-be39-50b7c35741cb, card=[JACK - HEART], gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@7b0c9ab7
+PlayerStandsEvent [player=72052652-a1fb-11e3-be39-50b7c35741cb, gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerStandsEvent [player=71f2fde1-a1fb-11e3-be39-50b7c35741cb, gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+GameFinishedEvent [winner=71f2fde1-a1fb-11e3-be39-50b7c35741cb, tableID=7230ca34-a1fb-11e3-be39-50b7c35741cb, gameID=721a0de3-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=8]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@9bff450e
+PlayerCardDealtEvent [player=72573df6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7245d8d5-a1fb-11e3-be39-50b7c35741cb, card=[TEN - CLUB], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=7245d8d5-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72573df6-a1fb-11e3-be39-50b7c35741cb, card=[TWO - SPADE], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=72573df6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7245d8d5-a1fb-11e3-be39-50b7c35741cb, card=[SEVEN - DIAMOND], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=7245d8d5-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72573df6-a1fb-11e3-be39-50b7c35741cb, card=[JACK - HEART], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@c63ccc63
+PlayerCardDealtEvent [player=72573df6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7245d8d5-a1fb-11e3-be39-50b7c35741cb, card=[FIVE - DIAMOND], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+GameFinishedEvent [winner=7245d8d5-a1fb-11e3-be39-50b7c35741cb, tableID=727bdcf8-a1fb-11e3-be39-50b7c35741cb, gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@9bff450e
+PlayerCardDealtEvent [player=72573df6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7245d8d5-a1fb-11e3-be39-50b7c35741cb, card=[TEN - CLUB], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=7245d8d5-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72573df6-a1fb-11e3-be39-50b7c35741cb, card=[TWO - SPADE], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=72573df6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7245d8d5-a1fb-11e3-be39-50b7c35741cb, card=[SEVEN - DIAMOND], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=7245d8d5-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72573df6-a1fb-11e3-be39-50b7c35741cb, card=[JACK - HEART], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@c63ccc63
+PlayerCardDealtEvent [player=72573df6-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7245d8d5-a1fb-11e3-be39-50b7c35741cb, card=[FIVE - DIAMOND], gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+GameFinishedEvent [winner=7245d8d5-a1fb-11e3-be39-50b7c35741cb, tableID=727bdcf8-a1fb-11e3-be39-50b7c35741cb, gameID=7269db97-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@8d287636
+PlayerCardDealtEvent [player=72a1b47a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7290c489-a1fb-11e3-be39-50b7c35741cb, card=[TWO - CLUB], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=7290c489-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72a1b47a-a1fb-11e3-be39-50b7c35741cb, card=[EIGHT - SPADE], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=72a1b47a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7290c489-a1fb-11e3-be39-50b7c35741cb, card=[SEVEN - DIAMOND], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=7290c489-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72a1b47a-a1fb-11e3-be39-50b7c35741cb, card=[JACK - HEART], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@2e98a05f
+PlayerCardDealtEvent [player=72a1b47a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7290c489-a1fb-11e3-be39-50b7c35741cb, card=[THREE - DIAMOND], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerCardDealtEvent [player=7290c489-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72a1b47a-a1fb-11e3-be39-50b7c35741cb, card=[FOUR - DIAMOND], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+GameFinishedEvent [winner=72a1b47a-a1fb-11e3-be39-50b7c35741cb, tableID=72c5691c-a1fb-11e3-be39-50b7c35741cb, gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=8]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@8d287636
+PlayerCardDealtEvent [player=72a1b47a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7290c489-a1fb-11e3-be39-50b7c35741cb, card=[TWO - CLUB], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=7290c489-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72a1b47a-a1fb-11e3-be39-50b7c35741cb, card=[EIGHT - SPADE], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=72a1b47a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7290c489-a1fb-11e3-be39-50b7c35741cb, card=[SEVEN - DIAMOND], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=7290c489-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72a1b47a-a1fb-11e3-be39-50b7c35741cb, card=[JACK - HEART], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@2e98a05f
+PlayerCardDealtEvent [player=72a1b47a-a1fb-11e3-be39-50b7c35741cb, otherPlayer=7290c489-a1fb-11e3-be39-50b7c35741cb, card=[THREE - DIAMOND], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerCardDealtEvent [player=7290c489-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72a1b47a-a1fb-11e3-be39-50b7c35741cb, card=[FOUR - DIAMOND], gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+GameFinishedEvent [winner=72a1b47a-a1fb-11e3-be39-50b7c35741cb, tableID=72c5691c-a1fb-11e3-be39-50b7c35741cb, gameID=72b403fb-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=8]
+org.home.blackjack.core.domain.game.event.GameStartedEvent@d41ed13e
+PlayerCardDealtEvent [player=72eb409e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72d98d5d-a1fb-11e3-be39-50b7c35741cb, card=[TWO - CLUB], gameID=72fc7eaf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=1]
+PlayerCardDealtEvent [player=72d98d5d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72eb409e-a1fb-11e3-be39-50b7c35741cb, card=[TWO - DIAMOND], gameID=72fc7eaf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=2]
+PlayerCardDealtEvent [player=72eb409e-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72d98d5d-a1fb-11e3-be39-50b7c35741cb, card=[TWO - HEART], gameID=72fc7eaf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=3]
+PlayerCardDealtEvent [player=72d98d5d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72eb409e-a1fb-11e3-be39-50b7c35741cb, card=[TWO - SPADE], gameID=72fc7eaf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=4]
+org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent@b2314d4b
+PlayerStandsEvent [player=72eb409e-a1fb-11e3-be39-50b7c35741cb, gameID=72fc7eaf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=6]
+PlayerCardDealtEvent [player=72d98d5d-a1fb-11e3-be39-50b7c35741cb, otherPlayer=72eb409e-a1fb-11e3-be39-50b7c35741cb, card=[THREE - CLUB], gameID=72fc7eaf-a1fb-11e3-be39-50b7c35741cb, sequenceNumber=7]
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.497 sec
+Running org.home.blackjack.core.infrastructure.persistence.game.inmemory.InMemoryGamePersistenceAssemblerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.388 sec
+Running org.home.blackjack.core.infrastructure.persistence.game.json.GameGsonProviderVersioningTest
+Game [dealer=Player [getID()=752b93ca-a1fb-11e3-be39-50b7c35741cb, cards=[[SEVEN - SPADE], [TEN - CLUB]], stopped=false], player=Player [getID()=7543fdcb-a1fb-11e3-be39-50b7c35741cb, cards=[[SEVEN - HEART], [FOUR - SPADE]], stopped=false], actionCounter=6, lastToAct=Player [getID()=752b93ca-a1fb-11e3-be39-50b7c35741cb, cards=[[SEVEN - SPADE], [TEN - CLUB]], stopped=false], state=BEFORE_INITIAL_DEAL, deck=Deck [cards=[[QUEEN - SPADE], [SEVEN - DIAMOND], [NINE - DIAMOND], [FOUR - DIAMOND], [THREE - SPADE], [SIX - DIAMOND], [SIX - CLUB], [FIVE - DIAMOND], [KING - CLUB], [SIX - HEART], [TEN - HEART], [FIVE - HEART], [KING - SPADE], [ACE - HEART], [KING - DIAMOND], [ACE - CLUB], [NINE - SPADE], [SIX - SPADE], [JACK - CLUB], [JACK - HEART], [SEVEN - CLUB], [FIVE - CLUB], [TWO - CLUB], [KING - HEART], [TWO - DIAMOND], [NINE - CLUB], [EIGHT - HEART], [NINE - HEART], [EIGHT - SPADE], [TWO - SPADE], [TWO - HEART], [FOUR - HEART], [THREE - CLUB], [QUEEN - HEART], [JACK - DIAMOND], [THREE - DIAMOND], [FIVE - SPADE], [EIGHT - DIAMOND], [THREE - HEART], [TEN - DIAMOND], [QUEEN - CLUB], [ACE - DIAMOND], [TEN - SPADE], [JACK - SPADE], [FOUR - CLUB], [QUEEN - DIAMOND], [EIGHT - CLUB], [ACE - SPADE]]]]
+{"deck":{"cards":[{"rank":"QUEEN","suite":"SPADE"},{"rank":"SEVEN","suite":"DIAMOND"},{"rank":"NINE","suite":"DIAMOND"},{"rank":"FOUR","suite":"DIAMOND"},{"rank":"THREE","suite":"SPADE"},{"rank":"SIX","suite":"DIAMOND"},{"rank":"SIX","suite":"CLUB"},{"rank":"FIVE","suite":"DIAMOND"},{"rank":"KING","suite":"CLUB"},{"rank":"SIX","suite":"HEART"},{"rank":"TEN","suite":"HEART"},{"rank":"FIVE","suite":"HEART"},{"rank":"KING","suite":"SPADE"},{"rank":"ACE","suite":"HEART"},{"rank":"KING","suite":"DIAMOND"},{"rank":"ACE","suite":"CLUB"},{"rank":"NINE","suite":"SPADE"},{"rank":"SIX","suite":"SPADE"},{"rank":"JACK","suite":"CLUB"},{"rank":"JACK","suite":"HEART"},{"rank":"SEVEN","suite":"CLUB"},{"rank":"FIVE","suite":"CLUB"},{"rank":"TWO","suite":"CLUB"},{"rank":"KING","suite":"HEART"},{"rank":"TWO","suite":"DIAMOND"},{"rank":"NINE","suite":"CLUB"},{"rank":"EIGHT","suite":"HEART"},{"rank":"NINE","suite":"HEART"},{"rank":"EIGHT","suite":"SPADE"},{"rank":"TWO","suite":"SPADE"},{"rank":"TWO","suite":"HEART"},{"rank":"FOUR","suite":"HEART"},{"rank":"THREE","suite":"CLUB"},{"rank":"QUEEN","suite":"HEART"},{"rank":"JACK","suite":"DIAMOND"},{"rank":"THREE","suite":"DIAMOND"},{"rank":"FIVE","suite":"SPADE"},{"rank":"EIGHT","suite":"DIAMOND"},{"rank":"THREE","suite":"HEART"},{"rank":"TEN","suite":"DIAMOND"},{"rank":"QUEEN","suite":"CLUB"},{"rank":"ACE","suite":"DIAMOND"},{"rank":"TEN","suite":"SPADE"},{"rank":"JACK","suite":"SPADE"},{"rank":"FOUR","suite":"CLUB"},{"rank":"QUEEN","suite":"DIAMOND"},{"rank":"EIGHT","suite":"CLUB"},{"rank":"ACE","suite":"SPADE"}]},"dealer":{"cards":[{"rank":"SEVEN","suite":"SPADE"},{"rank":"TEN","suite":"CLUB"}],"stopped":false,"id":{"internal":"752b93ca-a1fb-11e3-be39-50b7c35741cb"}},"player":{"cards":[{"rank":"SEVEN","suite":"HEART"},{"rank":"FOUR","suite":"SPADE"}],"stopped":false,"id":{"internal":"7543fdcb-a1fb-11e3-be39-50b7c35741cb"}},"lastToAct":{"cards":[{"rank":"SEVEN","suite":"SPADE"},{"rank":"TEN","suite":"CLUB"}],"stopped":false,"id":{"internal":"752b93ca-a1fb-11e3-be39-50b7c35741cb"}},"state":"BEFORE_INITIAL_DEAL","tableId":{"internal":"751880f9-a1fb-11e3-be39-50b7c35741cb"},"id":{"internal":"750435a8-a1fb-11e3-be39-50b7c35741cb"},"counter":{"value":6}}
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.42 sec
+Running org.home.blackjack.core.persistence.gson.GsonTest
+
+Game before
+Game [dealer=Player [getID()=762f4838-a1fb-11e3-be39-50b7c35741cb, cards=[[NINE - SPADE], [FOUR - CLUB]], stopped=false], player=Player [getID()=7646a0c9-a1fb-11e3-be39-50b7c35741cb, cards=[[SEVEN - CLUB], [SEVEN - HEART]], stopped=false], actionCounter=6, lastToAct=Player [getID()=762f4838-a1fb-11e3-be39-50b7c35741cb, cards=[[NINE - SPADE], [FOUR - CLUB]], stopped=false], state=BEFORE_INITIAL_DEAL, deck=Deck [cards=[[THREE - HEART], [ACE - SPADE], [FOUR - HEART], [KING - HEART], [TEN - DIAMOND], [SIX - CLUB], [THREE - SPADE], [FIVE - CLUB], [KING - CLUB], [SIX - DIAMOND], [QUEEN - SPADE], [JACK - CLUB], [JACK - HEART], [TEN - HEART], [FIVE - SPADE], [EIGHT - HEART], [JACK - DIAMOND], [NINE - HEART], [EIGHT - CLUB], [EIGHT - SPADE], [KING - DIAMOND], [TWO - CLUB], [SEVEN - DIAMOND], [QUEEN - CLUB], [EIGHT - DIAMOND], [NINE - DIAMOND], [KING - SPADE], [FIVE - DIAMOND], [SIX - HEART], [QUEEN - HEART], [TEN - CLUB], [FOUR - DIAMOND], [TWO - DIAMOND], [ACE - HEART], [NINE - CLUB], [THREE - DIAMOND], [SIX - SPADE], [SEVEN - SPADE], [JACK - SPADE], [TEN - SPADE], [ACE - CLUB], [THREE - CLUB], [FOUR - SPADE], [FIVE - HEART], [TWO - SPADE], [TWO - HEART], [ACE - DIAMOND], [QUEEN - DIAMOND]]]]
+
+Json
+{"deck":{"cards":[{"rank":"THREE","suite":"HEART"},{"rank":"ACE","suite":"SPADE"},{"rank":"FOUR","suite":"HEART"},{"rank":"KING","suite":"HEART"},{"rank":"TEN","suite":"DIAMOND"},{"rank":"SIX","suite":"CLUB"},{"rank":"THREE","suite":"SPADE"},{"rank":"FIVE","suite":"CLUB"},{"rank":"KING","suite":"CLUB"},{"rank":"SIX","suite":"DIAMOND"},{"rank":"QUEEN","suite":"SPADE"},{"rank":"JACK","suite":"CLUB"},{"rank":"JACK","suite":"HEART"},{"rank":"TEN","suite":"HEART"},{"rank":"FIVE","suite":"SPADE"},{"rank":"EIGHT","suite":"HEART"},{"rank":"JACK","suite":"DIAMOND"},{"rank":"NINE","suite":"HEART"},{"rank":"EIGHT","suite":"CLUB"},{"rank":"EIGHT","suite":"SPADE"},{"rank":"KING","suite":"DIAMOND"},{"rank":"TWO","suite":"CLUB"},{"rank":"SEVEN","suite":"DIAMOND"},{"rank":"QUEEN","suite":"CLUB"},{"rank":"EIGHT","suite":"DIAMOND"},{"rank":"NINE","suite":"DIAMOND"},{"rank":"KING","suite":"SPADE"},{"rank":"FIVE","suite":"DIAMOND"},{"rank":"SIX","suite":"HEART"},{"rank":"QUEEN","suite":"HEART"},{"rank":"TEN","suite":"CLUB"},{"rank":"FOUR","suite":"DIAMOND"},{"rank":"TWO","suite":"DIAMOND"},{"rank":"ACE","suite":"HEART"},{"rank":"NINE","suite":"CLUB"},{"rank":"THREE","suite":"DIAMOND"},{"rank":"SIX","suite":"SPADE"},{"rank":"SEVEN","suite":"SPADE"},{"rank":"JACK","suite":"SPADE"},{"rank":"TEN","suite":"SPADE"},{"rank":"ACE","suite":"CLUB"},{"rank":"THREE","suite":"CLUB"},{"rank":"FOUR","suite":"SPADE"},{"rank":"FIVE","suite":"HEART"},{"rank":"TWO","suite":"SPADE"},{"rank":"TWO","suite":"HEART"},{"rank":"ACE","suite":"DIAMOND"},{"rank":"QUEEN","suite":"DIAMOND"}]},"dealer":{"cards":[{"rank":"NINE","suite":"SPADE"},{"rank":"FOUR","suite":"CLUB"}],"stopped":false,"id":{"internal":"762f4838-a1fb-11e3-be39-50b7c35741cb"}},"player":{"cards":[{"rank":"SEVEN","suite":"CLUB"},{"rank":"SEVEN","suite":"HEART"}],"stopped":false,"id":{"internal":"7646a0c9-a1fb-11e3-be39-50b7c35741cb"}},"actionCounter":{"value":6},"lastToAct":{"cards":[{"rank":"NINE","suite":"SPADE"},{"rank":"FOUR","suite":"CLUB"}],"stopped":false,"id":{"internal":"762f4838-a1fb-11e3-be39-50b7c35741cb"}},"state":"BEFORE_INITIAL_DEAL","tableId":{"internal":"7619c467-a1fb-11e3-be39-50b7c35741cb"},"id":{"internal":"7608d476-a1fb-11e3-be39-50b7c35741cb"}}
+
+Game after
+Game [dealer=Player [getID()=762f4838-a1fb-11e3-be39-50b7c35741cb, cards=[[NINE - SPADE], [FOUR - CLUB]], stopped=false], player=Player [getID()=7646a0c9-a1fb-11e3-be39-50b7c35741cb, cards=[[SEVEN - CLUB], [SEVEN - HEART]], stopped=false], actionCounter=6, lastToAct=Player [getID()=762f4838-a1fb-11e3-be39-50b7c35741cb, cards=[[NINE - SPADE], [FOUR - CLUB]], stopped=false], state=BEFORE_INITIAL_DEAL, deck=Deck [cards=[[THREE - HEART], [ACE - SPADE], [FOUR - HEART], [KING - HEART], [TEN - DIAMOND], [SIX - CLUB], [THREE - SPADE], [FIVE - CLUB], [KING - CLUB], [SIX - DIAMOND], [QUEEN - SPADE], [JACK - CLUB], [JACK - HEART], [TEN - HEART], [FIVE - SPADE], [EIGHT - HEART], [JACK - DIAMOND], [NINE - HEART], [EIGHT - CLUB], [EIGHT - SPADE], [KING - DIAMOND], [TWO - CLUB], [SEVEN - DIAMOND], [QUEEN - CLUB], [EIGHT - DIAMOND], [NINE - DIAMOND], [KING - SPADE], [FIVE - DIAMOND], [SIX - HEART], [QUEEN - HEART], [TEN - CLUB], [FOUR - DIAMOND], [TWO - DIAMOND], [ACE - HEART], [NINE - CLUB], [THREE - DIAMOND], [SIX - SPADE], [SEVEN - SPADE], [JACK - SPADE], [TEN - SPADE], [ACE - CLUB], [THREE - CLUB], [FOUR - SPADE], [FIVE - HEART], [TWO - SPADE], [TWO - HEART], [ACE - DIAMOND], [QUEEN - DIAMOND]]]]
+
+Game before
+Game [dealer=Player [getID()=76ec0791-a1fb-11e3-be39-50b7c35741cb, cards=[], stopped=false], player=Player [getID()=76fe3002-a1fb-11e3-be39-50b7c35741cb, cards=[], stopped=false], actionCounter=0, lastToAct=Player [getID()=76ec0791-a1fb-11e3-be39-50b7c35741cb, cards=[], stopped=false], state=BEFORE_INITIAL_DEAL, deck=Deck [cards=[[SIX - CLUB], [QUEEN - CLUB], [NINE - CLUB], [SEVEN - DIAMOND], [FOUR - DIAMOND], [KING - CLUB], [SEVEN - HEART], [TWO - SPADE], [SIX - DIAMOND], [TEN - CLUB], [FOUR - HEART], [JACK - HEART], [QUEEN - SPADE], [TWO - DIAMOND], [JACK - SPADE], [FIVE - HEART], [KING - DIAMOND], [EIGHT - SPADE], [FIVE - DIAMOND], [TEN - HEART], [NINE - SPADE], [ACE - SPADE], [THREE - SPADE], [JACK - DIAMOND], [KING - HEART], [NINE - HEART], [THREE - CLUB], [ACE - HEART], [THREE - DIAMOND], [FOUR - CLUB], [EIGHT - DIAMOND], [FIVE - SPADE], [THREE - HEART], [QUEEN - DIAMOND], [FOUR - SPADE], [TEN - DIAMOND], [EIGHT - HEART], [KING - SPADE], [TEN - SPADE], [SEVEN - SPADE], [SIX - HEART], [SIX - SPADE], [EIGHT - CLUB], [TWO - HEART], [JACK - CLUB], [ACE - DIAMOND], [SEVEN - CLUB], [TWO - CLUB], [QUEEN - HEART], [NINE - DIAMOND], [FIVE - CLUB], [ACE - CLUB]]]]
+
+Json
+{"deck":{"cards":[{"rank":"SIX","suite":"CLUB"},{"rank":"QUEEN","suite":"CLUB"},{"rank":"NINE","suite":"CLUB"},{"rank":"SEVEN","suite":"DIAMOND"},{"rank":"FOUR","suite":"DIAMOND"},{"rank":"KING","suite":"CLUB"},{"rank":"SEVEN","suite":"HEART"},{"rank":"TWO","suite":"SPADE"},{"rank":"SIX","suite":"DIAMOND"},{"rank":"TEN","suite":"CLUB"},{"rank":"FOUR","suite":"HEART"},{"rank":"JACK","suite":"HEART"},{"rank":"QUEEN","suite":"SPADE"},{"rank":"TWO","suite":"DIAMOND"},{"rank":"JACK","suite":"SPADE"},{"rank":"FIVE","suite":"HEART"},{"rank":"KING","suite":"DIAMOND"},{"rank":"EIGHT","suite":"SPADE"},{"rank":"FIVE","suite":"DIAMOND"},{"rank":"TEN","suite":"HEART"},{"rank":"NINE","suite":"SPADE"},{"rank":"ACE","suite":"SPADE"},{"rank":"THREE","suite":"SPADE"},{"rank":"JACK","suite":"DIAMOND"},{"rank":"KING","suite":"HEART"},{"rank":"NINE","suite":"HEART"},{"rank":"THREE","suite":"CLUB"},{"rank":"ACE","suite":"HEART"},{"rank":"THREE","suite":"DIAMOND"},{"rank":"FOUR","suite":"CLUB"},{"rank":"EIGHT","suite":"DIAMOND"},{"rank":"FIVE","suite":"SPADE"},{"rank":"THREE","suite":"HEART"},{"rank":"QUEEN","suite":"DIAMOND"},{"rank":"FOUR","suite":"SPADE"},{"rank":"TEN","suite":"DIAMOND"},{"rank":"EIGHT","suite":"HEART"},{"rank":"KING","suite":"SPADE"},{"rank":"TEN","suite":"SPADE"},{"rank":"SEVEN","suite":"SPADE"},{"rank":"SIX","suite":"HEART"},{"rank":"SIX","suite":"SPADE"},{"rank":"EIGHT","suite":"CLUB"},{"rank":"TWO","suite":"HEART"},{"rank":"JACK","suite":"CLUB"},{"rank":"ACE","suite":"DIAMOND"},{"rank":"SEVEN","suite":"CLUB"},{"rank":"TWO","suite":"CLUB"},{"rank":"QUEEN","suite":"HEART"},{"rank":"NINE","suite":"DIAMOND"},{"rank":"FIVE","suite":"CLUB"},{"rank":"ACE","suite":"CLUB"}]},"dealer":{"cards":[],"stopped":false,"id":{"internal":"76ec0791-a1fb-11e3-be39-50b7c35741cb"}},"player":{"cards":[],"stopped":false,"id":{"internal":"76fe3002-a1fb-11e3-be39-50b7c35741cb"}},"actionCounter":{"value":0},"lastToAct":{"cards":[],"stopped":false,"id":{"internal":"76ec0791-a1fb-11e3-be39-50b7c35741cb"}},"state":"BEFORE_INITIAL_DEAL","tableId":{"internal":"76da2d40-a1fb-11e3-be39-50b7c35741cb"},"id":{"internal":"76c853ef-a1fb-11e3-be39-50b7c35741cb"}}
+
+Game after
+Game [dealer=Player [getID()=76ec0791-a1fb-11e3-be39-50b7c35741cb, cards=[], stopped=false], player=Player [getID()=76fe3002-a1fb-11e3-be39-50b7c35741cb, cards=[], stopped=false], actionCounter=0, lastToAct=Player [getID()=76ec0791-a1fb-11e3-be39-50b7c35741cb, cards=[], stopped=false], state=BEFORE_INITIAL_DEAL, deck=Deck [cards=[[SIX - CLUB], [QUEEN - CLUB], [NINE - CLUB], [SEVEN - DIAMOND], [FOUR - DIAMOND], [KING - CLUB], [SEVEN - HEART], [TWO - SPADE], [SIX - DIAMOND], [TEN - CLUB], [FOUR - HEART], [JACK - HEART], [QUEEN - SPADE], [TWO - DIAMOND], [JACK - SPADE], [FIVE - HEART], [KING - DIAMOND], [EIGHT - SPADE], [FIVE - DIAMOND], [TEN - HEART], [NINE - SPADE], [ACE - SPADE], [THREE - SPADE], [JACK - DIAMOND], [KING - HEART], [NINE - HEART], [THREE - CLUB], [ACE - HEART], [THREE - DIAMOND], [FOUR - CLUB], [EIGHT - DIAMOND], [FIVE - SPADE], [THREE - HEART], [QUEEN - DIAMOND], [FOUR - SPADE], [TEN - DIAMOND], [EIGHT - HEART], [KING - SPADE], [TEN - SPADE], [SEVEN - SPADE], [SIX - HEART], [SIX - SPADE], [EIGHT - CLUB], [TWO - HEART], [JACK - CLUB], [ACE - DIAMOND], [SEVEN - CLUB], [TWO - CLUB], [QUEEN - HEART], [NINE - DIAMOND], [FIVE - CLUB], [ACE - CLUB]]]]
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.33 sec
+
+Results :
+
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.3.2:jar (default-jar) @ blackjack ---
+[INFO] Building jar: C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\blackjack-0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.3.1:install (default-install) @ blackjack ---
+[INFO] Installing C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\blackjack-0.1-SNAPSHOT.jar to C:\Users\Mate\.m2\repository\org\home\blackjack\blackjack\0.1-SNAPSHOT\blackjack-0.1-SNAPSHOT.jar
+[INFO] Installing C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\pom.xml to C:\Users\Mate\.m2\repository\org\home\blackjack\blackjack\0.1-SNAPSHOT\blackjack-0.1-SNAPSHOT.pom
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Wallet 0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] The artifact org.apache.commons:commons-io:jar:1.3.2 has been relocated to commons-io:commons-io:jar:1.3.2
+[INFO] 
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ blackjack-wallet ---
+[INFO] Deleting C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-wallet\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ blackjack-wallet ---
+[debug] execute contextualize
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 5 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ blackjack-wallet ---
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 16 source files to C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-wallet\target\classes
+[INFO] 
+[INFO] --- principle:0.24:check (default) @ blackjack-wallet ---
+[WARNING] /target/classes not found! Invalid directory or JAR file: ./target/classes/org/home/blackjack
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ blackjack-wallet ---
+[debug] execute contextualize
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 6 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ blackjack-wallet ---
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 1 source file to C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-wallet\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ blackjack-wallet ---
+[INFO] Surefire report directory: C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-wallet\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.3.2:jar (default-jar) @ blackjack-wallet ---
+[INFO] Building jar: C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-wallet\target\blackjack-wallet-0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.3.1:install (default-install) @ blackjack-wallet ---
+[INFO] Installing C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-wallet\target\blackjack-wallet-0.1-SNAPSHOT.jar to C:\Users\Mate\.m2\repository\org\home\blackjack\blackjack-wallet\0.1-SNAPSHOT\blackjack-wallet-0.1-SNAPSHOT.jar
+[INFO] Installing C:\Users\Mate\Documents\gitrepos\blackjack\blackjack-wallet\pom.xml to C:\Users\Mate\.m2\repository\org\home\blackjack\blackjack-wallet\0.1-SNAPSHOT\blackjack-wallet-0.1-SNAPSHOT.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] Blackjack Parent .................................. SUCCESS [1.166s]
+[INFO] Utils ............................................. SUCCESS [6.700s]
+[INFO] Blackjack ......................................... SUCCESS [21.997s]
+[INFO] Wallet ............................................ SUCCESS [4.493s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 34.798s
+[INFO] Finished at: Sun Mar 02 11:12:01 GMT 2014
+[INFO] Final Memory: 40M/273M
+[INFO] ------------------------------------------------------------------------

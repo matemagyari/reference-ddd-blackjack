@@ -6,9 +6,9 @@ import org.home.blackjack.wallet.domain.wallet.CashAmount;
 
 public class TransactionCommand extends ValueObject {
 	
+	private final TransactionId id;
 	private final TransactionType type;
 	private final CashAmount amount;
-	private TransactionId id;
 
 	public TransactionCommand(TransactionId id, TransactionType type, CashAmount amount) {
 		Validator.notNull(id, type, amount);

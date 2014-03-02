@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.app.eventhandler.GameEventHandler;
 import org.home.blackjack.core.app.eventhandler.GameFinishedEventHandler;
+import org.home.blackjack.core.app.eventhandler.WalletUpdaterGameFinishedEventHandler;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.domain.game.core.GameID;
@@ -29,14 +30,16 @@ public class GameActionApplicationServiceImpl implements GameActionApplicationSe
 	private GameEventHandler gameEventHandler;
 	@Resource
 	private GameFinishedEventHandler gameFinishedEventHandler;
-
+	@Resource
+	private WalletUpdaterGameFinishedEventHandler walletUpdaterGameFinishedEventHandler;
+	
 	@WithPessimisticLock(repository = GameRepository.class)
 	@Override
 	public void handlePlayerAction(final GameID gameID, final GameAction gameAction) {
 
 		SubscribableEventBus eventBus = LightweightDomainEventBus.subscribableEventBusInstance();
 		eventBus.reset();
-		eventBus.register(gameEventHandler, gameFinishedEventHandler);
+		eventBus.register(gameEventHandler, gameFinishedEventHandler, walletUpdaterGameFinishedEventHandler);
 
 		performTransaction(gameAction);
 

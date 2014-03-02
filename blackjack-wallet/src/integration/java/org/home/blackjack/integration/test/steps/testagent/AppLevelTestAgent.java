@@ -18,7 +18,7 @@ public class AppLevelTestAgent extends TestAgent {
 	protected void initDependencies() {
 		cucumberService = new AppLevelCucumberService();
 		super.initDependencies();
-		transactionApplicationService = cucumberService().getBean(TransactionApplicationService.class);
+		//transactionApplicationService = cucumberService().getBean(TransactionApplicationService.class);
 
 	}
 

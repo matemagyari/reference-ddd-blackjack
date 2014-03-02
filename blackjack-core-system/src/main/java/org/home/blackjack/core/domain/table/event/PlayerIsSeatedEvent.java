@@ -1,7 +1,7 @@
 package org.home.blackjack.core.domain.table.event;
 
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.core.domain.table.core.TableID;
+import org.home.blackjack.core.domain.shared.TableID;
 
 public class PlayerIsSeatedEvent extends TableEvent {
 

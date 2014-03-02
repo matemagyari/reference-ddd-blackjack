@@ -5,11 +5,12 @@ import javax.inject.Named;
 
 import org.home.blackjack.util.locking.aspect.WithPessimisticLock;
 import org.home.blackjack.wallet.domain.transaction.TransactionCommand;
-import org.home.blackjack.wallet.domain.transaction.TransactionResult;
 import org.home.blackjack.wallet.domain.wallet.CashAmount;
+import org.home.blackjack.wallet.domain.wallet.Currency;
 import org.home.blackjack.wallet.domain.wallet.Wallet;
 import org.home.blackjack.wallet.domain.wallet.WalletId;
 import org.home.blackjack.wallet.domain.wallet.WalletRepository;
+import org.springframework.stereotype.Component;
 
 /**
  * Driven port. App service for player action use-case.
@@ -17,12 +18,12 @@ import org.home.blackjack.wallet.domain.wallet.WalletRepository;
  * @author Mate
  * 
  */
-@Named
+@Component
 public class TransactionApplicationServiceImpl implements TransactionApplicationService {
 
 	@Resource
 	private WalletRepository walletRepository;
-
+	
 	/**
 	 * Don't bother with checks and WalletHistory yet
 	 */
@@ -47,6 +48,13 @@ public class TransactionApplicationServiceImpl implements TransactionApplication
 		walletRepository.update(wallet);
 		
 		return new TransactionResult(transactionCommand.id(), originalAmount,  wallet.amount());
+	}
+
+	@Override
+	public CashAmount getBalance(WalletId walletId) {
+		Wallet wallet = walletRepository.find(walletId);
+		
+		return wallet != null ? wallet.amount() : CashAmount.zero(Currency.CHIPS);
 	}
 	
 	

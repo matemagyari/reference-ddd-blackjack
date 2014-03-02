@@ -15,7 +15,7 @@ import org.home.blackjack.core.domain.game.exception.PlayerActionAfterGameFinish
 import org.home.blackjack.core.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.core.domain.game.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.core.domain.table.core.TableID;
+import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.util.ddd.pattern.AggregateRoot;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisher;
 import org.home.blackjack.util.ddd.util.DomainException;
@@ -135,7 +135,7 @@ public class Game extends AggregateRoot<GameID> {
 	
 	private void finish(PlayerID winner) {
 		state = GameState.FINISHED;
-		publish(new GameFinishedEvent(getID(), tableId, nextSequenceId(), winner));
+		publish(new GameFinishedEvent(getID(), tableId, nextSequenceId(), winner, other(winner).getID()));
 	}
 
 	private static int diffFromTarget(int score) {

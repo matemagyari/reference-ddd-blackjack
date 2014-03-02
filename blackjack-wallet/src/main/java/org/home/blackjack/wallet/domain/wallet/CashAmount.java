@@ -15,10 +15,12 @@ public class CashAmount extends ValueObject {
 		this.amount = amount;
 		this.currency = currency;
 	}
-
-	@Override
-	public String toString() {
-		return "[currency=" + currency + ", amount=" + amount + "]";
+	
+	public static CashAmount createFrom(String string) {
+		String[] split = string.split(" ");
+		BigDecimal amount = new BigDecimal(split[0]);
+		Currency currency = Currency.valueOf(split[1]);
+		return new CashAmount(amount, currency);
 	}
 
 	public boolean isLessThan(CashAmount that) {
@@ -53,6 +55,12 @@ public class CashAmount extends ValueObject {
 	
 	public Currency currency() {
 		return currency;
+	}
+
+
+	@Override
+	public String toString() {
+		return "[currency=" + currency + ", amount=" + amount + "]";
 	}
 
 

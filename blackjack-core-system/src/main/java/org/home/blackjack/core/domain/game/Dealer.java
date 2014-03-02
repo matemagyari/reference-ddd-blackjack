@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.core.domain.table.core.TableID;
+import org.home.blackjack.core.domain.shared.TableID;
 
 /**
  * Domain Service

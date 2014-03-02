@@ -1,7 +1,7 @@
 package org.home.blackjack.core.domain.game.event;
 
 import org.home.blackjack.core.domain.game.core.GameID;
-import org.home.blackjack.core.domain.table.core.TableID;
+import org.home.blackjack.core.domain.shared.TableID;
 
 public class GameStartedEvent extends GameEvent {
 

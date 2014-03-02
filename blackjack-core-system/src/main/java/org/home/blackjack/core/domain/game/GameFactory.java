@@ -7,7 +7,7 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.core.domain.table.core.TableID;
+import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 
 /**

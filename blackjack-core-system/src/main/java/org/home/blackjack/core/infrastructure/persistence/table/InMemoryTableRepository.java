@@ -7,9 +7,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Named;
 
+import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
-import org.home.blackjack.core.domain.table.core.TableID;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 

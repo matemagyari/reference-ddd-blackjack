@@ -22,6 +22,9 @@ public abstract class ID extends ValueObject {
 
 	private DateTime creationDate;
 
+	protected ID(String uuid) {
+		setInternal(UUID.fromString(uuid));
+	}
 	protected ID() {
 
 		UUID internal = idGenerationStrategy.generate();
