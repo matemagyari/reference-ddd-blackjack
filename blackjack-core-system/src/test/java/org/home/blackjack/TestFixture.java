@@ -2,7 +2,7 @@ package org.home.blackjack;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.home.blackjack.domain.shared.PlayerID;
+import org.home.blackjack.core.domain.shared.PlayerID;
 
 public class TestFixture {
 	

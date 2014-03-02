@@ -2,15 +2,15 @@ package org.home.blackjack.integration.test.steps.testagent;
 
 import java.util.List;
 
-import org.home.blackjack.app.client.game.GameAction;
-import org.home.blackjack.app.client.game.GameActionApplicationService;
-import org.home.blackjack.app.client.game.GameActionType;
-import org.home.blackjack.app.client.seating.SeatingApplicationService;
-import org.home.blackjack.app.client.seating.SeatingApplicationServiceImpl;
-import org.home.blackjack.domain.game.core.GameID;
-import org.home.blackjack.domain.game.event.GameFinishedEvent;
-import org.home.blackjack.domain.game.event.PlayerCardDealtEvent;
-import org.home.blackjack.domain.game.event.PlayerStandsEvent;
+import org.home.blackjack.core.app.client.game.GameAction;
+import org.home.blackjack.core.app.client.game.GameActionApplicationService;
+import org.home.blackjack.core.app.client.game.GameActionType;
+import org.home.blackjack.core.app.client.seating.SeatingApplicationService;
+import org.home.blackjack.core.app.client.seating.SeatingApplicationServiceImpl;
+import org.home.blackjack.core.domain.game.core.GameID;
+import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
+import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
+import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
 import org.home.blackjack.integration.test.dto.CardDO;
 import org.home.blackjack.integration.test.dto.TableDO;
 import org.home.blackjack.integration.test.fakes.FakeExternalEventPublisher;

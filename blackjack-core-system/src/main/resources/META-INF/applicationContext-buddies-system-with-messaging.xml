@@ -15,8 +15,8 @@
 	
 	<context:component-scan
 		base-package="
-		org.home.blackjack.infrastructure
-		,org.home.blackjack.messaging.app" />
+		org.home.blackjack.core.infrastructure
+		,org.home.blackjack.core.messaging.app" />
 	<aop:aspectj-autoproxy />
 	
 

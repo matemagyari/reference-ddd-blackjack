@@ -6,10 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.home.blackjack.app.event.ExternalEventPublisher;
-import org.home.blackjack.domain.game.core.GameID;
-import org.home.blackjack.domain.game.event.GameStartedEvent;
-import org.home.blackjack.domain.table.core.TableID;
+import org.home.blackjack.core.app.event.ExternalEventPublisher;
+import org.home.blackjack.core.domain.game.core.GameID;
+import org.home.blackjack.core.domain.game.event.GameStartedEvent;
+import org.home.blackjack.core.domain.table.core.TableID;
 import org.home.blackjack.integration.test.util.Util;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.junit.Assert;

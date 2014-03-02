@@ -2,9 +2,9 @@ package org.home.blackjack.persistence.gson;
 
 import static org.junit.Assert.assertEquals;
 
-import org.home.blackjack.domain.game.Game;
+import org.home.blackjack.core.domain.game.Game;
+import org.home.blackjack.core.infrastructure.persistence.game.store.inmemory.InMemoryGamePersistenceAssembler;
 import org.home.blackjack.domain.game.GameFixture;
-import org.home.blackjack.infrastructure.persistence.game.store.inmemory.InMemoryGamePersistenceAssembler;
 import org.junit.Test;
 
 import com.google.gson.Gson;

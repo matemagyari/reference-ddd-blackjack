@@ -12,13 +12,13 @@
                         http://www.hazelcast.com/schema/spring http://www.hazelcast.com/schema/spring/hazelcast-spring-2.3.xsd">
 
 	<context:component-scan
-		base-package="org.home.blackjack.domain
-		,org.home.blackjack.app
-		,org.home.blackjack.infrastructure.persistence" />
+		base-package="org.home.blackjack.core.domain
+		,org.home.blackjack.core.app
+		,org.home.blackjack.core.infrastructure.persistence" />
 
 	<aop:aspectj-autoproxy />
 	
-	<bean id="lockAspect" class="org.home.blackjack.util.locking.aspect.PessimisticLockingAspect"/>
+	<bean id="lockAspect" class="org.home.blackjack.core.util.locking.aspect.PessimisticLockingAspect"/>
 
 
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -33,7 +33,7 @@
 
 	<!-- Persistence Config -->
 	<bean id="gameStore"
-		class="org.home.blackjack.util.SwitchableBeanFactory">
+		class="org.home.blackjack.core.util.SwitchableBeanFactory">
 		<property name="useBean" value="${blackjack.persistence.type}" />
 		<property name="mappings">
 			<util:map id="gameStores">

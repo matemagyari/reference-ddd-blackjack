@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.home</groupId>
+	<groupId>org.home.blackjack</groupId>
 	<artifactId>blackjack-parent</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -18,10 +18,21 @@
 
 	<modules>
 		<module>blackjack-core-system</module>
+		<module>blackjack-wallet</module>
+		<module>blackjack-utils</module>
 	</modules>
 
-	<dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.home.blackjack </groupId>
+				<artifactId>blackjack-utils</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
+	<dependencies>
 
 		<dependency>
 			<groupId>org.aspectj</groupId>

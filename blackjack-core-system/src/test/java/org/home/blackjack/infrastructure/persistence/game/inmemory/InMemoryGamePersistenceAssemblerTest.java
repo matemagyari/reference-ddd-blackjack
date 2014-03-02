@@ -2,10 +2,10 @@ package org.home.blackjack.infrastructure.persistence.game.inmemory;
 
 import static org.junit.Assert.assertEquals;
 
-import org.home.blackjack.domain.game.Game;
+import org.home.blackjack.core.domain.game.Game;
+import org.home.blackjack.core.infrastructure.persistence.game.store.inmemory.InMemoryGamePersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.game.store.inmemory.InMemoryPersistenceGame;
 import org.home.blackjack.domain.game.GameFixture;
-import org.home.blackjack.infrastructure.persistence.game.store.inmemory.InMemoryGamePersistenceAssembler;
-import org.home.blackjack.infrastructure.persistence.game.store.inmemory.InMemoryPersistenceGame;
 import org.junit.Test;
 
 public class InMemoryGamePersistenceAssemblerTest {

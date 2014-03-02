@@ -2,9 +2,9 @@ package org.home.blackjack.integration.test.dto;
 
 import java.util.Map;
 
-import org.home.blackjack.domain.game.core.Card;
-import org.home.blackjack.domain.game.core.Card.Rank;
-import org.home.blackjack.domain.game.core.Card.Suite;
+import org.home.blackjack.core.domain.game.core.Card;
+import org.home.blackjack.core.domain.game.core.Card.Rank;
+import org.home.blackjack.core.domain.game.core.Card.Suite;
 
 import com.google.common.collect.Maps;
 

@@ -2,9 +2,9 @@ package org.home.blackjack.integration.test.fakes;
 
 import java.util.List;
 
-import org.home.blackjack.domain.game.Deck;
-import org.home.blackjack.domain.game.DeckFactory;
-import org.home.blackjack.domain.game.core.Card;
+import org.home.blackjack.core.domain.game.Deck;
+import org.home.blackjack.core.domain.game.DeckFactory;
+import org.home.blackjack.core.domain.game.core.Card;
 
 import com.google.common.collect.Lists;
 
