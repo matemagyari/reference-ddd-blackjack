@@ -14,14 +14,14 @@
                         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">    
 
 	<import resource="classpath:applicationContext-buddies-system-test.xml" />
-	<bean id="inMemoryOnlinePlayerStore" class="gamesys.poker.buddies.infrastructure.persistence.InMemoryOnlinePlayerStore" primary="true" />
-	<bean id="socialNetworkExplorer" class="gamesys.poker.buddies.integration.test.fakes.FakeSocialNetwork" />
-	<bean id="playerIdResolver" class="gamesys.poker.buddies.integration.test.fakes.FakePlayerIdResolver"/>
-	<bean id="pokerEnhancedSocialNetworkExplorer" class="gamesys.poker.buddies.integration.test.fakes.FakePokerEnhancedSocialNetworkExplorer">
+	<bean id="inMemoryOnlinePlayerStore" class="org.home.blackjack.infrastructure.persistence.InMemoryOnlinePlayerStore" primary="true" />
+	<bean id="socialNetworkExplorer" class="org.home.blackjack.integration.test.fakes.FakeSocialNetwork" />
+	<bean id="playerIdResolver" class="org.home.blackjack.integration.test.fakes.FakePlayerIdResolver"/>
+	<bean id="pokerEnhancedSocialNetworkExplorer" class="org.home.blackjack.integration.test.fakes.FakePokerEnhancedSocialNetworkExplorer">
        <constructor-arg name="fakeSocialNetwork" ref="socialNetworkExplorer"/>
     </bean>
 	
-	<bean id="lowLevelMessagingAgent" class="gamesys.poker.buddies.integration.test.steps.testagent.LowLevelMessagingAgent">
+	<bean id="lowLevelMessagingAgent" class="org.home.blackjack.integration.test.steps.testagent.LowLevelMessagingAgent">
         <constructor-arg name="messageGateway" ref="serializedMessageGateway" />
         <constructor-arg name="inQueue" value="${poker.buddies.queue.in}" />
 	</bean>
