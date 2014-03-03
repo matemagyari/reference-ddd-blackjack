@@ -30,10 +30,6 @@
 					<hz:tcp-ip enabled="${hz.tcpip.join.type}">
 						<hz:members>${hazelcastMembers}</hz:members>
 					</hz:tcp-ip>
-					<hz:aws enabled="${hz.aws.join.type}" access-key="AKIAILWLHJH6CYQ3C2GQ"
-						secret-key="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"
-						security-group-name="gib" region="eu-west-1" tag-key="type"
-						tag-value="${hazelcast.amz.cluster.name}" />
 				</hz:join>
 				<hz:symmetric-encryption enabled="false" />
 				<hz:asymmetric-encryption enabled="false" />
