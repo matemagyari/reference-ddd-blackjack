@@ -1,10 +1,10 @@
-package org.home.blackjack.wallet.infrastructure.rest;
+package org.home.blackjack.wallet.infrastructure.rest.transaction;
 
 import javax.inject.Named;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -33,15 +33,17 @@ public class TransactionEndpoint {
 	}
 
 	@PUT
-	@Path("/transaction")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/transaction/{transactionId}/{playerId}/{transactionType}/{amount}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response executeTransaction(TransactionRequest request) {
+	public Response executeTransaction(@PathParam("transactionId") String transactionIdStr,
+	                                   @PathParam("playerId") String playerId,
+	                                   @PathParam("transactionType") String transactionTypeStr,
+	                                   @PathParam("amount") String amountStr) {
 
-		WalletId walletId = WalletId.createFrom(request.walletId());
-		CashAmount amount = CashAmount.createFrom(request.amount());
-		TransactionType transactionType = TransactionType.valueOf(request.transactionType());
-		TransactionId transactionId = TransactionId.createFrom(request.transactionId());
+		WalletId walletId = WalletId.createFrom(playerId);
+		CashAmount amount = CashAmount.createFrom(amountStr);
+		TransactionType transactionType = TransactionType.valueOf(transactionTypeStr);
+		TransactionId transactionId = TransactionId.createFrom(transactionIdStr);
 		TransactionCommand command = new TransactionCommand(transactionId, transactionType, amount);
 
 		TransactionResult transactionResult = transactionApplicationService.handleTransaction(walletId, command);
@@ -54,12 +56,4 @@ public class TransactionEndpoint {
 		return Response.ok(response).build();
 	}
 
-	@GET
-	@Path("/balance")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getBalance(String walletId) {
-		CashAmount balance = transactionApplicationService.getBalance(WalletId.createFrom(walletId));
-		return Response.ok(balance.toString()).build();
-	}
 }

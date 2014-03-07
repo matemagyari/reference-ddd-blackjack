@@ -4,7 +4,7 @@ import org.home.blackjack.integration.test.steps.testagent.AppLevelTestAgent;
 import org.home.blackjack.integration.test.steps.testagent.MessagingTestAgent;
 import org.home.blackjack.integration.test.steps.testagent.TestAgent;
 
-public class GameStep {
+public class WalletStep {
 
 	public static String scope;
 	public static final String messagingLevelScope = "messagingLevelScope";
@@ -12,7 +12,7 @@ public class GameStep {
 
 	private final TestAgent testAgent;
 
-	public GameStep() {
+	public WalletStep() {
 
 		if (messagingLevelScope.equals(scope)) {
 			testAgent = new MessagingTestAgent();

@@ -45,7 +45,7 @@ public class CashAmount extends ValueObject {
 
 	private void checkCurrency(CashAmount that) {
 		if (!this.currency().equals(that.currency())) {
-			throw new CurrencyNotMatchException(currency(), that.currency());
+			throw new CurrencyMismatchException(currency(), that.currency());
 		}
 	}
 
