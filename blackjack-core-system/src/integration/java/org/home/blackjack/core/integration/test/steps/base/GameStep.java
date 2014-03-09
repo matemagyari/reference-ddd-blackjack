@@ -31,6 +31,16 @@ public class GameStep {
 		}
 		testAgent.reset();
 	}
+	
+	@Then("^player '(\\d+)' is debited with '(\\d+)'$")
+	public void thenPlayerIsDebited(Integer playerId, Integer amount) {
+		testAgent.thenPlayerIsDebited(playerId, amount);
+	}
+
+	@Then("^player '(\\d+)' is credited with '(\\d+)'$")
+	public void thenPlayerIsCredited(Integer playerId, Integer amount) {
+		testAgent.thenPlayerIsCredited(playerId, amount);
+	}
 
 	@Given("^player '(\\d+)' is registered$")
 	public void givenRegisteredPlayer(Integer playerId) {

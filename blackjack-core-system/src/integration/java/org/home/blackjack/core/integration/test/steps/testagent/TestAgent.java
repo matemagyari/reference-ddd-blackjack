@@ -13,6 +13,7 @@ import org.home.blackjack.core.domain.table.TableRepository;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeDeckFactory;
+import org.home.blackjack.core.integration.test.fakes.FakeWalletService;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
 
@@ -27,6 +28,7 @@ public abstract class TestAgent {
 	protected FakeDeckFactory fakeDeckFactory;
 	protected TableRepository tableRepository;
 	protected PlayerRepository playerRepository;
+	protected FakeWalletService walletService;
 	
 	
     public TestAgent() {
@@ -37,6 +39,7 @@ public abstract class TestAgent {
     	fakeDeckFactory = cucumberService().getBean(FakeDeckFactory.class);
     	tableRepository = cucumberService().getBean(TableRepository.class);
     	playerRepository = cucumberService().getBean(PlayerRepository.class);
+    	walletService = cucumberService().getBean(FakeWalletService.class);
     }
     
     protected abstract CucumberService cucumberService();
@@ -45,6 +48,7 @@ public abstract class TestAgent {
     	fakeDeckFactory.reset();
     	tableRepository.clear();
     	playerRepository.clear();
+    	walletService.reset();
     	tableIdMap.clear();
     }
     
@@ -91,6 +95,14 @@ public abstract class TestAgent {
 
 	public void givenRegisteredPlayer(Integer playerId) {
 		playerRepository.create(new Player(generatePlayerId(playerId), new PlayerName("xx")));
+	}
+
+	public void thenPlayerIsDebited(Integer playerId, Integer amount) {
+		walletService.assertLastAct(getRealPlayerId(playerId), FakeWalletService.WalletAct.ENTRYFEE);
+	}
+
+	public void thenPlayerIsCredited(Integer playerId, Integer amount) {
+		walletService.assertLastAct(getRealPlayerId(playerId), FakeWalletService.WalletAct.WIN);
 	}
 
 

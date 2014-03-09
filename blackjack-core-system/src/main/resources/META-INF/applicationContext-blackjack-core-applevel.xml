@@ -33,7 +33,7 @@
 
 	<!-- Persistence Config -->
 	<bean id="gameStore"
-		class="org.home.blackjack.core.util.SwitchableBeanFactory">
+		class="org.home.blackjack.util.SwitchableBeanFactory">
 		<property name="useBean" value="${blackjack.persistence.type}" />
 		<property name="mappings">
 			<util:map id="gameStores">

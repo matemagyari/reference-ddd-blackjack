@@ -1,5 +1,6 @@
 package org.home.blackjack.core.domain.wallet;
 
+import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
 
 /**
@@ -8,7 +9,8 @@ import org.home.blackjack.core.domain.shared.PlayerID;
  */
 public interface WalletService {
 
-	void giveTheWin(PlayerID winner, Reason reason);
-	void takeTheLoss(PlayerID loser, Reason reason);
+	void giveTheWin(GameID gameID, PlayerID winner);
+	void debitEntryFee(PlayerID playerID);
+	void createAccount(PlayerID playerID, int startBalance);
 
 }

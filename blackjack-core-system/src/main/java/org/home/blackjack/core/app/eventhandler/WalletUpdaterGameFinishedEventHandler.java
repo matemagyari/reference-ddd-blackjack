@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
-import org.home.blackjack.core.domain.wallet.Reason;
 import org.home.blackjack.core.domain.wallet.WalletService;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
@@ -26,8 +25,6 @@ public class WalletUpdaterGameFinishedEventHandler implements DomainEventSubscri
 	@Override
     public void handleEvent(GameFinishedEvent event) {
     	
-		Reason reason = new Reason(event.getGameID().toString());
-    	walletService.giveTheWin(event.winner(), reason);
-    	walletService.takeTheLoss(event.loser(), reason);
+    	walletService.giveTheWin(event.getGameID(), event.winner());
     }
 }
