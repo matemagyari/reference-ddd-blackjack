@@ -44,30 +44,15 @@ public class AppConfig {
 	@PostConstruct
 	public void init() throws DeploymentException {
 
-		container = (ServerContainer) context.getServletContext().
-
-		getAttribute(javax.websocket.server.ServerContainer.class.getName());
-
-		container.addEndpoint(
-
-		new AnnotatedServerEndpointConfig(
-
-		EchoWSEndpoint.class,
-
-		EchoWSEndpoint.class.getAnnotation(ServerEndpoint.class)
-
-		) {
-
+		container = (ServerContainer) context.getServletContext().getAttribute(javax.websocket.server.ServerContainer.class.getName());
+		AnnotatedServerEndpointConfig endpointConfig = new AnnotatedServerEndpointConfig(EchoWSEndpoint.class,
+				EchoWSEndpoint.class.getAnnotation(ServerEndpoint.class)) {
 			@Override
 			public Configurator getConfigurator() {
-
 				return configurator();
-
 			}
-
-		}
-
-		);
+		};
+		container.addEndpoint(endpointConfig);
 
 	}
 
