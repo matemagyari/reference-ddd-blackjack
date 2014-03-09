@@ -21,7 +21,10 @@ public class RestBasedWalletService implements WalletService {
 	@Override
 	public void debitEntryFee(PlayerID playerID) {
 		// TODO Auto-generated method stub
-
+	}
+	@Override
+	public void createAccount(PlayerID playerID, int startBalance) {
+		// TODO Auto-generated method stub
 	}
 
 	private void xxx() {
@@ -42,5 +45,7 @@ public class RestBasedWalletService implements WalletService {
 		System.out.println(output);
 
 	}
+
+
 
 }

@@ -45,4 +45,10 @@ public class FakeWalletService implements WalletService {
 		WalletAct walletAct2 = actList.get(actList.size()-1);
 		Assert.assertEquals(walletAct, walletAct2);
 	}
+
+	@Override
+	public void createAccount(PlayerID playerID, int startBalance) {
+		// TODO Auto-generated method stub
+		
+	}
 }

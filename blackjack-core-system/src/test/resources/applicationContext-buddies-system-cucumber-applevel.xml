@@ -10,13 +10,13 @@
                         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">    
 
 	<import resource="classpath:/META-INF/applicationContext-buddies-system-applevel.xml"/>
-	<bean id="socialNetworkExplorer" class="gamesys.poker.buddies.integration.test.fakes.FakeSocialNetwork" />
-	<bean id="eventDispatcher" class="gamesys.poker.buddies.integration.test.fakes.FakeEventDispatcher" />
-	<bean id="playerIdResolver" class="gamesys.poker.buddies.integration.test.fakes.FakePlayerIdResolver"/>
-	<bean id="pokerEnhancedSocialNetworkExplorer" class="gamesys.poker.buddies.integration.test.fakes.FakePokerEnhancedSocialNetworkExplorer">
+	<bean id="socialNetworkExplorer" class="org.home.blackjack.integration.test.fakes.FakeSocialNetwork" />
+	<bean id="eventDispatcher" class="org.home.blackjack.integration.test.fakes.FakeEventDispatcher" />
+	<bean id="playerIdResolver" class="org.home.blackjack.integration.test.fakes.FakePlayerIdResolver"/>
+	<bean id="pokerEnhancedSocialNetworkExplorer" class="org.home.blackjack.integration.test.fakes.FakePokerEnhancedSocialNetworkExplorer">
 	   <constructor-arg name="fakeSocialNetwork" ref="socialNetworkExplorer"/>
 	</bean>
-	<bean id="inMemoryOnlinePlayerStore" class="gamesys.poker.buddies.infrastructure.persistence.InMemoryOnlinePlayerStore" primary="true" />
+	<bean id="inMemoryOnlinePlayerStore" class="org.home.blackjack.infrastructure.persistence.InMemoryOnlinePlayerStore" primary="true" />
     <!-- 
 	<import resource="classpath:/META-INF/applicationContext-buddies-system-hazelcast.xml"/>
 	 -->

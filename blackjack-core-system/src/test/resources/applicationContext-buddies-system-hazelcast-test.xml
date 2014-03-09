@@ -11,6 +11,6 @@
 
 	<import resource="classpath:/META-INF/applicationContext-buddies-system-applevel.xml"/>
 	<!-- 
-	<bean id="inMemoryOnlinePlayerStore" class="gamesys.poker.buddies.infrastructure.persistence.HazelcastOnlinePlayerStoreTest" primary="true" />
+	<bean id="inMemoryOnlinePlayerStore" class="org.home.blackjack.infrastructure.persistence.HazelcastOnlinePlayerStoreTest" primary="true" />
      -->
 </beans>
