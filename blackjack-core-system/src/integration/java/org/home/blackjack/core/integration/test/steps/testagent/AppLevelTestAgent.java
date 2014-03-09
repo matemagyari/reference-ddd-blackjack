@@ -2,10 +2,10 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
 
-import org.home.blackjack.core.app.client.game.GameAction;
-import org.home.blackjack.core.app.client.game.GameActionApplicationService;
-import org.home.blackjack.core.app.client.game.GameActionType;
-import org.home.blackjack.core.app.client.seating.SeatingApplicationService;
+import org.home.blackjack.core.app.service.game.GameAction;
+import org.home.blackjack.core.app.service.game.GameActionApplicationService;
+import org.home.blackjack.core.app.service.game.GameActionType;
+import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;

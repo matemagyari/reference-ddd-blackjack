@@ -9,12 +9,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.home.blackjack.wallet.app.client.transaction.TransactionApplicationService;
-import org.home.blackjack.wallet.app.client.transaction.TransactionResult;
+import org.home.blackjack.wallet.app.service.transaction.TransactionApplicationService;
+import org.home.blackjack.wallet.app.service.transaction.TransactionResult;
 import org.home.blackjack.wallet.domain.transaction.TransactionCommand;
 import org.home.blackjack.wallet.domain.transaction.TransactionId;
 import org.home.blackjack.wallet.domain.transaction.TransactionType;
 import org.home.blackjack.wallet.domain.wallet.CashAmount;
+import org.home.blackjack.wallet.domain.wallet.Currency;
 import org.home.blackjack.wallet.domain.wallet.WalletId;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,13 +26,6 @@ public class TransactionEndpoint {
 	@Autowired
 	private TransactionApplicationService transactionApplicationService;
 
-	@GET
-	@Path("/echo")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getMessage() {
-		return "{\"message\":\"hello\"}";
-	}
-
 	@PUT
 	@Path("/transaction/{transactionId}/{playerId}/{transactionType}/{amount}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -41,7 +35,7 @@ public class TransactionEndpoint {
 	                                   @PathParam("amount") String amountStr) {
 
 		WalletId walletId = WalletId.createFrom(playerId);
-		CashAmount amount = CashAmount.createFrom(amountStr);
+		CashAmount amount = CashAmount.createFrom(amountStr, Currency.CHIPS);
 		TransactionType transactionType = TransactionType.valueOf(transactionTypeStr);
 		TransactionId transactionId = TransactionId.createFrom(transactionIdStr);
 		TransactionCommand command = new TransactionCommand(transactionId, transactionType, amount);

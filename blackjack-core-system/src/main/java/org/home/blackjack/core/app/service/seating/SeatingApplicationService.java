@@ -1,4 +1,4 @@
-package org.home.blackjack.core.app.client.seating;
+package org.home.blackjack.core.app.service.seating;
 
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;

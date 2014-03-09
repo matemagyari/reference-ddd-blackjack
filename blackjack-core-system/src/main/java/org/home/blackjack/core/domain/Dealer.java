@@ -1,13 +1,16 @@
-package org.home.blackjack.core.domain.game;
+package org.home.blackjack.core.domain;
 
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
 
+import org.home.blackjack.core.domain.cashier.Cashier;
+import org.home.blackjack.core.domain.game.Game;
+import org.home.blackjack.core.domain.game.GameFactory;
+import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.core.domain.wallet.WalletService;
 
 /**
  * Domain Service
@@ -21,11 +24,11 @@ public class Dealer {
     @Resource
     private GameFactory gameFactory;
     @Resource
-    private WalletService walletService;
+    private Cashier cashier;
 
 	public void startANewGameOnTable(TableID tableId, List<PlayerID> players) {
 		for (PlayerID playerID : players) {
-			walletService.debitEntryFee(playerID);
+			cashier.debitEntryFee(playerID);
 		}
 		Game newGame = gameFactory.createNewGame(tableId, players);
 		newGame.dealInitialCards();

@@ -1,4 +1,4 @@
-package org.home.blackjack.core.domain.wallet;
+package org.home.blackjack.core.domain.cashier;
 
 import org.home.blackjack.util.ddd.pattern.ValueObject;
 

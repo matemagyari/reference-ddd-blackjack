@@ -3,7 +3,7 @@ package org.home.blackjack.core.app.eventhandler;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
-import org.home.blackjack.core.domain.game.Dealer;
+import org.home.blackjack.core.domain.Dealer;
 import org.home.blackjack.core.domain.table.event.TableIsFullEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;

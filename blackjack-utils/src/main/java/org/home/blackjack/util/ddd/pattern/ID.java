@@ -19,11 +19,13 @@ public abstract class ID extends ValueObject {
 		}
 	};
 	private UUID internal;
+	private String strInternal;
 
 	private DateTime creationDate;
 
 	protected ID(String uuid) {
-		setInternal(UUID.fromString(uuid));
+		//setInternal(UUID.fromString(uuid));
+		strInternal = uuid;
 	}
 	protected ID() {
 
@@ -52,7 +54,6 @@ public abstract class ID extends ValueObject {
 	
 	@Override
 	public String toString() {
-
-		return internal.toString();
+		return internal + " " + strInternal;
 	}
 }

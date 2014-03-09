@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.home.blackjack.core.domain.game.core.GameID;
+import org.home.blackjack.core.domain.cashier.WalletService;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.core.domain.wallet.WalletService;
 import org.junit.Assert;
 
 import com.google.common.collect.Maps;
@@ -16,12 +15,12 @@ public class FakeWalletService implements WalletService {
 	private final Map<PlayerID, List<WalletAct>> walletActs = Maps.newHashMap();
 
 	@Override
-	public void giveTheWin(GameID gameID, PlayerID winner) {
-		actList(winner).add(WalletAct.WIN);
+	public void credit(PlayerID player, Integer amount) {
+		actList(player).add(WalletAct.WIN);
 	}
 
 	@Override
-	public void debitEntryFee(PlayerID playerID) {
+	public void debit(PlayerID playerID, Integer amount) {
 		actList(playerID).add(WalletAct.ENTRYFEE);
 	}
 
@@ -47,7 +46,7 @@ public class FakeWalletService implements WalletService {
 	}
 
 	@Override
-	public void createAccount(PlayerID playerID, int startBalance) {
+	public void createAccount(PlayerID playerID, Integer startBalance) {
 		// TODO Auto-generated method stub
 		
 	}

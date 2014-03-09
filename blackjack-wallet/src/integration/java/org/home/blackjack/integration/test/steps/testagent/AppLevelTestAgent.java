@@ -2,7 +2,7 @@ package org.home.blackjack.integration.test.steps.testagent;
 
 import org.home.blackjack.integration.test.util.AppLevelCucumberService;
 import org.home.blackjack.integration.test.util.CucumberService;
-import org.home.blackjack.wallet.app.client.transaction.TransactionApplicationService;
+import org.home.blackjack.wallet.app.service.transaction.TransactionApplicationService;
 
 public class AppLevelTestAgent extends TestAgent {
 

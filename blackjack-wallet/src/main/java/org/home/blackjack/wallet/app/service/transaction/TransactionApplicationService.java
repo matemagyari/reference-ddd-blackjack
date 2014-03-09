@@ -1,4 +1,4 @@
-package org.home.blackjack.wallet.app.client.transaction;
+package org.home.blackjack.wallet.app.service.transaction;
 
 import org.home.blackjack.util.locking.aspect.LockVal;
 import org.home.blackjack.util.marker.hexagonal.DrivenPort;

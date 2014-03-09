@@ -23,6 +23,11 @@ public class CashAmount extends ValueObject {
 		return new CashAmount(amount, currency);
 	}
 
+	public static CashAmount createFrom(String amount, Currency currency) {
+		return new CashAmount(new BigDecimal(amount), currency);
+	}
+
+	
 	public boolean isLessThan(CashAmount that) {
 		checkCurrency(that);
 		return amount().compareTo(that.amount()) == -1;
@@ -62,7 +67,5 @@ public class CashAmount extends ValueObject {
 	public String toString() {
 		return "[currency=" + currency + ", amount=" + amount + "]";
 	}
-
-
 
 }

@@ -1,4 +1,4 @@
-package org.home.blackjack.wallet.app.client.account;
+package org.home.blackjack.wallet.app.service.account;
 
 import javax.annotation.Resource;
 import javax.inject.Named;

@@ -10,8 +10,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.home.blackjack.wallet.app.client.account.AccountApplicationService;
+import org.home.blackjack.wallet.app.service.account.AccountApplicationService;
 import org.home.blackjack.wallet.domain.wallet.CashAmount;
+import org.home.blackjack.wallet.domain.wallet.Currency;
 import org.home.blackjack.wallet.domain.wallet.WalletId;
 
 @Path("wallet/account")
@@ -25,7 +26,7 @@ public class AccountEndpoint {
     @Path("/create/{playerId}/{startingBalance}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createAccount(@PathParam("playerId") String playerId, @PathParam("startingBalance") String startBalance) {
-        accountApplicationService.createAccount(WalletId.createFrom(playerId), CashAmount.createFrom(startBalance));
+        accountApplicationService.createAccount(WalletId.createFrom(playerId), CashAmount.createFrom(startBalance + " " + Currency.CHIPS));
         return Response.ok().build();
     }
 

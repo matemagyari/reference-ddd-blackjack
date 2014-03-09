@@ -1,4 +1,4 @@
-package org.home.blackjack.wallet.app.client.transaction;
+package org.home.blackjack.wallet.app.service.transaction;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
@@ -30,11 +30,6 @@ public class TransactionApplicationServiceImpl implements TransactionApplication
 	public TransactionResult handleTransaction(WalletId walletId, TransactionCommand transactionCommand) {
 
 		Wallet wallet = walletRepository.find(walletId);
-		
-		//for sake of simplicity I don't create a new endpoint to create wallet
-		if (wallet == null) {
-			wallet = Wallet.emptyWallet(walletId, transactionCommand.amount().currency());
-		}
 		
 		CashAmount originalAmount = wallet.amount();
 		if (transactionCommand.isDebit()) {

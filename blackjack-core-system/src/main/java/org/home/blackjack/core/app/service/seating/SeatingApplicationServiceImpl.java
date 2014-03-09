@@ -1,4 +1,4 @@
-package org.home.blackjack.core.app.client.seating;
+package org.home.blackjack.core.app.service.seating;
 
 import javax.annotation.Resource;
 import javax.inject.Named;

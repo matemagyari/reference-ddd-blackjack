@@ -1,4 +1,4 @@
-package org.home.blackjack.wallet.app.client.transaction;
+package org.home.blackjack.wallet.app.service.transaction;
 
 import org.home.blackjack.util.ddd.pattern.ValueObject;
 import org.home.blackjack.wallet.domain.transaction.TransactionId;

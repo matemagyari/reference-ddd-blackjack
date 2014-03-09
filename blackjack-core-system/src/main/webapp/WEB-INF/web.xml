@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE web-app PUBLIC
-"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-"http://java.sun.com/dtd/web-app_2_3.dtd">
-<web-app>
-	<display-name>REST API</display-name>
-	<description>Sample Spring WebMVC REST API</description>
-	<servlet>
-		<servlet-name>rest</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>rest</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>tailor</display-name>
+  <servlet>
+    <servlet-name>WebSocket</servlet-name>
+    <servlet-class>org.home.blackjack.core.infrastructure.events.EchoWSEndpoint</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WebSocket</servlet-name>
+    <url-pattern>/servlet/*</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
 </web-app>
