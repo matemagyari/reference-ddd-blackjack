@@ -11,24 +11,28 @@ import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
  */
 public class ExternalDomainEvent {
 	
-	private final PlayerID playerId;
-	private final TableID tableId;
+	private final Addressee addressee;
 	private final DomainEvent event;
 
 	public ExternalDomainEvent(DomainEvent event, TableID tableId, PlayerID playerId) {
 		this.event = event;
-		this.tableId = tableId;
-		this.playerId = playerId;
+		this.addressee = new Addressee(playerId, tableId);
 	}
 	
 	public DomainEvent getEvent() {
 		return event;
 	}
-	public PlayerID getPlayerId() {
-		return playerId;
+	public Addressee getAddressee() {
+		return addressee;
 	}
-	public TableID getTableId() {
-		return tableId;
+	
+	public static class Addressee {
+		public final PlayerID playerId;
+		public final TableID tableId;
+		public Addressee(PlayerID playerId, TableID tableId) {
+			this.playerId = playerId;
+			this.tableId = tableId;
+		}
 	}
 
 }
