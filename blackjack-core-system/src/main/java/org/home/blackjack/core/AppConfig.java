@@ -9,6 +9,7 @@ import javax.websocket.server.ServerEndpointConfig;
 
 import org.eclipse.jetty.websocket.jsr356.server.AnnotatedServerEndpointConfig;
 import org.home.blackjack.core.infrastructure.events.EchoWSEndpoint;
+import org.home.blackjack.core.infrastructure.events.WebsocketBasedExternalEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.WebApplicationContext;
@@ -16,44 +17,42 @@ import org.springframework.web.context.WebApplicationContext;
 @Configuration
 public class AppConfig {
 
-	@Inject
-	private WebApplicationContext context;
+    @Inject
+    private WebApplicationContext context;
 
-	private ServerContainer container;
+    private ServerContainer container;
 
-	public class SpringServerEndpointConfigurator extends ServerEndpointConfig.Configurator {
+    public class SpringServerEndpointConfigurator extends ServerEndpointConfig.Configurator {
 
-		@Override
-		public <T> T getEndpointInstance(Class<T> endpointClass)
+        @Override
+        public <T> T getEndpointInstance(Class<T> endpointClass) throws InstantiationException {
+            return context.getAutowireCapableBeanFactory().createBean(endpointClass);
+        }
+    }
 
-		throws InstantiationException {
+    @Bean
+    public ServerEndpointConfig.Configurator configurator() {
 
-			return context.getAutowireCapableBeanFactory().createBean(endpointClass);
+        return new SpringServerEndpointConfigurator();
 
-		}
+    }
 
-	}
+    @PostConstruct
+    public void init() throws DeploymentException {
 
-	@Bean
-	public ServerEndpointConfig.Configurator configurator() {
+        container = (ServerContainer) context.getServletContext().getAttribute(javax.websocket.server.ServerContainer.class.getName());
 
-		return new SpringServerEndpointConfigurator();
+        container.addEndpoint(configForClass(EchoWSEndpoint.class));
+        container.addEndpoint(configForClass(WebsocketBasedExternalEventPublisher.class));
+    }
 
-	}
-
-	@PostConstruct
-	public void init() throws DeploymentException {
-
-		container = (ServerContainer) context.getServletContext().getAttribute(javax.websocket.server.ServerContainer.class.getName());
-		AnnotatedServerEndpointConfig endpointConfig = new AnnotatedServerEndpointConfig(EchoWSEndpoint.class,
-				EchoWSEndpoint.class.getAnnotation(ServerEndpoint.class)) {
-			@Override
-			public Configurator getConfigurator() {
-				return configurator();
-			}
-		};
-		container.addEndpoint(endpointConfig);
-
-	}
+    private AnnotatedServerEndpointConfig configForClass(Class<?> clazz) throws DeploymentException {
+        return new AnnotatedServerEndpointConfig(clazz, clazz.getAnnotation(ServerEndpoint.class)) {
+            @Override
+            public Configurator getConfigurator() {
+                return configurator();
+            }
+        };
+    }
 
 }
