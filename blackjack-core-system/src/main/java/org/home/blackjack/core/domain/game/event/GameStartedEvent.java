@@ -5,14 +5,8 @@ import org.home.blackjack.core.domain.shared.TableID;
 
 public class GameStartedEvent extends GameEvent {
 
-	private final TableID tableId;
-
-	public GameStartedEvent(GameID gameID, int sequenceNumber, TableID tableId) {
-		super(gameID, sequenceNumber);
-		this.tableId = tableId;
+	public GameStartedEvent(GameID gameID, TableID tableId, int sequenceNumber) {
+		super(gameID, tableId, null, sequenceNumber);
 	}
 
-	public TableID tableId() {
-		return tableId;
-	}
 }

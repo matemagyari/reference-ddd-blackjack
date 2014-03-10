@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.events;
+package org.home.blackjack.core.infrastructure.events.websocket;
 
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisher;

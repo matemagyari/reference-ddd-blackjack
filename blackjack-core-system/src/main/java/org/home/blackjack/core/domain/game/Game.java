@@ -92,12 +92,12 @@ public class Game extends AggregateRoot<GameID> {
 		if (state != GameState.BEFORE_INITIAL_DEAL) {
 			throw new IllegalStateException(getID() + " initial deal has been already made");
 		}
-		publish(new GameStartedEvent(getID(), nextSequenceId(), tableId));
+		publish(new GameStartedEvent(getID(),tableId, nextSequenceId()));
 		dealFor(player);
 		dealFor(dealer);
 		dealFor(player);
 		dealFor(dealer);
-		publish(new InitalCardsDealtEvent(getID(), nextSequenceId()));
+		publish(new InitalCardsDealtEvent(getID(), tableId, nextSequenceId()));
 	}
 
 	private void dealFor(Player player) {
@@ -110,7 +110,7 @@ public class Game extends AggregateRoot<GameID> {
 		Card card = deck.draw();
 		int score = player.isDealtWith(card);
 		PlayerID other = other(playerId).getID();
-		publish(new PlayerCardDealtEvent(getID(), nextSequenceId(), playerId, other, card));
+		publish(new PlayerCardDealtEvent(getID(), tableId, playerId, card, nextSequenceId()));
 		if (score > TARGET) {
 			finish(other);
 		}
@@ -119,7 +119,7 @@ public class Game extends AggregateRoot<GameID> {
 	public void playerStands(PlayerID playerId) {
 		Player player = handOf(playerId);
 		player.stand();
-		publish(new PlayerStandsEvent(getID(), nextSequenceId(), playerId));
+		publish(new PlayerStandsEvent(getID(), tableId, playerId, nextSequenceId()));
 		if (lastToAct.stopped()) {
 			declareWinner();
 		}
@@ -187,6 +187,7 @@ public class Game extends AggregateRoot<GameID> {
 		AFTER_INITIAL_DEAL,
 		FINISHED
 	}
+	
 
 	@Override
 	public String toString() {

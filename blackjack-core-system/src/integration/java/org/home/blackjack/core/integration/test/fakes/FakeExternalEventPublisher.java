@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.home.blackjack.core.app.event.ExternalDomainEvent;
 import org.home.blackjack.core.app.event.ExternalEventPublisher;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameStartedEvent;
@@ -21,9 +22,9 @@ public class FakeExternalEventPublisher implements ExternalEventPublisher {
 	private final List<DomainEvent> events = Lists.newArrayList();
 
 	@Override
-	public void publish(DomainEvent event) {
+	public void publish(ExternalDomainEvent event) {
 		System.err.println("External event: " + event);
-		events.add(event);
+		events.add(event.getEvent());
 	}
 
 	public GameID assertInitalCardsDealtEvent(TableID tableID) {
@@ -32,7 +33,7 @@ public class FakeExternalEventPublisher implements ExternalEventPublisher {
 		for (DomainEvent event : events) {
 			if (event instanceof GameStartedEvent) {
 				GameStartedEvent dealtEvent = (GameStartedEvent) event;
-				assertEquals(tableID, dealtEvent.tableId());
+				assertEquals(tableID, dealtEvent.getTableID());
 				return  dealtEvent.getGameID();
 			}
 		}

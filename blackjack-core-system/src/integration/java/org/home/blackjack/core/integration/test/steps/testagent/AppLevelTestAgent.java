@@ -69,7 +69,7 @@ public class AppLevelTestAgent extends TestAgent {
 			@Override
 			public boolean match(PlayerCardDealtEvent anEvent) {
 				return anEvent.getCard().equals(CardDO.toCard(card)) 
-						&& anEvent.getPlayer().equals(getRealPlayerId(playerId))
+						&& anEvent.getActingPlayer().equals(getRealPlayerId(playerId))
 						&& anEvent.getGameID().equals(gameID);
 			}
 		});
@@ -80,7 +80,7 @@ public class AppLevelTestAgent extends TestAgent {
 		fakeExternalEventPublisher.assertArrived(PlayerStandsEvent.class, new DomainEventMatcher<PlayerStandsEvent>() {
 			@Override
 			public boolean match(PlayerStandsEvent anEvent) {
-				return anEvent.getPlayer().equals(getRealPlayerId(playerId))
+				return anEvent.getActingPlayer().equals(getRealPlayerId(playerId))
 						&& anEvent.getGameID().equals(gameID);
 			}
 		});	
@@ -103,7 +103,7 @@ public class AppLevelTestAgent extends TestAgent {
 			public boolean match(GameFinishedEvent anEvent) {
 				return anEvent.winner().equals(getRealPlayerId(playerId))
 						&& anEvent.getGameID().equals(gameID)
-						&& anEvent.tableID().equals(getRealTableId(tableId));
+						&& anEvent.getTableID().equals(getRealTableId(tableId));
 			}
 		});
 	}

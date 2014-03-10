@@ -1,6 +1,5 @@
 package org.home.blackjack.core.app.event;
 
-import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 
 /**
  * This events go out of the Bounded Context.
@@ -9,6 +8,6 @@ import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
  */
 public interface ExternalEventPublisher {
 	
-	void publish(DomainEvent event);
+	void publish(ExternalDomainEvent event);
 
 }

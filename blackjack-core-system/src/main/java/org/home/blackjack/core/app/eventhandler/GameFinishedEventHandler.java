@@ -3,6 +3,7 @@ package org.home.blackjack.core.app.eventhandler;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
+import org.home.blackjack.core.app.event.ExternalDomainEvent;
 import org.home.blackjack.core.app.event.ExternalEventPublisher;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.player.Player;
@@ -30,7 +31,7 @@ public class GameFinishedEventHandler implements DomainEventSubscriber<GameFinis
         player.recordWin();
         playerRepository.update(player);
         
-        externalEventPublisher.publish(new PlayerWonEvent(event.winner()));
+        externalEventPublisher.publish(new ExternalDomainEvent(new PlayerWonEvent(event.winner()), event.getTableID(), event.winner()));
     }
 
 }

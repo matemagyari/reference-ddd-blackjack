@@ -17,9 +17,10 @@ public class RegisterService {
 	@Resource
 	private Cashier cashier;
 	
-	public void registerPlayer(PlayerName playerName) {
+	public PlayerID registerPlayer(PlayerName playerName) {
 		PlayerID playerID = new PlayerID();
 		playerRepository.create(new Player(playerID, playerName));
 		cashier.createAccount(playerID);
+		return playerID;
 	}
 }

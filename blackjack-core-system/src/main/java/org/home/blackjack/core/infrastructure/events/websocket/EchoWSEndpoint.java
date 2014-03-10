@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.events;
+package org.home.blackjack.core.infrastructure.events.websocket;
 
 import java.io.IOException;
 

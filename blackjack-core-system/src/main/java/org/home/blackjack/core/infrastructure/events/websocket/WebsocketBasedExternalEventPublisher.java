@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.events;
+package org.home.blackjack.core.infrastructure.events.websocket;
 
 import java.io.IOException;
 import java.util.Map;
@@ -11,6 +11,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.home.blackjack.core.app.event.ExternalDomainEvent;
 import org.home.blackjack.core.app.event.ExternalEventPublisher;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
@@ -41,18 +42,19 @@ public class WebsocketBasedExternalEventPublisher implements ExternalEventPublis
     public void onMessage(String message, Session session) {
         this.sessions.remove(session.getId());
         
-        gameActionApplicationService.handlePlayerAction(gameID, gameAction);
     }
 
     @Override
-    public void publish(DomainEvent event) {
+    public void publish(ExternalDomainEvent event) {
         String json = gsonBuilder.create().toJson(event);
         System.err.println("Publish: " + json);
+        /*
         try {
             session.getBasicRemote().sendText(json);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        */
     }
 
 }

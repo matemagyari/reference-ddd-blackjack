@@ -3,7 +3,7 @@
   <display-name>tailor</display-name>
   <servlet>
     <servlet-name>WebSocket</servlet-name>
-    <servlet-class>org.home.blackjack.core.infrastructure.events.EchoWSEndpoint</servlet-class>
+    <servlet-class>org.home.blackjack.core.infrastructure.events.websocket.EchoWSEndpoint</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>WebSocket</servlet-name>

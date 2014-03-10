@@ -8,8 +8,8 @@ import javax.websocket.server.ServerEndpoint;
 import javax.websocket.server.ServerEndpointConfig;
 
 import org.eclipse.jetty.websocket.jsr356.server.AnnotatedServerEndpointConfig;
-import org.home.blackjack.core.infrastructure.events.EchoWSEndpoint;
-import org.home.blackjack.core.infrastructure.events.WebsocketBasedExternalEventPublisher;
+import org.home.blackjack.core.infrastructure.events.websocket.EchoWSEndpoint;
+import org.home.blackjack.core.infrastructure.events.websocket.WebsocketBasedExternalEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.WebApplicationContext;
