@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.WebApplicationContext;
 
-@Configuration
+//@Configuration
 public class AppConfig {
 
     @Inject

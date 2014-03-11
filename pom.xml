@@ -10,7 +10,7 @@
 	<name>Blackjack Parent</name>
 
 	<properties>
-		<camel.version>2.12.1</camel.version>
+		<camel.version>2.12.3</camel.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
 		<cucumber-jvm.version>1.1.5</cucumber-jvm.version>
 		<hazelcast.version>3.1.5</hazelcast.version>
@@ -34,11 +34,45 @@
 
 	<dependencies>
 
+
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjtools</artifactId>
 			<version>1.7.4</version>
 		</dependency>
+
+		<!--  Camel dependencies -->		
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jms</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jaxb</artifactId>
+			<version>2.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-freemarker</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cometd</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+			
 
 		<!-- hazelcast dependencies -->
 		<dependency>
