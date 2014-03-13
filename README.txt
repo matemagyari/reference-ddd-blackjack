@@ -67,9 +67,11 @@ Structure
 
 Package structure (layers of onion from inside out)
 * util - general functionality not belonging to any layer in particular
-* domain
-* app
-* infrastructure
+* domain - contains the logic for the given subdomain (Core or Wallet). Composed of Modules (a larger package with its subpackages). Aggregates reside in their own Module.
+* app - application layer. main subpackages:
+    ** service - package for all application services. These are the facades exposed to the client. ALL calls from the client goes through this package.
+    ** eventhandlers - package for eventhandlers. See Domain Events for further details.
+* infrastructure - 
 
 Visibility scopes are deliberately restricted to package level wherever possible to encourage loose coupling and encapsulation on package level.
 
