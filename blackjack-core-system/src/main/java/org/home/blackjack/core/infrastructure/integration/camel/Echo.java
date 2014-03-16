@@ -6,6 +6,7 @@ import javax.inject.Named;
 public class Echo {
 
 	public String echo(String input) {
+		System.err.println("input arrived " + input);
 		return input + "_" + input;
 	}
 }

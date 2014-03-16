@@ -9,6 +9,7 @@ import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.exception.GameNotFoundException;
+import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
@@ -37,6 +38,18 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 		game.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
 		return game;
 	}
+	
+
+	@Override
+	public Game find(TableID tableId) {
+		PersistenceObject<Game> po = gameStore.find(tableId);
+		if (po == null) {
+			throw new GameNotFoundException(tableId);
+		}
+		Game game = gameStoreAssembler.toDomain(po);
+		game.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
+		return game;
+	}
 
 	@Override
 	public void create(Game game) {
@@ -54,6 +67,5 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 	public Lock getLockForKey(GameID key) {
 		return gameStore.getLockForKey(key);
 	}
-
 	
 }

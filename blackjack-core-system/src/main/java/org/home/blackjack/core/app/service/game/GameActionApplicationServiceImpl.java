@@ -3,9 +3,9 @@ package org.home.blackjack.core.app.service.game;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
-import org.home.blackjack.core.app.eventhandler.GameEventHandler;
-import org.home.blackjack.core.app.eventhandler.GameFinishedEventHandler;
-import org.home.blackjack.core.app.eventhandler.BetConcerningGameFinishedEventHandler;
+import org.home.blackjack.core.app.events.eventhandler.BetConcerningGameFinishedEventHandler;
+import org.home.blackjack.core.app.events.eventhandler.GameEventHandler;
+import org.home.blackjack.core.app.events.eventhandler.GameFinishedEventHandler;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.domain.game.core.GameID;

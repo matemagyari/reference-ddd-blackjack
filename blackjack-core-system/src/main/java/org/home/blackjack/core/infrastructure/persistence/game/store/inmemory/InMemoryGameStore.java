@@ -10,7 +10,9 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
+import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
+import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
 
@@ -36,6 +38,13 @@ public class InMemoryGameStore implements GameStore {
 		String json = jsonMap.get(gameID);
 		return new InMemoryPersistenceGame(gameID, json);
 	}
+	
+
+	@Override
+	public PersistenceObject<Game> find(TableID tableId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public void update(PersistenceObject<Game> po) {
@@ -60,4 +69,5 @@ public class InMemoryGameStore implements GameStore {
 		jsonMap.clear();
 		locks.clear();
 	}
+
 }

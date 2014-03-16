@@ -1,10 +1,10 @@
-package org.home.blackjack.core.app.eventhandler;
+package org.home.blackjack.core.app.events.eventhandler;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
 
-import org.home.blackjack.core.app.event.ExternalDomainEvent;
-import org.home.blackjack.core.app.event.ExternalEventPublisher;
+import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
+import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.domain.game.event.GameEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;

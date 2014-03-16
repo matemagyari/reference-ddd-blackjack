@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.home.blackjack.core.app.event.ExternalDomainEvent;
-import org.home.blackjack.core.app.event.ExternalEventPublisher;
+import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
+import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameStartedEvent;
 import org.home.blackjack.core.domain.shared.TableID;
