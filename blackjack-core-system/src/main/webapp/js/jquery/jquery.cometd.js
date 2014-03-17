@@ -106,7 +106,7 @@
 
         $.CometD = function(name)
         {
-            var cometd = new org_cometd.CometD(name);
+            var cometd = new org_cometd.Cometd(name);
 
             // Registration order is important
             if (org_cometd.WebSocket)

@@ -14,12 +14,14 @@ import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameFixture;
 import org.home.blackjack.core.infrastructure.persistence.game.store.json.GameGsonProvider;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+@Ignore
 public class GameGsonProviderVersioningTest {
 
 	private GameGsonProvider gsonProvider = new GameGsonProvider();

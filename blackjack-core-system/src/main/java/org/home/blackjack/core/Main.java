@@ -11,7 +11,7 @@ public class Main {
 		applicationContext.registerShutdownHook();
 		applicationContext.start();
 		
-		System.err.println("hey");
+		System.err.println("heyy3");
 
 
 	}

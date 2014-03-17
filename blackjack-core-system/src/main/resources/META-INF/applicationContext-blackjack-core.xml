@@ -12,18 +12,10 @@
 
 	<context:component-scan base-package="org.home.blackjack.core" />
 		
-	<import
-		resource="classpath:META-INF/applicationContext-blackjack-core-applevel.xml" />
+	<import resource="classpath:META-INF/applicationContext-blackjack-core-applevel.xml" />
 
-	<!-- -->
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
 		<camel:contextScan />
-<!-- 
-		<camel:route id="cool">
-			<camel:from uri="cometd://0.0.0.0:9099/inchannel" />
-			<camel:to uri="cometd://0.0.0.0:9099/outchannel" />
-		</camel:route>
-		 -->
 	</camel:camelContext>
 
 </beans>
