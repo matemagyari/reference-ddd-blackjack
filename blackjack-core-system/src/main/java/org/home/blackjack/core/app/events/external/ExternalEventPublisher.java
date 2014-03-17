@@ -1,4 +1,4 @@
-package org.home.blackjack.core.app.event;
+package org.home.blackjack.core.app.events.external;
 
 
 /**

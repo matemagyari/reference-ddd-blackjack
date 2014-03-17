@@ -3,7 +3,7 @@ package org.home.blackjack.core.app.service.seating;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
-import org.home.blackjack.core.app.eventhandler.TableIsFullEventHandler;
+import org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;

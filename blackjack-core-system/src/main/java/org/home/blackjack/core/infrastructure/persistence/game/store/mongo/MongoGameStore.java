@@ -5,6 +5,7 @@ import java.util.concurrent.locks.Lock;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
+import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
@@ -29,6 +30,11 @@ public class MongoGameStore implements GameStore {
 		return new MongoPersistenceGame(gameID, json);
 	}
 
+	@Override
+	public MongoPersistenceGame find(TableID id) {
+		return null;
+	}
+	
 	@Override
 	public void update(PersistenceObject<Game> po) {
 		MongoPersistenceGame mpg = (MongoPersistenceGame) po;

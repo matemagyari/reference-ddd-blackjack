@@ -2,6 +2,7 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
 
+import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.app.service.game.GameAction;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameActionType;
@@ -23,6 +24,7 @@ public class AppLevelTestAgent extends TestAgent {
 	private SeatingApplicationService seatingApplicationService;
 	private GameActionApplicationService gameActionApplicationService;
 	private FakeExternalEventPublisher fakeExternalEventPublisher;
+	private EventBusManager eventBusManager;
 	private GameID gameID;
 
 	@Override
@@ -37,6 +39,7 @@ public class AppLevelTestAgent extends TestAgent {
 		seatingApplicationService = cucumberService().getBean(SeatingApplicationService.class);
 		gameActionApplicationService = cucumberService().getBean(GameActionApplicationService.class);
 		fakeExternalEventPublisher = cucumberService().getBean(FakeExternalEventPublisher.class);
+		eventBusManager = cucumberService().getBean(EventBusManager.class);
 
 	}
 

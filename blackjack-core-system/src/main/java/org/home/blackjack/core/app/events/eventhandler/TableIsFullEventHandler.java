@@ -1,4 +1,4 @@
-package org.home.blackjack.core.app.eventhandler;
+package org.home.blackjack.core.app.events.eventhandler;
 
 import javax.annotation.Resource;
 import javax.inject.Named;

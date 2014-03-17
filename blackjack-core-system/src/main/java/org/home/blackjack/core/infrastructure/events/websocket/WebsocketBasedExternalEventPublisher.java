@@ -11,8 +11,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.home.blackjack.core.app.event.ExternalDomainEvent;
-import org.home.blackjack.core.app.event.ExternalEventPublisher;
+import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
+import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 

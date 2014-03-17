@@ -46,7 +46,7 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<!-- Jetty -->
+		<!-- Jetty 
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
@@ -70,6 +70,7 @@
 			<artifactId>jetty-webapp</artifactId>
 			<version>${org.eclipse.jetty.version}</version>
 		</dependency>
+		-->
 	</dependencies>
 
 
@@ -123,6 +124,21 @@
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>org.home.blackjack.core.Main</mainClass>
 				</configuration>
 			</plugin>
 

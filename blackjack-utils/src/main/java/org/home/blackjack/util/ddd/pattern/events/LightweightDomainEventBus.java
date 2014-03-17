@@ -89,6 +89,15 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 		
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public void register(List<DomainEventSubscriber> subscribers) {
+		for (DomainEventSubscriber<? extends DomainEvent> domainEventSubscriber : subscribers) {
+			register(domainEventSubscriber);
+		}
+		
+	}
+	
 	private LightweightDomainEventBus() {
 		super();
 
