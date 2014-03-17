@@ -3,11 +3,11 @@ package org.home.blackjack.core.infrastructure.integration.camel;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spring.SpringRouteBuilder;
 import org.home.blackjack.core.app.events.event.EventBusManager;
 
 @Named
-public class CoreRouteBuilder extends RouteBuilder {
+public class CoreRouteBuilder extends SpringRouteBuilder {
 
 	@Resource
 	private Echo echo;
@@ -18,6 +18,7 @@ public class CoreRouteBuilder extends RouteBuilder {
 
 		from("cometd://0.0.0.0:9099/inchannel")
 			.to("log:aLog?showAll=true&multiline=true")
+			.bean(echo)
 			//.bean(eventBusManager, "initialize")
 			//.bean(echo, "echo")
 			//.bean(eventBusManager, "flush")

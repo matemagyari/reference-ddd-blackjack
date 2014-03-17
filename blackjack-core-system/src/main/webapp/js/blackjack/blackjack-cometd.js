@@ -27,7 +27,10 @@ function metaHandshakeListener(msg){
 
 	if (msg.successful) {
 		console.log('handshake success: ', msg)
-
+		cometd.subscribe('/outchannel', msgListener)
+		console.log('subscribed')
+		cometd.publish('/inchannel','dadada')
+		console.log('published')		
     }
 }
 function metaConnectListener(msg){
@@ -35,9 +38,5 @@ function metaConnectListener(msg){
 
 	if (msg.successful) {
     	console.log('connect success: ', msg); 
-		cometd.subscribe('/outchannel', msgListener)
-		console.log('subscribed')
-		cometd.publish('/inchannel','dadada')
-		console.log('published')
     }
 }
