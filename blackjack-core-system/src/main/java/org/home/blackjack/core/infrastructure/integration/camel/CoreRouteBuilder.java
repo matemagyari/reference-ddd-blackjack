@@ -16,14 +16,14 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	
 	public void configure() {
 
-		from("cometd://0.0.0.0:9099/inchannel")
+		from("cometd://0.0.0.0:9099/inchannel?crossOriginFilterOn=false&allowedOrigins=*&filterPath=/*")
 			.to("log:aLog?showAll=true&multiline=true")
 			.bean(echo)
 			//.bean(eventBusManager, "initialize")
 			//.bean(echo, "echo")
 			//.bean(eventBusManager, "flush")
-			.setHeader("Access-Control-Allow-Origin", constant("*"))
-			.to("cometd://0.0.0.0:9099/outchannel")
+			//.setHeader("Access-Control-Allow-Origin", constant("*"))
+			//.to("cometd://0.0.0.0:9099/outchannel")
 			.routeId("testroute");
 		
 		//TODO other from for rest calls
