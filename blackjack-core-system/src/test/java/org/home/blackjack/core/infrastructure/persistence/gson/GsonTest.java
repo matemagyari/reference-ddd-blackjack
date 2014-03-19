@@ -1,4 +1,4 @@
-package org.home.blackjack.core.persistence.gson;
+package org.home.blackjack.core.infrastructure.persistence.gson;
 
 import static org.junit.Assert.assertEquals;
 

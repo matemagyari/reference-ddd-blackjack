@@ -7,15 +7,12 @@ import org.apache.camel.ProducerTemplate;
 
 @Named
 public class Echo {
-    
+
     @Resource
     private ProducerTemplate producerTemplate;
 
-	public void echo(String input) {
-		System.err.println("input arrived " + input);
-		
-		producerTemplate.asyncSendBody("cometd://0.0.0.0:9099/outchannel", input + "_" + input);
-	//     producerTemplate.sendBodyAndHeader("cometd://0.0.0.0:9099/outchannel", input + "_" + input, "Access-Control-Allow-Origin", "*");
-
-	}
+    public void echo(String input) throws InterruptedException {
+        System.err.println("input arrived " + input);
+        producerTemplate.asyncSendBody("cometd://0.0.0.0:9099/outchannel", input + "_" + input);
+    }
 }
