@@ -56,7 +56,9 @@ public class AppLevelTestAgent extends TestAgent {
 
 	@Override
 	public void playerSitsToTable(Integer playerId, Integer tableId) {
+	    eventBusManager.initialize();
 		seatingApplicationService.seatPlayer(getRealTableId(tableId), getRealPlayerId(playerId));
+		eventBusManager.flush();
 
 	}
 
@@ -91,12 +93,16 @@ public class AppLevelTestAgent extends TestAgent {
 
 	@Override
 	public void playerHits(Integer playerId, Integer tableId) {
+	    eventBusManager.initialize();
 		gameActionApplicationService.handlePlayerAction(gameID, new GameAction(gameID, getRealPlayerId(playerId), GameActionType.HIT));
+		eventBusManager.flush();
 	}
 
 	@Override
 	public void playerStands(Integer playerId, Integer tableId) {
+	    eventBusManager.initialize();
 		gameActionApplicationService.handlePlayerAction(gameID, new GameAction(gameID, getRealPlayerId(playerId), GameActionType.STAND));
+		eventBusManager.flush();
 	}
 
 	@Override
