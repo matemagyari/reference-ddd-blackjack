@@ -1,14 +1,24 @@
 package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+import org.cometd.bayeux.Message;
+import org.cometd.bayeux.client.ClientSessionChannel;
+import org.cometd.bayeux.client.ClientSessionChannel.MessageListener;
+import org.home.blackjack.core.domain.game.core.GameID;
+import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.EndToEndCucumberService;
 
 public class MessagingTestAgent extends TestAgent {
     
-
+	private CucumberService cucumberService;
+	private CometDClient cometDClient;
+	private GameID gameID;
+	
     @Override
     public void reset() {
     }
@@ -16,14 +26,15 @@ public class MessagingTestAgent extends TestAgent {
     
     @Override
     protected  void initDependencies() {
-        CucumberService cucumberService = new EndToEndCucumberService();
+        cucumberService = new EndToEndCucumberService();
+		super.initDependencies();
+		cometDClient = new CometDClient();
     }
 
 
 	@Override
 	protected CucumberService cucumberService() {
-		// TODO Auto-generated method stub
-		return null;
+		return cucumberService;
 	}
 
 
@@ -36,8 +47,14 @@ public class MessagingTestAgent extends TestAgent {
 
 	@Override
 	public void playerSitsToTable(Integer playerId, Integer tableId) {
-		// TODO Auto-generated method stub
-		
+		String channel = tableChannel(tableId);
+		cometDClient.subscribeToChannel(channel);
+		cometDClient.waitForMessage(channel, );
+	}
+
+
+	private static String tableChannel(Integer tableId) {
+		return "/table/"+tableId;
 	}
 
 

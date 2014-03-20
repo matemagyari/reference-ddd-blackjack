@@ -1,17 +1,26 @@
 package org.home.blackjack.core.infrastructure.integration.cometd;
 
+import java.util.List;
+import java.util.Map;
+
 import org.cometd.bayeux.Channel;
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
+import org.cometd.bayeux.client.ClientSessionChannel.MessageListener;
 import org.cometd.client.BayeuxClient;
 import org.cometd.client.transport.LongPollingTransport;
 import org.eclipse.jetty.client.HttpClient;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CometDClient {
 
     private final BayeuxClient client;
     private final EchoListener echoListener = new EchoListener();
     private String url = "http://0.0.0.0:9099/cometd";
+    
+    private final Map<String, List<Message>>  messageBuffer = Maps.newHashMap();
     
     public static void main(String... args) {
         CometDClient cometDClient = new CometDClient();
@@ -28,6 +37,10 @@ public class CometDClient {
 
         client = new BayeuxClient(url, new LongPollingTransport(null, httpClient));
     }
+    
+    public void reset() {
+    	messageBuffer.clear();
+    }
 
     public void run() {
 
@@ -42,7 +55,34 @@ public class CometDClient {
         }
 
     }
+    
+    public void subscribeToChannel(String channelName, ClientSessionChannel.MessageListener listener) {
+    	ClientSessionChannel channel = client.getChannel(channelName);
+    	channel.subscribe(listener);
+    }
 
+    public void subscribeToChannel(final String channelName) {
+    	MessageListener listener = new MessageListener() {
+			
+			@Override
+			public void onMessage(ClientSessionChannel channel, Message msg) {
+				List<Message> messages = messageBuffer.get(channelName);
+				if (messages == null) {
+					messages = Lists.newArrayList();
+					messageBuffer.put(channelName, messages);
+				}
+				messages.add(msg);
+			}
+		};
+    	ClientSessionChannel channel = client.getChannel(channelName);
+    	channel.subscribe(listener);
+    }
+    
+
+	public void waitForMessage(String channel) {
+		messageBuffer.get(channel);
+	}
+	
     private void initialize() {
         client.batch(new Runnable() {
             public void run() {
@@ -108,4 +148,5 @@ public class CometDClient {
     private void connectionBroken() {
         System.err.printf("system: Connection to Server Broken%n");
     }
+
 }

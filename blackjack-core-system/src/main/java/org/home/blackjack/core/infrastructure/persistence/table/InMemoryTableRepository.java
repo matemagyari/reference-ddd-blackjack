@@ -1,5 +1,6 @@
 package org.home.blackjack.core.infrastructure.persistence.table;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
@@ -13,6 +14,7 @@ import org.home.blackjack.core.domain.table.TableRepository;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 @Named
@@ -27,6 +29,11 @@ public class InMemoryTableRepository implements TableRepository, FinegrainedLock
 		Table table = map.get(tableID);
 		table.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
 		return table;
+	}
+	
+	@Override
+	public List<Table> findAll() {
+		return Lists.newArrayList(map.values());
 	}
 
 	@Override

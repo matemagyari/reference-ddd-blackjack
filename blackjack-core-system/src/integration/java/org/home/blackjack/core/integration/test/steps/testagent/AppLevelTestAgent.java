@@ -30,6 +30,7 @@ public class AppLevelTestAgent extends TestAgent {
 	@Override
 	public void reset() {
 		super.reset();
+		fakeExternalEventPublisher.reset();
 	}
 
 	@Override

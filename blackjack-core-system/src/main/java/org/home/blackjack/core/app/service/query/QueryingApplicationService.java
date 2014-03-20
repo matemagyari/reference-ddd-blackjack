@@ -1,5 +1,7 @@
 package org.home.blackjack.core.app.service.query;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.inject.Named;
 
@@ -8,6 +10,7 @@ import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.domain.game.view.PlayerGameView;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
+import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
 
 @Named
@@ -24,4 +27,10 @@ public class QueryingApplicationService {
 		PlayerGameView playerGameView = null;
 		return null;
 	}
+	
+	public TablesDTO getTables() {
+		List<Table> tables =  tableRepository.findAll();
+		return new TablesDTO(tables);
+	}
+	
 }
