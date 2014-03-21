@@ -3,12 +3,12 @@ This is a reference DDD project, implementing a simplified Blackjack game engine
 General user experience description:
 
 It's a simplified 2-player Blackjack game. Users only need a browser. At the beginning they must register, so an account of X chips will be created for each. Then they can join to tables, whenever two players sit at the same table a game begins. 
-One player will be the dealer. At the beginning of the game their bets are automatically deducted from the balance, and at the end of the game the winner will be credited. On the page the players can see a leaderboard.
+One player will be the dealer. At the beginning of the game their bets are automatically deducted from their balance, and at the end of the game the winner will be credited. On the page the players can see a leader board.
 For the rules of the game, check org.home.blackjack.core.domain.game.Game.
 
 General deployment description:
 
-The application has two artifacts (jars). They should be started up by "java -jar xxxx.jar" then the users only need a browser.
+The application has two artifacts (jars). They should be started up by "java -jar xxxx.jar", then the users only need a browser.
 
 General technical description:
 
@@ -21,7 +21,7 @@ Components:
 
 
 Hexagonal Architecture concepts/patterns the project show examples are:
-* Layering following HA principles
+* Onion Layering following HA principles
 * Drive/Driving Ports/Adapters - marker interfaces are used to make the building blocks more visible
 * Leveraging HA in testing - fake adapters
 
@@ -29,6 +29,7 @@ The DDD concepts/patterns the project show examples are:
 
 Aggregate design:
 * Transactional consistency requirements = True Invariants. Enforced inside aggregates: see org.home.blackjack.core.domain.core.game.Game
+  Trivial example: player's cards and the remaining deck should always add up 52 different cards, with no overlaps 
 * Eventual consistency requirements - consistency rules among multiple aggregate instances. Examples:
     1. A player's win number in PlayerRecord aggregate must equal the number of Game instances in which she won 
     2. The sum of wins for all the PlayerRecord instances must equal the number of Game instances
@@ -49,12 +50,12 @@ Infrastructure Services:
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
-* external domain events - events translated to messages leaving the Bounded Context 
+* external domain events - events translated to messages to be sent out of the Bounded Context 
 
 
 Structure
 
-* Bounded Contexts: 
+* Bounded Contexts - separate deployable units: 
     ** Blackjack Core - implements the game
     ** BlackJack Wallet - provides functionality to manage the players' chips. Exposes a REST interface.
     
@@ -71,12 +72,15 @@ Package structure (layers of onion from inside out)
 * app - application layer. main subpackages:
     ** service - package for all application services. These are the facades exposed to the client. ALL calls from the client goes through this package.
     ** eventhandlers - package for eventhandlers. See Domain Events for further details.
-* infrastructure - 
+* infrastructure - predominantly ACL implementations
 
 Visibility scopes are deliberately restricted to package level wherever possible to encourage loose coupling and encapsulation on package level.
 
 
+Stuff missing:
 
+* the Wallet component is very lean, no error handling, no complete anti-corruption layers. It's purpose is to demonstrate how can two remote Bounded Contexts interact
+* CometD - very simplistic implementation, no error handling, no security
 
 The project extensively uses marker interfaces for Hexagonal Architecture/DDD building blocks/patterns/concepts to make the intentions clearer. 
 They are under the *.util.marker package. Other way could have been to use annotations.

@@ -28,10 +28,18 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 			//.to("cometd://0.0.0.0:9099/outchannel")
 			.routeId("testroute").end();
 		
-		from("cometd://0.0.0.0:9099/tables?crossOriginFilterOn=true&allowedOrigins=*&filterPath=/*")
-			.to("log:aLog?showAll=true&multiline=true")
-			.bean(queryingApplicationService,"getTables")
-			.routeId("testroute").end();
+		from("cometd://0.0.0.0:9099/service/query?matchOnUriPrefix=true")
+		    .to("log:aLog?showAll=true&multiline=true")
+		    .bean(echo)
+		    .routeId("testroute").end();
+
+		from("cometd://0.0.0.0:9099/service/command?matchOnUriPrefix=true")
+		    .to("log:aLog?showAll=true&multiline=true")
+		    .bean(eventBusManager, "initialize")
+		    .bean(echo)
+		    .bean(eventBusManager, "flush")
+		. routeId("testroute").end();
+		
 	}
 
 }
