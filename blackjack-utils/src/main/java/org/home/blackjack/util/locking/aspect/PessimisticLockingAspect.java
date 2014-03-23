@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,6 +19,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import com.google.common.collect.Lists;
+import com.hazelcast.util.StringUtil;
 
 @Aspect
 public class PessimisticLockingAspect implements ApplicationContextAware {
@@ -35,9 +37,17 @@ public class PessimisticLockingAspect implements ApplicationContextAware {
 		WithPessimisticLock withLockAnnotation = getWithLockAnnotation(pjp);
 		FinegrainedLockable<Object> repository = (FinegrainedLockable<Object>) applicationContext.getBean(withLockAnnotation.repository());
 
-		Object key = getKey(pjp);
+		String lockMethod = withLockAnnotation.lockMethod();
+		Object key = null;
+		if (StringUtils.isNotBlank(lockMethod)) {
+			Object object = pjp.getArgs()[0];
+			Method method = object.getClass().getMethod(lockMethod);
+			key = method.invoke(object);
+		} else {
+			key = getKey(pjp);
+		}
 
-		System.out.println("LOCK acquiring attempt with key " + key);
+		LOGGER.info("LOCK acquiring attempt with key " + key);
 
 		final List<Object> proceedResult = Lists.newArrayList();
 		LOCK_TEMPLATE.doWithLock(repository, key, new VoidWriteLockingAction<Object>() {
@@ -51,8 +61,8 @@ public class PessimisticLockingAspect implements ApplicationContextAware {
 				}
 			}
 		});
-		
-		System.out.println("LOCK released for key " + key);
+
+		LOGGER.info("LOCK released for key " + key);
 
 		return proceedResult.get(0);
 	}
@@ -75,11 +85,6 @@ public class PessimisticLockingAspect implements ApplicationContextAware {
 		return pjp.getArgs()[lockParameterIndex];
 	}
 
-	private FinegrainedLockable<Object> getRepository(String repositoryBeanName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	private WithPessimisticLock getWithLockAnnotation(ProceedingJoinPoint pjp) throws NoSuchMethodException {
 		MethodSignature signature = (MethodSignature) pjp.getSignature();
 		Method method = signature.getMethod();
@@ -95,12 +100,6 @@ public class PessimisticLockingAspect implements ApplicationContextAware {
 		}
 		method = pjp.getTarget().getClass().getMethod(pjp.getSignature().getName(), argClasses);
 		return AnnotationUtils.findAnnotation(method, WithPessimisticLock.class);
-	}
-
-	private Object proceed(ProceedingJoinPoint pjp) throws Throwable {
-
-		return pjp.proceed();
-
 	}
 
 	@Override

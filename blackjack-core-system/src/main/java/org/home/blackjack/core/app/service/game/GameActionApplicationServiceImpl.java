@@ -3,9 +3,9 @@ package org.home.blackjack.core.app.service.game;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
+import org.home.blackjack.core.app.dto.GameCommand;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameRepository;
-import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.util.locking.aspect.WithPessimisticLock;
 
 /**
@@ -22,17 +22,15 @@ public class GameActionApplicationServiceImpl implements GameActionApplicationSe
     @Resource
     private GameRepository gameRepository;
 
-    @WithPessimisticLock(repository = GameRepository.class)
-    @Override
-    public void handlePlayerAction(final GameID gameID, final GameAction gameAction) {
-
-        Game game = gameRepository.find(gameAction.getGameID());
-        if (gameAction.getGameActionType() == GameActionType.HIT) {
-            game.playerHits(gameAction.getPlayerID());
-        } else if (gameAction.getGameActionType() == GameActionType.STAND) {
-            game.playerStands(gameAction.getPlayerID());
+    @WithPessimisticLock(repository=GameRepository.class, lockMethod="getGameID")
+	@Override
+	public void handlePlayerAction(GameCommand command) {
+        Game game = gameRepository.find(command.getGameID());
+        if (command.getAction() == GameActionType.HIT) {
+            game.playerHits(command.getPlayerId());
+        } else if (command.getAction() == GameActionType.STAND) {
+            game.playerStands(command.getPlayerId());
         }
-        gameRepository.update(game);
-    }
+        gameRepository.update(game);	}
 
 }

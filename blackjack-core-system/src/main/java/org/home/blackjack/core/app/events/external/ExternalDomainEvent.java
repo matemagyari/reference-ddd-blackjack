@@ -33,6 +33,15 @@ public class ExternalDomainEvent {
 			this.playerId = playerId;
 			this.tableId = tableId;
 		}
+		@Override
+		public String toString() {
+			return "Addressee [playerId=" + playerId + ", tableId=" + tableId + "]";
+		}
 	}
 
+	@Override
+	public String toString() {
+		return "ExternalDomainEvent [addressee=" + addressee + ", event=" + event + "]";
+	}
+	
 }

@@ -18,19 +18,17 @@ public abstract class ID extends ValueObject {
 			return UUID.randomUUID();
 		}
 	};
-	private UUID internal;
-	private String strInternal;
+	private String internal;
 
 	private DateTime creationDate;
 
 	protected ID(String uuid) {
-		//setInternal(UUID.fromString(uuid));
-		strInternal = uuid;
+		setInternal(uuid);
 	}
 	protected ID() {
 
 		UUID internal = idGenerationStrategy.generate();
-		setInternal(internal);
+		setInternal(internal.toString());
 		//setCreationDate(new DateTime(internal.timestamp()));
 	}
 
@@ -39,7 +37,7 @@ public abstract class ID extends ValueObject {
 		return creationDate;
 	}
 
-	private void setInternal(final UUID internal) {
+	private void setInternal(final String internal) {
 
 		if (internal == null) {
 			throw new IllegalArgumentException("Internal ID cannot be null");
@@ -54,6 +52,6 @@ public abstract class ID extends ValueObject {
 	
 	@Override
 	public String toString() {
-		return internal + " " + strInternal;
+		return internal;
 	}
 }

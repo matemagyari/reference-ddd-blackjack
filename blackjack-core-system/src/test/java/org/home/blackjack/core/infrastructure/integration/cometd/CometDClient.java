@@ -2,151 +2,240 @@ package org.home.blackjack.core.infrastructure.integration.cometd;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
-import org.cometd.bayeux.Channel;
+import org.apache.log4j.Logger;
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
+import org.cometd.bayeux.client.ClientSessionChannel.ClientSessionChannelListener;
 import org.cometd.bayeux.client.ClientSessionChannel.MessageListener;
-import org.cometd.client.BayeuxClient;
-import org.cometd.client.transport.LongPollingTransport;
-import org.eclipse.jetty.client.HttpClient;
+import org.home.blackjack.core.integration.test.util.Util;
+import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
+import org.junit.Assert;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-public class CometDClient {
+public class CometDClient extends AbstractCometDClient {
 
-    private final BayeuxClient client;
-    private final EchoListener echoListener = new EchoListener();
-    private String url = "http://0.0.0.0:9099/cometd";
-    
-    private final Map<String, List<Message>>  messageBuffer = Maps.newHashMap();
-    
-    public static void main(String... args) {
-        CometDClient cometDClient = new CometDClient();
-        cometDClient.run();
-    }
+	private final EchoListener echoListener = new EchoListener();
 
-    public CometDClient() {
-        HttpClient httpClient = new HttpClient();
-        try {
-            httpClient.start();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+	private static Logger LOGGER = Logger.getLogger(CometDClient.class);
 
-        client = new BayeuxClient(url, new LongPollingTransport(null, httpClient));
-    }
-    
-    public void reset() {
-    	messageBuffer.clear();
-    }
+	private final Map<String, List<JsonObject>> messageBuffer = Maps.newHashMap();
 
-    public void run() {
+	public static void main(String... args) {
+		CometDClient cometDClient = new CometDClient("http://0.0.0.0:9099/cometd");
+		cometDClient.handshake();
+	}
 
-        client.getChannel(Channel.META_HANDSHAKE).addListener(new InitializerListener());
-        client.getChannel(Channel.META_CONNECT).addListener(new ConnectionListener());
+	public CometDClient(String baseUrl) {
+		super(baseUrl);
+	}
 
-        client.handshake();
-        boolean success = client.waitFor(1000, BayeuxClient.State.CONNECTED);
-        if (!success) {
-            System.err.printf("Could not handshake with server at %s%n", url);
-            return;
-        }
-
-    }
-    
-    public void subscribeToChannel(String channelName, ClientSessionChannel.MessageListener listener) {
-    	ClientSessionChannel channel = client.getChannel(channelName);
-    	channel.subscribe(listener);
-    }
-
-    public void subscribeToChannel(final String channelName) {
-    	MessageListener listener = new MessageListener() {
-			
-			@Override
-			public void onMessage(ClientSessionChannel channel, Message msg) {
-				List<Message> messages = messageBuffer.get(channelName);
-				if (messages == null) {
-					messages = Lists.newArrayList();
-					messageBuffer.put(channelName, messages);
-				}
-				messages.add(msg);
-			}
-		};
-    	ClientSessionChannel channel = client.getChannel(channelName);
-    	channel.subscribe(listener);
-    }
-    
+	public void reset() {
+		messageBuffer.clear();
+	}
 
 	public void waitForMessage(String channel) {
 		messageBuffer.get(channel);
 	}
+
+	private void initialize() {
+		client.batch(new Runnable() {
+			public void run() {
+				ClientSessionChannel outChannel = client.getChannel("/inchannel");
+				ClientSessionChannel inChannel = client.getChannel("/outchannel");
+				inChannel.subscribe(echoListener);
+
+				// Map<String, Object> data = new HashMap<String, Object>();
+				// data.put("user", nickname);
+				// data.put("membership", "join");
+				// data.put("chat", nickname + " has joined");
+				outChannel.publish("hello");
+			}
+		});
+	}
+
+	private class EchoListener implements ClientSessionChannel.MessageListener {
+		public void onMessage(ClientSessionChannel channel, Message message) {
+			LOGGER.info("echoListener " + message);
+		}
+	}
+
+	private class InitializerListener implements ClientSessionChannel.MessageListener {
+		public void onMessage(ClientSessionChannel channel, Message message) {
+			if (message.isSuccessful()) {
+				initialize();
+			}
+		}
+	}
+
+	private class ConnectionListener implements ClientSessionChannel.MessageListener {
+		private boolean wasConnected;
+		private boolean connected;
+
+		public void onMessage(ClientSessionChannel channel, Message message) {
+			if (client.isDisconnected()) {
+				connected = false;
+				connectionClosed();
+				return;
+			}
+
+			wasConnected = connected;
+			connected = message.isSuccessful();
+			if (!wasConnected && connected) {
+				connectionEstablished();
+			} else if (wasConnected && !connected) {
+				connectionBroken();
+			}
+		}
+	}
+
+	@Override
+	protected ClientSessionChannelListener connectionListener() {
+		return new ConnectionListener();
+	}
+
+	@Override
+	protected ClientSessionChannelListener initializerListener() {
+		return new InitializerListener();
+	}
+
+	public JsonObject requestAndWaitForReply(String channelToSubscribe, String channelToPublish, String command) {
+		final CountDownLatch countDownLatch = new CountDownLatch(1);
+		final List<JsonObject> resp = Lists.newArrayList();
+		MessageListener listener = new MessageListener() {
+
+			@Override
+			public void onMessage(ClientSessionChannel channel, Message msg) {
+				JsonObject dataJson = extractData(msg);
+				resp.add(dataJson);
+				countDownLatch.countDown();
+			}
+		};
+		client.getChannel(channelToSubscribe).subscribe(listener);
+		publish(channelToPublish, command);
+		try {
+			countDownLatch.await(1, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		LOGGER.info("waited enough");
+		return resp.get(0);
+	}
+
+	public void subscribeAndPublish(String channelToSubscribe, String channelToPublish, String command) {
+		subscribeToChannel(channelToSubscribe);
+		publish(channelToPublish, command);
+	}
+
+	public void publish(String channelToPublish, String command) {
+		client.getChannel(channelToPublish).publish(command);
+	}
 	
-    private void initialize() {
-        client.batch(new Runnable() {
-            public void run() {
-                ClientSessionChannel outChannel = client.getChannel("/inchannel");
-                ClientSessionChannel inChannel = client.getChannel("/outchannel");
-                inChannel.subscribe(echoListener);
+	public <T extends DomainEvent> JsonObject verifyMessageArrived(String channelName, MessageMatcher matcher) {
+		for(int i = 0;i<5;i++) {
+			JsonObject message = findMessage(channelName, matcher);
+			if (message != null) {
+				return message;
+			} else {
+				Util.sleep(500);
+			}
+		}
+		Assert.fail("event not found on channel " + channelName);
+		return null;
+	}
+	
+	public static interface MessageMatcher {
+		boolean match(JsonObject jsonObject);
+	}
 
-                // Map<String, Object> data = new HashMap<String, Object>();
-                // data.put("user", nickname);
-                // data.put("membership", "join");
-                // data.put("chat", nickname + " has joined");
-                outChannel.publish("hello");
-            }
-        });
-    }
+	public <T extends DomainEvent> JsonObject verifyMessageArrived(String channelName, T expectedEvent) {
+		for(int i = 0;i<5;i++) {
+			JsonObject message = findMessage(channelName, expectedEvent);
+			if (message != null) {
+				return message;
+			} else {
+				Util.sleep(500);
+			}
+		}
+		Assert.fail(expectedEvent + " not found on channel " + channelName);
+		return null;
+	}
 
-    private class EchoListener implements ClientSessionChannel.MessageListener {
-        public void onMessage(ClientSessionChannel channel, Message message) {
-            System.err.println("echoListener " + message);
-        }
-    }
+	private <T extends DomainEvent> JsonObject findMessage(String channelName, T expectedEvent) {
+		JsonObject foundMsg = null;
+		synchronized (messageBuffer) {
+			List<JsonObject> list = messageBuffer.get(channelName);
+			if (list==null) {
+				return null;
+			}
+			for (JsonObject jsonObject : list) {
+				if (Util.equals(expectedEvent, jsonObject)) {
+					foundMsg = jsonObject;
+					continue;
+				}
+			}
+			if (foundMsg != null) {
+				messageBuffer.remove(foundMsg);
+			}
+		}
+		return foundMsg;
+	}
 
-    private class InitializerListener implements ClientSessionChannel.MessageListener {
-        public void onMessage(ClientSessionChannel channel, Message message) {
-            if (message.isSuccessful()) {
-                initialize();
-            }
-        }
-    }
-    private class ConnectionListener implements ClientSessionChannel.MessageListener {
-        private boolean wasConnected;
-        private boolean connected;
+	private <T extends DomainEvent> JsonObject findMessage(String channelName, MessageMatcher matcher) {
+		JsonObject foundMsg = null;
+		synchronized (messageBuffer) {
+			List<JsonObject> list = messageBuffer.get(channelName);
+			if (list==null) {
+				return null;
+			}
+			for (JsonObject jsonObject : list) {
+				if (matcher.match(jsonObject)) {
+					foundMsg = jsonObject;
+					continue;
+				}
+			}
+			if (foundMsg != null) {
+				messageBuffer.remove(foundMsg);
+			}
+		}
+		return foundMsg;
+	}
+	
+	public void subscribeToChannel(final String channelName) {
+		//if already subscribed
+		if (messageBuffer.keySet().contains(channelName)) {
+			return;
+		}
+		MessageListener listener = new MessageListener() {
 
-        public void onMessage(ClientSessionChannel channel, Message message) {
-            if (client.isDisconnected()) {
-                connected = false;
-                connectionClosed();
-                return;
-            }
+			@Override
+			public void onMessage(ClientSessionChannel channel, Message msg) {
+				JsonObject dataJson = extractData(msg);
+				LOGGER.info("msg arrived on ["+channelName+"] - " + dataJson);
+				synchronized (messageBuffer) {
+					List<JsonObject> messages = messageBuffer.get(channelName);
+					if (messages == null) {
+						messages = Lists.newArrayList();
+						messageBuffer.put(channelName, messages);
+					}
+					messages.add(dataJson);
+				}
+			}
 
-            wasConnected = connected;
-            connected = message.isSuccessful();
-            if (!wasConnected && connected) {
-                connectionEstablished();
-            } else if (wasConnected && !connected) {
-                connectionBroken();
-            }
-        }
-    }
+		};
+		ClientSessionChannel channel = client.getChannel(channelName);
+		channel.subscribe(listener);
+	}
 
-    private void connectionEstablished() {
-        System.err.printf("system: Connection to Server Opened%n");
-        // Map<String, Object> data = new HashMap<String, Object>();
-        // data.put("user", nickname);
-        // data.put("room", "/chat/demo");
-        // client.getChannel("/service/members").publish(data);
-    }
-
-    private void connectionClosed() {
-        System.err.printf("system: Connection to Server Closed%n");
-    }
-
-    private void connectionBroken() {
-        System.err.printf("system: Connection to Server Broken%n");
-    }
-
+	private static JsonObject extractData(Message msg) {
+		JsonObject msgJson = (JsonObject) new JsonParser().parse(msg.getJSON());
+		String data = msgJson.get("data").toString().replace("\\\"", "\"").replaceFirst("\"", "").replaceAll("}\"", "}");
+		return (JsonObject) new JsonParser().parse(data);
+	}
 }

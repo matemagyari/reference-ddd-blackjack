@@ -10,5 +10,14 @@ import org.home.blackjack.util.ddd.pattern.ID;
  */
 public class PlayerID extends ID {
 
-	// nothing meaningful here
+	public PlayerID() {
+		super();
+	}
+	private PlayerID(String id) {
+		super(id);
+	}
+
+	public static PlayerID createFrom(String id) {
+		return new PlayerID(id);
+	}
 }

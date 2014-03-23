@@ -14,8 +14,8 @@ public class MainTest {
 		String[] args = new String [] {};
 		Main.main(args);
 		
-		CometDClient cometDClient = new CometDClient();
-		cometDClient.run();
+		CometDClient cometDClient = new CometDClient("http://0.0.0.0:9099/cometd");
+		cometDClient.handshake();
 		cometDClient.subscribeToChannel("/table/1/player/1", new LoggingListener());
 		cometDClient.subscribeToChannel("/table/1", new LoggingListener());
 		

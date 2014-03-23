@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface WithPessimisticLock {
     
     Class<?> repository();
+    
+    String lockMethod() default "";
 }

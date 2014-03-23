@@ -61,5 +61,10 @@ public class Table extends AggregateRoot<TableID> {
 	public List<PlayerID> getPlayers() {
 		return Lists.newArrayList(players) ;
 	}
+
+	@Override
+	public String toString() {
+		return "Table [size=" + size + ", players=" + players + ", getID()=" + getID() + "]";
+	}
 	
 }

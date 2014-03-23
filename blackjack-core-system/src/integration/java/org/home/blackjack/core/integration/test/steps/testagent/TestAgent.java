@@ -22,9 +22,6 @@ import com.google.common.collect.Maps;
 
 public abstract class TestAgent {
 	
-	protected Map<Integer, TableID> tableIdMap = Maps.newHashMap();
-	protected Map<Integer, PlayerID> playerIdMap = Maps.newHashMap();
-	
 	protected FakeDeckFactory fakeDeckFactory;
 	protected TableRepository tableRepository;
 	protected PlayerRepository playerRepository;
@@ -49,32 +46,15 @@ public abstract class TestAgent {
     	tableRepository.clear();
     	playerRepository.clear();
     	walletService.reset();
-    	tableIdMap.clear();
     }
     
-	protected PlayerID generatePlayerId(Integer playerId) {
-		PlayerID realId = new PlayerID();
-		playerIdMap.put(playerId, realId);
-		return realId;
-	}
-	protected TableID generateTableId(Integer tableId) {
-		TableID realId = new TableID();
-		tableIdMap.put(tableId, realId);
-		return realId;
-	}
-	protected TableID getRealTableId(Integer tableId) {
-		return tableIdMap.get(tableId);
-	}
-	protected PlayerID getRealPlayerId(Integer playerId) {
-		return playerIdMap.get(playerId);
-	}
 	public void givenAPreparedDeck(List<CardDO> cards) {
 		fakeDeckFactory.prepareDeckFrom(Util.transform(cards));
 		
 	}
 
 	public void givenAnEmptyTable(Integer tableID) {
-		tableRepository.create(new Table(generateTableId(tableID)));
+		tableRepository.create(new Table(TableID.createFrom(tableID.toString())));
 	}
 
 	public abstract void thenTablesSeenInLobby(List<TableDO> tables);
@@ -94,16 +74,23 @@ public abstract class TestAgent {
 	public abstract void thenPlayersLastActionWasStand(Integer playerId, Integer tableId);
 
 	public void givenRegisteredPlayer(Integer playerId) {
-		playerRepository.create(new Player(generatePlayerId(playerId), new PlayerName("xx")));
+		playerRepository.create(new Player(convertPlayerId(playerId), new PlayerName("xx")));
 	}
 
 	public void thenPlayerIsDebited(Integer playerId, Integer amount) {
-		walletService.assertLastAct(getRealPlayerId(playerId), FakeWalletService.WalletAct.ENTRYFEE);
+		walletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.ENTRYFEE);
 	}
 
 	public void thenPlayerIsCredited(Integer playerId, Integer amount) {
-		walletService.assertLastAct(getRealPlayerId(playerId), FakeWalletService.WalletAct.WIN);
+		walletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.WIN);
 	}
 
 
+	protected static PlayerID convertPlayerId(Integer playerId) {
+		return PlayerID.createFrom(playerId.toString());
+	}
+
+	protected static TableID convertTableId(Integer tableId) {
+		return TableID.createFrom(tableId.toString());
+	}
 }

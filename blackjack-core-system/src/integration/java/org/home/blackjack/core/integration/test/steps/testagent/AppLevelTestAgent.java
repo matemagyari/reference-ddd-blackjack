@@ -2,6 +2,8 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
 
+import org.home.blackjack.core.app.dto.GameCommand;
+import org.home.blackjack.core.app.dto.TableCommand;
 import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.app.service.game.GameAction;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
@@ -58,14 +60,14 @@ public class AppLevelTestAgent extends TestAgent {
 	@Override
 	public void playerSitsToTable(Integer playerId, Integer tableId) {
 	    eventBusManager.initialize();
-		seatingApplicationService.seatPlayer(getRealTableId(tableId), getRealPlayerId(playerId));
+		seatingApplicationService.seatPlayer(new TableCommand(playerId.toString(), tableId.toString()));
 		eventBusManager.flush();
 
 	}
 
 	@Override
 	public void thenGameStartedAtTable(Integer tableID) {
-		gameID = fakeExternalEventPublisher.assertInitalCardsDealtEvent(getRealTableId(tableID));
+		gameID = fakeExternalEventPublisher.assertInitalCardsDealtEvent(convertTableId(tableID));
 
 	}
 
@@ -75,7 +77,7 @@ public class AppLevelTestAgent extends TestAgent {
 			@Override
 			public boolean match(PlayerCardDealtEvent anEvent) {
 				return anEvent.getCard().equals(CardDO.toCard(card)) 
-						&& anEvent.getActingPlayer().equals(getRealPlayerId(playerId))
+						&& anEvent.getActingPlayer().equals(convertPlayerId(playerId))
 						&& anEvent.getGameID().equals(gameID);
 			}
 		});
@@ -86,7 +88,7 @@ public class AppLevelTestAgent extends TestAgent {
 		fakeExternalEventPublisher.assertArrived(PlayerStandsEvent.class, new DomainEventMatcher<PlayerStandsEvent>() {
 			@Override
 			public boolean match(PlayerStandsEvent anEvent) {
-				return anEvent.getActingPlayer().equals(getRealPlayerId(playerId))
+				return anEvent.getActingPlayer().equals(convertPlayerId(playerId))
 						&& anEvent.getGameID().equals(gameID);
 			}
 		});	
@@ -95,14 +97,16 @@ public class AppLevelTestAgent extends TestAgent {
 	@Override
 	public void playerHits(Integer playerId, Integer tableId) {
 	    eventBusManager.initialize();
-		gameActionApplicationService.handlePlayerAction(gameID, new GameAction(gameID, getRealPlayerId(playerId), GameActionType.HIT));
+	    GameCommand command = new GameCommand(playerId.toString(), gameID.toString(), GameActionType.HIT.name());
+		gameActionApplicationService.handlePlayerAction(command);
 		eventBusManager.flush();
 	}
 
 	@Override
 	public void playerStands(Integer playerId, Integer tableId) {
 	    eventBusManager.initialize();
-		gameActionApplicationService.handlePlayerAction(gameID, new GameAction(gameID, getRealPlayerId(playerId), GameActionType.STAND));
+	    GameCommand command = new GameCommand(playerId.toString(), gameID.toString(), GameActionType.STAND.name());
+		gameActionApplicationService.handlePlayerAction(command);
 		eventBusManager.flush();
 	}
 
@@ -111,9 +115,9 @@ public class AppLevelTestAgent extends TestAgent {
 		fakeExternalEventPublisher.assertArrived(GameFinishedEvent.class, new DomainEventMatcher<GameFinishedEvent>() {
 			@Override
 			public boolean match(GameFinishedEvent anEvent) {
-				return anEvent.winner().equals(getRealPlayerId(playerId))
+				return anEvent.winner().equals(convertPlayerId(playerId))
 						&& anEvent.getGameID().equals(gameID)
-						&& anEvent.getTableID().equals(getRealTableId(tableId));
+						&& anEvent.getTableID().equals(convertTableId(tableId));
 			}
 		});
 	}
