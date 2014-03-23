@@ -6,6 +6,7 @@ import javax.inject.Named;
 import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.domain.game.event.GameEvent;
+import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
 
@@ -17,13 +18,14 @@ public class GameEventHandler implements DomainEventSubscriber<GameEvent> {
 
     @Override
     public boolean subscribedTo(DomainEvent event) {
-        return event instanceof GameEvent;
+    	//PlayerCardDealtEvent is private
+        return event instanceof GameEvent && !(event instanceof PlayerCardDealtEvent);
     }
 
 
 	@Override
 	public void handleEvent(GameEvent event) {
-		externalEventPublisher.publish(new ExternalDomainEvent(event, event.getTableID(), event.getActingPlayer()));
+		externalEventPublisher.publish(new ExternalDomainEvent(event, event.getTableID()));
 	}
 
 }

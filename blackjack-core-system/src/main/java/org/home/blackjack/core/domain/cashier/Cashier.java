@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * Domain Service
@@ -13,8 +14,10 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 @Named
 public class Cashier {
 
-	private static Integer startingBalance = 500;
-	private static Integer entryFee = 500;
+	@Value("${blackjack.wallet.openingaccount}")
+	private Integer startingBalance;
+	@Value("${blackjack.wallet.bet}")
+	private Integer entryFee;
 
 	@Resource
 	private WalletService walletService;

@@ -16,6 +16,7 @@ import org.home.blackjack.core.integration.test.fakes.FakeDeckFactory;
 import org.home.blackjack.core.integration.test.fakes.FakeWalletService;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
+import org.junit.Assert;
 
 import com.google.common.collect.Maps;
 
@@ -27,6 +28,7 @@ public abstract class TestAgent {
 	protected PlayerRepository playerRepository;
 	protected FakeWalletService walletService;
 	
+	protected Map<String, PlayerID> playerIdNameMap = Maps.newHashMap();
 	
     public TestAgent() {
         initDependencies();
@@ -46,6 +48,7 @@ public abstract class TestAgent {
     	tableRepository.clear();
     	playerRepository.clear();
     	walletService.reset();
+    	playerIdNameMap.clear();
     }
     
 	public void givenAPreparedDeck(List<CardDO> cards) {
@@ -72,7 +75,14 @@ public abstract class TestAgent {
 	public abstract void thenPlayerWon(Integer playerId, Integer tableId);
 
 	public abstract void thenPlayersLastActionWasStand(Integer playerId, Integer tableId);
+	
+	public abstract void playerRegisters(String name);
 
+	public void thenPlayerIsCreated(String name) {
+		Player player = playerRepository.find(playerIdNameMap.get(name));
+		Assert.assertNotNull(player);
+	}
+	
 	public void givenRegisteredPlayer(Integer playerId) {
 		playerRepository.create(new Player(convertPlayerId(playerId), new PlayerName("xx")));
 	}
@@ -84,7 +94,10 @@ public abstract class TestAgent {
 	public void thenPlayerIsCredited(Integer playerId, Integer amount) {
 		walletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.WIN);
 	}
-
+	
+	public void thenPlayerHasANewAccount(String name) {
+		walletService.assertLastAct(playerIdNameMap.get(name), FakeWalletService.WalletAct.OPEN_ACCOUNT);
+	}
 
 	protected static PlayerID convertPlayerId(Integer playerId) {
 		return PlayerID.createFrom(playerId.toString());
@@ -93,4 +106,6 @@ public abstract class TestAgent {
 	protected static TableID convertTableId(Integer tableId) {
 		return TableID.createFrom(tableId.toString());
 	}
+
+	
 }

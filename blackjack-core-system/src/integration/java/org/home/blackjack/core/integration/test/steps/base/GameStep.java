@@ -96,5 +96,21 @@ public class GameStep {
 	public void thenPlayerWon(Integer playerId, Integer tableId) {
 		testAgent.thenPlayerWon(playerId, tableId);
 	}
+	
+	@When("^player '(\\w+)' registers$")
+	public void playerRegisters(String name)  {
+		testAgent.playerRegisters(name);
+	}
+
+	@Then("^player '(\\w+)' is now a registered player$")
+	public void thenPlayerIsCreated(String name)  {
+		testAgent.thenPlayerIsCreated(name);
+	}
+
+	@Then("^player '(\\w+)' has a new account$")
+	public void thenPlayerHasANewAccount(String name)  {
+		testAgent.thenPlayerHasANewAccount(name);
+	}
+
 
 }

@@ -6,11 +6,12 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.domain.cashier.WalletService;
 import org.home.blackjack.core.domain.shared.PlayerID;
+import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
 import com.sun.jersey.api.client.Client;
 
 @Named
-public class RestBasedWalletService implements WalletService {
+public class RestBasedWalletService implements WalletService, DrivingAdapter<WalletService> {
 
 	private static final String WALLET_REST_URL = "http://localhost:8080/blackjack-wallet/rest/wallet/";
 	private final Client client;

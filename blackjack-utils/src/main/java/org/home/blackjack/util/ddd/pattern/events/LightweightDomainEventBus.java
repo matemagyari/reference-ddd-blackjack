@@ -20,11 +20,15 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.collect.Lists;
 
 public class LightweightDomainEventBus implements DomainEventPublisher, SubscribableEventBus {
 
 	private final static Executor EXECUTOR = Executors.newFixedThreadPool(100);
+	private static Logger LOGGER = Logger.getLogger(LightweightDomainEventBus.class);
+
 
 	private static final ThreadLocal<LightweightDomainEventBus> instance = new ThreadLocal<LightweightDomainEventBus>() {
 		protected LightweightDomainEventBus initialValue() {
@@ -78,7 +82,6 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 			this.subscribers().add(aSubscriber);
 		}
 	}
-	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -86,7 +89,7 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 		for (DomainEventSubscriber<? extends DomainEvent> domainEventSubscriber : subscribers) {
 			register(domainEventSubscriber);
 		}
-		
+
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -95,9 +98,9 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 		for (DomainEventSubscriber<? extends DomainEvent> domainEventSubscriber : subscribers) {
 			register(domainEventSubscriber);
 		}
-		
+
 	}
-	
+
 	private LightweightDomainEventBus() {
 		super();
 
@@ -138,20 +141,22 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 	public void flush() {
 
 		List<DomainEventSubscriber> allSubscribers = this.subscribers();
+		LOGGER.info(allSubscribers);
+		LOGGER.info(bufferedEvents);
 
 		while (!bufferedEvents.isEmpty()) {
 			final DomainEvent nextEvent = bufferedEvents.remove(0);
 
 			for (final DomainEventSubscriber subscriber : allSubscribers) {
-				EXECUTOR.execute(new Runnable() {
 
-					@Override
-					public void run() {
-						if (subscriber.subscribedTo(nextEvent)) {
+				if (subscriber.subscribedTo(nextEvent)) {
+					EXECUTOR.execute(new Runnable() {
+						@Override
+						public void run() {
 							subscriber.handleEvent(nextEvent);
 						}
-					}
-				});
+					});
+				}
 			}
 
 		}

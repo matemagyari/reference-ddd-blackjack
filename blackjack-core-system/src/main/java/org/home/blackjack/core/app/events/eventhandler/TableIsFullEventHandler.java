@@ -3,12 +3,11 @@ package org.home.blackjack.core.app.events.eventhandler;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
+import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.domain.Dealer;
 import org.home.blackjack.core.domain.table.event.TableIsFullEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
-import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
-import org.home.blackjack.util.ddd.pattern.events.SubscribableEventBus;
 
 @Named
 public class TableIsFullEventHandler implements DomainEventSubscriber<TableIsFullEvent> {
@@ -16,7 +15,7 @@ public class TableIsFullEventHandler implements DomainEventSubscriber<TableIsFul
     @Resource
     private Dealer dealer;
 	@Resource
-	private GameEventHandler gameEventHandler;
+	private EventBusManager eventBusManager;
 
     @Override
     public boolean subscribedTo(DomainEvent event) {
@@ -24,13 +23,11 @@ public class TableIsFullEventHandler implements DomainEventSubscriber<TableIsFul
     }
     @Override
     public void handleEvent(TableIsFullEvent event) {
-    	SubscribableEventBus eventBus = LightweightDomainEventBus.subscribableEventBusInstance();
-		eventBus.reset();
-    	eventBus.register(gameEventHandler);
+    	eventBusManager.initialize();
 		
     	dealer.startANewGameOnTable(event.tableId(), event.players());
     	
-    	eventBus.flush();
+    	eventBusManager.flush();
     }
 
 }

@@ -18,7 +18,7 @@ public class EventBusManager {
 	private List<DomainEventSubscriber> subscribers;
 
 	public void initialize() {
-		LOGGER.info("initialize");
+		LOGGER.info("initialize: " + subscribers);
 		LightweightDomainEventBus.subscribableEventBusInstance().reset();
 		LightweightDomainEventBus.subscribableEventBusInstance().register(subscribers);
 	}

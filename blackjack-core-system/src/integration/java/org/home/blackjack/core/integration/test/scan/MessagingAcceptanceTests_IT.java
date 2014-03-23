@@ -6,7 +6,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/integration/resources/features"}
+@CucumberOptions(features={"src/integration/resources/features/registration.feature"}
                  ,glue    ={"org.home.blackjack.core.integration.test.steps.base","org.home.blackjack.core.integration.test.steps.messaging"})
 public class MessagingAcceptanceTests_IT {
 

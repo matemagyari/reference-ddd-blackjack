@@ -1,34 +1,43 @@
 package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
+import java.util.Map;
 
-import org.home.blackjack.core.app.dto.GameCommand;
-import org.home.blackjack.core.app.dto.TableCommand;
 import org.home.blackjack.core.app.events.event.EventBusManager;
-import org.home.blackjack.core.app.service.game.GameAction;
+import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameActionType;
+import org.home.blackjack.core.app.service.game.GameCommand;
+import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
+import org.home.blackjack.core.app.service.seating.SeatingCommand;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
+import org.home.blackjack.core.domain.player.Player;
+import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
 import org.home.blackjack.core.integration.test.util.AppLevelCucumberService;
 import org.home.blackjack.core.integration.test.util.CucumberService;
+import org.junit.Assert;
+
+import com.google.common.collect.Maps;
 
 public class AppLevelTestAgent extends TestAgent {
 
 	private CucumberService cucumberService;
 	private SeatingApplicationService seatingApplicationService;
 	private GameActionApplicationService gameActionApplicationService;
+	private RegistrationApplicationService registrationApplicationService;
 	private FakeExternalEventPublisher fakeExternalEventPublisher;
 	private EventBusManager eventBusManager;
 	private GameID gameID;
-
+	
 	@Override
 	public void reset() {
 		super.reset();
@@ -41,6 +50,8 @@ public class AppLevelTestAgent extends TestAgent {
 		super.initDependencies();
 		seatingApplicationService = cucumberService().getBean(SeatingApplicationService.class);
 		gameActionApplicationService = cucumberService().getBean(GameActionApplicationService.class);
+		registrationApplicationService = cucumberService().getBean(RegistrationApplicationService.class);
+		
 		fakeExternalEventPublisher = cucumberService().getBean(FakeExternalEventPublisher.class);
 		eventBusManager = cucumberService().getBean(EventBusManager.class);
 
@@ -60,7 +71,7 @@ public class AppLevelTestAgent extends TestAgent {
 	@Override
 	public void playerSitsToTable(Integer playerId, Integer tableId) {
 	    eventBusManager.initialize();
-		seatingApplicationService.seatPlayer(new TableCommand(playerId.toString(), tableId.toString()));
+		seatingApplicationService.seatPlayer(new SeatingCommand(playerId.toString(), tableId.toString()));
 		eventBusManager.flush();
 
 	}
@@ -81,6 +92,13 @@ public class AppLevelTestAgent extends TestAgent {
 						&& anEvent.getGameID().equals(gameID);
 			}
 		});
+		fakeExternalEventPublisher.assertArrived(PublicPlayerCardDealtEvent.class, new DomainEventMatcher<PublicPlayerCardDealtEvent>() {
+			@Override
+			public boolean match(PublicPlayerCardDealtEvent anEvent) {
+				return anEvent.getActingPlayer().equals(convertPlayerId(playerId))
+						&& anEvent.getGameID().equals(gameID);
+			}
+		});		
 	}
 	
 	@Override
@@ -120,6 +138,12 @@ public class AppLevelTestAgent extends TestAgent {
 						&& anEvent.getTableID().equals(convertTableId(tableId));
 			}
 		});
+	}
+
+	@Override
+	public void playerRegisters(String name) {
+		PlayerID playerID = registrationApplicationService.playerJoins(new PlayerName(name));
+		playerIdNameMap.put(name, playerID);
 	}
 
 }

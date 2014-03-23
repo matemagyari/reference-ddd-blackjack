@@ -1,25 +1,29 @@
 package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
+import java.util.Map;
 
-import org.home.blackjack.core.app.dto.GameCommand;
-import org.home.blackjack.core.app.dto.TableCommand;
+import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
+import org.home.blackjack.core.app.service.game.GameCommand;
+import org.home.blackjack.core.app.service.seating.SeatingCommand;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
+import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient.MessageMatcher;
+import org.home.blackjack.core.infrastructure.integration.rest.RestClient;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
-import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.EndToEndCucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
-import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -27,10 +31,12 @@ public class MessagingTestAgent extends TestAgent {
     
 	private CucumberService cucumberService;
 	private CometDClient cometDClient;
+	private RestClient restClient;
 	private GameID gameID;
 	
     @Override
     public void reset() {
+    	super.reset();
     }
 
     
@@ -39,6 +45,7 @@ public class MessagingTestAgent extends TestAgent {
         cucumberService = new EndToEndCucumberService();
 		super.initDependencies();
 		//TODO put into properties file
+		restClient = new RestClient();
 		cometDClient = new CometDClient("http://0.0.0.0:9099/cometd");
 		cometDClient.handshake();
     }
@@ -99,12 +106,22 @@ public class MessagingTestAgent extends TestAgent {
 						&& anEvent.getGameID().equals(gameID);
 			}
 		});
-		
+		cometDClient.verifyMessageArrived(tableChannel(tableId), new MessageMatcher() {
+			@Override
+			public boolean match(JsonObject jsonObject) {
+				if (!Util.typeMatch(PublicPlayerCardDealtEvent.class, jsonObject)) {
+					return false;
+				}
+				PublicPlayerCardDealtEvent anEvent = Util.convert(PublicPlayerCardDealtEvent.class, jsonObject);
+				return anEvent.getActingPlayer().equals(convertPlayerId(playerId))
+						&& anEvent.getGameID().equals(gameID);
+			}
+		});		
 	}
 
 	@Override
 	public void thenPlayersLastActionWasStand(final Integer playerId, Integer tableId) {
-		cometDClient.verifyMessageArrived(tablePlayerChannel(playerId, tableId), new MessageMatcher() {
+		cometDClient.verifyMessageArrived(tableChannel(tableId), new MessageMatcher() {
 			@Override
 			public boolean match(JsonObject jsonObject) {
 				if (!Util.typeMatch(PlayerStandsEvent.class, jsonObject)) {
@@ -141,16 +158,19 @@ public class MessagingTestAgent extends TestAgent {
 		});
 	}
 
-
+	@Override
+	public void playerRegisters(String name) {
+		String response = restClient.register(name);
+	}
+	
 	@Override
 	public void playerStands(Integer playerId, Integer tableId) {
 		String command = new Gson().toJson(new GameCommand(playerId.toString(), gameID.toString(), "STAND"));
 		cometDClient.publish("/command/game", command);
 	}
-
-
+	
 	private static String command(Integer playerId, Integer tableId) {
-		return new Gson().toJson(new TableCommand(playerId.toString(), tableId.toString()));
+		return new Gson().toJson(new SeatingCommand(playerId.toString(), tableId.toString()));
 	}
 	private static String tableChannel(Integer tableId) {
 		return "/table/"+convertTableId(tableId);
@@ -162,4 +182,6 @@ public class MessagingTestAgent extends TestAgent {
 	private static String tablePlayerChannel(Integer playerId, Integer tableId) {
 		return "/table/"+tableId+"/player/"+playerId;
 	}
+
+
 }

@@ -15,9 +15,10 @@ import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAsse
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.FinegrainedLockable;
+import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
 @Named
-public class SerializingGameRepository implements GameRepository, FinegrainedLockable<GameID> {
+public class SerializingGameRepository implements GameRepository, FinegrainedLockable<GameID>, DrivingAdapter<GameRepository> {
 	
 	private final GameStore gameStore;
 	private final PersistenceAssembler<Game, PersistenceObject<Game>> gameStoreAssembler;

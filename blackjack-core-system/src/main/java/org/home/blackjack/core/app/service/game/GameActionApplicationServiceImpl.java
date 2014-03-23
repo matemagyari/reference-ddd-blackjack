@@ -3,7 +3,6 @@ package org.home.blackjack.core.app.service.game;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
-import org.home.blackjack.core.app.dto.GameCommand;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.util.locking.aspect.WithPessimisticLock;
@@ -22,8 +21,8 @@ public class GameActionApplicationServiceImpl implements GameActionApplicationSe
     @Resource
     private GameRepository gameRepository;
 
+    @Override
     @WithPessimisticLock(repository=GameRepository.class, lockMethod="getGameID")
-	@Override
 	public void handlePlayerAction(GameCommand command) {
         Game game = gameRepository.find(command.getGameID());
         if (command.getAction() == GameActionType.HIT) {

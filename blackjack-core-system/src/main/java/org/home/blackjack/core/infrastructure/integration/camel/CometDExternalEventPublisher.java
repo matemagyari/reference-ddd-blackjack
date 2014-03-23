@@ -9,13 +9,14 @@ import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
 import org.home.blackjack.core.app.events.external.ExternalDomainEvent.Addressee;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
+import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 @Named
-public class CometDExternalEventPublisher implements ExternalEventPublisher {
+public class CometDExternalEventPublisher implements ExternalEventPublisher, DrivingAdapter<ExternalEventPublisher> {
 
 	private static Logger LOGGER = Logger.getLogger(CometDExternalEventPublisher.class);
 

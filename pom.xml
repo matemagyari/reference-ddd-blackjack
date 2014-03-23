@@ -14,6 +14,7 @@
 		<spring.version>3.2.0.RELEASE</spring.version>
 		<cucumber-jvm.version>1.1.5</cucumber-jvm.version>
 		<hazelcast.version>3.1.5</hazelcast.version>
+		<cxf.version>2.7.4</cxf.version>
 	</properties>
 
 	<modules>
@@ -42,6 +43,21 @@
 		</dependency>
 
 		<!-- Camel dependencies -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jetty</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cxf</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-gson</artifactId>

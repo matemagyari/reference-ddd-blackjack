@@ -11,9 +11,10 @@ import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerSto
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
+import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
 @Named
-public class SerializingPlayerRepository implements PlayerRepository {
+public class SerializingPlayerRepository implements PlayerRepository, DrivingAdapter<PlayerRepository> {
 	
 	private final PlayerStore playerStore;
 	private final PersistenceAssembler<Player, PersistenceObject<Player>> playerStoreAssembler;

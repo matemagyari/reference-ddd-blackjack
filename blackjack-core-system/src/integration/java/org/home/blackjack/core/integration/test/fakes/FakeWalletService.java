@@ -23,6 +23,11 @@ public class FakeWalletService implements WalletService {
 	public void debit(PlayerID playerID, Integer amount) {
 		actList(playerID).add(WalletAct.ENTRYFEE);
 	}
+	
+	@Override
+	public void createAccount(PlayerID playerID, Integer startBalance) {
+		actList(playerID).add(WalletAct.OPEN_ACCOUNT);
+	}
 
 	public void reset() {
 		walletActs.clear();
@@ -35,19 +40,14 @@ public class FakeWalletService implements WalletService {
 		return walletActs.get(player);
 	}
 
-	public static enum WalletAct {
-		WIN, ENTRYFEE
-	}
-
 	public void assertLastAct(PlayerID playerId, WalletAct walletAct) {
 		List<WalletAct> actList = actList(playerId);
 		WalletAct walletAct2 = actList.get(actList.size()-1);
 		Assert.assertEquals(walletAct, walletAct2);
 	}
 
-	@Override
-	public void createAccount(PlayerID playerID, Integer startBalance) {
-		// TODO Auto-generated method stub
-		
+
+	public static enum WalletAct {
+		WIN, ENTRYFEE, OPEN_ACCOUNT
 	}
 }

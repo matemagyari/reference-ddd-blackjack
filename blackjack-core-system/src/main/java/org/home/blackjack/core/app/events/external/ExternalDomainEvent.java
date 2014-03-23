@@ -18,6 +18,9 @@ public class ExternalDomainEvent {
 		this.event = event;
 		this.addressee = new Addressee(playerId, tableId);
 	}
+	public ExternalDomainEvent(DomainEvent event, TableID tableId) {
+		this(event, tableId, null);
+	}
 	
 	public DomainEvent getEvent() {
 		return event;

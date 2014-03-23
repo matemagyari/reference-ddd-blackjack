@@ -28,7 +28,7 @@ public class FakeExternalEventPublisher implements ExternalEventPublisher {
 	}
 
 	public GameID assertInitalCardsDealtEvent(TableID tableID) {
-		Util.sleep(100);
+		Util.sleep(500);
 		
 		for (DomainEvent event : events) {
 			if (event instanceof GameStartedEvent) {

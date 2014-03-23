@@ -11,8 +11,9 @@
           				http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
 	<context:component-scan base-package="org.home.blackjack.core" />
-		
-	<import resource="classpath:META-INF/applicationContext-blackjack-core-applevel.xml" />
+
+	<import
+		resource="classpath:META-INF/applicationContext-blackjack-core-applevel.xml" />
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
 		<camel:contextScan />

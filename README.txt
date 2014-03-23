@@ -51,6 +51,12 @@ Infrastructure Services:
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
 * external domain events - events translated to messages to be sent out of the Bounded Context 
+* events are dispatched by aggregate roots, sometimes by domain services. Sometimes a domain is translated to multiple messages. 
+E.g. PlayerCardsDealtEvent contains the card the player's been dealt.  The fact that the deal has happened needs to get propagated to all parties around the table, 
+but the card will be shown only the particular player. So the PlayerCardsDealtEvent is split into two events in the app layer (in an event handler)
+
+Application layer responsibilites:
+* provide a facade to the client to interact with the app
 
 
 Structure
@@ -76,11 +82,19 @@ Package structure (layers of onion from inside out)
 
 Visibility scopes are deliberately restricted to package level wherever possible to encourage loose coupling and encapsulation on package level.
 
+Command&Query separation
+* the clients can send either commands, or queries. The commands change the state of the application and usually events are sent out. The queries never change the state
+and the answers are sent out asynchronously, like events
+
+Acceptance Testing
+* the acceptance tests are implemented using Cucumber. All tests could be run on different levels. One test client simulates the user calling directly the application 
+services, the other sends commands/queries via CometD. The first verifies notifications by attaching fake adapters to the app's Driving Ports (FakeExternalEventPublisher),
+the second actually subscribes to CometD channels. See TestAgent, AppLevelTestAgent and MessagingTestAgent for details.
 
 Stuff missing:
 
 * the Wallet component is very lean, no error handling, no complete anti-corruption layers. It's purpose is to demonstrate how can two remote Bounded Contexts interact
-* CometD - very simplistic implementation, no error handling, no security
+* CometD - very simplistic implementation, no error handling, no security. Currently all clients could subscribe to each others private channels
 
 The project extensively uses marker interfaces for Hexagonal Architecture/DDD building blocks/patterns/concepts to make the intentions clearer. 
 They are under the *.util.marker package. Other way could have been to use annotations.
