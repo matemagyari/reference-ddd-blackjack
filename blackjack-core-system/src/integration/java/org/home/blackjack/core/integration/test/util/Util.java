@@ -3,6 +3,7 @@ package org.home.blackjack.core.integration.test.util;
 import java.util.List;
 
 import org.home.blackjack.core.domain.game.core.Card;
+import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.junit.Assert;
@@ -55,6 +56,14 @@ public class Util {
 		JsonObject copiedJson = (JsonObject) new JsonParser().parse(event.toString());
 		copiedJson.remove("type");
 		return new Gson().fromJson(copiedJson, clazz);
+	}
+
+	public static List<PlayerID> splitToPlayerIds(String players) {
+		List<PlayerID> result = Lists.newArrayList();
+		for(String id : players.trim().split(",")) {
+			result.add(PlayerID.createFrom(id));
+		}
+		return result;
 	}
 
 

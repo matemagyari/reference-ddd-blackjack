@@ -51,9 +51,14 @@ Infrastructure Services:
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
 * external domain events - events translated to messages to be sent out of the Bounded Context 
-* events are dispatched by aggregate roots, sometimes by domain services. Sometimes a domain is translated to multiple messages. 
-E.g. PlayerCardsDealtEvent contains the card the player's been dealt.  The fact that the deal has happened needs to get propagated to all parties around the table, 
-but the card will be shown only the particular player. So the PlayerCardsDealtEvent is split into two events in the app layer (in an event handler)
+* events are dispatched by aggregate roots, sometimes by domain services. 
+* Sometimes a domain event is translated to multiple messages to send out.  E.g. PlayerCardsDealtEvent contains the card the player's been dealt.  
+The fact that the deal has happened needs to get propagated to all parties around the table, but the card will be shown only the particular player. 
+So the PlayerCardsDealtEvent is split into two events in the app layer (in an event handler)
+* the Domain Events are put on a lightweight event bus. The event bus instance belongs to the thread and it buffers the events. After every "transaction" 
+(we call transaction when the state of an aggregate had changed and it's been persisted) the event bus is "flushed" (done by Camel, check the route builder). 
+Without buffering if an exception occurs after an event is dispatched and the aggregate doesn't get persisted, there would be no way to "call back" the events. So
+they only get released from the buffer once the "transaction is closed"
 
 Application layer responsibilites:
 * provide a facade to the client to interact with the app

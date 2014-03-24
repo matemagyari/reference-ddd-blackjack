@@ -1,13 +1,15 @@
 package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
-import java.util.Map;
 
 import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameActionType;
 import org.home.blackjack.core.app.service.game.GameCommand;
+import org.home.blackjack.core.app.service.query.QueryingApplicationService;
+import org.home.blackjack.core.app.service.query.TableViewDTO;
+import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingCommand;
@@ -15,18 +17,19 @@ import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
-import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
+import org.home.blackjack.core.domain.shared.TableID;
+import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
 import org.home.blackjack.core.integration.test.util.AppLevelCucumberService;
 import org.home.blackjack.core.integration.test.util.CucumberService;
-import org.junit.Assert;
+import org.home.blackjack.core.integration.test.util.Util;
 
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 
 public class AppLevelTestAgent extends TestAgent {
 
@@ -34,6 +37,7 @@ public class AppLevelTestAgent extends TestAgent {
 	private SeatingApplicationService seatingApplicationService;
 	private GameActionApplicationService gameActionApplicationService;
 	private RegistrationApplicationService registrationApplicationService;
+	private QueryingApplicationService queryingApplicationService;
 	private FakeExternalEventPublisher fakeExternalEventPublisher;
 	private EventBusManager eventBusManager;
 	private GameID gameID;
@@ -51,6 +55,7 @@ public class AppLevelTestAgent extends TestAgent {
 		seatingApplicationService = cucumberService().getBean(SeatingApplicationService.class);
 		gameActionApplicationService = cucumberService().getBean(GameActionApplicationService.class);
 		registrationApplicationService = cucumberService().getBean(RegistrationApplicationService.class);
+		queryingApplicationService = cucumberService().getBean(QueryingApplicationService.class);
 		
 		fakeExternalEventPublisher = cucumberService().getBean(FakeExternalEventPublisher.class);
 		eventBusManager = cucumberService().getBean(EventBusManager.class);
@@ -64,7 +69,16 @@ public class AppLevelTestAgent extends TestAgent {
 
 	@Override
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
-		// TODO Auto-generated method stub
+
+		PlayerID playerID = new PlayerID();
+		queryingApplicationService.getTables(playerID);
+		List<TableViewDTO> tableViews = Lists.newArrayList();
+		for (TableDO tableDO : tables) {
+			List<PlayerID> players = Util.splitToPlayerIds(tableDO.players);
+			tableViews.add(new TableViewDTO(TableID.createFrom(tableDO.tableId), players));
+		}
+		TablesDTO tablesDTO = new TablesDTO(playerID, tableViews);
+		fakeExternalEventPublisher.assertArrived(tablesDTO);
 
 	}
 

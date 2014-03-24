@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
 import org.home.blackjack.core.app.events.external.ExternalDomainEvent.Addressee;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
+import org.home.blackjack.core.app.events.external.ResponseDTO;
+import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +37,19 @@ public class CometDExternalEventPublisher implements ExternalEventPublisher, Dri
 		jsonObject.addProperty("type", domainEvent.getClass().getSimpleName());
 		producerTemplate.asyncSendBody(source + channel, jsonObject.toString());
 	}
+	
+	@Override
+	public void publish(ResponseDTO response) {
+		LOGGER.info("publish " + response);
+		String channel = channel(response.getPlayerId());
+		JsonObject jsonObject = new Gson().toJsonTree(response).getAsJsonObject();
+		jsonObject.addProperty("type", response.getClass().getSimpleName());
+		producerTemplate.asyncSendBody(source + channel, jsonObject.toString());
+	}
+
+	private String channel(PlayerID playerId) {
+		return "player/"+playerId.toString()+"/query";
+	}
 
 	private String channel(Addressee addressee) {
 		if (addressee.tableId != null)
@@ -45,5 +60,6 @@ public class CometDExternalEventPublisher implements ExternalEventPublisher, Dri
 		else
 			return "/player/" + addressee.playerId.toString();
 	}
+
 
 }

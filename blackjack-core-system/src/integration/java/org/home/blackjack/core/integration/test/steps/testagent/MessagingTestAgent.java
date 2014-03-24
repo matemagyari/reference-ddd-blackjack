@@ -1,7 +1,6 @@
 package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
-import java.util.Map;
 
 import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
 import org.home.blackjack.core.app.service.game.GameCommand;
@@ -11,7 +10,6 @@ import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
-import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient;
@@ -23,7 +21,6 @@ import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.EndToEndCucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -161,6 +158,7 @@ public class MessagingTestAgent extends TestAgent {
 	@Override
 	public void playerRegisters(String name) {
 		String response = restClient.register(name);
+		playerIdNameMap.put(name, PlayerID.createFrom(response));
 	}
 	
 	@Override

@@ -1,6 +1,0 @@
-
-Example cycles caused by org.home.blackjack.core.infrastructure.persistence.player.store
-
-org.home.blackjack.core.infrastructure.persistence.player.store.inmemory -->
-org.home.blackjack.core.infrastructure.persistence.player.store -->
--------------------------------

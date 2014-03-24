@@ -38,10 +38,8 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 
 		from(cometdUri + "/inchannel?crossOriginFilterOn=true&allowedOrigins=*&filterPath=/*")
 			.to("log:aLog?showAll=true&multiline=true")
-			.bean(eventBusManager, "initialize")
-			.bean(eventBusManager, "flush")
 			//.setHeader("Access-Control-Allow-Origin", constant("*"))
-			//.to("cometd://0.0.0.0:9099/outchannel")
+			.to("cometd://0.0.0.0:9099/outchannel")
 			.routeId("testroute").end();
 		
 		from(cometdUri + "/query")
@@ -63,10 +61,9 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	    	.bean(gameActionApplicationService,"handlePlayerAction")
 	    	.bean(eventBusManager, "flush")
 	    .routeId("command-game-route").end();	
-		
-		from("cxfrs://"+restUri+"/route?resourceClasses=org.home.blackjack.core.infrastructure.integration.rest.RegistrationEndpoint")
-    		.log("something came: ${body}");
-		
+
+		from("jetty:"+restUri+"?matchOnUriPrefix=true")
+			.to("cxfbean:registrationEndpoint");
 		
 	}
 

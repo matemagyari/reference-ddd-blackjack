@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
+import org.home.blackjack.core.app.events.external.ResponseDTO;
+import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameStartedEvent;
 import org.home.blackjack.core.domain.shared.TableID;
@@ -20,11 +22,19 @@ import com.google.common.collect.Lists;
 public class FakeExternalEventPublisher implements ExternalEventPublisher {
 
 	private final List<DomainEvent> events = Lists.newArrayList();
+	private final List<ResponseDTO> responses = Lists.newArrayList();
 
 	@Override
 	public void publish(ExternalDomainEvent event) {
 		System.err.println("External event: " + event);
 		events.add(event.getEvent());
+	}
+	
+
+	@Override
+	public void publish(ResponseDTO response) {
+		System.err.println("External response: " + response);
+		responses.add(response);
 	}
 
 	public GameID assertInitalCardsDealtEvent(TableID tableID) {
@@ -43,6 +53,7 @@ public class FakeExternalEventPublisher implements ExternalEventPublisher {
 	
 	public void reset() {
 		events.clear();
+		responses.clear();
 	}
 
 	public void assertDispatched(DomainEvent event) {
@@ -66,5 +77,17 @@ public class FakeExternalEventPublisher implements ExternalEventPublisher {
 	public static interface DomainEventMatcher <T extends DomainEvent> {
 		boolean match(T event);
 	}
+
+	public TablesDTO assertArrived(TablesDTO tablesDTO) {
+		Util.sleep(100);
+		for (ResponseDTO response : responses) {
+			if (response.equals(tablesDTO)) {
+				responses.remove(response);
+				return (TablesDTO) response;
+			}
+		}
+		throw new IllegalStateException("Response  event not found");
+	}
+
 
 }

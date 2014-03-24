@@ -3,26 +3,28 @@ package org.home.blackjack.core.app.service.query;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.home.blackjack.core.app.events.external.ResponseDTO;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.core.domain.table.Table;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class TablesDTO {
-	
+public class TablesDTO extends ResponseDTO {
+
 	private final Map<String, List<String>> tablesWithPlayers;
-	
-	public TablesDTO(List<Table> tables) {
+
+	public TablesDTO(PlayerID playerID, List<TableViewDTO> tables) {
+		super(playerID);
 		tablesWithPlayers = Maps.newHashMap();
-		for (Table table : tables) {
+		for (TableViewDTO table : tables) {
 			List<String> playerIds = Lists.newArrayList();
-			for (PlayerID playerID : table.getPlayers()) {
-				playerIds.add(playerID.toString());
+			for (PlayerID player : table.getPlayers()) {
+				playerIds.add(player.toString());
 			}
-			tablesWithPlayers.put(table.getID().toString(), playerIds);
+			tablesWithPlayers.put(table.getTableId().toString(), playerIds);
 		}
 	}
-	
 
 }

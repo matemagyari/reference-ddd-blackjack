@@ -11,5 +11,6 @@ import org.home.blackjack.util.marker.hexagonal.DrivingPort;
 public interface ExternalEventPublisher extends DrivingPort {
 	
 	void publish(ExternalDomainEvent event);
+	void publish(ResponseDTO response);
 
 }

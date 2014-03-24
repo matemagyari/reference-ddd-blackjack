@@ -20,18 +20,19 @@ public class RegistrationEndpoint {
 
 	@Resource
 	private RegistrationApplicationService registrationApplicationService;
-
+	
 	@PUT
 	@Path("/{playerName}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response createAccount(@PathParam("playerName") String playerName) {
 		PlayerID playerID = registrationApplicationService.playerJoins(new PlayerName(playerName));
-		return Response.ok(playerID).build();
+		Response response = Response.ok(playerID.toString()).build();
+		return response;
 	}
-
+	
 	@GET
 	@Path("/echo/{msg}")
-	public Response echo(@PathParam("msg") String msg) {
-		return Response.ok(msg+"response").build();
+	public Response echo(@PathParam("msg") String msg){
+		return Response.ok(msg + "response").build();
 	}
 }
