@@ -37,8 +37,8 @@ Then players can see tables in lobby
 
 Then game started on table '12'
 
-And player '1' is debited with '500'
-And player '2' is debited with '500'
+And player '1' is debited with the bet amount
+And player '2' is debited with the bet amount
 
 And player '2' has been dealt '2c' at table '12'
 And player '1' has been dealt '2s' at table '12'
@@ -64,7 +64,7 @@ Then players can see player '1' stands at table '12'
 
 
 Then player '2' won at table '12'
-And player '2' is credited with '1000'
+And player '2' is credited with the win
 
 
 

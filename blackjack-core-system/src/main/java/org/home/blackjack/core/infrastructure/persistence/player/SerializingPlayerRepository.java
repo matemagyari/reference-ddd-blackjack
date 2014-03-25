@@ -1,5 +1,9 @@
 package org.home.blackjack.core.infrastructure.persistence.player;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -12,6 +16,8 @@ import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAsse
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
+
+import com.google.common.collect.Lists;
 
 @Named
 public class SerializingPlayerRepository implements PlayerRepository, DrivingAdapter<PlayerRepository> {
@@ -31,10 +37,27 @@ public class SerializingPlayerRepository implements PlayerRepository, DrivingAda
 		if (po == null) {
 			throw new PlayerNotFoundException(playerID);
 		}
-		Player player = playerStoreAssembler.toDomain(po);
-		player.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
+		Player player = toDomain(po);
 		return player;
 	}
+
+	//TODO should not sort here
+    @Override
+    public List<Player> findAllSortedByWinNumber() {
+        List<Player> result = Lists.newArrayList();
+        List<PersistenceObject<Player>> pos = playerStore.findAllSortedByWinNumber();
+        for (PersistenceObject<Player> po : pos) {
+            result.add(toDomain(po));
+        }
+        Comparator<Player> comparator = new Comparator<Player>() {
+            @Override
+            public int compare(Player p1, Player p2) {
+                return Integer.valueOf(p1.getWinNumber()).compareTo(p2.getWinNumber());
+            }
+        };
+        Collections.sort(result, comparator);
+        return result;
+    }
 
 	@Override
 	public void update(Player player) {
@@ -52,6 +75,11 @@ public class SerializingPlayerRepository implements PlayerRepository, DrivingAda
 	public void clear() {
 		playerStore.clear();
 	}
-
+	
+    private Player toDomain(PersistenceObject<Player> po) {
+        Player player = playerStoreAssembler.toDomain(po);
+        player.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
+        return player;
+    }
 	
 }

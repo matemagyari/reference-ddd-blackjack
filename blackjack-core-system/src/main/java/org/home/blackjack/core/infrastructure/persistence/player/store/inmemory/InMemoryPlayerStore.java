@@ -1,6 +1,8 @@
 package org.home.blackjack.core.infrastructure.persistence.player.store.inmemory;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,6 +13,7 @@ import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerSto
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 @Named
@@ -36,6 +39,16 @@ public class InMemoryPlayerStore implements PlayerStore {
 		String json = jsonMap.get(playerID);
 		return new InMemoryPersistencePlayer(playerID, json);
 	}
+	
+	//TODO it's not sorted here
+    @Override
+    public List<PersistenceObject<Player>> findAllSortedByWinNumber() {
+        List<PersistenceObject<Player>> result = Lists.newArrayList();
+        for(Entry<InMemoryPersistencePlayerId, String> entry : jsonMap.entrySet()) {
+            result.add(new InMemoryPersistencePlayer(entry.getKey(), entry.getValue()));
+        }
+        return result;
+    }
 
 	@Override
 	public void update(PersistenceObject<Player> po) {
@@ -53,4 +66,6 @@ public class InMemoryPlayerStore implements PlayerStore {
 	public void clear() {
 		jsonMap.clear();
 	}
+
+
 }

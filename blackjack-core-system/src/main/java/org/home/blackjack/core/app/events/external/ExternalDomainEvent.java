@@ -1,5 +1,6 @@
 package org.home.blackjack.core.app.events.external;
 
+import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
@@ -22,6 +23,10 @@ public class ExternalDomainEvent {
 		this(event, tableId, null);
 	}
 	
+	public ExternalDomainEvent(LeaderBoardChangedEvent event) {
+	    this(event, null, null);
+	}
+	
 	public DomainEvent getEvent() {
 		return event;
 	}
@@ -32,9 +37,16 @@ public class ExternalDomainEvent {
 	public static class Addressee {
 		public final PlayerID playerId;
 		public final TableID tableId;
+		public final boolean leaderboard;
 		public Addressee(PlayerID playerId, TableID tableId) {
 			this.playerId = playerId;
 			this.tableId = tableId;
+			this.leaderboard = false;
+		}
+		public Addressee() {
+		    this.playerId = null;
+		    this.tableId = null;
+		    this.leaderboard = true;
 		}
 		@Override
 		public String toString() {
