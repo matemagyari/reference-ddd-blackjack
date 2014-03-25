@@ -4,7 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.core.domain.shared.PlayerID;
 
-public class ResponseDTO {
+public abstract class ResponseDTO {
 	
 	private final PlayerID playerId;
 
@@ -17,12 +17,12 @@ public class ResponseDTO {
 	}
 	
 	@Override
-	public final boolean equals(final Object other) {
+	public boolean equals(final Object other) {
 		return EqualsBuilder.reflectionEquals(this, other);
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
 }

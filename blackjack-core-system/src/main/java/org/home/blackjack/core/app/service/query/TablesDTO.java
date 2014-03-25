@@ -3,8 +3,6 @@ package org.home.blackjack.core.app.service.query;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.core.app.events.external.ResponseDTO;
 import org.home.blackjack.core.domain.shared.PlayerID;
 
@@ -26,5 +24,9 @@ public class TablesDTO extends ResponseDTO {
 			tablesWithPlayers.put(table.getTableId().toString(), playerIds);
 		}
 	}
+	
+	public Map<String, List<String>> getTablesWithPlayers() {
+        return Maps.newHashMap(tablesWithPlayers);
+    }
 
 }

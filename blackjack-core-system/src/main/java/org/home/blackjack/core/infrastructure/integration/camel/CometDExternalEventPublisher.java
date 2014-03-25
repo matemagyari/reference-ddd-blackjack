@@ -48,7 +48,7 @@ public class CometDExternalEventPublisher implements ExternalEventPublisher, Dri
 	}
 
 	private String channel(PlayerID playerId) {
-		return "player/"+playerId.toString()+"/query";
+		return "/player/"+playerId.toString()+"/query/response";
 	}
 
 	private String channel(Addressee addressee) {

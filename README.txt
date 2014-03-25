@@ -87,9 +87,15 @@ Package structure (layers of onion from inside out)
 
 Visibility scopes are deliberately restricted to package level wherever possible to encourage loose coupling and encapsulation on package level.
 
+Architectural notes
+
 Command&Query separation
 * the clients can send either commands, or queries. The commands change the state of the application and usually events are sent out. The queries never change the state
 and the answers are sent out asynchronously, like events
+
+Domain Events
+Blackjack follows the Event Driven Architectural style
+
 
 Acceptance Testing
 * the acceptance tests are implemented using Cucumber. All tests could be run on different levels. One test client simulates the user calling directly the application 

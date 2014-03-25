@@ -154,7 +154,7 @@ public class CometDClient extends AbstractCometDClient {
 		boolean match(JsonObject jsonObject);
 	}
 
-	public <T extends DomainEvent> JsonObject verifyMessageArrived(String channelName, T expectedEvent) {
+	public <T> JsonObject verifyMessageArrived(String channelName, T expectedEvent) {
 		for(int i = 0;i<5;i++) {
 			JsonObject message = findMessage(channelName, expectedEvent);
 			if (message != null) {
@@ -167,7 +167,7 @@ public class CometDClient extends AbstractCometDClient {
 		return null;
 	}
 
-	private <T extends DomainEvent> JsonObject findMessage(String channelName, T expectedEvent) {
+	private <T> JsonObject findMessage(String channelName, T expectedEvent) {
 		JsonObject foundMsg = null;
 		synchronized (messageBuffer) {
 			List<JsonObject> list = messageBuffer.get(channelName);

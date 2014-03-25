@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
 import org.home.blackjack.core.app.service.game.GameCommand;
+import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.app.service.seating.SeatingCommand;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
@@ -56,8 +57,13 @@ public class MessagingTestAgent extends TestAgent {
 
 	@Override
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
-		// TODO Auto-generated method stub
-		
+	    PlayerID randomPlayer = new PlayerID();
+	    TablesDTO tablesDTO = Util.convert(tables, randomPlayer);
+        String command = new Gson().toJson(randomPlayer);
+        String responseChannel = playerQueryResponseChannel(randomPlayer.toString());
+        cometDClient.subscribeToChannel(responseChannel);
+        cometDClient.publish("/query/request", command);
+        cometDClient.verifyMessageArrived(responseChannel, tablesDTO);
 	}
 
 
@@ -65,7 +71,6 @@ public class MessagingTestAgent extends TestAgent {
 	public void playerSitsToTable(Integer playerId, Integer tableId) {
 		String tableChannel = tableChannel(tableId);
 		cometDClient.subscribeToChannel(tablePlayerChannel(playerId, tableId));
-		cometDClient.subscribeToChannel(playerChannel(playerId));
 		cometDClient.subscribeAndPublish(tableChannel, "/command/table/sit", command(playerId, tableId));
 		cometDClient.verifyMessageArrived(tableChannel, new PlayerIsSeatedEvent(convertTableId(tableId), convertPlayerId(playerId)));
 	}
@@ -157,8 +162,9 @@ public class MessagingTestAgent extends TestAgent {
 
 	@Override
 	public void playerRegisters(String name) {
-		String response = restClient.register(name);
-		playerIdNameMap.put(name, PlayerID.createFrom(response));
+		String generatedId = restClient.register(name);
+		playerIdNameMap.put(name, PlayerID.createFrom(generatedId));
+		cometDClient.subscribeToChannel(playerQueryResponseChannel(generatedId));
 	}
 	
 	@Override
@@ -173,8 +179,8 @@ public class MessagingTestAgent extends TestAgent {
 	private static String tableChannel(Integer tableId) {
 		return "/table/"+convertTableId(tableId);
 	}
-	private static String playerChannel(Integer playerId) {
-		return "/player/"+playerId;
+	private static String playerQueryResponseChannel(String playerId) {
+		return "/player/"+playerId+"/query/response";
 	}
 
 	private static String tablePlayerChannel(Integer playerId, Integer tableId) {

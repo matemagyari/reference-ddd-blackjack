@@ -8,7 +8,6 @@ import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameActionType;
 import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
-import org.home.blackjack.core.app.service.query.TableViewDTO;
 import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
@@ -19,8 +18,6 @@ import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
 import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
@@ -28,8 +25,6 @@ import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher
 import org.home.blackjack.core.integration.test.util.AppLevelCucumberService;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
-
-import com.google.common.collect.Lists;
 
 public class AppLevelTestAgent extends TestAgent {
 
@@ -72,12 +67,7 @@ public class AppLevelTestAgent extends TestAgent {
 
 		PlayerID playerID = new PlayerID();
 		queryingApplicationService.getTables(playerID);
-		List<TableViewDTO> tableViews = Lists.newArrayList();
-		for (TableDO tableDO : tables) {
-			List<PlayerID> players = Util.splitToPlayerIds(tableDO.players);
-			tableViews.add(new TableViewDTO(TableID.createFrom(tableDO.tableId), players));
-		}
-		TablesDTO tablesDTO = new TablesDTO(playerID, tableViews);
+		TablesDTO tablesDTO = Util.convert(tables, playerID);
 		fakeExternalEventPublisher.assertArrived(tablesDTO);
 
 	}
