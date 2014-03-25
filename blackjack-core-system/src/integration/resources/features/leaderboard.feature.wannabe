@@ -1,0 +1,15 @@
+Feature: after a game the leader board is updated
+
+Scenario: after a game the leader board is updated
+
+Given registered players
+| id | name | win number |
+| 1  | John | 2          |
+| 2  | Jack | 5          |
+
+When player '1' wins a game
+
+Then leader board update is
+| name | win number |
+| John | 3          |
+| Jack | 5          |

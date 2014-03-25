@@ -3,6 +3,8 @@ package org.home.blackjack.core.integration.test.steps.base;
 import java.util.List;
 
 import org.home.blackjack.core.integration.test.dto.CardDO;
+import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
+import org.home.blackjack.core.integration.test.dto.PlayerDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.steps.testagent.AppLevelTestAgent;
 import org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent;
@@ -47,6 +49,11 @@ public class GameStep {
 	@Given("^player '(\\d+)' is registered$")
 	public void givenRegisteredPlayer(Integer playerId) {
 		testAgent.givenRegisteredPlayer(playerId);
+	}
+	
+	@Given("^registered players$")
+	public void givenRegisteredPlayers(List<PlayerDO> players) {
+	    testAgent.givenRegisteredPlayers(players);
 	}
 
 	@Given("^a prepared deck with cards in order$")
@@ -113,6 +120,18 @@ public class GameStep {
 	public void thenPlayerHasANewAccount(String name)  {
 		testAgent.thenPlayerHasANewAccount(name);
 	}
+	
+	//--------------------------------LEADER BOARD ---------------------------------------
+
+	@When("^player '(\\d+)' wins a game$")
+	public void playerWinsAGame(String player) {
+		//testAgent.playerWinsAGame(player);
+	}
+
+	@Then("^leader board update is$")
+	public void leader_board_update_is(List<LeaderboardDO> leadeboard) {
+		testAgent.thenLeaderboardIsUpdated(leadeboard);
+	}	
 
 
 }

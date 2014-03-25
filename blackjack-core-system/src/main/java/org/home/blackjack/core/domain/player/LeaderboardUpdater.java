@@ -29,7 +29,7 @@ public class LeaderboardUpdater {
         List<LeaderBoardRecord> records = Lists.newArrayList();
         List<Player> players = playerRepository.findAllSortedByWinNumber();
         for (Player aPlayer : players) {
-            records.add(new LeaderBoardRecord(aPlayer));
+            records.add(new LeaderBoardRecord(aPlayer.getName(), aPlayer.getWinNumber()));
         }
         
         return new LeaderBoardChangedEvent(records);

@@ -17,8 +17,10 @@ import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
 import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.integration.test.dto.CardDO;
+import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
@@ -150,4 +152,13 @@ public class AppLevelTestAgent extends TestAgent {
 		playerIdNameMap.put(name, playerID);
 	}
 
+	@Override
+	public void thenLeaderboardIsUpdated(final List<LeaderboardDO> leaderboard) {
+		fakeExternalEventPublisher.assertArrived(LeaderBoardChangedEvent.class, new DomainEventMatcher<LeaderBoardChangedEvent>() {
+			@Override
+			public boolean match(LeaderBoardChangedEvent anEvent) {
+				return Util.dataMatch(leaderboard, anEvent);
+			}
+		});
+	}
 }

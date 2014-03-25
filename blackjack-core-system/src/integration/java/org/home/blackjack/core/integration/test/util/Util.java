@@ -6,9 +6,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.home.blackjack.core.app.service.query.TableViewDTO;
 import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.domain.game.core.Card;
+import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
+import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent.LeaderBoardRecord;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.integration.test.dto.CardDO;
+import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.junit.Assert;
@@ -89,5 +93,15 @@ public class Util {
         }
         return new TablesDTO(playerID, tableViews);
     }
+
+	public static boolean dataMatch(List<LeaderboardDO> leaderboard, LeaderBoardChangedEvent anEvent) {
+		List<LeaderBoardRecord> records = Lists.newArrayList();
+        for (LeaderboardDO entry : leaderboard) {
+            records.add(new LeaderBoardRecord(new PlayerName(entry.name), entry.winNumber));
+        }
+        
+        LeaderBoardChangedEvent expectedEvent = new LeaderBoardChangedEvent(records);
+		return expectedEvent.equals(anEvent);
+	}
 
 }

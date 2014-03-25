@@ -11,6 +11,8 @@ import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
 import org.home.blackjack.core.integration.test.dto.CardDO;
+import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
+import org.home.blackjack.core.integration.test.dto.PlayerDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeDeckFactory;
 import org.home.blackjack.core.integration.test.fakes.FakeWalletService;
@@ -77,6 +79,8 @@ public abstract class TestAgent {
 	public abstract void thenPlayersLastActionWasStand(Integer playerId, Integer tableId);
 	
 	public abstract void playerRegisters(String name);
+	
+	public abstract void thenLeaderboardIsUpdated(List<LeaderboardDO> leadeboard);
 
 	public void thenPlayerIsCreated(String name) {
 		Player player = playerRepository.find(playerIdNameMap.get(name));
@@ -85,6 +89,12 @@ public abstract class TestAgent {
 	
 	public void givenRegisteredPlayer(Integer playerId) {
 		playerRepository.create(new Player(convertPlayerId(playerId), new PlayerName("xx")));
+	}
+	
+	public void givenRegisteredPlayers(List<PlayerDO> players) {
+		for (PlayerDO playerDO : players) {
+			playerRepository.create(new Player(convertPlayerId(playerDO.id), new PlayerName(playerDO.name)));
+		}
 	}
 
 	public void thenPlayerIsDebited(Integer playerId, Integer amount) {
@@ -103,9 +113,17 @@ public abstract class TestAgent {
 		return PlayerID.createFrom(playerId.toString());
 	}
 
+	protected static PlayerID convertPlayerId(String playerId) {
+		return PlayerID.createFrom(playerId);
+	}
+	
 	protected static TableID convertTableId(Integer tableId) {
 		return TableID.createFrom(tableId.toString());
 	}
+
+
+
+
 
 	
 }

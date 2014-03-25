@@ -11,13 +11,16 @@ import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
+import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient.MessageMatcher;
 import org.home.blackjack.core.infrastructure.integration.rest.RestClient;
 import org.home.blackjack.core.integration.test.dto.CardDO;
+import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
+import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.EndToEndCucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
@@ -159,12 +162,28 @@ public class MessagingTestAgent extends TestAgent {
 			}
 		});
 	}
+	
+	@Override
+	public void thenLeaderboardIsUpdated(final List<LeaderboardDO> leaderboard) {
+		cometDClient.verifyMessageArrived(leaderboardChannel(), new MessageMatcher() {
+			
+			@Override
+			public boolean match(JsonObject jsonObject) {
+				if (!Util.typeMatch(LeaderBoardChangedEvent.class, jsonObject)) {
+					return false;
+				}
+				LeaderBoardChangedEvent anEvent = Util.convert(LeaderBoardChangedEvent.class, jsonObject);
+				return Util.dataMatch(leaderboard, anEvent);
+			}
+		});
+	}
 
 	@Override
 	public void playerRegisters(String name) {
 		String generatedId = restClient.register(name);
 		playerIdNameMap.put(name, PlayerID.createFrom(generatedId));
 		cometDClient.subscribeToChannel(playerQueryResponseChannel(generatedId));
+		cometDClient.subscribeToChannel(leaderboardChannel());
 	}
 	
 	@Override
@@ -181,6 +200,10 @@ public class MessagingTestAgent extends TestAgent {
 	}
 	private static String playerQueryResponseChannel(String playerId) {
 		return "/player/"+playerId+"/query/response";
+	}
+
+	private static String leaderboardChannel() {
+		return "/leaderboard";
 	}
 
 	private static String tablePlayerChannel(Integer playerId, Integer tableId) {

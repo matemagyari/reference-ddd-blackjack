@@ -2,6 +2,7 @@ package org.home.blackjack.core.infrastructure.integration.cometd;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -27,13 +28,17 @@ public class CometDClient extends AbstractCometDClient {
 
 	private final Map<String, List<JsonObject>> messageBuffer = Maps.newHashMap();
 
+	private UUID uuid;
+
 	public static void main(String... args) {
 		CometDClient cometDClient = new CometDClient("http://0.0.0.0:9099/cometd");
 		cometDClient.handshake();
 	}
 
 	public CometDClient(String baseUrl) {
+		
 		super(baseUrl);
+		uuid = UUID.randomUUID();
 	}
 
 	public void reset() {
@@ -225,6 +230,7 @@ public class CometDClient extends AbstractCometDClient {
 						messageBuffer.put(channelName, messages);
 					}
 					messages.add(dataJson);
+					System.err.println(uuid + " " + messageBuffer.keySet());
 				}
 			}
 

@@ -57,8 +57,10 @@ public class CometDExternalEventPublisher implements ExternalEventPublisher, Dri
 				return "/table/" + addressee.tableId.toString() + "/player/" + addressee.playerId.toString();
 			else
 				return "/table/" + addressee.tableId.toString();
-		else
+		else if (addressee.playerId != null)
 			return "/player/" + addressee.playerId.toString();
+		else
+			return "/leaderboard";
 	}
 
 

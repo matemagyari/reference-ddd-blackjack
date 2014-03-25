@@ -48,6 +48,9 @@ Domain Services:
 Infrastructure Services:
 * e.g. the assemblers serializing/deserializing Domain objects, IDGenerationStrategy
 
+ACLs:
+ACLs are implemented in the form of Adapters. Driven Adapters are implemented by Camel routes and JAX-RS, Driving Adapters by various technologies.
+
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
 * external domain events - events translated to messages to be sent out of the Bounded Context 
@@ -88,6 +91,21 @@ Package structure (layers of onion from inside out)
 Visibility scopes are deliberately restricted to package level wherever possible to encourage loose coupling and encapsulation on package level.
 
 Architectural notes
+
+Client
+
+The client integrated with the server via CometD and HTTP. 
+The general client flow
+1. call an http://0.0.0.0:9090/blackjack/register/{playerName}.The {playerName} is an arbitrary string. The response will be the generated player id.
+2. subscribe to /leaderboard channel
+2. subscribe to /player/{playerId}/query/response
+3. publish a request to /query/request. The body of the request is the player id.
+4. the response will come on /player/{playerId}/query/response channel, containing the tables
+5. subscribe to /player/{playerId}/table/{tableId}
+6. to sit down publish a message to /command/table/sit channel. The body is {}
+7. events about the game arrive on /player/{playerId}/table/{tableId} channel
+ 
+
 
 Command&Query separation
 * the clients can send either commands, or queries. The commands change the state of the application and usually events are sent out. The queries never change the state

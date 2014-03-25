@@ -2,8 +2,10 @@ Feature: players sit down and play. One wins
 
 Scenario: players sit down and play. One wins
 
-Given player '1' is registered
-And player '2' is registered
+Given registered players
+| id | name |
+| 1  | John |
+| 2  | Jack |
 
 Given a prepared deck with cards in order
 | cards |
@@ -66,5 +68,8 @@ Then players can see player '1' stands at table '12'
 Then player '2' won at table '12'
 And player '2' is credited with the win
 
-
+Then leader board update is
+| name | win number |
+| John | 0          |
+| Jack | 1          |
 

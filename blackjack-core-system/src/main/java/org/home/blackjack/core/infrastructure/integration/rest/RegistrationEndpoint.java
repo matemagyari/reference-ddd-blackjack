@@ -13,10 +13,11 @@ import javax.ws.rs.core.Response;
 import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
+import org.home.blackjack.util.marker.hexagonal.DrivenAdapter;
 
 @Path("/blackjack/register")
 @Named
-public class RegistrationEndpoint {
+public class RegistrationEndpoint  implements DrivenAdapter<RegistrationApplicationService> {
 
 	@Resource
 	private RegistrationApplicationService registrationApplicationService;

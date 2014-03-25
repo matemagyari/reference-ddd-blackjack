@@ -2,13 +2,13 @@ package org.home.blackjack.core.domain.player.event;
 
 import java.util.List;
 
-import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.util.ddd.pattern.ValueObject;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 
 import com.google.common.collect.Lists;
 
-public class LeaderBoardChangedEvent implements DomainEvent {
+public class LeaderBoardChangedEvent extends ValueObject implements DomainEvent {
 
     private final List<LeaderBoardRecord> records = Lists.newArrayList();
 
@@ -16,14 +16,27 @@ public class LeaderBoardChangedEvent implements DomainEvent {
         this.records.addAll(records);
     }
 
-    public static class LeaderBoardRecord {
+    public static class LeaderBoardRecord extends ValueObject {
         private final PlayerName playerName;
         private final int winNumber;
 
-        public LeaderBoardRecord(Player player) {
-            this.playerName = player.getName();
-            this.winNumber = player.getWinNumber();
+        public LeaderBoardRecord(PlayerName playerName,int winNumber ) {
+            this.playerName = playerName;
+            this.winNumber = winNumber;
         }
+
+		@Override
+		public String toString() {
+			return "[playerName=" + playerName + ", winNumber=" + winNumber + "]";
+		}
+        
     }
+
+	@Override
+	public String toString() {
+		return "[records=" + records + "]";
+	}
+    
+    
 
 }
