@@ -1,9 +1,7 @@
-var registrationURI = 'http://0.0.0.0:9090/blackjack/register/'
+var registrationURI = 'http://localhost:9090/blackjack/register/'
 var balanceURI = 'http://0.0.0.0:8080/rest/wallet/account'
 
-var playerId = null
-
-function register(name, afterRegistration) {
+function callRegister(name, afterRegistration) {
 	$.ajax({
 		type : 'POST',
 		url : registrationURI + name,
@@ -12,7 +10,6 @@ function register(name, afterRegistration) {
 		data : {},
 		success : function(anId) {
 			console.log('registration success ', anId)
-			playerId = anId
 			afterRegistration(anId)
 		},
 		failure : function(data) {
@@ -26,17 +23,16 @@ function register(name, afterRegistration) {
 	});
 }
 
-function getBalance(playerId) {
+function getBalance(playerId, processBalanceResponse) {
 	$.ajax({
 		type : 'GET',
 		url : registrationURI + name,
 		contentType : 'application/json; charset=utf-8',
 		dataType : 'json',
 		data : {},
-		success : function(anId) {
-			console.log('registration success ', anId)
-			playerId = anId
-			afterRegistration(anId)
+		success : function(balanceResponse) {
+			console.log('registration success ', balanceResponse)
+			processBalanceResponse(balanceResponse)
 		},
 		failure : function(data) {
 			console.log('failure', data);
@@ -47,4 +43,25 @@ function getBalance(playerId) {
 					+ error);
 		}
 	});
+}
+
+function restEchoTest() {
+	$.ajax({
+		type : 'GET',
+		url : 'http://localhost:9090/blackjack/register/echo/test',
+		contentType : 'application/json; charset=utf-8',
+		dataType : 'plain/text',
+		data : {},
+		success : function(response) {
+			console.log('echo response is ', response)
+		},
+		failure : function(data) {
+			console.log('failure', data);
+		},
+		error : function(request, status, error) {
+			console.log("something went wrong \nrequest.responseText : "
+					+ request.responseText + "\nstatus: " + status + "\nerror:"
+					+ error);
+		}
+	});	
 }

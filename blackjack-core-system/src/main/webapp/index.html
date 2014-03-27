@@ -6,14 +6,65 @@
 <script type="text/javascript" src="js/jquery/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="js/org/cometd.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.cometd.js"></script>
+<script type="text/javascript" src="js/blackjack/blackjack-display.js"></script>
+<script type="text/javascript" src="js/blackjack/blackjack-controller.js"></script>
 <script type="text/javascript" src="js/blackjack/blackjack-cometd.js"></script>
+<script type="text/javascript" src="js/blackjack/blackjack-rest.js"></script>
 
 
 <script type="text/javascript">
-	init();
+    restEchoTest();
+	cometDInit();
 </script>
 </head>
 <body>
 	<h1>Blackjack</h1>
+	<div id="openingDiv">
+		Just a second...
+	</div>
+	<div id="welcomeDiv" hidden="true">
+		<table>
+			<tr>
+				<td>
+					<label for="usernameInput">Username</label>
+					<input id="usernameInput" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" value="Register" onclick="register()" />
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="tableDiv" hidden="true">
+		<table>
+			<tr>
+				<td>
+					<label for="cards">Your cards</label>
+					<input id="cards" type="text" />
+				</td>
+				<td>
+					<label for="opponentsCards">Opponent's cards</label>
+					<input id="opponentsCards" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" value="Hit" onclick="playerAct('HIT', gameId)" />
+					<input type="button" value="Stand" onclick="playerAct('STAND', gameId)" />
+				</td>
+			</tr>
+		</table>
+	</div>	
+	</div>
+	<div id="leaderBoardDiv" hidden="true">
+		<table>
+			<tr>
+				<td>Player</td>
+				<td>Wins</td>
+			</tr>
+		</table>
+	</div>	
 </body>
 </html>

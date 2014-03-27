@@ -11,6 +11,7 @@ import org.home.blackjack.core.app.service.query.QueryingApplicationService;
 import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.app.service.query.TablesQuery;
 import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
+import org.home.blackjack.core.app.service.registration.RegistrationCommand;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingCommand;
 import org.home.blackjack.core.domain.game.core.GameID;
@@ -158,7 +159,7 @@ public class AppLevelTestAgent extends TestAgent {
 
 	@Override
 	public void playerRegisters(String name) {
-		PlayerID playerID = registrationApplicationService.playerJoins(new PlayerName(name));
+		PlayerID playerID = registrationApplicationService.playerJoins(new RegistrationCommand(new PlayerName(name)));
 		playerIdNameMap.put(name, playerID);
 	}
 

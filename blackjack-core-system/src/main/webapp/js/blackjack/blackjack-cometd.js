@@ -4,9 +4,8 @@
  */
 
 var cometd = $.cometd
-function init() {
+function cometDInit() {
     console.log("done loading js");
-    
     
     cometd.addListener('/meta/handshake', metaHandshakeListener);
     cometd.addListener('/meta/connect', metaConnectListener);
@@ -15,7 +14,6 @@ function init() {
         url: 'http://localhost:9099/cometd'
     });
     cometd.handshake(metaHandshakeListener);	
-    
 }
 
 function msgListener(msg) {
@@ -23,20 +21,28 @@ function msgListener(msg) {
 }
 
 function metaHandshakeListener(msg){
-	console.log('handshake message: ', msg)
-
 	if (msg.successful) {
+		
 		console.log('handshake success: ', msg)
-		cometd.subscribe('/outchannel', msgListener)
-		console.log('subscribed')
-		cometd.publish('/inchannel','dadada')
-		console.log('published')		
+		subscribe('/echoout', msgListener)
+		publish('/echoin','dadada')
+		
+		cometDInitialized();
+    } else {
+    	console.log('handshake failed: ', msg)
     }
 }
 function metaConnectListener(msg){
-	console.log('connect message: ', msg); 
-
 	if (msg.successful) {
-    	console.log('connect success: ', msg); 
+    	console.log('meta connect success: ', msg); 
+    } else {
+    	console.log('meta connect failed: ', msg); 
     }
+}
+
+function subscribe(channel, msgListener) {
+	cometd.subscribe(channel, msgListener)
+}
+function publish(channel, msg) {
+	cometd.publish(channel,msg)
 }

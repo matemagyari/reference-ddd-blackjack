@@ -10,6 +10,7 @@ import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
 import org.home.blackjack.core.app.service.query.TablesQuery;
+import org.home.blackjack.core.app.service.registration.RegistrationCommand;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingCommand;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,8 +37,9 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	private GameActionApplicationService gameActionApplicationService;
 	
 	private GsonDataFormat tableCommandDF = new GsonDataFormat(SeatingCommand.class);
-	private GsonDataFormat queryDF = new GsonDataFormat(TablesQuery.class);
 	private GsonDataFormat gameCommandDF = new GsonDataFormat(GameCommand.class);
+	private GsonDataFormat registrationCommandDF = new GsonDataFormat(RegistrationCommand.class);
+	private GsonDataFormat queryDF = new GsonDataFormat(TablesQuery.class);
 	@Value("${blackjack.cometd.uri}")
 	private String cometdUri;
 	@Value("${blackjack.rest.uri}")
@@ -47,9 +49,9 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	
 	public void configure() {
 
-		from(cometdUri + "/inchannel?crossOriginFilterOn=true&allowedOrigins=*&filterPath=/*")
-			//.setHeader("Access-Control-Allow-Origin", constant("*"))
-			.to("cometd://0.0.0.0:9099/outchannel")
+		from(cometdUri + "/echoin?crossOriginFilterOn=true&allowedOrigins=*&filterPath=/*")
+			.setHeader("Access-Control-Allow-Origin", constant("*"))
+			.to("cometd://0.0.0.0:9099/echoout")
 			.routeId("testroute").end();
 		
 		from(cometdUri + "/query/request")
@@ -72,7 +74,9 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	    .routeId("command-game-route").end();	
 
 		from("jetty:"+restUri+"?matchOnUriPrefix=true")
-			.to("cxfbean:registrationEndpoint");
+			.setHeader("Access-Control-Allow-Origin", constant("*"))
+			.to("cxfbean:registrationEndpoint")
+			.setHeader("Access-Control-Allow-Origin", constant("*"));
 		
 	}
 

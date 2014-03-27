@@ -8,11 +8,15 @@ For the rules of the game, check org.home.blackjack.core.domain.game.Game.
 
 General deployment description:
 
-The application has two artifacts (jars). They should be started up by "java -jar xxxx.jar", then the users only need a browser.
+The application has two artifacts (jars), Blackjack Core and Blackjack Wallet. 
+Start up 
+	* Blackjack Core: mvn exec:java
+	* Blackjack Core: mvn jetty:run 
+    * the users only need a browser.
 
 General technical description:
 
-The stack is Spring, Camel, Cometd, REST, Hazelcast. The architecture is Hexagonal, the project's aim is to provide numerous examples for different types of Ports and Adapters, as well as DDD patterns and concepts.
+The stack is Spring, Camel, Cometd, REST, Hazelcast. The architecture is Hexagonal and Event-Driven, the project's aim is to provide numerous examples for different types of Ports and Adapters, as well as DDD patterns and concepts.
 It exposes REST and Cometd endpoints to interact with and provides in-memory (a simple map-based and a Hazelcast based) persistence. It has a minimalistic UI in browser.
 Components:
 * Blackjack Core - implements the game, interacts with Blackjack Wallet
@@ -49,7 +53,8 @@ Infrastructure Services:
 * e.g. the assemblers serializing/deserializing Domain objects, IDGenerationStrategy
 
 ACLs:
-ACLs are implemented in the form of Adapters. Driven Adapters are implemented by Camel routes and JAX-RS, Driving Adapters by various technologies.
+* ACLs contains the Adapters and the assemblers that translate data between the layers. Driven Adapters are implemented by Camel routes and JAX-RS, 
+Driving Adapters by various technologies (Mongo, Hazelcast, ...).
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
@@ -64,7 +69,11 @@ Without buffering if an exception occurs after an event is dispatched and the ag
 they only get released from the buffer once the "transaction is closed"
 
 Application layer responsibilites:
-* provide a facade to the client to interact with the app
+* provide a facade to the client to interact with the app = implement Use Cases. Each application service implements a Use Case, or some smaller, related Use Cased
+* event handling - see domain events
+* bootstrapping
+* routing Domain Events either back to the Domain or out of the application. Sometimes a Domain Event must be translated to multiple messages. The application service
+splits the event into multiple events
 
 
 Structure
@@ -116,9 +125,9 @@ Blackjack follows the Event Driven Architectural style
 
 
 Acceptance Testing
-* the acceptance tests are implemented using Cucumber. All tests could be run on different levels. One test client simulates the user calling directly the application 
-services, the other sends commands/queries via CometD. The first verifies notifications by attaching fake adapters to the app's Driving Ports (FakeExternalEventPublisher),
-the second actually subscribes to CometD channels. See TestAgent, AppLevelTestAgent and MessagingTestAgent for details.
+* the acceptance tests are implemented using Cucumber. All tests could be run on 2 different levels. One test client simulates the user calling directly the application 
+services, the other sends commands/queries via CometD. The first verifies notifications by attaching fake adapters to the app's Driving Ports (FakeExternalEventPublisher,
+in-memory repository implementations), the second actually subscribes to CometD channels. See TestAgent, AppLevelTestAgent and MessagingTestAgent for details.
 
 Stuff missing:
 
