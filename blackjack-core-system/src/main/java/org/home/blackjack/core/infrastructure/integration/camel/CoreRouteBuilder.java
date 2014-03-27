@@ -48,30 +48,26 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	public void configure() {
 
 		from(cometdUri + "/inchannel?crossOriginFilterOn=true&allowedOrigins=*&filterPath=/*")
-			.to("log:aLog?showAll=true&multiline=true")
 			//.setHeader("Access-Control-Allow-Origin", constant("*"))
 			.to("cometd://0.0.0.0:9099/outchannel")
 			.routeId("testroute").end();
 		
 		from(cometdUri + "/query/request")
-		    .to("log:aLog?showAll=true&multiline=true")
 		    .unmarshal(queryDF)
-		    .bean(queryingApplicationService,"getTables")
+		    .bean(queryingApplicationService)
 		    .routeId("query-route").end();
 
 		from(cometdUri + "/command/table/sit")
-		    .to("log:aLog?showAll=true&multiline=true")
 		    .unmarshal(tableCommandDF)
 		    .bean(eventBusManager, "initialize")
-		    .bean(seatingApplicationService,"seatPlayer")
+		    .bean(seatingApplicationService)
 		    .bean(eventBusManager, "flush")
 		. routeId("command-sit-route").end();
 		
 		from(cometdUri + "/command/game")
-	    	.to("log:aLog?showAll=true&multiline=true")
 	    	.unmarshal(gameCommandDF)
 	    	.bean(eventBusManager, "initialize")
-	    	.bean(gameActionApplicationService,"handlePlayerAction")
+	    	.bean(gameActionApplicationService)
 	    	.bean(eventBusManager, "flush")
 	    .routeId("command-game-route").end();	
 
