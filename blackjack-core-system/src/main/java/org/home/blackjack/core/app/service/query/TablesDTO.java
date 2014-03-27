@@ -3,13 +3,13 @@ package org.home.blackjack.core.app.service.query;
 import java.util.List;
 import java.util.Map;
 
-import org.home.blackjack.core.app.events.external.ResponseDTO;
+import org.home.blackjack.core.app.dto.QueryResponse;
 import org.home.blackjack.core.domain.shared.PlayerID;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class TablesDTO extends ResponseDTO {
+public class TablesDTO extends QueryResponse {
 
 	private final Map<String, List<String>> tablesWithPlayers;
 

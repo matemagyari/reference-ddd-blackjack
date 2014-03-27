@@ -1,5 +1,6 @@
 package org.home.blackjack.core.app.events.external;
 
+import org.home.blackjack.core.app.dto.QueryResponse;
 import org.home.blackjack.util.marker.hexagonal.DrivingPort;
 
 
@@ -11,6 +12,6 @@ import org.home.blackjack.util.marker.hexagonal.DrivingPort;
 public interface ExternalEventPublisher extends DrivingPort {
 	
 	void publish(ExternalDomainEvent event);
-	void publish(ResponseDTO response);
+	void publish(QueryResponse response);
 
 }

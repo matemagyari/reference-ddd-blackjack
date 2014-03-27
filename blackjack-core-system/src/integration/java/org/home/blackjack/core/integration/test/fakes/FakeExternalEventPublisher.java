@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.home.blackjack.core.app.dto.QueryResponse;
 import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
-import org.home.blackjack.core.app.events.external.ResponseDTO;
 import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameStartedEvent;
@@ -22,7 +22,7 @@ import com.google.common.collect.Lists;
 public class FakeExternalEventPublisher implements ExternalEventPublisher {
 
 	private final List<DomainEvent> events = Lists.newArrayList();
-	private final List<ResponseDTO> responses = Lists.newArrayList();
+	private final List<QueryResponse> responses = Lists.newArrayList();
 
 	@Override
 	public void publish(ExternalDomainEvent event) {
@@ -32,7 +32,7 @@ public class FakeExternalEventPublisher implements ExternalEventPublisher {
 	
 
 	@Override
-	public void publish(ResponseDTO response) {
+	public void publish(QueryResponse response) {
 		System.err.println("External response: " + response);
 		responses.add(response);
 	}
@@ -80,7 +80,7 @@ public class FakeExternalEventPublisher implements ExternalEventPublisher {
 
 	public TablesDTO assertArrived(TablesDTO tablesDTO) {
 		Util.sleep(100);
-		for (ResponseDTO response : responses) {
+		for (QueryResponse response : responses) {
 			if (response.equals(tablesDTO)) {
 				responses.remove(response);
 				return (TablesDTO) response;

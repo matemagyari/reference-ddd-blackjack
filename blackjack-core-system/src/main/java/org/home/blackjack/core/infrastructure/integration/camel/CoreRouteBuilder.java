@@ -9,11 +9,20 @@ import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
+import org.home.blackjack.core.app.service.query.TablesQuery;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingCommand;
-import org.home.blackjack.core.domain.shared.PlayerID;
 import org.springframework.beans.factory.annotation.Value;
 
+/**
+ * 
+ * This class also provides the ACL between client and the application (the Driving Adapters). It's a
+ * thin ACL though, since simply transforms the json messages the client sends
+ * to java objects. If the java classes change (field name change for example),
+ * then the Client needs to change too. Or a custom deserializer should be used
+ * to transform from json to object, making the ACL a little bit "thicker".
+ * 
+ */
 @Named
 public class CoreRouteBuilder extends SpringRouteBuilder {
 
@@ -27,7 +36,7 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	private GameActionApplicationService gameActionApplicationService;
 	
 	private GsonDataFormat tableCommandDF = new GsonDataFormat(SeatingCommand.class);
-	private GsonDataFormat queryDF = new GsonDataFormat(PlayerID.class);
+	private GsonDataFormat queryDF = new GsonDataFormat(TablesQuery.class);
 	private GsonDataFormat gameCommandDF = new GsonDataFormat(GameCommand.class);
 	@Value("${blackjack.cometd.uri}")
 	private String cometdUri;

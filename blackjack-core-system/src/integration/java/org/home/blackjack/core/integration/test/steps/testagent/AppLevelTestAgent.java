@@ -9,6 +9,7 @@ import org.home.blackjack.core.app.service.game.GameActionType;
 import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
 import org.home.blackjack.core.app.service.query.TablesDTO;
+import org.home.blackjack.core.app.service.query.TablesQuery;
 import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingCommand;
@@ -16,11 +17,13 @@ import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
+import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
+import org.home.blackjack.core.integration.test.dto.PlayerDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
@@ -63,12 +66,19 @@ public class AppLevelTestAgent extends TestAgent {
 	protected CucumberService cucumberService() {
 		return cucumberService;
 	}
+	
+    @Override
+    public void givenRegisteredPlayers(List<PlayerDO> players) {
+        for (PlayerDO playerDO : players) {
+            playerRepository.create(new Player(convertPlayerId(playerDO.id), new PlayerName(playerDO.name)));
+        }
+    }
 
 	@Override
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
 
 		PlayerID playerID = new PlayerID();
-		queryingApplicationService.getTables(playerID);
+		queryingApplicationService.getTables(new TablesQuery(playerID));
 		TablesDTO tablesDTO = Util.convert(tables, playerID);
 		fakeExternalEventPublisher.assertArrived(tablesDTO);
 

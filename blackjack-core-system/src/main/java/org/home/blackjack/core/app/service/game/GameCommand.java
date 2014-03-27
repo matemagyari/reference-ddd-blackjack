@@ -1,9 +1,10 @@
 package org.home.blackjack.core.app.service.game;
 
+import org.home.blackjack.core.app.dto.Command;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
 
-public class GameCommand {
+public class GameCommand implements Command {
 	
 	private final String action;
 	private final String gameId;

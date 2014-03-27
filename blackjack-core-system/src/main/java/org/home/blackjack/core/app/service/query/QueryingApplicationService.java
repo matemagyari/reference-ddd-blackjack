@@ -13,11 +13,12 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
+import org.home.blackjack.util.marker.hexagonal.DrivenPort;
 
 import com.google.common.collect.Lists;
 
 @Named
-public class QueryingApplicationService {
+public class QueryingApplicationService implements DrivenPort {
 
 	@Resource
 	private TableRepository tableRepository;
@@ -33,13 +34,13 @@ public class QueryingApplicationService {
 		return null;
 	}
 	
-	public void getTables(PlayerID playerID) {
+	public void getTables(TablesQuery tablesQuery) {
 		List<TableViewDTO> tableViewDTOs = Lists.newArrayList();
 		List<Table> tables =  tableRepository.findAll();
 		for (Table table : tables) {
 			tableViewDTOs.add(new TableViewDTO(table.getID(),  table.getPlayers()));
 		}
-		externalEventPublisher.publish(new TablesDTO(playerID, tableViewDTOs));
+		externalEventPublisher.publish(new TablesDTO(tablesQuery.getPlayerID(), tableViewDTOs));
 	}
 	
 }

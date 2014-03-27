@@ -82,6 +82,8 @@ public abstract class TestAgent {
 	
 	public abstract void thenLeaderboardIsUpdated(List<LeaderboardDO> leadeboard);
 
+	public abstract void givenRegisteredPlayers(List<PlayerDO> players) ;
+
 	public void thenPlayerIsCreated(String name) {
 		Player player = playerRepository.find(playerIdNameMap.get(name));
 		Assert.assertNotNull(player);
@@ -91,11 +93,6 @@ public abstract class TestAgent {
 		playerRepository.create(new Player(convertPlayerId(playerId), new PlayerName("xx")));
 	}
 	
-	public void givenRegisteredPlayers(List<PlayerDO> players) {
-		for (PlayerDO playerDO : players) {
-			playerRepository.create(new Player(convertPlayerId(playerDO.id), new PlayerName(playerDO.name)));
-		}
-	}
 
 	public void thenPlayerIsDebited(Integer playerId, Integer amount) {
 		walletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.ENTRYFEE);

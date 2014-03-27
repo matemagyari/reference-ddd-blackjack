@@ -5,12 +5,15 @@ import java.util.List;
 import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
 import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.TablesDTO;
+import org.home.blackjack.core.app.service.query.TablesQuery;
 import org.home.blackjack.core.app.service.seating.SeatingCommand;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
+import org.home.blackjack.core.domain.player.Player;
+import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent;
@@ -19,8 +22,8 @@ import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient.Me
 import org.home.blackjack.core.infrastructure.integration.rest.RestClient;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
+import org.home.blackjack.core.integration.test.dto.PlayerDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
-import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.EndToEndCucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
@@ -57,12 +60,19 @@ public class MessagingTestAgent extends TestAgent {
 		return cucumberService;
 	}
 
+    @Override
+    public void givenRegisteredPlayers(List<PlayerDO> players) {
+        for (PlayerDO playerDO : players) {
+            playerRepository.create(new Player(convertPlayerId(playerDO.id), new PlayerName(playerDO.name)));
+        }
+        cometDClient.subscribeToChannel(leaderboardChannel());
+    }
 
 	@Override
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
 	    PlayerID randomPlayer = new PlayerID();
 	    TablesDTO tablesDTO = Util.convert(tables, randomPlayer);
-        String command = new Gson().toJson(randomPlayer);
+        String command = new Gson().toJson(new TablesQuery(randomPlayer));
         String responseChannel = playerQueryResponseChannel(randomPlayer.toString());
         cometDClient.subscribeToChannel(responseChannel);
         cometDClient.publish("/query/request", command);

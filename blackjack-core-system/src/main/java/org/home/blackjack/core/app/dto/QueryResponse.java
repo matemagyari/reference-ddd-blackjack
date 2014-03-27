@@ -1,14 +1,14 @@
-package org.home.blackjack.core.app.events.external;
+package org.home.blackjack.core.app.dto;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.core.domain.shared.PlayerID;
 
-public abstract class ResponseDTO {
+public abstract class QueryResponse {
 	
 	private final PlayerID playerId;
 
-	public ResponseDTO(PlayerID playerId) {
+	public QueryResponse(PlayerID playerId) {
 		this.playerId = playerId;
 	}
 	
