@@ -190,6 +190,8 @@ public class MessagingTestAgent extends TestAgent {
 
 	@Override
 	public void playerRegisters(String name) {
+		//String command = new Gson().toJson(new RegistrationCommand(new PlayerName(name)));
+		//String response = cometDClient.requestReply("/service/command/registration",command);
 		String generatedId = restClient.register(name);
 		playerIdNameMap.put(name, PlayerID.createFrom(generatedId));
 		cometDClient.subscribeToChannel(playerQueryResponseChannel(generatedId));

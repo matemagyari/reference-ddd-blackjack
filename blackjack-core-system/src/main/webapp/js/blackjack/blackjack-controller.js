@@ -14,7 +14,8 @@ function afterRegistration(aPlayerId) {
 	playerId = aPlayerId
 	subscribe('/leaderboard', leaderboardEventListener)
 	subscribe('/player/'+playerId+'/query/response', queryResponseListener)
-	getTables()
+	publish('/query/request','aaaa')//tablesQuery())
+	publish('/echoin','haho2')
 	console.log('afterRegistration', playerId)
 }
 
@@ -54,9 +55,6 @@ function sitToTable(tableId) {
 
 function playerAct(action, gameId) {
 	publish('/command/game', gameCommand(tableId, gameId, action))
-}
-function getTables() {
-	publish('/query/request',tablesQuery())
 }
 
 //-------------------------------------commands&queries--------------------------
