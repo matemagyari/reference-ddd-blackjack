@@ -5,7 +5,6 @@ import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
 import org.cometd.bayeux.client.ClientSessionChannel.MessageListener;
 import org.home.blackjack.core.app.service.registration.RegistrationCommand;
-import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient;
 import org.junit.Test;
 
@@ -39,7 +38,7 @@ public class MainTest {
 				System.err.println("hello " + arg1);
 			}
 		});
-		String command = new Gson().toJson(new RegistrationCommand(new PlayerName("aaa")));
+		String command = new Gson().toJson(new RegistrationCommand("aaa"));
 		cometDClient.publish(channelName, command);
 		Thread.sleep(1000);
 

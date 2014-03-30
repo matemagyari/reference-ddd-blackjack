@@ -5,13 +5,13 @@ import org.home.blackjack.core.domain.player.PlayerName;
 
 public class RegistrationCommand implements Command {
 
-	private final PlayerName name;
+	private final String name;
 
-	public RegistrationCommand(PlayerName name) {
+	public RegistrationCommand(String name) {
 		this.name = name;
 	}
 	
 	public PlayerName getName() {
-		return name;
+		return new PlayerName(name);
 	}
 }

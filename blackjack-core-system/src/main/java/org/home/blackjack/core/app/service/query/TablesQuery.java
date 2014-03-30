@@ -5,14 +5,14 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 
 public class TablesQuery implements Query {
     
-    private final PlayerID playerID;
+    private final String playerId;
 
-    public TablesQuery(PlayerID playerID) {
-        this.playerID = playerID;
+    public TablesQuery(String playerID) {
+        this.playerId = playerID;
     }
     
     public PlayerID getPlayerID() {
-        return playerID;
+        return PlayerID.createFrom(playerId);
     }
 
 }

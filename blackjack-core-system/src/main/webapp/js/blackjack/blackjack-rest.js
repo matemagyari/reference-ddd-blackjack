@@ -1,16 +1,16 @@
 var registrationURI = 'http://localhost:9090/blackjack/register/'
-var balanceURI = 'http://0.0.0.0:9090/rest/wallet/account'
+var balanceURI = 'http://localhost:8080/blackjack-wallet/rest/wallet/account/balance/'
 
-function getBalance(playerId, processBalanceResponse) {
+function getBalance(processBalanceResponse) {
 	$.ajax({
-		type : 'GET',
-		url : registrationURI + name,
-		contentType : 'application/json; charset=utf-8',
+		type : "GET",
+		url : balanceURI + playerId,
+		//contentType : 'application/json; charset=utf-8',
 		crossDomain: true,
-	    dataType: 'jsonp',
+	    dataType: "text",
 		data : {},
 		success : function(balanceResponse) {
-			console.log('registration success ', balanceResponse)
+			console.log('get balance success ', balanceResponse)
 			processBalanceResponse(balanceResponse)
 		},
 		failure : function(data) {

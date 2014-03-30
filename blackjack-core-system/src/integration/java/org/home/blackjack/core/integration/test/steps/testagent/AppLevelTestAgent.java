@@ -79,7 +79,7 @@ public class AppLevelTestAgent extends TestAgent {
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
 
 		PlayerID playerID = new PlayerID();
-		queryingApplicationService.getTables(new TablesQuery(playerID));
+		queryingApplicationService.getTables(new TablesQuery(playerID.toString()));
 		TablesDTO tablesDTO = Util.convert(tables, playerID);
 		fakeExternalEventPublisher.assertArrived(tablesDTO);
 
@@ -159,7 +159,7 @@ public class AppLevelTestAgent extends TestAgent {
 
 	@Override
 	public void playerRegisters(String name) {
-		PlayerID playerID = registrationApplicationService.playerJoins(new RegistrationCommand(new PlayerName(name)));
+		PlayerID playerID = registrationApplicationService.playerJoins(new RegistrationCommand(name));
 		playerIdNameMap.put(name, playerID);
 	}
 

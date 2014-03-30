@@ -53,12 +53,14 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	public void configure() {
 
 		from(cometdUri + "/echoin").routeId("echoroute")
+			.to("log:hello?showAll=true&multiline=true&level=DEBUG")
 			.to(cometdUri+"/echoout");
 		
 		from(cometdUri + "/query/request").routeId("query-route")
-		.to(cometdUri+"/echoout");
-		    //.unmarshal(queryDF)
-		    //.bean(queryingApplicationService);
+		//.to(cometdUri+"/echoout");
+			.to("log:hello?showAll=true&multiline=true&level=DEBUG")
+		    .unmarshal(queryDF)
+		    .bean(queryingApplicationService);
 
 		from(cometdUri + "/command/table/sit").routeId("command-sit-route")
 		    .unmarshal(tableCommandDF)

@@ -29,4 +29,8 @@ public class TablesDTO extends QueryResponse {
         return Maps.newHashMap(tablesWithPlayers);
     }
 
+	@Override
+	public String toString() {
+		return "[tablesWithPlayers=" + tablesWithPlayers + "]";
+	}
 }

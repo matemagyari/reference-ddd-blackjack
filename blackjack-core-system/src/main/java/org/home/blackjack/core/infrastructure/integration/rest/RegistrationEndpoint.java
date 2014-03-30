@@ -29,8 +29,7 @@ public class RegistrationEndpoint  implements DrivenAdapter<RegistrationApplicat
 	@Path("/{playerName}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 	public Response createAccount(@PathParam("playerName") String playerName) {
-		System.err.println("playerName " + playerName);
-		PlayerID playerID = registrationApplicationService.playerJoins(new RegistrationCommand(new PlayerName(playerName)));
+		PlayerID playerID = registrationApplicationService.playerJoins(new RegistrationCommand(playerName));
 		return Response.ok(playerID.toString()).build();
 	}
 
@@ -48,7 +47,6 @@ public class RegistrationEndpoint  implements DrivenAdapter<RegistrationApplicat
 	public Response echo(@PathParam("msg") String msg){
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("hey", msg + "response");
-		System.err.println("GET " + msg);
 		//return Response.ok(jsonObject.toString()).build();
 		return Response.ok("hiiii").build();
 	}

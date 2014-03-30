@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+
+//TODO remove if not needed
 @Named
 public class CometDRegistrationService {
 	
@@ -30,7 +32,7 @@ public class CometDRegistrationService {
 		PlayerID playerID = registrationApplicationService.playerJoins(command);
 		JsonObject jsonObject = new Gson().toJsonTree(playerID).getAsJsonObject();
 		jsonObject.addProperty("type", PlayerID.class.getSimpleName());
-		producerTemplate.asyncSendBody(source + "/registration/"+targetId, jsonObject.toString());
+		//producerTemplate.asyncSendBody(source + "/registration/"+targetId, jsonObject.toString());
 	}
 
 }
