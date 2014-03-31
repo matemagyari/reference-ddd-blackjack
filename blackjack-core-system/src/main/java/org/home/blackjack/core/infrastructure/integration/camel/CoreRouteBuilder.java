@@ -51,6 +51,7 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 
 		from(cometdUri + "/echoin?crossOriginFilterOn=true&allowedOrigins=*&filterPath=/*")
 			.setHeader("Access-Control-Allow-Origin", constant("*"))
+			.setHeader("Access-Control-Allow-Methods", constant("GET,POST"))
 			.to("cometd://0.0.0.0:9099/echoout")
 			.routeId("testroute").end();
 		
@@ -75,8 +76,10 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 
 		from("jetty:"+restUri+"?matchOnUriPrefix=true")
 			.setHeader("Access-Control-Allow-Origin", constant("*"))
+			.setHeader("Access-Control-Allow-Methods", constant("GET,POST"))
 			.to("cxfbean:registrationEndpoint")
-			.setHeader("Access-Control-Allow-Origin", constant("*"));
+			.setHeader("Access-Control-Allow-Origin", constant("*"))
+			.setHeader("Access-Control-Allow-Methods", constant("GET,POST"));
 		
 	}
 

@@ -7,7 +7,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.log4j.Logger;
 import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.app.service.registration.RegistrationCommand;
-import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -30,7 +29,7 @@ public class CometDRegistrationService {
 		PlayerID playerID = registrationApplicationService.playerJoins(command);
 		JsonObject jsonObject = new Gson().toJsonTree(playerID).getAsJsonObject();
 		jsonObject.addProperty("type", PlayerID.class.getSimpleName());
-		producerTemplate.asyncSendBody(source + "/registration/"+targetId, jsonObject.toString());
+		//producerTemplate.asyncSendBody(source + "/registration/"+targetId, jsonObject.toString());
 	}
 
 }
