@@ -25,13 +25,32 @@ function displayLeaderboard(event) {
 }
 
 function displayTables() {
-	$('#tablesDiv').show()
-	$('#tablesArea').text(JSON.stringify(tables,null,4))
+	$('#tableDiv').show()
+	$('#tablesTable').empty()
+	$('#tablesTable').append('<tr><td>Table</td><td>Players</td><td></td></tr>')
+	for(tableId in tables) { 
+		var players = tables[tableId]
+		var buttonStr = '<input type="button" value="Join" onclick="sitToTable(\''+tableId+'\')" />'
+		$('#tablesTable').append('<tr><td>'+tableId+'</td><td>'+players+'</td><td>'+buttonStr+'</td></tr>')
+	}
 	console.log('displayTables', tables)
 }
 function displaySession() {
 	$('#sessionDiv').show()
 	$('#sessionArea').text(JSON.stringify(session,null,4))
+	
+	if ($('#actualTableSelect').length == 0 ) {
+		$('#actualTableSelect').append('<option value="NONE">NONE</option>')	
+	}
+	for(tableId in session.tables) {
+		if ($('#actualTableSelect option[value="'+tableId+'"]').length == 0 ) {
+			$('#actualTableSelect').append('<option value="'+tableId+'">'+tableId+'</option>')
+		}
+	}
+	$('#actualTableSelec').change(function () {
+    	var optionSelected = $(this).find("option:selected")
+    	session.currentTableId  = optionSelected.val()
+ 	})
 	console.log('session', session)
 }
 

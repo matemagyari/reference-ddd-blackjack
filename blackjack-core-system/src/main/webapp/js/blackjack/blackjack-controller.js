@@ -1,6 +1,5 @@
 var playerId = null
 var tables = null
-var currentTableId = null
 var session = {
 	tables : {}
 }
@@ -38,11 +37,16 @@ function tablePrivateEventListener(msg) {
 		displayNewCard(event)
 	} 
 	displaySession()
+	displayTables()
 }
 function tablePublicEventListener(msg) {
 	var event = JSON.parse(msg.data)
 	console.log('tablePublicEventListener', event)
-	if (event.type == 'PublicPlayerCardDealtEvent') {
+	if (event.type == 'PlayerSeatedEvent') {
+		if (event.player.internal === playerId) {
+
+		}
+	} else if (event.type == 'PublicPlayerCardDealtEvent') {
 		var tableId = event.tableID.internal
 		createTableIfMissing(tableId)
 		if (event.actingPlayer.internal != playerId) {
@@ -69,7 +73,7 @@ function tablePublicEventListener(msg) {
 
 function createTableIfMissing(tableId) {
 	if (typeof session.tables[tableId] === 'undefined') {
-		currentTableId = tableId
+		session.currentTableId = tableId
 		session.tables[tableId] = {
 			cards : [],
 			opponentCards : 0
@@ -105,7 +109,7 @@ function sitToTable(tableId) {
 }
 
 function playerAct(action) {
-	publish('/command/game', gameCommand(currentTableId, session.tables[currentTableId].gameId, action))
+	publish('/command/game', gameCommand(session.currentTableId, session.tables[session.currentTableId].gameId, action))
 }
 
 //-------------------------------------commands&queries--------------------------

@@ -42,6 +42,10 @@
 						type="text" readonly />
 				</div>
 				<div id="tableDiv" hidden="true">
+					TABLES WITH PLAYERS <br />
+					<table id="tablesTable" border=1/>
+					<label for="actualTableSelect">Actual Table</label>
+					<select id="actualTableSelect"/>
 					<table>
 						<tr>
 							<td><label for="cards">Your cards</label> <input id="cards"
@@ -49,18 +53,7 @@
 							<td><label for="opponentsCards">Opponent's cards</label> <input
 								id="opponentsCards" type="text" /></td>
 						</tr>
-						<tr>
-							<td><input type="button" value="Hit"
-								onclick="playerAct('HIT', gameId)" /> <input type="button"
-								value="Stand" onclick="playerAct('STAND', gameId)" /></td>
-						</tr>
 					</table>
-				</div>
-				<div id="tablesDiv" border="1" hidden="true">
-					TABLES WITH PLAYERS <br />
-					<textarea id="tablesArea" rows="10" cols="60" readonly></textarea>
-					<br /> <input id="tableIdInput" type="text" /> <input
-						type="button" value="Join" onclick="joinTable()" />
 				</div>
 				<div id="sessionDiv" border="1" hidden>
 					SESSION <br />
