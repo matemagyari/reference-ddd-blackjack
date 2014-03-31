@@ -30,20 +30,20 @@ public class CometDExternalEventPublisher implements ExternalEventPublisher, Dri
 
 	@Override
 	public void publish(ExternalDomainEvent event) {
-		LOGGER.info("publish " + event);
 		String channel = channel(event.getAddressee());
 		DomainEvent domainEvent = event.getEvent();
 		JsonObject jsonObject = new Gson().toJsonTree(domainEvent).getAsJsonObject();
 		jsonObject.addProperty("type", domainEvent.getClass().getSimpleName());
+		LOGGER.info("publish to " + channel + " " + event.getClass().getSimpleName());
 		producerTemplate.asyncSendBody(source + channel, jsonObject.toString());
 	}
 	
 	@Override
 	public void publish(QueryResponse response) {
-		LOGGER.info("publish " + response);
 		String channel = channel(response.getPlayerId());
 		JsonObject jsonObject = new Gson().toJsonTree(response).getAsJsonObject();
 		jsonObject.addProperty("type", response.getClass().getSimpleName());
+		LOGGER.info("publish to " + channel + " " + response.getClass().getSimpleName());
 		producerTemplate.asyncSendBody(source + channel, jsonObject.toString());
 	}
 

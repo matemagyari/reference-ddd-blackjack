@@ -72,7 +72,7 @@ public class MessagingTestAgent extends TestAgent {
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
 	    PlayerID randomPlayer = new PlayerID();
 	    TablesDTO tablesDTO = Util.convert(tables, randomPlayer);
-        String command = new Gson().toJson(new TablesQuery(randomPlayer));
+        String command = new Gson().toJson(new TablesQuery(randomPlayer.toString()));
         String responseChannel = playerQueryResponseChannel(randomPlayer.toString());
         cometDClient.subscribeToChannel(responseChannel);
         cometDClient.publish("/query/request", command);
@@ -190,6 +190,8 @@ public class MessagingTestAgent extends TestAgent {
 
 	@Override
 	public void playerRegisters(String name) {
+		//String command = new Gson().toJson(new RegistrationCommand(new PlayerName(name)));
+		//String response = cometDClient.requestReply("/service/command/registration",command);
 		String generatedId = restClient.register(name);
 		playerIdNameMap.put(name, PlayerID.createFrom(generatedId));
 		cometDClient.subscribeToChannel(playerQueryResponseChannel(generatedId));

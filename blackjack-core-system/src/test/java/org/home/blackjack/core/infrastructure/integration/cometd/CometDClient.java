@@ -2,6 +2,8 @@ package org.home.blackjack.core.infrastructure.integration.cometd;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.cometd.bayeux.Message;
@@ -174,6 +176,28 @@ public class CometDClient extends AbstractCometDClient {
         ClientSessionChannel channel = client.getChannel(channelName);
         channel.subscribe(listener);
     }
+    
+	public String requestReply(final String channelName, String command) {
+		final CountDownLatch countDownLatch = new CountDownLatch(1);
+        final List<String> response = Lists.newArrayList();
+		MessageListener listener = new MessageListener() {
+            @Override
+            public void onMessage(ClientSessionChannel channel, Message msg) {
+                response.add(extractData(msg).toString());
+                LOGGER.info("msg arrived on [" + channelName + "] - " + response );
+                countDownLatch.countDown();
+            }
+
+        };
+        subscribeToChannel(channelName, listener);
+        publish(channelName, command);
+        try {
+			countDownLatch.await(1, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		return response.get(0);
+	}
 
     private static JsonObject extractData(Message msg) {
         JsonObject msgJson = (JsonObject) new JsonParser().parse(msg.getJSON());
@@ -184,4 +208,6 @@ public class CometDClient extends AbstractCometDClient {
     public static interface MessageMatcher {
         boolean match(JsonObject jsonObject);
     }
+
+
 }

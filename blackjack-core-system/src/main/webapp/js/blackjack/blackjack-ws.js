@@ -2,8 +2,8 @@ var ws = null
 var playerId = null
 
 function register() {
-	var playerWS = new WebSocket("ws://localhost:8080/player");
-	var registerWS = new WebSocket("ws://localhost:8080/register");
+	var playerWS = new WebSocket("ws://localhost:9090/player");
+	var registerWS = new WebSocket("ws://localhost:9090/register");
 	registerWS.onopen = function() {
 		registerWS.send('John');
     };
@@ -18,7 +18,7 @@ function connect() {
   {
      alert("WebSocket is supported by your Browser!");
      // Let us open a web socket
-     ws = new WebSocket("ws://localhost:8080/echo");
+     ws = new WebSocket("ws://localhost:9090/echo");
      ws.onopen = function()
      {
         // Web Socket is connected, send data using send()

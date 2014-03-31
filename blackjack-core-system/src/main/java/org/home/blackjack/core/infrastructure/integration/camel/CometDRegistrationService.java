@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+
+//TODO remove if not needed
 @Named
 public class CometDRegistrationService {
 	

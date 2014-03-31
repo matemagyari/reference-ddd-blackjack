@@ -10,6 +10,7 @@ import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
 import org.home.blackjack.core.app.service.query.TablesQuery;
+import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.app.service.registration.RegistrationCommand;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingCommand;
@@ -35,6 +36,8 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	private SeatingApplicationService seatingApplicationService;
 	@Resource
 	private GameActionApplicationService gameActionApplicationService;
+	@Resource
+	private RegistrationApplicationService registrationApplicationService;
 	
 	private GsonDataFormat tableCommandDF = new GsonDataFormat(SeatingCommand.class);
 	private GsonDataFormat gameCommandDF = new GsonDataFormat(GameCommand.class);
@@ -49,37 +52,33 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	
 	public void configure() {
 
-		from(cometdUri + "/echoin?crossOriginFilterOn=true&allowedOrigins=*&filterPath=/*")
-			.setHeader("Access-Control-Allow-Origin", constant("*"))
-			.setHeader("Access-Control-Allow-Methods", constant("GET,POST"))
-			.to("cometd://0.0.0.0:9099/echoout")
-			.routeId("testroute").end();
+		from(cometdUri + "/echoin").routeId("echoroute")
+			.to("log:hello?showAll=true&multiline=true&level=DEBUG")
+			.to(cometdUri+"/echoout");
 		
-		from(cometdUri + "/query/request")
+		from(cometdUri + "/query/request").routeId("query-route")
+			.to("log:hello?showAll=true&multiline=true&level=DEBUG")
 		    .unmarshal(queryDF)
-		    .bean(queryingApplicationService)
-		    .routeId("query-route").end();
+		    .bean(queryingApplicationService);
 
-		from(cometdUri + "/command/table/sit")
+		from(cometdUri + "/command/table/sit").routeId("command-sit-route")
 		    .unmarshal(tableCommandDF)
 		    .bean(eventBusManager, "initialize")
 		    .bean(seatingApplicationService)
-		    .bean(eventBusManager, "flush")
-		. routeId("command-sit-route").end();
+		    .bean(eventBusManager, "flush");
 		
-		from(cometdUri + "/command/game")
+		from(cometdUri + "/command/game").routeId("command-game-route")
 	    	.unmarshal(gameCommandDF)
 	    	.bean(eventBusManager, "initialize")
 	    	.bean(gameActionApplicationService)
-	    	.bean(eventBusManager, "flush")
-	    .routeId("command-game-route").end();	
+	    	.bean(eventBusManager, "flush");	
 
 		from("jetty:"+restUri+"?matchOnUriPrefix=true")
 			.setHeader("Access-Control-Allow-Origin", constant("*"))
 			.setHeader("Access-Control-Allow-Methods", constant("GET,POST"))
-			.to("cxfbean:registrationEndpoint")
-			.setHeader("Access-Control-Allow-Origin", constant("*"))
-			.setHeader("Access-Control-Allow-Methods", constant("GET,POST"));
+			.setHeader("Access-Control-Allow-Headers", constant("Authorization, X-Requested-With, Content-Type, Origin, Accept"))
+			.setHeader("Access-Control-Allow-Credentials", constant("true"))
+			.to("cxfbean:registrationEndpoint");
 		
 	}
 

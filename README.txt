@@ -2,9 +2,11 @@ This is a reference DDD project, implementing a simplified Blackjack game engine
 
 General user experience description:
 
-It's a simplified 2-player Blackjack game. Users only need a browser. At the beginning they must register, so an account of X chips will be created for each. Then they can join to tables, whenever two players sit at the same table a game begins. 
-One player will be the dealer. At the beginning of the game their bets are automatically deducted from their balance, and at the end of the game the winner will be credited. On the page the players can see a leader board.
-For the rules of the game, check org.home.blackjack.core.domain.game.Game.
+It's a simplified 2-player Blackjack game. Users only need a browser. At the beginning they must register, so an account
+of X chips will be created for each. Then they can join to tables, whenever two players sit at the same table a game 
+begins. One player will be the dealer. At the beginning of the game their bets are automatically deducted from their 
+balance, and at the end of the game the winner will be credited. On the page the players can see a leader board. For 
+the rules of the game, check org.home.blackjack.core.domain.game.Game.
 
 General deployment description:
 
@@ -16,12 +18,16 @@ Start up
 
 General technical description:
 
-The stack is Spring, Camel, Cometd, REST, Hazelcast. The architecture is Hexagonal and Event-Driven, the project's aim is to provide numerous examples for different types of Ports and Adapters, as well as DDD patterns and concepts.
-It exposes REST and Cometd endpoints to interact with and provides in-memory (a simple map-based and a Hazelcast based) persistence. It has a minimalistic UI in browser.
+The stack is Spring, Camel, Cometd, REST, Hazelcast. The architecture is Hexagonal and Event-Driven, the project's aim
+is to provide numerous examples for different types of Ports and Adapters, as well as DDD patterns and concepts. It 
+exposes REST and Cometd endpoints to interact with and provides in-memory (a simple map-based and a Hazelcast based) 
+persistence. It has a minimalistic UI in browser.
 Components:
 * Blackjack Core - implements the game, interacts with Blackjack Wallet
 * Blackjack Wallet - managing players' chips
-* Blackjack Utils - marker interfaces, abstract classes and interfaces for HA and DDD patterns (aggregate root, value object, ...), locking
+* Blackjack Utils - marker interfaces, abstract classes and interfaces for HA and DDD patterns 
+                    (aggregate root, value object, ...), locking
+* Blackjack UI - UI code, currently in Blackjack Core's src/main/webapp               
 
 
 Hexagonal Architecture concepts/patterns the project show examples are:
@@ -32,29 +38,30 @@ Hexagonal Architecture concepts/patterns the project show examples are:
 The DDD concepts/patterns the project show examples are:
 
 Aggregate design:
-* Transactional consistency requirements = True Invariants. Enforced inside aggregates: see org.home.blackjack.core.domain.core.game.Game
+* Transactional consistency requirements = True Invariants. Enforced inside aggregates: see 
+  org.home.blackjack.core.domain.core.game.Game
   Trivial example: player's cards and the remaining deck should always add up 52 different cards, with no overlaps 
 * Eventual consistency requirements - consistency rules among multiple aggregate instances. Examples:
     1. A player's win number in PlayerRecord aggregate must equal the number of Game instances in which she won 
     2. The sum of wins for all the PlayerRecord instances must equal the number of Game instances
 * Entities: e.g. org.home.blackjack.core.domain.game.Deck, org.home.blackjack.core.domain.game.Player
-* aggregate roots: Game,Player
+* aggregate roots: Game, Player
 * aggregates can only reference to each other by id. See Game -> Player
 
 Value Objects: e.g. Card, PlayerId, GameId (all entity ids are value objects)
-Entities: e.g. Player under Game module
+Entities: e.g. Player under Game module, Deck
 * id generation: 
 
 Domain Services:
-* "Internal" services - implemented fully in the Domain: Dealer, Cashier
+* "Internal" services - implemented fully in the Domain: Dealer, Cashier, LeaderboardUpdater
 * Representing external dependencies (in front of an ACL): WalletService
 
 Infrastructure Services:
 * e.g. the assemblers serializing/deserializing Domain objects, IDGenerationStrategy
 
 ACLs:
-* ACLs contains the Adapters and the assemblers that translate data between the layers. Driven Adapters are implemented by Camel routes and JAX-RS, 
-Driving Adapters by various technologies (Mongo, Hazelcast, ...).
+* ACLs contain the Adapters and the assemblers that translate data between the layers. Driven Adapters are implemented 
+  by Camel routes and JAX-RS, Driving Adapters by various technologies (Mongo, Hazelcast, ...).
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent

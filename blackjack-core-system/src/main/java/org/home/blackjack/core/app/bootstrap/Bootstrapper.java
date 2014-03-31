@@ -5,7 +5,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.table.LobbyManager;
+import org.springframework.context.annotation.Lazy;
 
+@Lazy(value=false)
 @Named
 public class Bootstrapper {
 	

@@ -16,6 +16,8 @@ import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.util.marker.hexagonal.DrivenAdapter;
 
+import com.google.gson.JsonObject;
+
 @Path("/blackjack/register")
 @Named
 public class RegistrationEndpoint  implements DrivenAdapter<RegistrationApplicationService> {
@@ -25,16 +27,27 @@ public class RegistrationEndpoint  implements DrivenAdapter<RegistrationApplicat
 	
 	@PUT
 	@Path("/{playerName}")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 	public Response createAccount(@PathParam("playerName") String playerName) {
-		PlayerID playerID = registrationApplicationService.playerJoins(new RegistrationCommand(new PlayerName(playerName)));
-		Response response = Response.ok(playerID.toString()).build();
-		return response;
+		PlayerID playerID = registrationApplicationService.playerJoins(new RegistrationCommand(playerName));
+		return Response.ok(playerID.toString()).build();
+	}
+
+	//PUT doesn't work from ajax. Got sick of it..
+	@GET
+	@Path("/{playerName}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
+	public Response createAccount2(@PathParam("playerName") String playerName) {
+		return createAccount(playerName);
 	}
 	
 	@GET
 	@Path("/echo/{msg}")
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Response echo(@PathParam("msg") String msg){
-		return Response.ok(msg + "response").build();
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("hey", msg + "response");
+		//return Response.ok(jsonObject.toString()).build();
+		return Response.ok("hiiii").build();
 	}
 }

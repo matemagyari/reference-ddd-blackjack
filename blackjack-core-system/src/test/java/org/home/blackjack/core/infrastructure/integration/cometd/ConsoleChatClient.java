@@ -47,7 +47,7 @@ public class ConsoleChatClient
     {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-        String defaultURL = "http://localhost:8080/cometd/cometd";
+        String defaultURL = "http://localhost:9090/cometd/cometd";
         System.err.printf("Enter Bayeux Server URL [%s]: ", defaultURL);
 
         String url = input.readLine();

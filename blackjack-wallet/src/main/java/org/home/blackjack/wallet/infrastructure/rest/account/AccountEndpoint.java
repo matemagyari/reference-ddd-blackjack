@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.Logger;
 import org.home.blackjack.wallet.app.service.account.AccountApplicationService;
 import org.home.blackjack.wallet.domain.wallet.CashAmount;
 import org.home.blackjack.wallet.domain.wallet.Currency;
@@ -18,6 +19,8 @@ import org.home.blackjack.wallet.domain.wallet.WalletId;
 @Path("wallet/account")
 @Named
 public class AccountEndpoint {
+	
+	private static Logger LOGGER = Logger.getLogger(AccountEndpoint.class);
 
     @Resource
     private AccountApplicationService accountApplicationService;

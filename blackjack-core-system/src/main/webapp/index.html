@@ -3,11 +3,13 @@
 <head>
 <title>Blackjack</title>
 
+
 <script type="text/javascript" src="js/jquery/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="js/org/cometd.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.cometd.js"></script>
 <script type="text/javascript" src="js/blackjack/blackjack-display.js"></script>
-<script type="text/javascript" src="js/blackjack/blackjack-controller.js"></script>
+<script type="text/javascript"
+	src="js/blackjack/blackjack-controller.js"></script>
 <script type="text/javascript" src="js/blackjack/blackjack-cometd.js"></script>
 <script type="text/javascript" src="js/blackjack/blackjack-rest.js"></script>
 
@@ -19,52 +21,68 @@
 </head>
 <body>
 	<h1>Blackjack</h1>
-	<div id="openingDiv">
-		Just a second...
-	</div>
+	<div id="openingDiv">Just a second...</div>
 	<div id="welcomeDiv" hidden="true">
 		<table>
 			<tr>
-				<td>
-					<label for="usernameInput">Username</label>
-					<input id="usernameInput" type="text" />
-				</td>
+				<td><label for="usernameInput">Username</label> <input
+					id="usernameInput" type="text" /></td>
 			</tr>
 			<tr>
-				<td>
-					<input type="button" value="Register" onclick="register()" />
+				<td><input type="button" value="Register" onclick="register()" />
 				</td>
 			</tr>
 		</table>
 	</div>
-	<div id="tableDiv" hidden="true">
-		<table>
-			<tr>
-				<td>
-					<label for="cards">Your cards</label>
-					<input id="cards" type="text" />
-				</td>
-				<td>
-					<label for="opponentsCards">Opponent's cards</label>
-					<input id="opponentsCards" type="text" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="button" value="Hit" onclick="playerAct('HIT', gameId)" />
-					<input type="button" value="Stand" onclick="playerAct('STAND', gameId)" />
-				</td>
-			</tr>
-		</table>
-	</div>	
-	</div>
-	<div id="leaderBoardDiv" hidden="true">
-		<table>
-			<tr>
-				<td>Player</td>
-				<td>Wins</td>
-			</tr>
-		</table>
-	</div>	
+	<table id="mainLayout">
+		<tr>
+			<td>
+				<div id="balanceDiv" hidden>
+					<label for="balanceInput">Balance</label> <input id="balanceInput"
+						type="text" readonly />
+				</div>
+				<div id="tableDiv" hidden="true">
+					<table>
+						<tr>
+							<td><label for="cards">Your cards</label> <input id="cards"
+								type="text" /></td>
+							<td><label for="opponentsCards">Opponent's cards</label> <input
+								id="opponentsCards" type="text" /></td>
+						</tr>
+						<tr>
+							<td><input type="button" value="Hit"
+								onclick="playerAct('HIT', gameId)" /> <input type="button"
+								value="Stand" onclick="playerAct('STAND', gameId)" /></td>
+						</tr>
+					</table>
+				</div>
+				<div id="tablesDiv" border="1" hidden="true">
+					TABLES WITH PLAYERS <br />
+					<textarea id="tablesArea" rows="10" cols="60" readonly></textarea>
+					<br /> <input id="tableIdInput" type="text" /> <input
+						type="button" value="Join" onclick="joinTable()" />
+				</div>
+				<div id="sessionDiv" border="1" hidden>
+					SESSION <br />
+					<textarea id="sessionArea" rows="10" cols="80" readonly></textarea>
+				</div>
+				<div id="playDiv" border="1" hidden>
+					<input type="button" value="Hit" onclick="playerAct('HIT')" /> <input
+						type="button" value="Stand" onclick="playerAct('STAND')" />
+				</div>
+			</td>
+			<td>
+				<div id="leaderBoardDiv" hidden="true">
+					LEADERBOARD <br />
+					<table id="leaderboardTable" border="1">
+						<tr>
+							<td>Player</td>
+							<td>Wins</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
 </body>
 </html>
