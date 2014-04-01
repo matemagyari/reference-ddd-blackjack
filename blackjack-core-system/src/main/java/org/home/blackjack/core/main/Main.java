@@ -12,7 +12,7 @@ public class Main {
 		applicationContext = new ClassPathXmlApplicationContext("classpath:META-INF/applicationContext-blackjack-core.xml");
 		applicationContext.registerShutdownHook();
 		
-		System.err.println("heyy6");
+		System.err.println("Blackjack started");
 
 
 	}

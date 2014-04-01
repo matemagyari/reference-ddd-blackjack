@@ -43,15 +43,27 @@ function displaySession() {
 		$('#actualTableSelect').append('<option value="NONE">NONE</option>')	
 	}
 	for(tableId in session.tables) {
-		if ($('#actualTableSelect option[value="'+tableId+'"]').length == 0 ) {
+		if ($('#actualTableSelect option[value="'+tableId+'"]').length == 0 ) { //if table is new
 			$('#actualTableSelect').append('<option value="'+tableId+'">'+tableId+'</option>')
 		}
 	}
-	$('#actualTableSelec').change(function () {
+	$('#actualTableSelect').change(function () {
     	var optionSelected = $(this).find("option:selected")
     	session.currentTableId  = optionSelected.val()
+    	var tableSession = session.tables[session.currentTableId]
+    	var cardsStr = formatCards(tableSession.cards)
+    	$('#cards').val(cardsStr)
+    	$('#opponentsCards').val(tableSession.opponentCards)
  	})
 	console.log('session', session)
+}
+
+function formatCards(cards) {
+	var str = ""
+	for (var i = 0; i < cards.length; i++) {
+		str = str + cards[i].rank + '/' + cards[i].suite + ' '	
+	}
+	return str
 }
 
 function displayBalance(balance) {
