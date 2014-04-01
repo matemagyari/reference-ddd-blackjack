@@ -30,15 +30,23 @@ function displayTables() {
 	$('#tablesTable').append('<tr><td>Table</td><td>Players</td><td></td></tr>')
 	for(tableId in tables) { 
 		var players = tables[tableId]
+		var playerSitsHere = false
+		if (typeof session.tables[tableId] != 'undefined') {
+			players = formatPlayers(session.tables[tableId].players)
+			playerSitsHere = containsPlayer(session.tables[tableId].players)
+		}
 		var buttonStr = '<input type="button" value="Join" onclick="sitToTable(\''+tableId+'\')" />'
+		if (playerSitsHere) {
+			buttonStr = ''
+		}
 		$('#tablesTable').append('<tr><td>'+tableId+'</td><td>'+players+'</td><td>'+buttonStr+'</td></tr>')
 	}
-	console.log('displayTables', tables)
 }
 function displaySession() {
 	$('#sessionDiv').show()
-	$('#sessionArea').text(JSON.stringify(session,null,4))
+	//$('#sessionArea').text(JSON.stringify(session,null,4))
 	
+	$('#actualTableSelect').change(displayCards)
 	if ($('#actualTableSelect').length == 0 ) {
 		$('#actualTableSelect').append('<option value="NONE">NONE</option>')	
 	}
@@ -47,15 +55,19 @@ function displaySession() {
 			$('#actualTableSelect').append('<option value="'+tableId+'">'+tableId+'</option>')
 		}
 	}
-	$('#actualTableSelect').change(function () {
-    	var optionSelected = $(this).find("option:selected")
-    	session.currentTableId  = optionSelected.val()
-    	var tableSession = session.tables[session.currentTableId]
+	
+	displayCards()
+}
+
+function displayCards() {
+	var optionSelected = $(this).find("option:selected")
+    session.currentTableId  = optionSelected.val()
+    var tableSession = session.tables[session.currentTableId]
+    if (typeof tableSession != 'undefined') {
     	var cardsStr = formatCards(tableSession.cards)
     	$('#cards').val(cardsStr)
-    	$('#opponentsCards').val(tableSession.opponentCards)
- 	})
-	console.log('session', session)
+    	$('#opponentsCards').val(tableSession.opponentCards)	
+	}
 }
 
 function formatCards(cards) {
@@ -65,6 +77,27 @@ function formatCards(cards) {
 	}
 	return str
 }
+
+function formatPlayers(players) {
+	var str = ""
+	for (var i = 0; i < players.length; i++) {
+		var thePlayer = players[i].internal
+		if (thePlayer === playerId) {
+			thePlayer = 'me'
+		}
+		str = str + thePlayer + ' '	
+	}
+	return str	
+}
+
+function containsPlayer(players) {
+	for (var i = 0; i < players.length; i++) {
+		if (playerId === players[i].internal)
+			return true
+	}
+	return false	
+}
+
 
 function displayBalance(balance) {
 	var amount = balance.substring(balance.indexOf('amount=')+7,balance.length-1)

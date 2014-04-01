@@ -42,32 +42,37 @@ function tablePrivateEventListener(msg) {
 function tablePublicEventListener(msg) {
 	var event = JSON.parse(msg.data)
 	console.log('tablePublicEventListener', event)
+	var theTableId = null;
 	if (event.type == 'PlayerSeatedEvent') {
 		if (event.player.internal === playerId) {
 
 		}
 	} else if (event.type == 'PublicPlayerCardDealtEvent') {
-		var tableId = event.tableID.internal
-		createTableIfMissing(tableId)
+		theTableId = event.tableID.internal
+		createTableIfMissing(theTableId)
 		if (event.actingPlayer.internal != playerId) {
-			session.tables[tableId].opponentCards = session.tables[tableId].opponentCards + 1
-			console.log('opponents card', session.tables[tableId].opponentCards)
+			session.tables[theTableId].opponentCards = session.tables[theTableId].opponentCards + 1
+			console.log('opponents card', session.tables[theTableId].opponentCards)
 		} else {
 			console.log('my card', event)
 		}
 		displayOpponentsCard(event)
 	} else if (event.type == 'TableSeatingChangedEvent') {
-		var tableId = event.id.internal
-		createTableIfMissing(tableId)
-		session.tables[tableId].players = event.players		
+		theTableId = event.id.internal
+		createTableIfMissing(theTableId)
+		session.tables[theTableId].players = event.players		
 		displayTable(event)
 	} else if (event.type == 'GameStartedEvent') {
-		var tableId = event.tableID.internal
-		session.tables[tableId].gameId = event.gameID.internal
-		createTableIfMissing(tableId)
+		theTableId = event.tableID.internal
+		createTableIfMissing(theTableId)
+		session.tables[theTableId].gameId = event.gameID.internal
 		displayGameStarted(event)
 		getBalance(displayBalance)
-	}	
+	}
+	if (typeof session.currentTableId === 'undefined') {
+		session.currentTableId = theTableId
+	}
+	displayTables()	
 	displaySession()
 }
 
