@@ -41,6 +41,11 @@
 					<label for="balanceInput">Balance</label> <input id="balanceInput"
 						type="text" readonly />
 				</div>
+				<div id="nameDiv" hidden>
+					<label for="nameInput">Name</label> 
+                    <input id="nameInput"
+						type="text" readonly />
+				</div>
 				<div id="tableDiv" hidden="true">
 					TABLES WITH PLAYERS <br />
 					<table id="tablesTable" border=1/>
@@ -56,10 +61,6 @@
 								id="opponentsCards" type="text" /></td>
 						</tr>
 					</table>
-				</div>
-				<div id="sessionDiv" border="1" hidden>
-					SESSION <br />
-					<textarea id="sessionArea" rows="10" cols="80" readonly></textarea>
 				</div>
 				<div id="playDiv" border="1" hidden>
 					<input type="button" value="Hit" onclick="playerAct('HIT')" /> <input

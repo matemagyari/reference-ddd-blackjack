@@ -1,4 +1,4 @@
-package org.home.blackjack.core.domain.player;
+package org.home.blackjack.core.domain.player.core;
 
 import org.apache.commons.lang3.Validate;
 import org.home.blackjack.util.ddd.pattern.ValueObject;

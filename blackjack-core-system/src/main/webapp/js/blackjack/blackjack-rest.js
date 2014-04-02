@@ -4,7 +4,7 @@ var balanceURI = 'http://localhost:8080/blackjack-wallet/rest/wallet/account/bal
 function getBalance(processBalanceResponse) {
 	$.ajax({
 		type : "GET",
-		url : balanceURI + playerId,
+		url : balanceURI + session.playerId,
 		//contentType : 'application/json; charset=utf-8',
 		crossDomain: true,
 	    dataType: "text",
@@ -36,7 +36,7 @@ function callRegister(name, afterRegistration) {
 		dataType: "text",
 		success : function(anId) {
 			console.log('registration success ', anId)
-			afterRegistration(anId)
+			afterRegistration(anId, name)
 		},
 		failure : function(data) {
 			console.log('failure', data);

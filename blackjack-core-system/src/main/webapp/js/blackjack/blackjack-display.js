@@ -43,9 +43,6 @@ function displayTables() {
 	}
 }
 function displaySession() {
-	$('#sessionDiv').show()
-	//$('#sessionArea').text(JSON.stringify(session,null,4))
-	
 	$('#actualTableSelect').change(displayCards)
 	if ($('#actualTableSelect').length == 0 ) {
 		$('#actualTableSelect').append('<option value="NONE">NONE</option>')	
@@ -60,7 +57,7 @@ function displaySession() {
 }
 
 function displayCards() {
-	var optionSelected = $(this).find("option:selected")
+	var optionSelected = $('#actualTableSelect').find("option:selected")
     session.currentTableId  = optionSelected.val()
     var tableSession = session.tables[session.currentTableId]
     if (typeof tableSession != 'undefined') {
@@ -73,16 +70,41 @@ function displayCards() {
 function formatCards(cards) {
 	var str = ""
 	for (var i = 0; i < cards.length; i++) {
-		str = str + cards[i].rank + '/' + cards[i].suite + ' '	
+		str = str + formatCard(cards[i]) + ' '	
 	}
 	return str
+}
+
+function formatCard(card) {
+	var suiteMap = {
+			'CLUB' : 'c',
+			'SPADE' : 's',
+			'HEART' : 'h',
+			'DIAMOND' : 'd'
+	}
+	var rankMap = {
+			'TWO' : '2',
+			'THREE' : 's',
+			'FOUR' : '4',
+			'FIVE' : '5',
+			'SIX' : '6',
+			'SEVEN' : '7',
+			'EIGHT' : '8',
+			'NINE' : '9',
+			'TEN' : '10',
+			'JACK' : 'J',
+			'QUEEN' : 'Q',
+			'KING' : 'K',
+			'ACE' : 'A'
+	}
+	return rankMap[card.rank] + suiteMap[card.suite]
 }
 
 function formatPlayers(players) {
 	var str = ""
 	for (var i = 0; i < players.length; i++) {
 		var thePlayer = players[i].internal
-		if (thePlayer === playerId) {
+		if (thePlayer === session.playerId) {
 			thePlayer = 'me'
 		}
 		str = str + thePlayer + ' '	
@@ -92,7 +114,7 @@ function formatPlayers(players) {
 
 function containsPlayer(players) {
 	for (var i = 0; i < players.length; i++) {
-		if (playerId === players[i].internal)
+		if (session.playerId === players[i].internal)
 			return true
 	}
 	return false	
@@ -103,4 +125,9 @@ function displayBalance(balance) {
 	var amount = balance.substring(balance.indexOf('amount=')+7,balance.length-1)
 	$('#balanceDiv').show()
 	$('#balanceInput').val(amount)
+}
+
+function displayName() {
+	$('#nameDiv').show()
+	$('#nameInput').val(session.name)
 }

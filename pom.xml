@@ -19,6 +19,7 @@
 
 	<modules>
 		<module>blackjack-core-system</module>
+		<module>blackjack-messaging-client</module>
 		<module>blackjack-wallet</module>
 		<module>blackjack-utils</module>
 	</modules>
@@ -28,6 +29,11 @@
 			<dependency>
 				<groupId>org.home.blackjack </groupId>
 				<artifactId>blackjack-utils</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.home.blackjack </groupId>
+				<artifactId>blackjack-messaging-client</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
 		</dependencies>

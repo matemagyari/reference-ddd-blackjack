@@ -5,8 +5,8 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.domain.cashier.Cashier;
 import org.home.blackjack.core.domain.player.Player;
-import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.player.PlayerRepository;
+import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
 
 @Named

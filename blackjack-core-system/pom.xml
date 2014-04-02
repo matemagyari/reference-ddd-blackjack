@@ -22,6 +22,10 @@
 			<artifactId>blackjack-utils</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.home.blackjack</groupId>
+			<artifactId>blackjack-messaging-client</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>1.18</version>
@@ -78,11 +82,11 @@
 								<violationsThreshold>0</violationsThreshold>
 							</adp>
 							<sdp>
-								<violationsThreshold>5</violationsThreshold>
+								<violationsThreshold>6</violationsThreshold>
 							</sdp>
 							<sap>
 								<maxDistance>0.5</maxDistance>
-								<violationsThreshold>5</violationsThreshold>
+								<violationsThreshold>7</violationsThreshold>
 							</sap>
 							<racd>
 								<threshold>0.50</threshold>

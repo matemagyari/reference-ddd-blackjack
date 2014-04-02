@@ -7,42 +7,46 @@ import org.apache.camel.component.gson.GsonDataFormat;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
-import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
-import org.home.blackjack.core.app.service.query.TablesQuery;
-import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
-import org.home.blackjack.core.app.service.registration.RegistrationCommand;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
-import org.home.blackjack.core.app.service.seating.SeatingCommand;
+import org.home.blackjack.core.infrastructure.messaging.assembler.MessageToDTOAssembler;
+import org.home.blackjack.messaging.command.GameCommandMessage;
+import org.home.blackjack.messaging.command.SeatingCommandMessage;
+import org.home.blackjack.messaging.query.TablesQueryMessage;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
  * 
- * This class also provides the ACL between client and the application (the Driving Adapters). It's a
- * thin ACL though, since simply transforms the json messages the client sends
- * to java objects. If the java classes change (field name change for example),
- * then the Client needs to change too. Or a custom deserializer should be used
- * to transform from json to object, making the ACL a little bit "thicker".
- * 
+ * This class also provides the ACL between client and the application (the
+ * Driving Adapters). It transforms the json messages the client sends to java
+ * message objects. The message classes are defined in the Blackjack Messaging
+ * Client project. The message objects then are transformed to application level
+ * DTOs, Commands&Queries.
  */
 @Named
 public class CoreRouteBuilder extends SpringRouteBuilder {
 
 	@Resource
 	private EventBusManager eventBusManager;
+	
+	//Application services
 	@Resource
 	private QueryingApplicationService queryingApplicationService;
 	@Resource
 	private SeatingApplicationService seatingApplicationService;
 	@Resource
 	private GameActionApplicationService gameActionApplicationService;
-	@Resource
-	private RegistrationApplicationService registrationApplicationService;
 	
-	private GsonDataFormat tableCommandDF = new GsonDataFormat(SeatingCommand.class);
-	private GsonDataFormat gameCommandDF = new GsonDataFormat(GameCommand.class);
-	private GsonDataFormat registrationCommandDF = new GsonDataFormat(RegistrationCommand.class);
-	private GsonDataFormat queryDF = new GsonDataFormat(TablesQuery.class);
+	//Assemblers
+	@Resource
+	private MessageToDTOAssembler messageToDTOAssembler;
+	
+	//JSON data formatters
+	private GsonDataFormat seatingCommandDF = new GsonDataFormat(SeatingCommandMessage.class);
+	private GsonDataFormat gameCommandDF = new GsonDataFormat(GameCommandMessage.class);
+	private GsonDataFormat queryDF = new GsonDataFormat(TablesQueryMessage.class);
+	
+	//URIs
 	@Value("${blackjack.cometd.uri}")
 	private String cometdUri;
 	@Value("${blackjack.rest.uri}")
@@ -59,17 +63,20 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 		from(cometdUri + "/query/request").routeId("query-route")
 			.to("log:hello?showAll=true&multiline=true&level=DEBUG")
 		    .unmarshal(queryDF)
+		    .bean(messageToDTOAssembler)
 		    .bean(queryingApplicationService);
 
 		from(cometdUri + "/command/table/sit").routeId("command-sit-route")
-		    .unmarshal(tableCommandDF)
+		    .unmarshal(seatingCommandDF)
 		    .bean(eventBusManager, "initialize")
+		    .bean(messageToDTOAssembler)
 		    .bean(seatingApplicationService)
 		    .bean(eventBusManager, "flush");
 		
 		from(cometdUri + "/command/game").routeId("command-game-route")
 	    	.unmarshal(gameCommandDF)
 	    	.bean(eventBusManager, "initialize")
+	    	.bean(messageToDTOAssembler)
 	    	.bean(gameActionApplicationService)
 	    	.bean(eventBusManager, "flush");	
 

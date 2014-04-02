@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.home.blackjack.core.domain.player.Player;
-import org.home.blackjack.core.domain.player.PlayerName;
 import org.home.blackjack.core.domain.player.PlayerRepository;
+import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;

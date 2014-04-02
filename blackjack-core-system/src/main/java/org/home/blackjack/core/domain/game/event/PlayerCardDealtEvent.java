@@ -7,16 +7,16 @@ import org.home.blackjack.core.domain.shared.TableID;
 
 public class PlayerCardDealtEvent extends GameEvent {
 
-	private final Card card;
+    private final Card card;
 
-	public PlayerCardDealtEvent(GameID gameID, TableID tableID, PlayerID playerId, Card card, int sequenceNumber) {
-		super(gameID, tableID, playerId, sequenceNumber);
-		this.card = card;
-	}
-	
-	public Card getCard() {
-		return card;
-	}
+    public PlayerCardDealtEvent(GameID gameID, TableID tableID, PlayerID playerId, Card card, int sequenceNumber) {
+        super(gameID, tableID, playerId, sequenceNumber);
+        this.card = card;
+    }
+
+    public Card getCard() {
+        return card;
+    }
 
 
 }

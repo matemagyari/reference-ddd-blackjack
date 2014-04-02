@@ -1,4 +1,3 @@
-var playerId = null
 var tables = null
 var session = {
 	tables : {}
@@ -14,13 +13,14 @@ function register() {
 	callRegister($('#usernameInput').val(), afterRegistration)
 }
 
-function afterRegistration(aPlayerId) {
-	playerId = aPlayerId
+function afterRegistration(aPlayerId, name) {
+	session.playerId = aPlayerId
+	session.name = name
 	subscribe('/leaderboard', leaderboardEventListener)
-	subscribe('/player/'+playerId+'/query/response', queryResponseListener)
+	subscribe('/player/'+session.playerId+'/query/response', queryResponseListener)
 	publish('/query/request',tablesQuery())
 	getBalance(displayBalance)
-	console.log('afterRegistration', playerId)
+	displayName()
 }
 
 //------------------------------listeners--------------------------
@@ -44,13 +44,13 @@ function tablePublicEventListener(msg) {
 	console.log('tablePublicEventListener', event)
 	var theTableId = null;
 	if (event.type == 'PlayerSeatedEvent') {
-		if (event.player.internal === playerId) {
+		if (event.player.internal === session.playerId) {
 
 		}
 	} else if (event.type == 'PublicPlayerCardDealtEvent') {
 		theTableId = event.tableID.internal
 		createTableIfMissing(theTableId)
-		if (event.actingPlayer.internal != playerId) {
+		if (event.actingPlayer.internal != session.playerId) {
 			session.tables[theTableId].opponentCards = session.tables[theTableId].opponentCards + 1
 			console.log('opponents card', session.tables[theTableId].opponentCards)
 		} else {
@@ -68,6 +68,8 @@ function tablePublicEventListener(msg) {
 		session.tables[theTableId].gameId = event.gameID.internal
 		displayGameStarted(event)
 		getBalance(displayBalance)
+	} else if (event.type == 'GameFinishedEvent') {
+		session.tables[event.tableID.internal] = {}
 	}
 	if (typeof session.currentTableId === 'undefined') {
 		session.currentTableId = theTableId
@@ -109,7 +111,7 @@ function joinTable() {
 
 function sitToTable(tableId) {
 	subscribe('/table/'+tableId, tablePublicEventListener)
-	subscribe('/table/'+tableId+'/player/'+playerId, tablePrivateEventListener)
+	subscribe('/table/'+tableId+'/player/'+session.playerId, tablePrivateEventListener)
 	publish('/command/table/sit',sitToTableCommand(tableId))
 }
 
@@ -119,17 +121,17 @@ function playerAct(action) {
 
 //-------------------------------------commands&queries--------------------------
 function tablesQuery() {
-	return JSON.stringify( {playerId : playerId} )
+	return JSON.stringify( {playerId : session.playerId} )
 }
 function sitToTableCommand(tableId) {
 	return JSON.stringify({
-		playerId : playerId,
+		playerId : session.playerId,
 		tableId : tableId
 	})
 }
 function gameCommand(tableId, gameId, action) {
 	return JSON.stringify({
-		playerId : playerId,
+		playerId : session.playerId,
 		gameId : gameId,
 		action : action
 	})

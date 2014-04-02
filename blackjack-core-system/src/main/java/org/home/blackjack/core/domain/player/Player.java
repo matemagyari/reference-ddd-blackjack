@@ -1,7 +1,7 @@
 package org.home.blackjack.core.domain.player;
 
 import org.home.blackjack.core.domain.game.Game;
-import org.home.blackjack.core.domain.player.event.PlayerWonEvent;
+import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.util.ddd.pattern.AggregateRoot;
 
@@ -29,7 +29,6 @@ public class Player extends AggregateRoot<PlayerID> {
 	}
 
 	public void recordWin() {
-		domainEventPublisher().publish(new PlayerWonEvent(getID()));
 		winNumber++;
 	}
 

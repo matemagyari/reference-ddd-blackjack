@@ -1,7 +1,7 @@
 package org.home.blackjack.core.app.service.registration;
 
 import org.home.blackjack.core.app.dto.Command;
-import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.core.domain.player.core.PlayerName;
 
 public class RegistrationCommand implements Command {
 

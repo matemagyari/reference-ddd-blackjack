@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.app.service.registration.RegistrationCommand;
-import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.util.marker.hexagonal.DrivenAdapter;
 

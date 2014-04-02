@@ -2,7 +2,7 @@ package org.home.blackjack.core.domain.player.event;
 
 import java.util.List;
 
-import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.util.ddd.pattern.ValueObject;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 

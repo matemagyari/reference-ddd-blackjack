@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.home.blackjack.core.app.service.query.TableViewDTO;
 import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.domain.game.core.Card;
-import org.home.blackjack.core.domain.player.PlayerName;
+import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent.LeaderBoardRecord;
 import org.home.blackjack.core.domain.shared.PlayerID;
