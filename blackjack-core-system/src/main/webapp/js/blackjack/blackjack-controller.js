@@ -29,7 +29,7 @@ function tablePrivateEventListener(msg) {
 	var tableId = event.tableID
 	createTableIfMissing(tableId)
 	console.log('tablePrivateEventListener', event)
-	if (event.type == 'PlayerCardDealtEvent') {
+	if (event.type == 'PlayerCardDealtEventMessage') {
 		session.tables[tableId].cards.push(event.card)
 		if (session.tables[tableId].cards.length == 2) {
 			$('#playDiv').show()
@@ -43,11 +43,11 @@ function tablePublicEventListener(msg) {
 	var event = JSON.parse(msg.data)
 	console.log('tablePublicEventListener', event)
 	var theTableId = null;
-	if (event.type == 'PlayerSeatedEvent') {
+	if (event.type == 'PlayerSeatedEventMessage') {
 		if (event.player === session.playerId) {
 
 		}
-	} else if (event.type == 'PublicPlayerCardDealtEvent') {
+	} else if (event.type == 'PublicPlayerCardDealtEventMessage') {
 		theTableId = event.tableID
 		createTableIfMissing(theTableId)
 		if (event.actingPlayer != session.playerId) {
@@ -57,18 +57,18 @@ function tablePublicEventListener(msg) {
 			console.log('my card', event)
 		}
 		displayOpponentsCard(event)
-	} else if (event.type == 'TableSeatingChangedEvent') {
+	} else if (event.type == 'TableSeatingChangedEventMessage') {
 		theTableId = event.id
 		createTableIfMissing(theTableId)
 		session.tables[theTableId].players = event.players		
 		displayTable(event)
-	} else if (event.type == 'GameStartedEvent') {
+	} else if (event.type == 'GameStartedEventMessage') {
 		theTableId = event.tableID
 		createTableIfMissing(theTableId)
 		session.tables[theTableId].gameId = event.gameID
 		displayGameStarted(event)
 		getBalance(displayBalance)
-	} else if (event.type == 'GameFinishedEvent') {
+	} else if (event.type == 'GameFinishedEventMessage') {
 		session.tables[event.tableID] = {}
 	}
 	if (typeof session.currentTableId === 'undefined') {
