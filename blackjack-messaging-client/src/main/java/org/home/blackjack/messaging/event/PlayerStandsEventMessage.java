@@ -1,6 +1,8 @@
 package org.home.blackjack.messaging.event;
 
-public class PlayerStandsEventMessage {
+import org.home.blackjack.messaging.common.Message;
+
+public class PlayerStandsEventMessage extends Message {
 
     public final String tableID;
     public final String gameID;

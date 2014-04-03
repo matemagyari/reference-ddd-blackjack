@@ -6,7 +6,7 @@ import org.home.blackjack.util.ddd.pattern.ValueObject;
 public class Card extends ValueObject {
 
 	public final Rank rank;
-	private final Suite suite;
+	public final Suite suite;
 
 	public Card(Suite suite, Rank rank) {
 		Validate.notNull(suite);

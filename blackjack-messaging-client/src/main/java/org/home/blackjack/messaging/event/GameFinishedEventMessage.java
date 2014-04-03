@@ -1,16 +1,18 @@
 package org.home.blackjack.messaging.event;
 
-public class GameFinishedEventMessage {
+import org.home.blackjack.messaging.common.Message;
+
+public class GameFinishedEventMessage extends Message {
 
     public final String tableID;
     public final String gameID;
-    public final String actingPlayer;
+    public final String winner;
     public final int sequenceNumber;
 
     public GameFinishedEventMessage(String gameID, String tableID, String playerId, int sequenceNumber) {
         this.gameID = gameID;
         this.tableID = tableID;
-        this.actingPlayer = playerId;
+        this.winner = playerId;
         this.sequenceNumber = sequenceNumber;
     }
 

@@ -8,7 +8,7 @@ import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameEvent;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.GameStartedEvent;
-import org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent;
+import org.home.blackjack.core.domain.game.event.InitialCardsDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
 import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
 import org.home.blackjack.core.domain.game.exception.PlayerActionAfterGameFinishedException;
@@ -97,7 +97,7 @@ public class Game extends AggregateRoot<GameID> {
 		dealFor(dealer);
 		dealFor(player);
 		dealFor(dealer);
-		publish(new InitalCardsDealtEvent(getID(), tableId, nextSequenceId()));
+		publish(new InitialCardsDealtEvent(getID(), tableId, nextSequenceId()));
 	}
 
 	private void dealFor(Player player) {

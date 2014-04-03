@@ -5,6 +5,7 @@ import java.util.Map;
 import org.home.blackjack.core.domain.game.core.Card;
 import org.home.blackjack.core.domain.game.core.Card.Rank;
 import org.home.blackjack.core.domain.game.core.Card.Suite;
+import org.home.blackjack.messaging.event.CardDTOMessage;
 
 import com.google.common.collect.Maps;
 
@@ -43,5 +44,11 @@ public class CardDO {
 		Suite suite = suiteMap.get(value.charAt(1));
 		Rank rank = rankMap.get(value.charAt(0));
 		return new Card(suite, rank);
+	}
+	
+	public static CardDTOMessage toCardDTO(String value) {
+		Suite suite = suiteMap.get(value.charAt(1));
+		Rank rank = rankMap.get(value.charAt(0));
+		return new CardDTOMessage(rank.name(), suite.name());
 	}
 }

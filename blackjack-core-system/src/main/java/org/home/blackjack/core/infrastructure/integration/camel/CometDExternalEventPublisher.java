@@ -35,7 +35,9 @@ public class CometDExternalEventPublisher implements ExternalEventPublisher, Dri
 		JsonObject jsonObject = new Gson().toJsonTree(domainEvent).getAsJsonObject();
 		jsonObject.addProperty("type", domainEvent.getClass().getSimpleName());
 		LOGGER.info("publish to " + channel + " " + event.getClass().getSimpleName());
-		producerTemplate.asyncSendBody(source + channel, jsonObject.toString());
+		//producerTemplate.asyncSendBody(source + channel, jsonObject.toString());
+		
+		producerTemplate.asyncRequestBodyAndHeader("direct:events", domainEvent,"channel",channel);
 	}
 	
 	@Override
@@ -44,7 +46,9 @@ public class CometDExternalEventPublisher implements ExternalEventPublisher, Dri
 		JsonObject jsonObject = new Gson().toJsonTree(response).getAsJsonObject();
 		jsonObject.addProperty("type", response.getClass().getSimpleName());
 		LOGGER.info("publish to " + channel + " " + response.getClass().getSimpleName());
-		producerTemplate.asyncSendBody(source + channel, jsonObject.toString());
+		//producerTemplate.asyncSendBody(source + channel, jsonObject.toString());
+		
+		producerTemplate.asyncRequestBodyAndHeader("direct:events", response,"channel",channel);
 	}
 
 	private String channel(PlayerID playerId) {

@@ -17,20 +17,18 @@ public class LeaderBoardChangedEvent extends ValueObject implements DomainEvent 
     }
 
     public static class LeaderBoardRecord extends ValueObject {
-        private final PlayerName playerName;
-        private final int winNumber;
+    	public final PlayerName playerName;
+    	public final int winNumber;
 
         public LeaderBoardRecord(PlayerName playerName,int winNumber ) {
             this.playerName = playerName;
             this.winNumber = winNumber;
         }
-
-		@Override
-		public String toString() {
-			return "[playerName=" + playerName + ", winNumber=" + winNumber + "]";
-		}
-        
     }
+    
+    public List<LeaderBoardRecord> getRecords() {
+		return Lists.newArrayList(records);
+	}
 
 	@Override
 	public String toString() {

@@ -108,7 +108,7 @@ function formatCard(card) {
 function formatPlayers(players) {
 	var str = ""
 	for (var i = 0; i < players.length; i++) {
-		var thePlayer = players[i].internal
+		var thePlayer = players[i]
 		if (thePlayer === session.playerId) {
 			thePlayer = 'me'
 		}
@@ -119,7 +119,7 @@ function formatPlayers(players) {
 
 function containsPlayer(players) {
 	for (var i = 0; i < players.length; i++) {
-		if (session.playerId === players[i].internal)
+		if (session.playerId === players[i])
 			return true
 	}
 	return false	

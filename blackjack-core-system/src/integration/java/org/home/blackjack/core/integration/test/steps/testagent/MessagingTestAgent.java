@@ -2,21 +2,11 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
 
-import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
-import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.TablesDTO;
-import org.home.blackjack.core.app.service.query.TablesQuery;
-import org.home.blackjack.core.app.service.seating.SeatingCommand;
 import org.home.blackjack.core.domain.game.core.GameID;
-import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
-import org.home.blackjack.core.domain.game.event.InitalCardsDealtEvent;
-import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
-import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.core.PlayerName;
-import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient.MessageMatcher;
 import org.home.blackjack.core.infrastructure.integration.rest.RestClient;
@@ -27,6 +17,17 @@ import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.EndToEndCucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
+import org.home.blackjack.messaging.command.GameCommandMessage;
+import org.home.blackjack.messaging.command.SeatingCommandMessage;
+import org.home.blackjack.messaging.event.GameFinishedEventMessage;
+import org.home.blackjack.messaging.event.InitialCardsDealtEventMessage;
+import org.home.blackjack.messaging.event.LeaderBoardChangedEventMessage;
+import org.home.blackjack.messaging.event.PlayerCardDealtEventMessage;
+import org.home.blackjack.messaging.event.PlayerIsSeatedEventMessage;
+import org.home.blackjack.messaging.event.PlayerStandsEventMessage;
+import org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage;
+import org.home.blackjack.messaging.query.TablesQueryMessage;
+import org.home.blackjack.messaging.response.TablesResponseMessage;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -72,11 +73,12 @@ public class MessagingTestAgent extends TestAgent {
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
 	    PlayerID randomPlayer = new PlayerID();
 	    TablesDTO tablesDTO = Util.convert(tables, randomPlayer);
-        String command = new Gson().toJson(new TablesQuery(randomPlayer.toString()));
+	    TablesResponseMessage message = new TablesResponseMessage(tablesDTO.getTablesWithPlayers());
+        String command = new Gson().toJson(new TablesQueryMessage(randomPlayer.toString()));
         String responseChannel = playerQueryResponseChannel(randomPlayer.toString());
         cometDClient.subscribeToChannel(responseChannel);
         cometDClient.publish("/query/request", command);
-        cometDClient.verifyMessageArrived(responseChannel, tablesDTO);
+        cometDClient.verifyMessageArrived(responseChannel, message);
 	}
 
 
@@ -85,7 +87,7 @@ public class MessagingTestAgent extends TestAgent {
 		String tableChannel = tableChannel(tableId);
 		cometDClient.subscribeToChannel(tablePlayerChannel(playerId, tableId));
 		cometDClient.subscribeAndPublish(tableChannel, "/command/table/sit", command(playerId, tableId));
-		cometDClient.verifyMessageArrived(tableChannel, new PlayerIsSeatedEvent(convertTableId(tableId), convertPlayerId(playerId)));
+		cometDClient.verifyMessageArrived(tableChannel, new PlayerIsSeatedEventMessage(tableId.toString(), playerId.toString()));
 	}
 
 
@@ -94,16 +96,16 @@ public class MessagingTestAgent extends TestAgent {
 		MessageMatcher matcher = new MessageMatcher() {
 			@Override
 			public boolean match(JsonObject jsonObject) {
-				if (!Util.typeMatch(InitalCardsDealtEvent.class, jsonObject)) {
+				if (!Util.typeMatch(InitialCardsDealtEventMessage.class, jsonObject)) {
 					return false;
 				}
-				InitalCardsDealtEvent event = Util.convert(InitalCardsDealtEvent.class, jsonObject);
-				return event.getTableID().equals(convertTableId(tableId));
+				InitialCardsDealtEventMessage event = Util.convert(InitialCardsDealtEventMessage.class, jsonObject);
+				return event.tableID.equals(tableId.toString());
 			}
 		};
 		JsonObject jsonObject = cometDClient.verifyMessageArrived(tableChannel(tableId), matcher);
-		InitalCardsDealtEvent event = Util.convert(InitalCardsDealtEvent.class, jsonObject);
-		gameID = event.getGameID();
+		InitialCardsDealtEventMessage event = Util.convert(InitialCardsDealtEventMessage.class, jsonObject);
+		gameID = GameID.createFrom(event.gameID);
 	}
 
 
@@ -112,24 +114,24 @@ public class MessagingTestAgent extends TestAgent {
 		cometDClient.verifyMessageArrived(tablePlayerChannel(playerId, tableId), new MessageMatcher() {
 			@Override
 			public boolean match(JsonObject jsonObject) {
-				if (!Util.typeMatch(PlayerCardDealtEvent.class, jsonObject)) {
+				if (!Util.typeMatch(PlayerCardDealtEventMessage.class, jsonObject)) {
 					return false;
 				}
-				PlayerCardDealtEvent anEvent = Util.convert(PlayerCardDealtEvent.class, jsonObject);
-				return anEvent.getCard().equals(CardDO.toCard(card)) 
-						&& anEvent.getActingPlayer().equals(convertPlayerId(playerId))
-						&& anEvent.getGameID().equals(gameID);
+				PlayerCardDealtEventMessage anEvent = Util.convert(PlayerCardDealtEventMessage.class, jsonObject);
+				return anEvent.card.equals(CardDO.toCardDTO(card)) 
+						&& anEvent.actingPlayer.equals(playerId.toString())
+						&& anEvent.gameID.equals(gameID.toString());
 			}
 		});
 		cometDClient.verifyMessageArrived(tableChannel(tableId), new MessageMatcher() {
 			@Override
 			public boolean match(JsonObject jsonObject) {
-				if (!Util.typeMatch(PublicPlayerCardDealtEvent.class, jsonObject)) {
+				if (!Util.typeMatch(PublicPlayerCardDealtEventMessage.class, jsonObject)) {
 					return false;
 				}
-				PublicPlayerCardDealtEvent anEvent = Util.convert(PublicPlayerCardDealtEvent.class, jsonObject);
-				return anEvent.getActingPlayer().equals(convertPlayerId(playerId))
-						&& anEvent.getGameID().equals(gameID);
+				PublicPlayerCardDealtEventMessage anEvent = Util.convert(PublicPlayerCardDealtEventMessage.class, jsonObject);
+				return anEvent.actingPlayer.equals(playerId.toString())
+						&& anEvent.gameID.equals(gameID.toString());
 			}
 		});		
 	}
@@ -139,19 +141,19 @@ public class MessagingTestAgent extends TestAgent {
 		cometDClient.verifyMessageArrived(tableChannel(tableId), new MessageMatcher() {
 			@Override
 			public boolean match(JsonObject jsonObject) {
-				if (!Util.typeMatch(PlayerStandsEvent.class, jsonObject)) {
+				if (!Util.typeMatch(PlayerStandsEventMessage.class, jsonObject)) {
 					return false;
 				}
-				PlayerStandsEvent anEvent = Util.convert(PlayerStandsEvent.class, jsonObject);
-				return anEvent.getActingPlayer().equals(convertPlayerId(playerId))
-						&& anEvent.getGameID().equals(gameID);
+				PlayerStandsEventMessage anEvent = Util.convert(PlayerStandsEventMessage.class, jsonObject);
+				return anEvent.actingPlayer.equals(playerId.toString())
+						&& anEvent.gameID.equals(gameID.toString());
 			}
 		});	
 	}
 	
 	@Override
 	public void playerHits(Integer playerId, Integer tableId) {
-		String command = new Gson().toJson(new GameCommand(playerId.toString(), gameID.toString(), "HIT"));
+		String command = new Gson().toJson(new GameCommandMessage(playerId.toString(), gameID.toString(), "HIT"));
 		cometDClient.publish("/command/game", command);
 	}
 
@@ -162,13 +164,13 @@ public class MessagingTestAgent extends TestAgent {
 			
 			@Override
 			public boolean match(JsonObject jsonObject) {
-				if (!Util.typeMatch(GameFinishedEvent.class, jsonObject)) {
+				if (!Util.typeMatch(GameFinishedEventMessage.class, jsonObject)) {
 					return false;
 				}
-				GameFinishedEvent anEvent = Util.convert(GameFinishedEvent.class, jsonObject);
-				return anEvent.winner().equals(convertPlayerId(playerId))
-						&& anEvent.getGameID().equals(gameID)
-						&& anEvent.getTableID().equals(convertTableId(tableId));
+				GameFinishedEventMessage anEvent = Util.convert(GameFinishedEventMessage.class, jsonObject);
+				return anEvent.winner.equals(playerId.toString())
+						&& anEvent.gameID.equals(gameID.toString())
+						&& anEvent.tableID.equals(tableId.toString());
 			}
 		});
 	}
@@ -179,10 +181,10 @@ public class MessagingTestAgent extends TestAgent {
 			
 			@Override
 			public boolean match(JsonObject jsonObject) {
-				if (!Util.typeMatch(LeaderBoardChangedEvent.class, jsonObject)) {
+				if (!Util.typeMatch(LeaderBoardChangedEventMessage.class, jsonObject)) {
 					return false;
 				}
-				LeaderBoardChangedEvent anEvent = Util.convert(LeaderBoardChangedEvent.class, jsonObject);
+				LeaderBoardChangedEventMessage anEvent = Util.convert(LeaderBoardChangedEventMessage.class, jsonObject);
 				return Util.dataMatch(leaderboard, anEvent);
 			}
 		});
@@ -200,12 +202,12 @@ public class MessagingTestAgent extends TestAgent {
 	
 	@Override
 	public void playerStands(Integer playerId, Integer tableId) {
-		String command = new Gson().toJson(new GameCommand(playerId.toString(), gameID.toString(), "STAND"));
+		String command = new Gson().toJson(new GameCommandMessage(playerId.toString(), gameID.toString(), "STAND"));
 		cometDClient.publish("/command/game", command);
 	}
 	
 	private static String command(Integer playerId, Integer tableId) {
-		return new Gson().toJson(new SeatingCommand(playerId.toString(), tableId.toString()));
+		return new Gson().toJson(new SeatingCommandMessage(playerId.toString(), tableId.toString()));
 	}
 	private static String tableChannel(Integer tableId) {
 		return "/table/"+convertTableId(tableId);

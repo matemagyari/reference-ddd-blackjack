@@ -1,6 +1,8 @@
 package org.home.blackjack.messaging.command;
 
-public class GameCommandMessage {
+import org.home.blackjack.messaging.common.Message;
+
+public class GameCommandMessage extends Message {
 
     public final String action;
     public final String gameId;

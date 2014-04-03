@@ -57,16 +57,16 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 	public void configure() {
 
 		from(cometdUri + "/echoin").routeId("echoroute")
-			.to("log:hello?showAll=true&multiline=true&level=DEBUG")
 			.to(cometdUri+"/echoout");
 		
 		from(cometdUri + "/query/request").routeId("query-route")
-			.to("log:hello?showAll=true&multiline=true&level=DEBUG")
+			.log("request ${body}")
 		    .unmarshal(queryDF)
 		    .bean(messageToDTOAssembler)
 		    .bean(queryingApplicationService);
 
 		from(cometdUri + "/command/table/sit").routeId("command-sit-route")
+			.log("request ${body}")
 		    .unmarshal(seatingCommandDF)
 		    .bean(eventBusManager, "initialize")
 		    .bean(messageToDTOAssembler)
@@ -74,13 +74,15 @@ public class CoreRouteBuilder extends SpringRouteBuilder {
 		    .bean(eventBusManager, "flush");
 		
 		from(cometdUri + "/command/game").routeId("command-game-route")
+			.log("request ${body}")
 	    	.unmarshal(gameCommandDF)
 	    	.bean(eventBusManager, "initialize")
 	    	.bean(messageToDTOAssembler)
 	    	.bean(gameActionApplicationService)
 	    	.bean(eventBusManager, "flush");	
 
-		from("jetty:"+restUri+"?matchOnUriPrefix=true")
+		from("jetty:"+restUri+"?matchOnUriPrefix=true").routeId("command-registration-route")
+			.log("request ${body}")
 			.setHeader("Access-Control-Allow-Origin", constant("*"))
 			.setHeader("Access-Control-Allow-Methods", constant("GET,POST"))
 			.setHeader("Access-Control-Allow-Headers", constant("Authorization, X-Requested-With, Content-Type, Origin, Accept"))
