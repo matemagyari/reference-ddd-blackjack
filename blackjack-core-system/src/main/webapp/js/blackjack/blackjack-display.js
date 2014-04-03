@@ -42,6 +42,11 @@ function displayTables() {
 		$('#tablesTable').append('<tr><td>'+tableId+'</td><td>'+players+'</td><td>'+buttonStr+'</td></tr>')
 	}
 }
+
+function displayGameFinished() {
+	
+}
+
 function displaySession() {
 	$('#actualTableSelect').change(displayCards)
 	if ($('#actualTableSelect').length == 0 ) {
