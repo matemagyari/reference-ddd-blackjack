@@ -23,11 +23,12 @@ is to provide numerous examples for different types of Ports and Adapters, as we
 exposes REST and Cometd endpoints to interact with and provides in-memory (a simple map-based and a Hazelcast based) 
 persistence. It has a minimalistic UI in browser.
 Components:
+* Blackjack Messaging Client - library defining the messages (commands&queries) the client can send to Core, and the event messages Core sends to Client
 * Blackjack Core - implements the game, interacts with Blackjack Wallet
 * Blackjack Wallet - managing players' chips
 * Blackjack Utils - marker interfaces, abstract classes and interfaces for HA and DDD patterns 
                     (aggregate root, value object, ...), locking
-* Blackjack UI - UI code, currently in Blackjack Core's src/main/webapp               
+* Blackjack UI - UI code, currently in Blackjack Core's src/main/webapp. Uses REST and CometD via javascript to interact with Core and Wallet               
 
 
 Hexagonal Architecture concepts/patterns the project show examples are:
@@ -44,13 +45,13 @@ Aggregate design:
 * Eventual consistency requirements - consistency rules among multiple aggregate instances. Examples:
     1. A player's win number in PlayerRecord aggregate must equal the number of Game instances in which she won 
     2. The sum of wins for all the PlayerRecord instances must equal the number of Game instances
-* Entities: e.g. org.home.blackjack.core.domain.game.Deck, org.home.blackjack.core.domain.game.Player
-* aggregate roots: Game, Player
+    3. Entry fee is deducted from the player's balance when the game starts. Likewise, his win is paid out after the game.
+* aggregate roots: e.g. Game, Player
 * aggregates can only reference to each other by id. See Game -> Player
 
 Value Objects: e.g. Card, PlayerId, GameId (all entity ids are value objects)
-Entities: e.g. Player under Game module, Deck
-* id generation: 
+Entities: e.g. org.home.blackjack.core.domain.game.Deck, org.home.blackjack.core.domain.game.Player. Their ids are only unique inside the aggregate.
+Id generation: currently using UUIDs. Some applications might require using the DB generating the ids. 
 
 Domain Services:
 * "Internal" services - implemented fully in the Domain: Dealer, Cashier, LeaderboardUpdater
@@ -60,8 +61,8 @@ Infrastructure Services:
 * e.g. the assemblers serializing/deserializing Domain objects, IDGenerationStrategy
 
 ACLs:
-* ACLs contain the Adapters and the assemblers that translate data between the layers. Driven Adapters are implemented 
-  by Camel routes and JAX-RS, Driving Adapters by various technologies (Mongo, Hazelcast, ...).
+* ACLs are implemented by Adapters. Adapters contain the technology-specific logic (e.g CometD) and the assemblers that translate data between the layers. 
+  Driven Adapters are implemented by Camel routes and JAX-RS, Driving Adapters by various technologies (Mongo, Hazelcast, ...).
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
@@ -75,12 +76,13 @@ So the PlayerCardsDealtEvent is split into two events in the app layer (in an ev
 Without buffering if an exception occurs after an event is dispatched and the aggregate doesn't get persisted, there would be no way to "call back" the events. So
 they only get released from the buffer once the "transaction is closed"
 
-Application layer responsibilites:
-* provide a facade to the client to interact with the app = implement Use Cases. Each application service implements a Use Case, or some smaller, related Use Cased
+Application layer responsibilities:
+* provide a facade to the client to interact with the app (public methods of an app service is a Driven Port) = implement Use Cases. 
+  Each application service implements one Use Case, or a group of multiple smaller, related ones
 * event handling - see domain events
 * bootstrapping
 * routing Domain Events either back to the Domain or out of the application. Sometimes a Domain Event must be translated to multiple messages. The application service
-splits the event into multiple events
+  splits the event into multiple events
 
 
 Structure
@@ -94,7 +96,8 @@ Structure
 * Modules - in Blackjack Core
     ** Game: contains the Game aggregate 
     ** Player: contains the Player aggregate
-    ** their only common dependency is PlayerId (in shared package)
+    ** Table: contains the Table aggregate
+    ** their common dependencies (PlayerId, TableId) are in the shared package
 
 Package structure (layers of onion from inside out)
 * util - general functionality not belonging to any layer in particular
@@ -143,5 +146,3 @@ Stuff missing:
 
 The project extensively uses marker interfaces for Hexagonal Architecture/DDD building blocks/patterns/concepts to make the intentions clearer. 
 They are under the *.util.marker package. Other way could have been to use annotations.
-
-test
