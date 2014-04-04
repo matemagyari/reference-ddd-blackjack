@@ -95,7 +95,7 @@ function leaderboardEventListener(event) {
 
 function queryResponseListener(response) {
 	var content = JSON.parse(response.data)
-	if (content.type == 'TablesDTO') {
+	if (content.type == 'TablesResponseMessage') {
 		tables = content.tablesWithPlayers
 		$('#welcomeDiv').hide()
 		displayTables()

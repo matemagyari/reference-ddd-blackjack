@@ -28,6 +28,6 @@ public class EventRouteBuilder extends SpringRouteBuilder {
 			.bean(eventToMessageAssembler)
 			.bean(messageToJsonAssembler)
 			.log("event ${body} sent to ${header.channel}")
-			.recipientList(simple(cometdUri+"/${header.channel}"));
+		    .recipientList(simple(cometdUri+"${header.channel}"));
 	}
 }

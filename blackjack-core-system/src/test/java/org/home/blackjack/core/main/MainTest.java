@@ -4,11 +4,8 @@ import org.apache.camel.ProducerTemplate;
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
 import org.cometd.bayeux.client.ClientSessionChannel.MessageListener;
-import org.home.blackjack.core.app.service.registration.RegistrationCommand;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient;
 import org.junit.Test;
-
-import com.google.gson.Gson;
 
 public class MainTest {
 
@@ -30,19 +27,6 @@ public class MainTest {
 
 		System.err.println("Na what?");
 
-		String channelName = "/service/command/registration";
-		cometDClient.subscribeToChannel(channelName, new MessageListener() {
-
-			@Override
-			public void onMessage(ClientSessionChannel arg0, Message arg1) {
-				System.err.println("hello " + arg1);
-			}
-		});
-		String command = new Gson().toJson(new RegistrationCommand("aaa"));
-		cometDClient.publish(channelName, command);
-		Thread.sleep(1000);
-
-		System.err.println("Na what?");
 	}
 
 	private static class LoggingListener implements MessageListener {

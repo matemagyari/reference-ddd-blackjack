@@ -11,7 +11,6 @@ import com.google.gson.JsonObject;
 public class MessageToJsonAssembler {
 	
 	public String convert(Message message) {
-		System.err.println("Transform " + message);
 		JsonObject jsonObject = new Gson().toJsonTree(message).getAsJsonObject();
 		jsonObject.addProperty("type", message.getClass().getSimpleName());
 		return jsonObject.toString();

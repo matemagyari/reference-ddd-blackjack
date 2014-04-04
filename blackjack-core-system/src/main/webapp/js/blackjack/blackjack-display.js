@@ -19,7 +19,7 @@ function displayLeaderboard(event) {
 	$('#leaderboardTable').append('<tr><td>Player</td><td>Wins</td></tr>')
 	for (var i = 0; i < event.records.length; i++) {
 		var record = event.records[i]
-		$('#leaderboardTable').append('<tr><td>'+record.playerName.text+'</td><td>'
+		$('#leaderboardTable').append('<tr><td>'+record.playerName+'</td><td>'
 			+ record.winNumber+'</td></tr>')
 	}
 }
