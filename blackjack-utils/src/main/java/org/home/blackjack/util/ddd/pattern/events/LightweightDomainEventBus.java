@@ -141,8 +141,6 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 	public void flush() {
 
 		List<DomainEventSubscriber> allSubscribers = this.subscribers();
-		LOGGER.info(allSubscribers);
-		LOGGER.info(bufferedEvents);
 
 		while (!bufferedEvents.isEmpty()) {
 			final DomainEvent nextEvent = bufferedEvents.remove(0);

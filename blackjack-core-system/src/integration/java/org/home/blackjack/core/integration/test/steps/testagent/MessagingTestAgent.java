@@ -33,54 +33,51 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class MessagingTestAgent extends TestAgent {
-    
+
 	private CucumberService cucumberService;
 	private CometDClient cometDClient;
 	private RestClient restClient;
 	private GameID gameID;
-	
-    @Override
-    public void reset() {
-    	super.reset();
-    }
 
-    
-    @Override
-    protected  void initDependencies() {
-        cucumberService = new EndToEndCucumberService();
+	@Override
+	public void reset() {
+		super.reset();
+	}
+
+	@Override
+	protected void initDependencies() {
+		cucumberService = new EndToEndCucumberService();
 		super.initDependencies();
-		//TODO put into properties file
+		// TODO put into properties file
 		restClient = new RestClient();
 		cometDClient = new CometDClient("http://0.0.0.0:9099/cometd");
 		cometDClient.handshake();
-    }
-
+	}
 
 	@Override
 	protected CucumberService cucumberService() {
 		return cucumberService;
 	}
 
-    @Override
-    public void givenRegisteredPlayers(List<PlayerDO> players) {
-        for (PlayerDO playerDO : players) {
-            playerRepository.create(new Player(convertPlayerId(playerDO.id), new PlayerName(playerDO.name)));
-        }
-        cometDClient.subscribeToChannel(leaderboardChannel());
-    }
+	@Override
+	public void givenRegisteredPlayers(List<PlayerDO> players) {
+		for (PlayerDO playerDO : players) {
+			playerRepository.create(new Player(convertPlayerId(playerDO.id), new PlayerName(playerDO.name)));
+		}
+		cometDClient.subscribeToChannel(leaderboardChannel());
+	}
 
 	@Override
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
-	    PlayerID randomPlayer = new PlayerID();
-	    TablesDTO tablesDTO = Util.convert(tables, randomPlayer);
-	    TablesResponseMessage message = new TablesResponseMessage(tablesDTO.getTablesWithPlayers());
-        String command = new Gson().toJson(new TablesQueryMessage(randomPlayer.toString()));
-        String responseChannel = playerQueryResponseChannel(randomPlayer.toString());
-        cometDClient.subscribeToChannel(responseChannel);
-        cometDClient.publish("/query/request", command);
-        cometDClient.verifyMessageArrived(responseChannel, message);
+		PlayerID randomPlayer = new PlayerID();
+		TablesDTO tablesDTO = Util.convert(tables, randomPlayer);
+		TablesResponseMessage message = new TablesResponseMessage(tablesDTO.getTablesWithPlayers());
+		String command = new Gson().toJson(new TablesQueryMessage(randomPlayer.toString()));
+		String responseChannel = playerQueryResponseChannel(randomPlayer.toString());
+		cometDClient.subscribeToChannel(responseChannel);
+		cometDClient.publish("/query/request", command);
+		cometDClient.verifyMessageArrived(responseChannel, message);
 	}
-
 
 	@Override
 	public void playerSitsToTable(Integer playerId, Integer tableId) {
@@ -89,7 +86,6 @@ public class MessagingTestAgent extends TestAgent {
 		cometDClient.subscribeAndPublish(tableChannel, "/command/table/sit", command(playerId, tableId));
 		cometDClient.verifyMessageArrived(tableChannel, new PlayerIsSeatedEventMessage(tableId.toString(), playerId.toString()));
 	}
-
 
 	@Override
 	public void thenGameStartedAtTable(final Integer tableId) {
@@ -108,7 +104,6 @@ public class MessagingTestAgent extends TestAgent {
 		gameID = GameID.createFrom(event.gameID);
 	}
 
-
 	@Override
 	public void thenPlayerBeenDealt(final Integer playerId, Integer tableId, final String card) {
 		cometDClient.verifyMessageArrived(tablePlayerChannel(playerId, tableId), new MessageMatcher() {
@@ -118,8 +113,7 @@ public class MessagingTestAgent extends TestAgent {
 					return false;
 				}
 				PlayerCardDealtEventMessage anEvent = Util.convert(PlayerCardDealtEventMessage.class, jsonObject);
-				return anEvent.card.equals(CardDO.toCardDTO(card)) 
-						&& anEvent.actingPlayer.equals(playerId.toString())
+				return anEvent.card.equals(CardDO.toCardDTO(card)) && anEvent.actingPlayer.equals(playerId.toString())
 						&& anEvent.gameID.equals(gameID.toString());
 			}
 		});
@@ -130,10 +124,9 @@ public class MessagingTestAgent extends TestAgent {
 					return false;
 				}
 				PublicPlayerCardDealtEventMessage anEvent = Util.convert(PublicPlayerCardDealtEventMessage.class, jsonObject);
-				return anEvent.actingPlayer.equals(playerId.toString())
-						&& anEvent.gameID.equals(gameID.toString());
+				return anEvent.actingPlayer.equals(playerId.toString()) && anEvent.gameID.equals(gameID.toString());
 			}
-		});		
+		});
 	}
 
 	@Override
@@ -145,40 +138,36 @@ public class MessagingTestAgent extends TestAgent {
 					return false;
 				}
 				PlayerStandsEventMessage anEvent = Util.convert(PlayerStandsEventMessage.class, jsonObject);
-				return anEvent.actingPlayer.equals(playerId.toString())
-						&& anEvent.gameID.equals(gameID.toString());
+				return anEvent.actingPlayer.equals(playerId.toString()) && anEvent.gameID.equals(gameID.toString());
 			}
-		});	
+		});
 	}
-	
+
 	@Override
 	public void playerHits(Integer playerId, Integer tableId) {
 		String command = new Gson().toJson(new GameCommandMessage(playerId.toString(), gameID.toString(), "HIT"));
 		cometDClient.publish("/command/game", command);
 	}
 
-
 	@Override
 	public void thenPlayerWon(final Integer playerId, final Integer tableId) {
 		cometDClient.verifyMessageArrived(tableChannel(tableId), new MessageMatcher() {
-			
+
 			@Override
 			public boolean match(JsonObject jsonObject) {
 				if (!Util.typeMatch(GameFinishedEventMessage.class, jsonObject)) {
 					return false;
 				}
 				GameFinishedEventMessage anEvent = Util.convert(GameFinishedEventMessage.class, jsonObject);
-				return anEvent.winner.equals(playerId.toString())
-						&& anEvent.gameID.equals(gameID.toString())
-						&& anEvent.tableID.equals(tableId.toString());
+				return anEvent.winner.equals(playerId.toString()) && anEvent.gameID.equals(gameID.toString()) && anEvent.tableID.equals(tableId.toString());
 			}
 		});
 	}
-	
+
 	@Override
 	public void thenLeaderboardIsUpdated(final List<LeaderboardDO> leaderboard) {
 		cometDClient.verifyMessageArrived(leaderboardChannel(), new MessageMatcher() {
-			
+
 			@Override
 			public boolean match(JsonObject jsonObject) {
 				if (!Util.typeMatch(LeaderBoardChangedEventMessage.class, jsonObject)) {
@@ -192,28 +181,32 @@ public class MessagingTestAgent extends TestAgent {
 
 	@Override
 	public void playerRegisters(String name) {
-		//String command = new Gson().toJson(new RegistrationCommand(new PlayerName(name)));
-		//String response = cometDClient.requestReply("/service/command/registration",command);
+		// String command = new Gson().toJson(new RegistrationCommand(new
+		// PlayerName(name)));
+		// String response =
+		// cometDClient.requestReply("/service/command/registration",command);
 		String generatedId = restClient.register(name);
 		playerIdNameMap.put(name, PlayerID.createFrom(generatedId));
 		cometDClient.subscribeToChannel(playerQueryResponseChannel(generatedId));
 		cometDClient.subscribeToChannel(leaderboardChannel());
 	}
-	
+
 	@Override
 	public void playerStands(Integer playerId, Integer tableId) {
 		String command = new Gson().toJson(new GameCommandMessage(playerId.toString(), gameID.toString(), "STAND"));
 		cometDClient.publish("/command/game", command);
 	}
-	
+
 	private static String command(Integer playerId, Integer tableId) {
 		return new Gson().toJson(new SeatingCommandMessage(playerId.toString(), tableId.toString()));
 	}
+
 	private static String tableChannel(Integer tableId) {
-		return "/table/"+convertTableId(tableId);
+		return "/table/" + convertTableId(tableId);
 	}
+
 	private static String playerQueryResponseChannel(String playerId) {
-		return "/player/"+playerId+"/query/response";
+		return "/player/" + playerId + "/query/response";
 	}
 
 	private static String leaderboardChannel() {
@@ -221,8 +214,7 @@ public class MessagingTestAgent extends TestAgent {
 	}
 
 	private static String tablePlayerChannel(Integer playerId, Integer tableId) {
-		return "/table/"+tableId+"/player/"+playerId;
+		return "/table/" + tableId + "/player/" + playerId;
 	}
-
 
 }

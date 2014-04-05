@@ -14,6 +14,8 @@ import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
+import org.home.blackjack.messaging.common.Message;
+import org.home.blackjack.messaging.event.InitialCardsDealtEventMessage;
 import org.home.blackjack.messaging.event.LeaderBoardChangedEventMessage;
 import org.home.blackjack.messaging.event.LeaderBoardChangedEventMessage.LeaderBoardRecordMessage;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
@@ -47,22 +49,14 @@ public class Util {
         Assert.assertEquals(clazz.getSimpleName(), event.get("type").toString());
     }
 
-    public static <T> boolean typeMatch(T expectedDomainEvent, JsonObject event) {
+    private static <T> boolean typeMatch(T expectedDomainEvent, JsonObject event) {
         return expectedDomainEvent.getClass().getSimpleName().equals(event.get("type").toString().replace("\"", ""));
     }
 
-    public static <T extends DomainEvent> boolean typeMatch(Class<T> clazz, JsonObject event) {
+    public static <T extends Message> boolean typeMatch(Class<T> clazz, JsonObject event) {
         return clazz.getSimpleName().equals(event.get("type").toString().replace("\"", ""));
     }
 
-    public static <T extends DomainEvent> boolean equalsOld(T expectedDomainEvent, JsonObject event) {
-        if (!typeMatch(expectedDomainEvent, event)) {
-            return false;
-        }
-        DomainEvent fromJson = convert(expectedDomainEvent.getClass(), event);
-        return expectedDomainEvent.equals(fromJson);
-    }
-    
     public static <T> boolean equals(T expectedEvent, JsonObject event) {
         if (!typeMatch(expectedEvent, event)) {
             return false;

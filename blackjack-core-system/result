@@ -1,0 +1,543 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.home.blackjack:blackjack:jar:0.1-SNAPSHOT
+[WARNING] 'build.plugins.plugin.(groupId:artifactId)' must be unique but found duplicate declaration of plugin org.apache.maven.plugins:maven-compiler-plugin @ line 169, column 13
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Blackjack 0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] The artifact org.apache.commons:commons-io:jar:1.3.2 has been relocated to commons-io:commons-io:jar:1.3.2
+[INFO] 
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ blackjack ---
+[INFO] Deleting c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ blackjack ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] 
+[INFO] --- build-helper-maven-plugin:1.5:add-test-source (add-test-source) @ blackjack ---
+[INFO] Test Source directory: c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\src\integration\java added.
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.0:compile (default-compile) @ blackjack ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 109 source files to c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\classes
+[WARNING] /c:/Users/Mate/Documents/gitrepos/blackjack/blackjack-core-system/src/main/java/org/home/blackjack/core/infrastructure/persistence/game/store/inmemory/InMemoryGameStore.java: Some input files use unchecked or unsafe operations.
+[WARNING] /c:/Users/Mate/Documents/gitrepos/blackjack/blackjack-core-system/src/main/java/org/home/blackjack/core/infrastructure/persistence/game/store/inmemory/InMemoryGameStore.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- principle:0.24:check (default) @ blackjack ---
+[INFO] LayerViolationDetector is running.
+[INFO] CycleDetector is running.
+[INFO] SDPViolationDetector is running.
+[INFO] SAPViolationDetector is running.
+[INFO] ACDDetector is running.
+[INFO] 
+==============================================================
+	Layering violations (0 of allowed 0 )	
+==============================================================
+No violations.
+==============================================================
+
+[INFO] 
+==============================================================
+	Acyclic Package Dependency Principle violations (0 of the allowed 0)	
+==============================================================
+==============================================================
+No violations.
+==============================================================
+
+[INFO] 
+==============================================================
+	Stable Dependencies Principle violations (4 of allowed 6 )	
+==============================================================
+
+ org.home.blackjack.core.app.events.external[0.6] --> org.home.blackjack.core.domain.player.event[0.6666667] 
+
+ org.home.blackjack.core.app.service.registration[0.75] --> org.home.blackjack.core.domain[0.7777778] 
+
+ org.home.blackjack.core.domain.game[0.6315789] --> org.home.blackjack.core.domain.game.exception[0.6666667] 
+
+ org.home.blackjack.core.domain.table[0.61538464] --> org.home.blackjack.core.domain.table.event[0.625] 
+==============================================================
+
+[INFO] 
+==============================================================
+	Stable Abstractions Principle violations (6 of allowed 7 )	
+==============================================================
+org.home.blackjack.core.domain.game.core 0.8
+org.home.blackjack.core.domain.game.view 1.0
+org.home.blackjack.core.domain.player.core 0.625
+org.home.blackjack.core.domain.shared 0.9259259
+org.home.blackjack.core.infrastructure.persistence.game.store 0.625
+org.home.blackjack.core.infrastructure.persistence.player.store 0.6
+==============================================================
+
+[INFO] 
+==============================================================
+Component Dependency Metrics	
+==============================================================
+Average Component Dependency:		6.829268292682927( allowed 999.0)
+Relative Average Component Dependency:	0.16656751933372993( allowed 0.5)
+==============================================================
+
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ blackjack ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 3 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.0:testCompile (default-testCompile) @ blackjack ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 32 source files to c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\test-classes
+[WARNING] /c:/Users/Mate/Documents/gitrepos/blackjack/blackjack-core-system/src/integration/java/org/home/blackjack/core/integration/test/fakes/FakeExternalEventPublisher.java: Some input files use unchecked or unsafe operations.
+[WARNING] /c:/Users/Mate/Documents/gitrepos/blackjack/blackjack-core-system/src/integration/java/org/home/blackjack/core/integration/test/fakes/FakeExternalEventPublisher.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.4.3:test (default-test) @ blackjack ---
+[INFO] Surefire report directory: c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.home.blackjack.core.integration.test.scan.MessagingAcceptanceTests_IT
+2014-04-05 14:57:39 INFO  ClassPathXmlApplicationContext:510 - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@55bce763: startup date [Sat Apr 05 14:57:39 BST 2014]; root of context hierarchy
+2014-04-05 14:57:39 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [applicationContext-blackjack-core-cucumber-endtoend.xml]
+2014-04-05 14:57:40 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [META-INF/applicationContext-blackjack-core.xml]
+2014-04-05 14:57:41 INFO  ClassPathBeanDefinitionScanner:230 - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+2014-04-05 14:57:41 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [META-INF/applicationContext-blackjack-core-applevel.xml]
+2014-04-05 14:57:42 INFO  ClassPathBeanDefinitionScanner:230 - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+2014-04-05 14:57:45 INFO  DefaultListableBeanFactory:644 - Overriding bean definition for bean 'deckFactory': replacing [Generic bean: class [org.home.blackjack.core.domain.game.DeckFactory]; scope=singleton; abstract=false; lazyInit=true; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\classes\org\home\blackjack\core\domain\game\DeckFactory.class]] with [Generic bean: class [org.home.blackjack.core.integration.test.fakes.FakeDeckFactory]; scope=; abstract=false; lazyInit=true; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [applicationContext-blackjack-core-cucumber-endtoend.xml]]
+2014-04-05 14:57:46 INFO  PropertyPlaceholderConfigurer:177 - Loading properties file from class path resource [blackjack.properties]
+2014-04-05 14:57:46 INFO  AutowiredAnnotationBeanPostProcessor:140 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2014-04-05 14:57:47 INFO  DefaultListableBeanFactory:577 - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3ea452ad: defining beans [eventPublisherStub,bootstrapper,eventBusManager,gameEventHandler,betConcerningGameFinishedEventHandler,LBUpdaterGameFinishedEventHandler,tableClearingGameFinishedEventHandler,playerCardDealtEventHandler,tableEventHandler,tableIsFullEventHandler,gameActionApplicationServiceImpl,queryingApplicationService,registrationApplicationService,seatingApplicationServiceImpl,cashier,dealer,deckFactory,gameFactory,leaderboardUpdater,registerService,lobbyManager,cometDExternalEventPublisher,coreRouteBuilder,eventRouteBuilder,registrationEndpoint,JUGIDGenerationStrategy,eventToMessageAssembler,messageToDTOAssembler,messageToJsonAssembler,serializingGameRepository,inMemoryGamePersistenceAssembler,inMemoryGameStore,serializingPlayerRepository,inMemoryPlayerPersistenceAssembler,inMemoryPlayerStore,inMemoryTableRepository,restBasedWalletService,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,lockAspect,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,gameStore,template,consumerTemplate,camel-1:beanPostProcessor,camel-1,walletService,org.springframework.context.annotation.ConfigurationClassPostProcessor.importAwareProcessor]; root of factory hierarchy
+2014-04-05 14:57:50 INFO  SpringCamelContext:1432 - Apache Camel 2.11.0 (CamelContext: camel-1) is starting
+2014-04-05 14:57:50 INFO  ManagementStrategyFactory:43 - JMX enabled.
+2014-04-05 14:57:51 INFO  DefaultTypeConverter:45 - Loaded 196 type converters
+2014-04-05 14:57:55 INFO  ServerImpl:94 - Setting the server's publish address to be camel://cxfbean:registrationEndpoint
+2014-04-05 14:57:55 INFO  Server:266 - jetty-7.6.8.v20121106
+2014-04-05 14:57:55 INFO  ContextHandler:744 - started o.e.j.s.ServletContextHandler{/,null}
+2014-04-05 14:57:55 INFO  93517634:131 - JSONCommented=true
+2014-04-05 14:57:55 INFO  93517634:131 - interval=0
+2014-04-05 14:57:55 INFO  93517634:131 - logLevel=1
+2014-04-05 14:57:55 INFO  93517634:131 - maxInterval=30000
+2014-04-05 14:57:55 INFO  93517634:131 - multiFrameInterval=1500
+2014-04-05 14:57:55 INFO  93517634:131 - timeout=240000
+2014-04-05 14:57:55 INFO  AbstractConnector:338 - Started SelectChannelConnector@0.0.0.0:9099
+2014-04-05 14:57:56 INFO  SpringCamelContext:2098 - Route: echoroute started and consuming from: Endpoint[cometd://0.0.0.0:9099/echoin]
+2014-04-05 14:57:56 INFO  SpringCamelContext:2098 - Route: query-route started and consuming from: Endpoint[cometd://0.0.0.0:9099/query/request]
+2014-04-05 14:57:56 INFO  SpringCamelContext:2098 - Route: command-sit-route started and consuming from: Endpoint[cometd://0.0.0.0:9099/command/table/sit]
+2014-04-05 14:57:56 INFO  SpringCamelContext:2098 - Route: command-game-route started and consuming from: Endpoint[cometd://0.0.0.0:9099/command/game]
+2014-04-05 14:57:56 INFO  JettyHttpComponent:860 - Using default Jetty continuation timeout for: Endpoint[http://0.0.0.0:9090]
+2014-04-05 14:57:56 INFO  Server:266 - jetty-7.6.8.v20121106
+2014-04-05 14:57:56 INFO  ContextHandler:744 - started o.e.j.s.ServletContextHandler{/,null}
+2014-04-05 14:57:56 INFO  AbstractConnector:338 - Started SelectChannelConnector@0.0.0.0:9090
+2014-04-05 14:57:56 INFO  SpringCamelContext:2098 - Route: command-registration-route started and consuming from: Endpoint[http://0.0.0.0:9090]
+2014-04-05 14:57:56 INFO  SpringCamelContext:2098 - Route: event-route started and consuming from: Endpoint[direct://events]
+2014-04-05 14:57:56 INFO  DefaultManagementLifecycleStrategy:872 - Load performance statistics enabled.
+2014-04-05 14:57:56 INFO  SpringCamelContext:1467 - Total 6 routes, of which 6 is started.
+2014-04-05 14:57:56 INFO  SpringCamelContext:1468 - Apache Camel 2.11.0 (CamelContext: camel-1) started in 5.815 seconds
+system: Connection to Server Opened
+2014-04-05 14:57:57 INFO  command-registration-route:96 - request 
+system: Connection to Server Opened
+2014-04-05 14:57:58 INFO  query-route:96 - request {"playerId":"dcb7a19c-9bed-4dc4-aea8-d8eb884dca53"}
+2014-04-05 14:57:58 INFO  event-route:96 - event {"tablesWithPlayers":{"12":[]},"type":"TablesResponseMessage"} sent to /player/dcb7a19c-9bed-4dc4-aea8-d8eb884dca53/query/response
+2014-04-05 14:57:58 INFO  CometDClient:164 - msg arrived on [/player/dcb7a19c-9bed-4dc4-aea8-d8eb884dca53/query/response] - {"tablesWithPlayers":{"12":[]},"type":"TablesResponseMessage"}
+2014-04-05 14:57:58 INFO  command-sit-route:96 - request {"tableId":"12","playerId":"1"}
+2014-04-05 14:57:58 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:57:59 INFO  PessimisticLockingAspect:50 - LOCK acquiring attempt with key 12
+2014-04-05 14:57:59 INFO  PessimisticLockingAspect:65 - LOCK released for key 12
+2014-04-05 14:57:59 INFO  EventBusManager:27 - flush
+2014-04-05 14:57:59 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:57:59 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent@fc24d, org.home.blackjack.core.domain.table.event.TableSeatingChangedEvent@fc6c8]
+2014-04-05 14:57:59 INFO  event-route:96 - event {"tableID":"12","playerId":"1","type":"PlayerIsSeatedEventMessage"} sent to /table/12
+2014-04-05 14:57:59 INFO  event-route:96 - event {"players":["1"],"id":"12","type":"TableSeatingChangedEventMessage"} sent to /table/12
+2014-04-05 14:57:59 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","playerId":"1","type":"PlayerIsSeatedEventMessage"}
+2014-04-05 14:57:59 INFO  CometDClient:164 - msg arrived on [/table/12] - {"players":["1"],"id":"12","type":"TableSeatingChangedEventMessage"}
+2014-04-05 14:57:59 INFO  query-route:96 - request {"playerId":"1880e0cc-f3cf-4a7b-8ffd-2ef524af060b"}
+2014-04-05 14:57:59 INFO  event-route:96 - event {"tablesWithPlayers":{"12":["1"]},"type":"TablesResponseMessage"} sent to /player/1880e0cc-f3cf-4a7b-8ffd-2ef524af060b/query/response
+2014-04-05 14:57:59 INFO  CometDClient:164 - msg arrived on [/player/1880e0cc-f3cf-4a7b-8ffd-2ef524af060b/query/response] - {"tablesWithPlayers":{"12":["1"]},"type":"TablesResponseMessage"}
+2014-04-05 14:57:59 INFO  command-sit-route:96 - request {"tableId":"12","playerId":"2"}
+2014-04-05 14:57:59 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:57:59 INFO  PessimisticLockingAspect:50 - LOCK acquiring attempt with key 12
+2014-04-05 14:58:00 INFO  PessimisticLockingAspect:65 - LOCK released for key 12
+2014-04-05 14:58:00 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:00 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:00 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent@fc7a6, org.home.blackjack.core.domain.table.event.TableSeatingChangedEvent@1c75f95, org.home.blackjack.core.domain.table.event.TableIsFullEvent@1c75f95]
+2014-04-05 14:58:00 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:00 INFO  event-route:96 - event {"players":["1","2"],"id":"12","type":"TableSeatingChangedEventMessage"} sent to /table/12
+2014-04-05 14:58:00 INFO  event-route:96 - event {"tableID":"12","playerId":"2","type":"PlayerIsSeatedEventMessage"} sent to /table/12
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12] - {"players":["1","2"],"id":"12","type":"TableSeatingChangedEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","playerId":"2","type":"PlayerIsSeatedEventMessage"}
+2014-04-05 14:58:00 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:00 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:00 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.game.event.GameStartedEvent@6a3e7fbe, org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent@f2570b37, org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent@c6bbce6d, org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent@ae41c358, org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent@430af3cd, org.home.blackjack.core.domain.game.event.InitialCardsDealtEvent@6a3e7fc3]
+2014-04-05 14:58:00 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":3,"type":"PublicPlayerCardDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:00 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","sequenceNumber":0,"type":"GameStartedEventMessage"} sent to /table/12
+2014-04-05 14:58:00 INFO  event-route:96 - event {"card":{"rank":"TWO","suite":"SPADE"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":2,"type":"PlayerCardDealtEventMessage"} sent to /table/12/player/1
+2014-04-05 14:58:00 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":2,"type":"PublicPlayerCardDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:00 INFO  event-route:96 - event {"card":{"rank":"TWO","suite":"CLUB"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":1,"type":"PlayerCardDealtEventMessage"} sent to /table/12/player/2
+2014-04-05 14:58:00 INFO  event-route:96 - event {"card":{"rank":"SEVEN","suite":"DIAMOND"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":3,"type":"PlayerCardDealtEventMessage"} sent to /table/12/player/2
+2014-04-05 14:58:00 INFO  event-route:96 - event {"card":{"rank":"JACK","suite":"HEART"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":4,"type":"PlayerCardDealtEventMessage"} sent to /table/12/player/1
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":3,"type":"PublicPlayerCardDealtEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","sequenceNumber":0,"type":"GameStartedEventMessage"}
+2014-04-05 14:58:00 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":4,"type":"PublicPlayerCardDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:00 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","sequenceNumber":5,"type":"InitialCardsDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:00 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":1,"type":"PublicPlayerCardDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12/player/1] - {"card":{"rank":"TWO","suite":"SPADE"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":2,"type":"PlayerCardDealtEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":2,"type":"PublicPlayerCardDealtEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12/player/2] - {"card":{"rank":"TWO","suite":"CLUB"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":1,"type":"PlayerCardDealtEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12/player/1] - {"card":{"rank":"JACK","suite":"HEART"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":4,"type":"PlayerCardDealtEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12/player/2] - {"card":{"rank":"SEVEN","suite":"DIAMOND"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":3,"type":"PlayerCardDealtEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":4,"type":"PublicPlayerCardDealtEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","sequenceNumber":5,"type":"InitialCardsDealtEventMessage"}
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":1,"type":"PublicPlayerCardDealtEventMessage"}
+2014-04-05 14:58:00 INFO  query-route:96 - request {"playerId":"b980589f-1100-4d44-981b-9623d5a03726"}
+2014-04-05 14:58:00 INFO  event-route:96 - event {"tablesWithPlayers":{"12":["1","2"]},"type":"TablesResponseMessage"} sent to /player/b980589f-1100-4d44-981b-9623d5a03726/query/response
+2014-04-05 14:58:00 INFO  CometDClient:164 - msg arrived on [/player/b980589f-1100-4d44-981b-9623d5a03726/query/response] - {"tablesWithPlayers":{"12":["1","2"]},"type":"TablesResponseMessage"}
+MATEEE? - thenGameStartedAtTable start
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"tableID":"12","playerId":"1","type":"PlayerIsSeatedEventMessage"}
+InitialCardsDealtEventMessage
+"PlayerIsSeatedEventMessage"
+PlayerIsSeatedEventMessage
+false
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"players":["1"],"id":"12","type":"TableSeatingChangedEventMessage"}
+InitialCardsDealtEventMessage
+"TableSeatingChangedEventMessage"
+TableSeatingChangedEventMessage
+false
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"players":["1","2"],"id":"12","type":"TableSeatingChangedEventMessage"}
+InitialCardsDealtEventMessage
+"TableSeatingChangedEventMessage"
+TableSeatingChangedEventMessage
+false
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"tableID":"12","playerId":"2","type":"PlayerIsSeatedEventMessage"}
+InitialCardsDealtEventMessage
+"PlayerIsSeatedEventMessage"
+PlayerIsSeatedEventMessage
+false
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":3,"type":"PublicPlayerCardDealtEventMessage"}
+InitialCardsDealtEventMessage
+"PublicPlayerCardDealtEventMessage"
+PublicPlayerCardDealtEventMessage
+false
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","sequenceNumber":0,"type":"GameStartedEventMessage"}
+InitialCardsDealtEventMessage
+"GameStartedEventMessage"
+GameStartedEventMessage
+false
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":2,"type":"PublicPlayerCardDealtEventMessage"}
+InitialCardsDealtEventMessage
+"PublicPlayerCardDealtEventMessage"
+PublicPlayerCardDealtEventMessage
+false
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":4,"type":"PublicPlayerCardDealtEventMessage"}
+InitialCardsDealtEventMessage
+"PublicPlayerCardDealtEventMessage"
+PublicPlayerCardDealtEventMessage
+false
+MATEEE? - here you are {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","sequenceNumber":5,"type":"InitialCardsDealtEventMessage"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","sequenceNumber":5,"type":"InitialCardsDealtEventMessage"}
+InitialCardsDealtEventMessage
+"InitialCardsDealtEventMessage"
+InitialCardsDealtEventMessage
+true
+MATEEE? - hey here is a match {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","sequenceNumber":5,"type":"InitialCardsDealtEventMessage"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage
+MATEEE - type match class org.home.blackjack.messaging.event.InitialCardsDealtEventMessage {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":1,"type":"PublicPlayerCardDealtEventMessage"}
+InitialCardsDealtEventMessage
+"PublicPlayerCardDealtEventMessage"
+PublicPlayerCardDealtEventMessage
+false
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+2014-04-05 14:58:01 INFO  command-game-route:96 - request {"action":"HIT","gameId":"c61e376a-0e43-4e7e-932d-5397ab41302d","playerId":"2"}
+2014-04-05 14:58:01 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:01 INFO  PessimisticLockingAspect:50 - LOCK acquiring attempt with key c61e376a-0e43-4e7e-932d-5397ab41302d
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+2014-04-05 14:58:01 INFO  PessimisticLockingAspect:65 - LOCK released for key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:01 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:01 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:01 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent@9ec9431e]
+2014-04-05 14:58:01 INFO  event-route:96 - event {"card":{"rank":"FIVE","suite":"DIAMOND"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":6,"type":"PlayerCardDealtEventMessage"} sent to /table/12/player/2
+2014-04-05 14:58:01 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":6,"type":"PublicPlayerCardDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:01 INFO  CometDClient:164 - msg arrived on [/table/12/player/2] - {"card":{"rank":"FIVE","suite":"DIAMOND"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":6,"type":"PlayerCardDealtEventMessage"}
+2014-04-05 14:58:01 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":6,"type":"PublicPlayerCardDealtEventMessage"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+2014-04-05 14:58:01 INFO  command-game-route:96 - request {"action":"HIT","gameId":"c61e376a-0e43-4e7e-932d-5397ab41302d","playerId":"1"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+2014-04-05 14:58:01 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:01 INFO  PessimisticLockingAspect:50 - LOCK acquiring attempt with key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:01 INFO  PessimisticLockingAspect:65 - LOCK released for key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:01 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:01 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:01 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent@2f41390e]
+2014-04-05 14:58:01 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":7,"type":"PublicPlayerCardDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:01 INFO  event-route:96 - event {"card":{"rank":"THREE","suite":"HEART"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":7,"type":"PlayerCardDealtEventMessage"} sent to /table/12/player/1
+2014-04-05 14:58:01 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":7,"type":"PublicPlayerCardDealtEventMessage"}
+2014-04-05 14:58:01 INFO  CometDClient:164 - msg arrived on [/table/12/player/1] - {"card":{"rank":"THREE","suite":"HEART"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":7,"type":"PlayerCardDealtEventMessage"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+2014-04-05 14:58:02 INFO  command-game-route:96 - request {"action":"HIT","gameId":"c61e376a-0e43-4e7e-932d-5397ab41302d","playerId":"2"}
+2014-04-05 14:58:02 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+2014-04-05 14:58:02 INFO  PessimisticLockingAspect:50 - LOCK acquiring attempt with key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:02 INFO  PessimisticLockingAspect:65 - LOCK released for key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:02 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:02 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:02 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent@d0581d30]
+2014-04-05 14:58:02 INFO  event-route:96 - event {"card":{"rank":"FOUR","suite":"DIAMOND"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":8,"type":"PlayerCardDealtEventMessage"} sent to /table/12/player/2
+2014-04-05 14:58:02 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":8,"type":"PublicPlayerCardDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:02 INFO  CometDClient:164 - msg arrived on [/table/12/player/2] - {"card":{"rank":"FOUR","suite":"DIAMOND"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":8,"type":"PlayerCardDealtEventMessage"}
+2014-04-05 14:58:02 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":8,"type":"PublicPlayerCardDealtEventMessage"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+2014-04-05 14:58:02 INFO  command-game-route:96 - request {"action":"HIT","gameId":"c61e376a-0e43-4e7e-932d-5397ab41302d","playerId":"1"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+2014-04-05 14:58:02 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:02 INFO  PessimisticLockingAspect:50 - LOCK acquiring attempt with key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:02 INFO  PessimisticLockingAspect:65 - LOCK released for key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:02 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:02 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:02 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent@56d15080]
+2014-04-05 14:58:02 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":9,"type":"PublicPlayerCardDealtEventMessage"} sent to /table/12
+2014-04-05 14:58:02 INFO  event-route:96 - event {"card":{"rank":"TWO","suite":"HEART"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":9,"type":"PlayerCardDealtEventMessage"} sent to /table/12/player/1
+2014-04-05 14:58:02 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":9,"type":"PublicPlayerCardDealtEventMessage"}
+2014-04-05 14:58:02 INFO  CometDClient:164 - msg arrived on [/table/12/player/1] - {"card":{"rank":"TWO","suite":"HEART"},"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":9,"type":"PlayerCardDealtEventMessage"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PublicPlayerCardDealtEventMessage
+2014-04-05 14:58:03 INFO  command-game-route:96 - request {"action":"STAND","gameId":"c61e376a-0e43-4e7e-932d-5397ab41302d","playerId":"2"}
+2014-04-05 14:58:03 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:03 INFO  PessimisticLockingAspect:50 - LOCK acquiring attempt with key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:03 INFO  PessimisticLockingAspect:65 - LOCK released for key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:03 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:03 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:03 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.game.event.PlayerStandsEvent@6a4caed7]
+2014-04-05 14:58:03 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":10,"type":"PlayerStandsEventMessage"} sent to /table/12
+2014-04-05 14:58:03 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"2","sequenceNumber":10,"type":"PlayerStandsEventMessage"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+2014-04-05 14:58:03 INFO  command-game-route:96 - request {"action":"STAND","gameId":"c61e376a-0e43-4e7e-932d-5397ab41302d","playerId":"1"}
+2014-04-05 14:58:03 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:03 INFO  PessimisticLockingAspect:50 - LOCK acquiring attempt with key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:03 INFO  PessimisticLockingAspect:65 - LOCK released for key c61e376a-0e43-4e7e-932d-5397ab41302d
+2014-04-05 14:58:03 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:03 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:03 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.game.event.PlayerStandsEvent@6a4ca97f, org.home.blackjack.core.domain.game.event.GameFinishedEvent@6a4caed9]
+2014-04-05 14:58:03 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":11,"type":"PlayerStandsEventMessage"} sent to /table/12
+2014-04-05 14:58:03 INFO  EventBusManager:21 - initialize: [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:03 INFO  event-route:96 - event {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","winner":"2","sequenceNumber":12,"type":"GameFinishedEventMessage"} sent to /table/12
+2014-04-05 14:58:03 INFO  EventBusManager:27 - flush
+2014-04-05 14:58:03 INFO  LightweightDomainEventBus:144 - [org.home.blackjack.core.app.events.eventhandler.GameEventHandler@14c63afe, org.home.blackjack.core.app.events.eventhandler.gamefinished.BetConcerningGameFinishedEventHandler@624b0459, org.home.blackjack.core.app.events.eventhandler.gamefinished.LBUpdaterGameFinishedEventHandler@2b0aa179, org.home.blackjack.core.app.events.eventhandler.gamefinished.TableClearingGameFinishedEventHandler@46ef2502, org.home.blackjack.core.app.events.eventhandler.PlayerCardDealtEventHandler@7e66caaf, org.home.blackjack.core.app.events.eventhandler.TableEventHandler@e84e7fe, org.home.blackjack.core.app.events.eventhandler.TableIsFullEventHandler@379adc24]
+2014-04-05 14:58:03 INFO  LightweightDomainEventBus:145 - [org.home.blackjack.core.domain.table.event.TableSeatingChangedEvent@198bc]
+2014-04-05 14:58:03 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","actingPlayer":"1","sequenceNumber":11,"type":"PlayerStandsEventMessage"}
+2014-04-05 14:58:03 INFO  event-route:96 - event {"players":[],"id":"12","type":"TableSeatingChangedEventMessage"} sent to /table/12
+2014-04-05 14:58:03 INFO  CometDClient:164 - msg arrived on [/table/12] - {"tableID":"12","gameID":"c61e376a-0e43-4e7e-932d-5397ab41302d","winner":"2","sequenceNumber":12,"type":"GameFinishedEventMessage"}
+2014-04-05 14:58:03 INFO  event-route:96 - event {"records":[{"playerName":"John","winNumber":0},{"playerName":"Jack","winNumber":1}],"type":"LeaderBoardChangedEventMessage"} sent to /leaderboard
+2014-04-05 14:58:03 INFO  CometDClient:164 - msg arrived on [/table/12] - {"players":[],"id":"12","type":"TableSeatingChangedEventMessage"}
+2014-04-05 14:58:03 INFO  CometDClient:164 - msg arrived on [/leaderboard] - {"records":[{"playerName":"John","winNumber":0},{"playerName":"Jack","winNumber":1}],"type":"LeaderBoardChangedEventMessage"}
+2014-04-05 14:58:03 INFO  CometDClient:164 - msg arrived on [/leaderboard] - {"records":[{"playerName":"John","winNumber":0},{"playerName":"Jack","winNumber":1}],"type":"LeaderBoardChangedEventMessage"}
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.PlayerStandsEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.GameFinishedEventMessage
+MATEEE - check the fucking type class org.home.blackjack.messaging.event.LeaderBoardChangedEventMessage
+
+2 Scenarios ([32m2 passed[0m)
+33 Steps ([32m33 passed[0m)
+0m24.972s
+
+Tests run: 35, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 25.413 sec
+
+Results :
+
+Tests run: 35, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 54.905s
+[INFO] Finished at: Sat Apr 05 14:58:04 BST 2014
+[INFO] Final Memory: 25M/231M
+[INFO] ------------------------------------------------------------------------
