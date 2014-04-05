@@ -1,31 +1,46 @@
 package org.home.blackjack.core.app.events.event;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.apache.log4j.Logger;
-import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisher;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
+import org.home.blackjack.util.ddd.pattern.events.SubscribableEventBus;
+import org.springframework.context.ApplicationContext;
 
 @Named
 public class EventBusManager {
 	
 	private static Logger LOGGER = Logger.getLogger(EventBusManager.class);
 
-	@Resource
-	private List<DomainEventSubscriber> subscribers;
+    private static final ThreadLocal<LightweightDomainEventBus> instance = new ThreadLocal<LightweightDomainEventBus>() {
+        protected LightweightDomainEventBus initialValue() {
+            return context.getBean(LightweightDomainEventBus.class);
+        }
+    };
+
+    private static ApplicationContext context;
 
 	public void initialize() {
-		LOGGER.info("initialize: " + subscribers);
-		LightweightDomainEventBus.subscribableEventBusInstance().reset();
-		LightweightDomainEventBus.subscribableEventBusInstance().register(subscribers);
+        subscribableEventBusInstance().reset();
 	}
 	
 	public void flush() {
 		LOGGER.info("flush");
-		LightweightDomainEventBus.subscribableEventBusInstance().flush();
+        subscribableEventBusInstance().flush();
 	}
 
+    public DomainEventPublisher domainEventPublisherInstance() {
+        return instance.get();
+    }
+
+    public SubscribableEventBus subscribableEventBusInstance() {
+        return instance.get();
+    }
+
+    @Resource
+    public void setApplicationContext(ApplicationContext applicationContext){
+        context = applicationContext;
+    }
 }

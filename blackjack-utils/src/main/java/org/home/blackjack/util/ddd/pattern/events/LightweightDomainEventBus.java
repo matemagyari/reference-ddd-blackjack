@@ -14,8 +14,6 @@
 
 package org.home.blackjack.util.ddd.pattern.events;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -23,32 +21,24 @@ import java.util.concurrent.Executors;
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
+import org.springframework.context.annotation.Scope;
 
+import javax.annotation.Resource;
+import javax.inject.Named;
+
+@Named
+@Scope("prototype")
 public class LightweightDomainEventBus implements DomainEventPublisher, SubscribableEventBus {
 
 	private final static Executor EXECUTOR = Executors.newFixedThreadPool(100);
 	private static Logger LOGGER = Logger.getLogger(LightweightDomainEventBus.class);
 
+    private boolean publishing;
 
-	private static final ThreadLocal<LightweightDomainEventBus> instance = new ThreadLocal<LightweightDomainEventBus>() {
-		protected LightweightDomainEventBus initialValue() {
-			return new LightweightDomainEventBus();
-		}
-	};
+    @Resource
+    private List<DomainEventSubscriber> subscribers;
 
-	private boolean publishing;
-
-	@SuppressWarnings("rawtypes")
-	private List subscribers;
 	private List<DomainEvent> bufferedEvents = Lists.newArrayList();
-
-	public static LightweightDomainEventBus domainEventPublisherInstance() {
-		return instance.get();
-	}
-
-	public static LightweightDomainEventBus subscribableEventBusInstance() {
-		return instance.get();
-	}
 
 	public <T extends DomainEvent> void publish(final T aDomainEvent) {
 		if (!this.isPublishing() && this.hasSubscribers()) {
@@ -62,57 +52,22 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 		}
 	}
 
-	public void publishAll(Collection<DomainEvent> aDomainEvents) {
-		for (DomainEvent domainEvent : aDomainEvents) {
-			this.publish(domainEvent);
-		}
-	}
-
 	public void reset() {
 		if (!this.isPublishing()) {
-			this.setSubscribers(null);
+            bufferedEvents.clear();
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T extends DomainEvent> void register(DomainEventSubscriber<T> aSubscriber) {
 		if (!this.isPublishing()) {
-			this.ensureSubscribersList();
-
 			this.subscribers().add(aSubscriber);
 		}
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public void register(DomainEventSubscriber... subscribers) {
-		for (DomainEventSubscriber<? extends DomainEvent> domainEventSubscriber : subscribers) {
-			register(domainEventSubscriber);
-		}
-
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public void register(List<DomainEventSubscriber> subscribers) {
-		for (DomainEventSubscriber<? extends DomainEvent> domainEventSubscriber : subscribers) {
-			register(domainEventSubscriber);
-		}
-
 	}
 
 	private LightweightDomainEventBus() {
 		super();
 
 		this.setPublishing(false);
-		this.ensureSubscribersList();
-	}
-
-	@SuppressWarnings("rawtypes")
-	private void ensureSubscribersList() {
-		if (!this.hasSubscribers()) {
-			this.setSubscribers(new ArrayList());
-		}
 	}
 
 	private boolean isPublishing() {
@@ -127,17 +82,10 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 		return this.subscribers() != null;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private List subscribers() {
+	private List<DomainEventSubscriber> subscribers() {
 		return this.subscribers;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private void setSubscribers(List aSubscriberList) {
-		this.subscribers = aSubscriberList;
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void flush() {
 
 		List<DomainEventSubscriber> allSubscribers = this.subscribers();
@@ -156,8 +104,6 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 					});
 				}
 			}
-
 		}
-
 	}
 }

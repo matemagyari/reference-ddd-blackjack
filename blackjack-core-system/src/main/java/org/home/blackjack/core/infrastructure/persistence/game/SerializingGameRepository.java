@@ -5,6 +5,7 @@ import java.util.concurrent.locks.Lock;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.domain.game.core.GameID;
@@ -22,7 +23,10 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 	
 	private final GameStore gameStore;
 	private final PersistenceAssembler<Game, PersistenceObject<Game>> gameStoreAssembler;
-	
+
+    @Inject
+    private EventBusManager eventBusManager;
+
 	@Inject
 	public SerializingGameRepository(GameStore gameStore) {
 		this.gameStore = gameStore;
@@ -36,7 +40,7 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 			throw new GameNotFoundException(gameID);
 		}
 		Game game = gameStoreAssembler.toDomain(po);
-		game.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
+		game.setDomainEventPublisher(eventBusManager.domainEventPublisherInstance());
 		return game;
 	}
 	
@@ -48,7 +52,7 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 			throw new GameNotFoundException(tableId);
 		}
 		Game game = gameStoreAssembler.toDomain(po);
-		game.setDomainEventPublisher(LightweightDomainEventBus.domainEventPublisherInstance());
+		game.setDomainEventPublisher(eventBusManager.domainEventPublisherInstance());
 		return game;
 	}
 
