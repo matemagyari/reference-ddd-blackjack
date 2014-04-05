@@ -15,8 +15,7 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
-import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
 import com.google.common.collect.Lists;
@@ -28,7 +27,7 @@ public class SerializingPlayerRepository implements PlayerRepository, DrivingAda
 	private final PersistenceAssembler<Player, PersistenceObject<Player>> playerStoreAssembler;
 	
 	@Resource
-    private EventBusManager eventBusManager;
+    private DomainEventPublisherFactory domainEventPublisherFactory;
 	
 	@Inject
 	public SerializingPlayerRepository(PlayerStore playerStore) {
@@ -83,7 +82,7 @@ public class SerializingPlayerRepository implements PlayerRepository, DrivingAda
 	
     private Player toDomain(PersistenceObject<Player> po) {
         Player player = playerStoreAssembler.toDomain(po);
-        player.setDomainEventPublisher(eventBusManager.domainEventPublisherInstance());
+        player.setDomainEventPublisher(domainEventPublisherFactory.domainEventPublisherInstance());
         return player;
     }
 	

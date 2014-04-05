@@ -13,7 +13,7 @@ import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
@@ -24,7 +24,7 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 	private final PersistenceAssembler<Game, PersistenceObject<Game>> gameStoreAssembler;
 
     @Inject
-    private EventBusManager eventBusManager;
+    private DomainEventPublisherFactory domainEventPublisherFactory;
 
 	@Inject
 	public SerializingGameRepository(GameStore gameStore) {
@@ -39,7 +39,7 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 			throw new GameNotFoundException(gameID);
 		}
 		Game game = gameStoreAssembler.toDomain(po);
-		game.setDomainEventPublisher(eventBusManager.domainEventPublisherInstance());
+		game.setDomainEventPublisher(domainEventPublisherFactory.domainEventPublisherInstance());
 		return game;
 	}
 	
@@ -51,7 +51,7 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
 			throw new GameNotFoundException(tableId);
 		}
 		Game game = gameStoreAssembler.toDomain(po);
-		game.setDomainEventPublisher(eventBusManager.domainEventPublisherInstance());
+		game.setDomainEventPublisher(domainEventPublisherFactory.domainEventPublisherInstance());
 		return game;
 	}
 

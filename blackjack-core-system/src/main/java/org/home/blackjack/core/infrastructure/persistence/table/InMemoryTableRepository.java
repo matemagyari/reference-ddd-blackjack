@@ -12,7 +12,7 @@ import javax.inject.Named;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
-import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
+import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
@@ -26,12 +26,12 @@ public class InMemoryTableRepository implements TableRepository, FinegrainedLock
 	private final ConcurrentMap<TableID, Lock> locks = Maps.newConcurrentMap();
 	
 	@Resource
-    private EventBusManager eventBusManager;
+    private DomainEventPublisherFactory domainEventPublisherFactory;
 
 	@Override
 	public Table find(TableID tableID) {
 		Table table = map.get(tableID);
-		table.setDomainEventPublisher(eventBusManager.domainEventPublisherInstance());
+		table.setDomainEventPublisher(domainEventPublisherFactory.domainEventPublisherInstance());
 		return table;
 	}
 	

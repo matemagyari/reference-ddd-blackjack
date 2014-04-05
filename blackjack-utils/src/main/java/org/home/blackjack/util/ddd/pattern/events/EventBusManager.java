@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
-public class EventBusManager {
+public class EventBusManager implements DomainEventPublisherFactory {
 	
 	private static Logger LOGGER = Logger.getLogger(EventBusManager.class);
 
@@ -26,11 +26,12 @@ public class EventBusManager {
         subscribableEventBusInstance().flush();
 	}
 
+	@Override
     public DomainEventPublisher domainEventPublisherInstance() {
         return instance.get();
     }
 
-    public SubscribableEventBus subscribableEventBusInstance() {
+    private LightweightDomainEventBus subscribableEventBusInstance() {
         return instance.get();
     }
 
