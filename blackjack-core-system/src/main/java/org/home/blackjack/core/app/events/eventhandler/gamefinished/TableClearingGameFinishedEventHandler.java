@@ -3,10 +3,10 @@ package org.home.blackjack.core.app.events.eventhandler.gamefinished;
 import javax.annotation.Resource;
 import javax.inject.Named;
 
-import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
+import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 
 @Named
 public class TableClearingGameFinishedEventHandler extends GameFinishedEventHandler {

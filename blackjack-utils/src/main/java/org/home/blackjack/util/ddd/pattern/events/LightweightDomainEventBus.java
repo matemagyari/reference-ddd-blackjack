@@ -14,11 +14,11 @@
 
 package org.home.blackjack.util.ddd.pattern.events;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 
@@ -26,138 +26,68 @@ import com.google.common.collect.Lists;
 
 public class LightweightDomainEventBus implements DomainEventPublisher, SubscribableEventBus {
 
-	private final static Executor EXECUTOR = Executors.newFixedThreadPool(100);
-	private static Logger LOGGER = Logger.getLogger(LightweightDomainEventBus.class);
+    private final static Executor EXECUTOR = Executors.newFixedThreadPool(100);
+    private static Logger LOGGER = Logger.getLogger(LightweightDomainEventBus.class);
 
+    private boolean publishing;
 
-	private static final ThreadLocal<LightweightDomainEventBus> instance = new ThreadLocal<LightweightDomainEventBus>() {
-		protected LightweightDomainEventBus initialValue() {
-			return new LightweightDomainEventBus();
-		}
-	};
+    @Resource
+    private List<DomainEventSubscriber> subscribers;
 
-	private boolean publishing;
+    private List<DomainEvent> bufferedEvents = Lists.newArrayList();
 
-	@SuppressWarnings("rawtypes")
-	private List subscribers;
-	private List<DomainEvent> bufferedEvents = Lists.newArrayList();
+    public <T extends DomainEvent> void publish(final T aDomainEvent) {
+        if (!this.isPublishing() && this.hasSubscribers()) {
 
-	public static LightweightDomainEventBus domainEventPublisherInstance() {
-		return instance.get();
-	}
+            try {
+                this.setPublishing(true);
+                bufferedEvents.add(aDomainEvent);
+            } finally {
+                this.setPublishing(false);
+            }
+        }
+    }
 
-	public static LightweightDomainEventBus subscribableEventBusInstance() {
-		return instance.get();
-	}
+    public void reset() {
+        if (!this.isPublishing()) {
+            bufferedEvents.clear();
+        }
+    }
 
-	public <T extends DomainEvent> void publish(final T aDomainEvent) {
-		if (!this.isPublishing() && this.hasSubscribers()) {
+    private boolean isPublishing() {
+        return this.publishing;
+    }
 
-			try {
-				this.setPublishing(true);
-				bufferedEvents.add(aDomainEvent);
-			} finally {
-				this.setPublishing(false);
-			}
-		}
-	}
+    private void setPublishing(boolean aFlag) {
+        this.publishing = aFlag;
+    }
 
-	public void publishAll(Collection<DomainEvent> aDomainEvents) {
-		for (DomainEvent domainEvent : aDomainEvents) {
-			this.publish(domainEvent);
-		}
-	}
+    private boolean hasSubscribers() {
+        return this.subscribers() != null;
+    }
 
-	public void reset() {
-		if (!this.isPublishing()) {
-			this.setSubscribers(null);
-		}
-	}
+    private List<DomainEventSubscriber> subscribers() {
+        return this.subscribers;
+    }
 
-	@SuppressWarnings("unchecked")
-	public <T extends DomainEvent> void register(DomainEventSubscriber<T> aSubscriber) {
-		if (!this.isPublishing()) {
-			this.ensureSubscribersList();
+    public void flush() {
 
-			this.subscribers().add(aSubscriber);
-		}
-	}
+        List<DomainEventSubscriber> allSubscribers = this.subscribers();
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public void register(DomainEventSubscriber... subscribers) {
-		for (DomainEventSubscriber<? extends DomainEvent> domainEventSubscriber : subscribers) {
-			register(domainEventSubscriber);
-		}
+        while (!bufferedEvents.isEmpty()) {
+            final DomainEvent nextEvent = bufferedEvents.remove(0);
 
-	}
+            for (final DomainEventSubscriber subscriber : allSubscribers) {
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public void register(List<DomainEventSubscriber> subscribers) {
-		for (DomainEventSubscriber<? extends DomainEvent> domainEventSubscriber : subscribers) {
-			register(domainEventSubscriber);
-		}
-
-	}
-
-	private LightweightDomainEventBus() {
-		super();
-
-		this.setPublishing(false);
-		this.ensureSubscribersList();
-	}
-
-	@SuppressWarnings("rawtypes")
-	private void ensureSubscribersList() {
-		if (!this.hasSubscribers()) {
-			this.setSubscribers(new ArrayList());
-		}
-	}
-
-	private boolean isPublishing() {
-		return this.publishing;
-	}
-
-	private void setPublishing(boolean aFlag) {
-		this.publishing = aFlag;
-	}
-
-	private boolean hasSubscribers() {
-		return this.subscribers() != null;
-	}
-
-	@SuppressWarnings("rawtypes")
-	private List subscribers() {
-		return this.subscribers;
-	}
-
-	@SuppressWarnings("rawtypes")
-	private void setSubscribers(List aSubscriberList) {
-		this.subscribers = aSubscriberList;
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void flush() {
-
-		List<DomainEventSubscriber> allSubscribers = this.subscribers();
-
-		while (!bufferedEvents.isEmpty()) {
-			final DomainEvent nextEvent = bufferedEvents.remove(0);
-
-			for (final DomainEventSubscriber subscriber : allSubscribers) {
-
-				if (subscriber.subscribedTo(nextEvent)) {
-					EXECUTOR.execute(new Runnable() {
-						@Override
-						public void run() {
-							subscriber.handleEvent(nextEvent);
-						}
-					});
-				}
-			}
-
-		}
-
-	}
+                if (subscriber.subscribedTo(nextEvent)) {
+                    EXECUTOR.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            subscriber.handleEvent(nextEvent);
+                        }
+                    });
+                }
+            }
+        }
+    }
 }
