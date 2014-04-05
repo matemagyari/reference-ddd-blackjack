@@ -2,7 +2,6 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
 
-import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameActionType;
@@ -31,6 +30,7 @@ import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher
 import org.home.blackjack.core.integration.test.util.AppLevelCucumberService;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
+import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 
 public class AppLevelTestAgent extends TestAgent {
 
