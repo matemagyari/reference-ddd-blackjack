@@ -1,15 +1,10 @@
-package org.home.blackjack.core.domain.shared;
+package org.home.blackjack.util.ddd.pattern.events;
 
 import javax.annotation.Resource;
-import javax.inject.Named;
 
 import org.apache.log4j.Logger;
-import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisher;
-import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
-import org.home.blackjack.util.ddd.pattern.events.SubscribableEventBus;
 import org.springframework.context.ApplicationContext;
 
-@Named
 public class EventBusManager {
 	
 	private static Logger LOGGER = Logger.getLogger(EventBusManager.class);

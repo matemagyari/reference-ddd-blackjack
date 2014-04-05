@@ -8,11 +8,11 @@ import org.apache.camel.spring.SpringRouteBuilder;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
-import org.home.blackjack.core.domain.shared.EventBusManager;
 import org.home.blackjack.core.infrastructure.messaging.assembler.MessageToDTOAssembler;
 import org.home.blackjack.messaging.command.GameCommandMessage;
 import org.home.blackjack.messaging.command.SeatingCommandMessage;
 import org.home.blackjack.messaging.query.TablesQueryMessage;
+import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 import org.springframework.beans.factory.annotation.Value;
 
 /**

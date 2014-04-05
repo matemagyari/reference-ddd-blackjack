@@ -11,11 +11,11 @@ import javax.inject.Named;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.PlayerNotFoundException;
 import org.home.blackjack.core.domain.player.PlayerRepository;
-import org.home.blackjack.core.domain.shared.EventBusManager;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 

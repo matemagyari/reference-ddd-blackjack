@@ -20,7 +20,6 @@ import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
-import org.home.blackjack.core.domain.shared.EventBusManager;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
@@ -31,6 +30,7 @@ import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher
 import org.home.blackjack.core.integration.test.util.AppLevelCucumberService;
 import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
+import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 
 public class AppLevelTestAgent extends TestAgent {
 
