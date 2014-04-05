@@ -1,4 +1,4 @@
-package org.home.blackjack.core.app.events.event;
+package org.home.blackjack.core.domain.shared;
 
 import javax.annotation.Resource;
 import javax.inject.Named;

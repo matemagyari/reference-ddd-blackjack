@@ -1,6 +1,26 @@
 
-Example cycles caused by org.home.blackjack.core.domain.player.event
+Example cycles caused by org.home.blackjack.core.domain
 
-org.home.blackjack.core.domain.player -->
-org.home.blackjack.core.domain.player.event -->
+org.home.blackjack.core.app -->
+org.home.blackjack.core.domain -->
+-------------------------------
+
+org.home.blackjack.core.app.events -->
+org.home.blackjack.core.domain -->
+-------------------------------
+
+Example cycles caused by org.home.blackjack.core.domain.game
+
+org.home.blackjack.core.app -->
+org.home.blackjack.core.domain -->
+org.home.blackjack.core.domain.game -->
+-------------------------------
+
+org.home.blackjack.core.app -->
+org.home.blackjack.core.domain.game -->
+-------------------------------
+
+org.home.blackjack.core.app.events -->
+org.home.blackjack.core.domain -->
+org.home.blackjack.core.domain.game -->
 -------------------------------

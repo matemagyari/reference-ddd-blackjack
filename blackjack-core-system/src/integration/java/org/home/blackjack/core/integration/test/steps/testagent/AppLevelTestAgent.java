@@ -2,7 +2,6 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
 
-import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameActionType;
@@ -21,6 +20,7 @@ import org.home.blackjack.core.domain.game.event.PlayerStandsEvent;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
+import org.home.blackjack.core.domain.shared.EventBusManager;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.LeaderboardDO;

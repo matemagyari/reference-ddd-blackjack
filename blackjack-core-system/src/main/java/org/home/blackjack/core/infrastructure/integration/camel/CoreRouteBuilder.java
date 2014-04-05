@@ -5,10 +5,10 @@ import javax.inject.Named;
 
 import org.apache.camel.component.gson.GsonDataFormat;
 import org.apache.camel.spring.SpringRouteBuilder;
-import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
+import org.home.blackjack.core.domain.shared.EventBusManager;
 import org.home.blackjack.core.infrastructure.messaging.assembler.MessageToDTOAssembler;
 import org.home.blackjack.messaging.command.GameCommandMessage;
 import org.home.blackjack.messaging.command.SeatingCommandMessage;

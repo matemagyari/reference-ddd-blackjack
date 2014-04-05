@@ -43,5 +43,7 @@
 			</util:map>
 		</property>
 	</bean>
+	
+	<bean id="lightweightDomainEventBus" class="org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus" scope="prototype"/>
 
 </beans>

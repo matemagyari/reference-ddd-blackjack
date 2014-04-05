@@ -5,16 +5,15 @@ import java.util.concurrent.locks.Lock;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.home.blackjack.core.app.events.event.EventBusManager;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.exception.GameNotFoundException;
+import org.home.blackjack.core.domain.shared.EventBusManager;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 

@@ -14,18 +14,16 @@
 
 package org.home.blackjack.util.ddd.pattern.events;
 
-import com.google.common.collect.Lists;
-import org.apache.log4j.Logger;
-import org.springframework.context.annotation.Scope;
-
-import javax.annotation.Resource;
-import javax.inject.Named;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-@Named
-@Scope("prototype")
+import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
+
+import com.google.common.collect.Lists;
+
 public class LightweightDomainEventBus implements DomainEventPublisher, SubscribableEventBus {
 
     private final static Executor EXECUTOR = Executors.newFixedThreadPool(100);
