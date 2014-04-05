@@ -14,96 +14,82 @@
 
 package org.home.blackjack.util.ddd.pattern.events;
 
-import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
-import org.apache.log4j.Logger;
-
 import com.google.common.collect.Lists;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 @Named
 @Scope("prototype")
 public class LightweightDomainEventBus implements DomainEventPublisher, SubscribableEventBus {
 
-	private final static Executor EXECUTOR = Executors.newFixedThreadPool(100);
-	private static Logger LOGGER = Logger.getLogger(LightweightDomainEventBus.class);
+    private final static Executor EXECUTOR = Executors.newFixedThreadPool(100);
+    private static Logger LOGGER = Logger.getLogger(LightweightDomainEventBus.class);
 
     private boolean publishing;
 
     @Resource
     private List<DomainEventSubscriber> subscribers;
 
-	private List<DomainEvent> bufferedEvents = Lists.newArrayList();
+    private List<DomainEvent> bufferedEvents = Lists.newArrayList();
 
-	public <T extends DomainEvent> void publish(final T aDomainEvent) {
-		if (!this.isPublishing() && this.hasSubscribers()) {
+    public <T extends DomainEvent> void publish(final T aDomainEvent) {
+        if (!this.isPublishing() && this.hasSubscribers()) {
 
-			try {
-				this.setPublishing(true);
-				bufferedEvents.add(aDomainEvent);
-			} finally {
-				this.setPublishing(false);
-			}
-		}
-	}
+            try {
+                this.setPublishing(true);
+                bufferedEvents.add(aDomainEvent);
+            } finally {
+                this.setPublishing(false);
+            }
+        }
+    }
 
-	public void reset() {
-		if (!this.isPublishing()) {
+    public void reset() {
+        if (!this.isPublishing()) {
             bufferedEvents.clear();
-		}
-	}
+        }
+    }
 
-	public <T extends DomainEvent> void register(DomainEventSubscriber<T> aSubscriber) {
-		if (!this.isPublishing()) {
-			this.subscribers().add(aSubscriber);
-		}
-	}
+    private boolean isPublishing() {
+        return this.publishing;
+    }
 
-	private LightweightDomainEventBus() {
-		super();
+    private void setPublishing(boolean aFlag) {
+        this.publishing = aFlag;
+    }
 
-		this.setPublishing(false);
-	}
+    private boolean hasSubscribers() {
+        return this.subscribers() != null;
+    }
 
-	private boolean isPublishing() {
-		return this.publishing;
-	}
+    private List<DomainEventSubscriber> subscribers() {
+        return this.subscribers;
+    }
 
-	private void setPublishing(boolean aFlag) {
-		this.publishing = aFlag;
-	}
+    public void flush() {
 
-	private boolean hasSubscribers() {
-		return this.subscribers() != null;
-	}
+        List<DomainEventSubscriber> allSubscribers = this.subscribers();
 
-	private List<DomainEventSubscriber> subscribers() {
-		return this.subscribers;
-	}
+        while (!bufferedEvents.isEmpty()) {
+            final DomainEvent nextEvent = bufferedEvents.remove(0);
 
-	public void flush() {
+            for (final DomainEventSubscriber subscriber : allSubscribers) {
 
-		List<DomainEventSubscriber> allSubscribers = this.subscribers();
-
-		while (!bufferedEvents.isEmpty()) {
-			final DomainEvent nextEvent = bufferedEvents.remove(0);
-
-			for (final DomainEventSubscriber subscriber : allSubscribers) {
-
-				if (subscriber.subscribedTo(nextEvent)) {
-					EXECUTOR.execute(new Runnable() {
-						@Override
-						public void run() {
-							subscriber.handleEvent(nextEvent);
-						}
-					});
-				}
-			}
-		}
-	}
+                if (subscriber.subscribedTo(nextEvent)) {
+                    EXECUTOR.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            subscriber.handleEvent(nextEvent);
+                        }
+                    });
+                }
+            }
+        }
+    }
 }
