@@ -70,6 +70,7 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 
 	public void reset() {
 		if (!this.isPublishing()) {
+			bufferedEvents.clear();
 			this.setSubscribers(null);
 		}
 	}
