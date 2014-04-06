@@ -7,27 +7,21 @@ import org.home.blackjack.core.domain.Dealer;
 import org.home.blackjack.core.domain.table.event.TableIsFullEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
-import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 
 @Named
 public class TableIsFullEventHandler implements DomainEventSubscriber<TableIsFullEvent> {
-    
-    @Resource
-    private Dealer dealer;
-	@Resource
-	private EventBusManager eventBusManager;
 
-    @Override
-    public boolean subscribedTo(DomainEvent event) {
-        return event instanceof TableIsFullEvent;
-    }
-    @Override
-    public void handleEvent(TableIsFullEvent event) {
-    	eventBusManager.initialize();
-		
-    	dealer.startANewGameOnTable(event.tableId(), event.players());
-    	
-    	eventBusManager.flush();
-    }
+	@Resource
+	private Dealer dealer;
+
+	@Override
+	public boolean subscribedTo(DomainEvent event) {
+		return event instanceof TableIsFullEvent;
+	}
+
+	@Override
+	public void handleEvent(TableIsFullEvent event) {
+		dealer.startANewGameOnTable(event.tableId(), event.players());
+	}
 
 }

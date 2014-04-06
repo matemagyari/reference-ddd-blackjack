@@ -34,7 +34,6 @@ function tablePrivateEventListener(msg) {
 		if (session.tables[tableId].cards.length == 2) {
 			$('#playDiv').show()
 		}
-		displayNewCard(event)
 	} 
 	displaySession()
 	displayTables()
@@ -52,21 +51,24 @@ function tablePublicEventListener(msg) {
 		createTableIfMissing(theTableId)
 		if (event.actingPlayer != session.playerId) {
 			session.tables[theTableId].opponentCards = session.tables[theTableId].opponentCards + 1
-			console.log('opponents card', session.tables[theTableId].opponentCards)
+			if (session.tables[theTableId].cards.length === 2) {
+				displayGameStarted(event)
+			}
 		} else {
 			console.log('my card', event)
 		}
-		displayOpponentsCard(event)
 	} else if (event.type == 'TableSeatingChangedEventMessage') {
 		theTableId = event.id
 		createTableIfMissing(theTableId)
 		session.tables[theTableId].players = event.players		
-		displayTable(event)
 	} else if (event.type == 'GameStartedEventMessage') {
 		theTableId = event.tableID
 		createTableIfMissing(theTableId)
 		session.tables[theTableId].gameId = event.gameID
-		displayGameStarted(event)
+		session.tables[theTableId].startingPlayer = event.playerToAct
+		if (event.playerToAct === session.playerId) {
+			displayGameStarted(event)
+		}		
 		getBalance(displayBalance)
 	} else if (event.type == 'GameFinishedEventMessage') {
 		session.tables[event.tableID] = {}

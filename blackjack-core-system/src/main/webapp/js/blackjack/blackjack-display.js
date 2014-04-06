@@ -2,16 +2,6 @@
 //--------------------------------- display logic -----------------------
 function displayGameStarted(event) {
 	$('#playDiv').show()
-	console.log('displayGameStarted', event)
-}
-function displayTable(event) {
-	console.log('displayTable', event)
-}
-function displayOpponentsCard(event) {
-	console.log('displayOpponentsCard', event)
-}
-function displayNewCard(event) {
-	console.log('displayNewCard', event)
 }
 function displayLeaderboard(event) {
 	$('#leaderBoardDiv').show()
@@ -41,10 +31,6 @@ function displayTables() {
 		}
 		$('#tablesTable').append('<tr><td>'+tableId+'</td><td>'+players+'</td><td>'+buttonStr+'</td></tr>')
 	}
-}
-
-function displayGameFinished() {
-	
 }
 
 function displaySession() {

@@ -92,7 +92,7 @@ public class Game extends AggregateRoot<GameID> {
 		if (state != GameState.BEFORE_INITIAL_DEAL) {
 			throw new IllegalStateException(getID() + " initial deal has been already made");
 		}
-		publish(new GameStartedEvent(getID(),tableId, nextSequenceId()));
+		publish(new GameStartedEvent(getID(),tableId, player.getID(), nextSequenceId()));
 		dealFor(player);
 		dealFor(dealer);
 		dealFor(player);

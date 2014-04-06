@@ -2,13 +2,10 @@ package org.home.blackjack.util.ddd.pattern.events;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
 public class EventBusManager implements DomainEventPublisherFactory {
 	
-	private static Logger LOGGER = Logger.getLogger(EventBusManager.class);
-
     private static final ThreadLocal<LightweightDomainEventBus> instance = new ThreadLocal<LightweightDomainEventBus>() {
         protected LightweightDomainEventBus initialValue() {
             return context.getBean(LightweightDomainEventBus.class);
@@ -22,8 +19,7 @@ public class EventBusManager implements DomainEventPublisherFactory {
 	}
 	
 	public void flush() {
-		LOGGER.info("flush");
-        subscribableEventBusInstance().flush();
+        subscribableEventBusInstance().flush(this);
 	}
 
 	@Override

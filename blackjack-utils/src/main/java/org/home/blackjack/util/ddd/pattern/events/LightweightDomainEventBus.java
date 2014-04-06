@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
 
-public class LightweightDomainEventBus implements DomainEventPublisher, SubscribableEventBus {
+public class LightweightDomainEventBus implements DomainEventPublisher {
 
     private final static Executor EXECUTOR = Executors.newFixedThreadPool(100);
     private static Logger LOGGER = Logger.getLogger(LightweightDomainEventBus.class);
@@ -36,6 +36,7 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
 
     private List<DomainEvent> bufferedEvents = Lists.newArrayList();
 
+    @Override
     public <T extends DomainEvent> void publish(final T aDomainEvent) {
         if (!this.isPublishing() && this.hasSubscribers()) {
 
@@ -70,7 +71,7 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
         return this.subscribers;
     }
 
-    public void flush() {
+    public void flush(final EventBusManager eventBusManager) {
 
         List<DomainEventSubscriber> allSubscribers = this.subscribers();
 
@@ -83,7 +84,9 @@ public class LightweightDomainEventBus implements DomainEventPublisher, Subscrib
                     EXECUTOR.execute(new Runnable() {
                         @Override
                         public void run() {
+                        	eventBusManager.initialize();
                             subscriber.handleEvent(nextEvent);
+                            eventBusManager.flush();
                         }
                     });
                 }

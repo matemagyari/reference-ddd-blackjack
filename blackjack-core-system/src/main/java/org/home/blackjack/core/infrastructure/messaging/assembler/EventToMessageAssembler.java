@@ -48,7 +48,7 @@ public class EventToMessageAssembler {
     }
 
     public GameStartedEventMessage assemble(GameStartedEvent event) {
-        return new GameStartedEventMessage(event.getGameID().toString(), event.getTableID().toString(), event.getSequenceNumber());
+        return new GameStartedEventMessage(event.getGameID().toString(), event.getTableID().toString(), event.getActingPlayer().toString(), event.getSequenceNumber());
     }
 
     public InitialCardsDealtEventMessage assemble(InitialCardsDealtEvent event) {
