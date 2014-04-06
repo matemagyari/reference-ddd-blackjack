@@ -3,18 +3,19 @@ This is a reference DDD project, implementing a simplified Blackjack game engine
 General user experience description:
 
 It's a simplified 2-player Blackjack game. Users only need a browser. At the beginning they must register, so an account
-of X chips will be created for each. Then they can join to tables, whenever two players sit at the same table a game 
+of X chips will be created for each. Then they can join to tables and whenever two players sit at the same table a game 
 begins. One player will be the dealer. At the beginning of the game their bets are automatically deducted from their 
-balance, and at the end of the game the winner will be credited. On the page the players can see a leader board. For 
-the rules of the game, check org.home.blackjack.core.domain.game.Game.
+balance, and at the end of the game the winner will be credited. After a game the players are removed from the table. 
+On the page the players can see a leader board. For  the rules of the game, check 
+org.home.blackjack.core.domain.game.Game.
 
 General deployment description:
 
 The application has two artifacts (jars), Blackjack Core and Blackjack Wallet. 
 Start up 
 	* Blackjack Core: mvn exec:java
-	* Blackjack Core: mvn jetty:run 
-    * the users only need a browser.
+	* Blackjack Wallet: mvn jetty:run 
+    	* the users only need a browser and open file:///.../blackjack/blackjack-core-system/src/main/webapp/index.html
 
 General technical description:
 
@@ -23,7 +24,8 @@ is to provide numerous examples for different types of Ports and Adapters, as we
 exposes REST and Cometd endpoints to interact with and provides in-memory (a simple map-based and a Hazelcast based) 
 persistence. It has a minimalistic UI in browser.
 Components:
-* Blackjack Messaging Client - library defining the messages (commands&queries) the client can send to Core, and the event messages Core sends to Client
+* Blackjack Messaging Client - library defining the messages (commands&queries) the client can send to Core, and the
+                               event messages Core sends to Client
 * Blackjack Core - implements the game, interacts with Blackjack Wallet
 * Blackjack Wallet - managing players' chips
 * Blackjack Utils - marker interfaces, abstract classes and interfaces for HA and DDD patterns 
