@@ -29,8 +29,9 @@ Components:
 * Blackjack Core - implements the game, interacts with Blackjack Wallet
 * Blackjack Wallet - managing players' chips
 * Blackjack Utils - marker interfaces, abstract classes and interfaces for HA and DDD patterns 
-                    (aggregate root, value object, ...), locking
-* Blackjack UI - UI code, currently in Blackjack Core's src/main/webapp. Uses REST and CometD via javascript to interact with Core and Wallet               
+                    (aggregate root, value object, ...), locking, event handling mechanism
+* Blackjack UI - UI code, currently in Blackjack Core's src/main/webapp. Uses REST and CometD via javascript to 
+                 interact with Core and Wallet               
 
 
 Hexagonal Architecture concepts/patterns the project show examples are:
@@ -47,12 +48,15 @@ Aggregate design:
 * Eventual consistency requirements - consistency rules among multiple aggregate instances. Examples:
     1. A player's win number in PlayerRecord aggregate must equal the number of Game instances in which she won 
     2. The sum of wins for all the PlayerRecord instances must equal the number of Game instances
-    3. Entry fee is deducted from the player's balance when the game starts. Likewise, his win is paid out after the game.
+    3. Entry fee is deducted from the player's balance when the game starts. Likewise, his win is paid out after the
+       game.
 * aggregate roots: e.g. Game, Player
 * aggregates can only reference to each other by id. See Game -> Player
 
 Value Objects: e.g. Card, PlayerId, GameId (all entity ids are value objects)
-Entities: e.g. org.home.blackjack.core.domain.game.Deck, org.home.blackjack.core.domain.game.Player. Their ids are only unique inside the aggregate.
+Entities: e.g. org.home.blackjack.core.domain.game.Deck, org.home.blackjack.core.domain.game.Player. Their ids are only 
+unique inside the aggregate.
+
 Id generation: currently using UUIDs. Some applications might require using the DB generating the ids. 
 
 Domain Services:
@@ -63,28 +67,31 @@ Infrastructure Services:
 * e.g. the assemblers serializing/deserializing Domain objects, IDGenerationStrategy
 
 ACLs:
-* ACLs are implemented by Adapters. Adapters contain the technology-specific logic (e.g CometD) and the assemblers that translate data between the layers. 
-  Driven Adapters are implemented by Camel routes and JAX-RS, Driving Adapters by various technologies (Mongo, Hazelcast, ...).
+* ACLs are implemented by Adapters. Adapters contain the technology-specific logic (e.g CometD) and the assemblers that 
+  translate data between the layers. Driven Adapters are implemented by Camel routes and JAX-RS, Driving Adapters by 
+  various technologies (Mongo, Hazelcast, ...).
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
 * external domain events - events translated to messages to be sent out of the Bounded Context 
 * events are dispatched by aggregate roots, sometimes by domain services. 
-* Sometimes a domain event is translated to multiple messages to send out.  E.g. PlayerCardsDealtEvent contains the card the player's been dealt.  
-The fact that the deal has happened needs to get propagated to all parties around the table, but the card will be shown only the particular player. 
-So the PlayerCardsDealtEvent is split into two events in the app layer (in an event handler)
-* the Domain Events are put on a lightweight event bus. The event bus instance belongs to the thread and it buffers the events. After every "transaction" 
-(we call transaction when the state of an aggregate had changed and it's been persisted) the event bus is "flushed" (done by Camel, check the route builder). 
-Without buffering if an exception occurs after an event is dispatched and the aggregate doesn't get persisted, there would be no way to "call back" the events. So
-they only get released from the buffer once the "transaction is closed"
+* Sometimes a domain event is translated to multiple messages to send out.  E.g. PlayerCardsDealtEvent contains the card
+  the player's been dealt. The fact that the deal has happened needs to get propagated to all parties around the table, 
+  but the card will be shown only the particular player. So the PlayerCardsDealtEvent is split into two events in the 
+  app layer (in an event handler)
+* the Domain Events are put on a lightweight event bus. The event bus instance belongs to the thread and it buffers the 
+  events. After every "transaction" (we call transaction when the state of an aggregate had changed and it's been 
+  persisted) the event bus is "flushed" (done by Camel, check the route builder). Without buffering if an exception 
+  occurs after an event is dispatched and the aggregate doesn't get persisted, there would be no way to "call back" the
+  events. Sothey only get released from the buffer once the "transaction is closed"
 
 Application layer responsibilities:
-* provide a facade to the client to interact with the app (public methods of an app service is a Driven Port) = implement Use Cases. 
-  Each application service implements one Use Case, or a group of multiple smaller, related ones
+* providing a facade to the client to interact with the app (public methods of an app service are Driven Ports)
+  = implement Use Cases. Each application service implements one Use Case, or a group of multiple smaller, related ones
 * event handling - see domain events
 * bootstrapping
-* routing Domain Events either back to the Domain or out of the application. Sometimes a Domain Event must be translated to multiple messages. The application service
-  splits the event into multiple events
+* routing Domain Events either back to the Domain or out of the application. Sometimes a Domain Event must be translated
+  to multiple messages. The application service splits the event into multiple events
 
 
 Structure
@@ -95,7 +102,7 @@ Structure
     
 * Subdomains: there is an ideal one-to-one mapping between subdomains and Bounded Contexts.
 
-* Modules - in Blackjack Core
+* Modules - in Blackjack Core. Modules are organized around aggregates
     ** Game: contains the Game aggregate 
     ** Player: contains the Player aggregate
     ** Table: contains the Table aggregate
