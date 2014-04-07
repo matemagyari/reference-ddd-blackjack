@@ -44,6 +44,10 @@
 		</property>
 	</bean>
 	
+	<bean id="serializingGameRepository" class="org.home.blackjack.core.infrastructure.persistence.game.SerializingGameRepository">
+	   <constructor-arg name="gameStore" ref="gameStore"/>
+	</bean>
+	
 	<bean id="lightweightDomainEventBus" class="org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus" scope="prototype"/>
 	<bean id="eventBusManager" class="org.home.blackjack.util.ddd.pattern.events.EventBusManager"/>
 

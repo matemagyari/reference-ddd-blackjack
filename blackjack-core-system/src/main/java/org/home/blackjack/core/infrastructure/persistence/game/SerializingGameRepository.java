@@ -3,7 +3,6 @@ package org.home.blackjack.core.infrastructure.persistence.game;
 import java.util.concurrent.locks.Lock;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameRepository;
@@ -17,7 +16,6 @@ import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
-@Named
 public class SerializingGameRepository implements GameRepository, FinegrainedLockable<GameID>, DrivingAdapter<GameRepository> {
 	
 	private final GameStore gameStore;
@@ -26,7 +24,6 @@ public class SerializingGameRepository implements GameRepository, FinegrainedLoc
     @Inject
     private DomainEventPublisherFactory domainEventPublisherFactory;
 
-	@Inject
 	public SerializingGameRepository(GameStore gameStore) {
 		this.gameStore = gameStore;
 		this.gameStoreAssembler = gameStore.assembler();

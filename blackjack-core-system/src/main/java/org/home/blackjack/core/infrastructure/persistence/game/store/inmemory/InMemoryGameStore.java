@@ -12,7 +12,6 @@ import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
 
@@ -26,6 +25,9 @@ public class InMemoryGameStore implements GameStore {
 
 	@Resource
 	private InMemoryGamePersistenceAssembler gameStoreAssembler;
+	
+	public InMemoryGameStore() {
+    }
 	
 	@Override
 	public InMemoryGamePersistenceAssembler assembler() {
