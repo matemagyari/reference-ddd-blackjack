@@ -5,8 +5,9 @@ import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
 import org.cometd.bayeux.client.ClientSessionChannel.MessageListener;
 import org.home.blackjack.core.infrastructure.integration.cometd.CometDClient;
+import org.junit.Ignore;
 import org.junit.Test;
-
+@Ignore
 public class MainTest {
 
 	@Test

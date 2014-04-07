@@ -5,6 +5,7 @@ import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.aspect.PessimisticLockingAspect;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
@@ -46,7 +47,7 @@ public class BlackjackCoreAppLevelConfig {
     }
 
     @Bean
-    @Scope("prototype")
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     public LightweightDomainEventBus lightweightDomainEventBus() {
         return new LightweightDomainEventBus();
     }

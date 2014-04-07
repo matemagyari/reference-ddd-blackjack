@@ -118,7 +118,6 @@ Package structure (layers of onion from inside out)
 
 Visibility scopes are deliberately restricted to package level wherever possible to encourage loose coupling and encapsulation on package level.
 
-Architectural notes
 
 Client
 
@@ -134,14 +133,20 @@ The general client flow
 7. events about the game arrive on /player/{playerId}/table/{tableId} channel
  
 
+Architectural notes
+
+Hexagonal (Ports and Adapters) Architecture
+
+Event-Driven Architecture
+Domain events are published by Aggregate Roots, sometimes by Domain Services. The events are consumed by event handlers
+(classes extending org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber), which send them out or interact
+with the domain, lending a declarative-like programmatic style.
 
 Command&Query separation
-* the clients can send either commands, or queries. The commands change the state of the application and usually events are sent out. The queries never change the state
-and the answers are sent out asynchronously, like events
-
-Domain Events
-Blackjack follows the Event Driven Architectural style
-
+* the clients can send either commands, or queries. The commands change the state of the application and usually events 
+  are sent out as a consequence. The queries never change the state and the answers are sent out asynchronously, 
+  like events. The Application Services consume Commands or Queries 
+  (instances of org.home.blackjack.core.app.dto.Command/Query)
 
 Acceptance Testing
 * the acceptance tests are implemented using Cucumber. All tests could be run on 2 different levels. One test client simulates the user calling directly the application 

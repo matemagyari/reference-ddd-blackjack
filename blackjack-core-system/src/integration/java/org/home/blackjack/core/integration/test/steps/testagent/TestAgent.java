@@ -23,7 +23,7 @@ import org.junit.Assert;
 import com.google.common.collect.Maps;
 
 
-public abstract class TestAgent {
+public abstract class  TestAgent {
 	
 	protected FakeDeckFactory fakeDeckFactory;
 	protected TableRepository tableRepository;
