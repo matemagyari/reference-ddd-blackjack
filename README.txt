@@ -70,6 +70,10 @@ ACLs:
 * ACLs are implemented by Adapters. Adapters contain the technology-specific logic (e.g CometD) and the assemblers that 
   translate data between the layers. Driven Adapters are implemented by Camel routes and JAX-RS, Driving Adapters by 
   various technologies (Mongo, Hazelcast, ...).
+* 3 ACLs in Blackjack Core
+  ** Between Client->Application: all the commands/queries coming from clients pass through this ACL. Json messages are
+     transformed to Message objects defined in Blackjack Messaging Client library, then the Message objects are 
+     transformed to Command/Query DTOs the Application Services consume 
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
