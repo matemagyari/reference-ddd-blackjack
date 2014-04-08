@@ -6,10 +6,13 @@ import java.util.Map;
 
 import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.infrastructure.persistence.game.SerializingGameRepository;
+import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.util.SwitchableBeanFactory;
 import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.aspect.PessimisticLockingAspect;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -26,7 +29,7 @@ import org.springframework.core.io.Resource;
 @EnableAspectJAutoProxy
 public class BlackjackCoreAppLevelConfig {
 
-    @Bean(name = "lockAspect")
+     @Bean(name = "lockAspect")
     public PessimisticLockingAspect lockAspect() {
         return new PessimisticLockingAspect();
     }
@@ -41,8 +44,8 @@ public class BlackjackCoreAppLevelConfig {
     }
 
     @Bean(name = "gameStore")
-    public SwitchableBeanFactory gameStore(@Value("${blackjack.persistence.type}") String type) {
-        SwitchableBeanFactory switchableBeanFactory = new SwitchableBeanFactory();
+    public SwitchableBeanFactory<GameStore> gameStore(@Value("${blackjack.persistence.type}") String type) {
+        SwitchableBeanFactory<GameStore> switchableBeanFactory = new SwitchableBeanFactory<GameStore>();
         switchableBeanFactory.setUseBean(type);
         Map<String, String> gameStores = new HashMap<String, String>();
         gameStores.put("memory","inMemoryGameStore");
@@ -52,11 +55,11 @@ public class BlackjackCoreAppLevelConfig {
         return switchableBeanFactory;
     }
     
-    @Bean(name = "gameRepository")
-    public GameRepository gameRepository() {
-        return new SerializingGameRepository(gameStore);
+    @Bean
+    public SerializingGameRepository serializingGameRepository(SwitchableBeanFactory<GameStore> gameStore) {
+        return new SerializingGameRepository(gameStore.getBean());
     }
-    
+
     @Bean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     public LightweightDomainEventBus lightweightDomainEventBus() {

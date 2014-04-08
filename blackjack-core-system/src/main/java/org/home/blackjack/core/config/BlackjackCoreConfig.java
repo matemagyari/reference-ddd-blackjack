@@ -14,6 +14,7 @@ import java.util.List;
 @Configuration
 @ComponentScan("org.home.blackjack.core")
 @Import({CamelConfiguration.class, BlackjackCoreAppLevelConfig.class})
+@ImportResource("classpath:META-INF/applicationContext-blackjack-core-mongo.xml")
 public class BlackjackCoreConfig extends CamelConfiguration{
 
     @Autowired private CamelContext camelContext;
