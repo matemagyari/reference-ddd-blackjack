@@ -145,11 +145,16 @@ The general client flow
 Architectural notes
 
 Hexagonal (Ports and Adapters) Architecture
+The interaction points with the application are organized around Ports and Adapters.
 
 Event-Driven Architecture
 Domain events are published by Aggregate Roots, sometimes by Domain Services. The events are consumed by event handlers
 (classes extending org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber), which send them out or interact
-with the domain, lending a declarative-like programmatic style.
+with the domain, lending a declarative-like programmatic style to the app. For example the rule
+'When a table is full Then start a new game' is implemented by:
+1. the Table aggregate root dispatches a TableIsFullEvent when it's full
+2. TableIsFullEventEventHandler will consume the event and create a new Game instance tied to the table
+Each event handler is invoked on a separate thread.
 
 Command&Query separation
 * the clients can send either commands, or queries. The commands change the state of the application and usually events 
