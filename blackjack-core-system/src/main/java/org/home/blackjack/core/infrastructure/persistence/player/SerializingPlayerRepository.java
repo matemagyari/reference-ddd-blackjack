@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.PlayerNotFoundException;
@@ -20,7 +19,6 @@ import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
 import com.google.common.collect.Lists;
 
-@Named
 public class SerializingPlayerRepository implements PlayerRepository, DrivingAdapter<PlayerRepository> {
 	
 	private final PlayerStore playerStore;
