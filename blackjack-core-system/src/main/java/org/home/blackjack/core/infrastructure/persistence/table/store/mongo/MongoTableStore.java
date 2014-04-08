@@ -1,5 +1,7 @@
 package org.home.blackjack.core.infrastructure.persistence.table.store.mongo;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.inject.Named;
 
@@ -10,6 +12,7 @@ import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObje
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 
+import com.google.common.collect.Lists;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
@@ -60,6 +63,15 @@ public class MongoTableStore extends MongoStore implements TableStore {
         BasicDBObject query = new BasicDBObject();
         query.put("id.internal", gameID.getId());
         return query;
+    }
+
+    @Override
+    public List<PersistenceObject<Table>> findAll() {
+        List<PersistenceObject<Table>> result = Lists.newArrayList();
+        for(DBObject dbObject : super.basicfindAll()) {
+            result.add(new MongoPersistenceTable(dbObject.toString()));
+        }
+        return result;
     }
 
 

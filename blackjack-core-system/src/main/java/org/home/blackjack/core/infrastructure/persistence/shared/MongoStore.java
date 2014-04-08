@@ -1,5 +1,6 @@
 package org.home.blackjack.core.infrastructure.persistence.shared;
 
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -8,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.home.blackjack.core.domain.game.core.GameID;
 
+import com.google.common.collect.Lists;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -49,6 +51,21 @@ public abstract class MongoStore {
         }
     }
 
+    protected List<DBObject> basicfindAll() {
+        List<DBObject> result = Lists.newArrayList();
+        DBCursor cursor = null;
+        try {
+            cursor = collection().find().slaveOk();
+            if (cursor.hasNext()) {
+                result.add(cursor.next());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
+    }
     
     protected DBObject find(BasicDBObject query) {
         DBCursor cursor = null;
