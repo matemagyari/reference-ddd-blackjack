@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans default-lazy-init="true"
-	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:camel="http://camel.apache.org/schema/spring"
+<beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util" xmlns:camel="http://camel.apache.org/schema/spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
                         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
@@ -12,8 +9,8 @@
 
 	<context:component-scan base-package="org.home.blackjack.core" />
 
-	<import
-		resource="classpath:META-INF/applicationContext-blackjack-core-applevel.xml" />
+	<import resource="classpath:META-INF/applicationContext-blackjack-core-applevel.xml" />
+	<import resource="classpath:META-INF/applicationContext-blackjack-core-mongo.xml" />
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
 		<camel:contextScan />

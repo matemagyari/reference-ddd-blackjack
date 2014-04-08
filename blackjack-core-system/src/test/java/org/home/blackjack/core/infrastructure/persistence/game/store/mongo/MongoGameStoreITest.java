@@ -9,6 +9,7 @@ import org.home.blackjack.core.domain.game.Game;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -16,14 +17,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mongodb.Mongo;
 
-import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.MongodConfig;
-import de.flapdoodle.embed.mongo.config.RuntimeConfig;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.extract.UserTempNaming;
 
+@Ignore
 @ContextConfiguration("classpath:META-INF/applicationContext-blackjack-core.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MongoGameStoreITest {
@@ -39,7 +35,7 @@ public class MongoGameStoreITest {
 
 	@BeforeClass
 	public static void initializeDB() throws IOException {
-		
+		/*
 		System.setProperty("blackjack.persistence.type", "mongo");
 		RuntimeConfig config = new RuntimeConfig();
 		config.setExecutableNaming(new UserTempNaming());
@@ -48,6 +44,7 @@ public class MongoGameStoreITest {
 		mongoProcess = mongoExecutable.start();
 		mongo = new Mongo(LOCALHOST, MONGO_TEST_PORT);
 		mongo.getDB(DB_NAME);
+		*/
 	}
 
 	@AfterClass
