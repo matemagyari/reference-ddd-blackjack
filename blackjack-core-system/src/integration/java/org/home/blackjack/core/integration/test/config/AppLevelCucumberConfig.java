@@ -1,5 +1,6 @@
 package org.home.blackjack.core.integration.test.config;
 
+import org.home.blackjack.core.config.BlackjackCoreAppLevelConfig;
 import org.home.blackjack.core.config.BlackjackCoreConfig;
 import org.home.blackjack.core.integration.test.fakes.FakeDeckFactory;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(BlackjackCoreConfig.class)
+@Import(BlackjackCoreAppLevelConfig.class)
 @EnableAspectJAutoProxy
 public class AppLevelCucumberConfig {
 
