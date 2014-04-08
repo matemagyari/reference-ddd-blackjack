@@ -74,6 +74,11 @@ ACLs:
   ** Between Client->Application: all the commands/queries coming from clients pass through this ACL. Json messages are
      transformed to Message objects defined in Blackjack Messaging Client library, then the Message objects are 
      transformed to Command/Query DTOs the Application Services consume 
+  ** Between Application->Client: all the domain events that are meant for the client are transformed to Messages 
+     (defined in Blackjack Messaging Client library), then to JSON
+  ** Between Domain<->persistence: the domain objects are serialized to json before saved in the DB. Gson provides tools
+     to define custom (de)serializers so different versions of data can be managed. See an example in 
+     GameGsonProvider.java
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
