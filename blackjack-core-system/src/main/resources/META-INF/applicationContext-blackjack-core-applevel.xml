@@ -43,9 +43,37 @@
 			</util:map>
 		</property>
 	</bean>
+	<bean id="playerStore"
+		class="org.home.blackjack.util.SwitchableBeanFactory">
+		<property name="useBean" value="${blackjack.persistence.type}" />
+		<property name="mappings">
+			<util:map id="playerStores">
+				<entry key="memory" value="inMemoryPlayerStore" />
+				<entry key="hazelcast" value="hazelcastPlayerStore" />
+				<entry key="mongo" value="mongoPlayerStore" />
+			</util:map>
+		</property>
+	</bean>
+	<bean id="tableStore"
+		class="org.home.blackjack.util.SwitchableBeanFactory">
+		<property name="useBean" value="${blackjack.persistence.type}" />
+		<property name="mappings">
+			<util:map id="tableStores">
+				<entry key="memory" value="inMemoryTableStore" />
+				<entry key="hazelcast" value="hazelcastTableStore" />
+				<entry key="mongo" value="mongoTableStore" />
+			</util:map>
+		</property>
+	</bean>
 	
 	<bean id="serializingGameRepository" class="org.home.blackjack.core.infrastructure.persistence.game.SerializingGameRepository">
 	   <constructor-arg name="gameStore" ref="gameStore"/>
+	</bean>
+	<bean id="serializingPlayerRepository" class="org.home.blackjack.core.infrastructure.persistence.player.SerializingPlayerRepository">
+	   <constructor-arg name="playerStore" ref="playerStore"/>
+	</bean>
+	<bean id="serializingTableRepository" class="org.home.blackjack.core.infrastructure.persistence.table.SerializingTableRepository">
+	   <constructor-arg name="tableStore" ref="tableStore"/>
 	</bean>
 	
 	<bean id="lightweightDomainEventBus" class="org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus" scope="prototype"/>

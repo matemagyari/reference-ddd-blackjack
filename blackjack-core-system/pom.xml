@@ -115,11 +115,11 @@
 								<violationsThreshold>0</violationsThreshold>
 							</adp>
 							<sdp>
-								<violationsThreshold>6</violationsThreshold>
+								<violationsThreshold>7</violationsThreshold>
 							</sdp>
 							<sap>
 								<maxDistance>0.5</maxDistance>
-								<violationsThreshold>8</violationsThreshold>
+								<violationsThreshold>9</violationsThreshold>
 							</sap>
 							<racd>
 								<threshold>0.50</threshold>

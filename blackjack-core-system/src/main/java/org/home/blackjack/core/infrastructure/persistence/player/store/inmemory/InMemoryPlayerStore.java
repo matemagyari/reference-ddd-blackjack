@@ -3,6 +3,9 @@ package org.home.blackjack.core.infrastructure.persistence.player.store.inmemory
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -66,6 +69,14 @@ public class InMemoryPlayerStore implements PlayerStore {
 	public void clear() {
 		jsonMap.clear();
 	}
+    
+    protected final ConcurrentMap<PlayerID, Lock> locks = Maps.newConcurrentMap();
+    @Override
+    public Lock getLockForKey(PlayerID key) {
+        //TODO implement it properly
+        locks.putIfAbsent(key, new ReentrantLock());
+        return locks.get(key);
+    }
 
 
 }
