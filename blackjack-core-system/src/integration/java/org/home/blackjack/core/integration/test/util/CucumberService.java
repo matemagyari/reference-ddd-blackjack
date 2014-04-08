@@ -3,7 +3,6 @@ package org.home.blackjack.core.integration.test.util;
 import java.util.Map;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.google.common.collect.Maps;
 

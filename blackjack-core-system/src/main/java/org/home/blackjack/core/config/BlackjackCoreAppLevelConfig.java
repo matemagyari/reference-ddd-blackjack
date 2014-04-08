@@ -1,5 +1,11 @@
 package org.home.blackjack.core.config;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.home.blackjack.core.domain.game.GameRepository;
+import org.home.blackjack.core.infrastructure.persistence.game.SerializingGameRepository;
 import org.home.blackjack.util.SwitchableBeanFactory;
 import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
@@ -7,13 +13,13 @@ import org.home.blackjack.util.locking.aspect.PessimisticLockingAspect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @ComponentScan({"org.home.blackjack.core.domain", "org.home.blackjack.core.app", "org.home.blackjack.core.infrastructure.persistence"})
@@ -45,7 +51,12 @@ public class BlackjackCoreAppLevelConfig {
         switchableBeanFactory.setMappings(gameStores);
         return switchableBeanFactory;
     }
-
+    
+    @Bean(name = "gameRepository")
+    public GameRepository gameRepository() {
+        return new SerializingGameRepository(gameStore);
+    }
+    
     @Bean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     public LightweightDomainEventBus lightweightDomainEventBus() {
