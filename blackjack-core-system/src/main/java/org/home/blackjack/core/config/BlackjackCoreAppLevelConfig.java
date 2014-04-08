@@ -54,10 +54,44 @@ public class BlackjackCoreAppLevelConfig {
         switchableBeanFactory.setMappings(gameStores);
         return switchableBeanFactory;
     }
-    
+
+    @Bean(name = "playerStore")
+    public SwitchableBeanFactory<PlayerStore> playerStore(@Value("${blackjack.persistence.type}") String type) {
+        SwitchableBeanFactory<PlayerStore> switchableBeanFactory = new SwitchableBeanFactory<GameStore>();
+        switchableBeanFactory.setUseBean(type);
+        Map<String, String> playerStores = new HashMap<String, String>();
+        playerStores.put("memory","inMemoryPlayerStore");
+        playerStores.put("hazelcast","hazelcastPlayerStore");
+        playerStores.put("mongo","mongoPlayerStore");
+        switchableBeanFactory.setMappings(playerStores);
+        return switchableBeanFactory;
+    }
+
+    @Bean(name = "tableStore")
+    public SwitchableBeanFactory<TableStore> tableStore(@Value("${blackjack.persistence.type}") String type) {
+        SwitchableBeanFactory<TableStore> switchableBeanFactory = new SwitchableBeanFactory<GameStore>();
+        switchableBeanFactory.setUseBean(type);
+        Map<String, String> tableStores = new HashMap<String, String>();
+        tableStores.put("memory","inMemoryTableStore");
+        tableStores.put("hazelcast","hazelcastTableStore");
+        tableStores.put("mongo","mongoTableStore");
+        switchableBeanFactory.setMappings(tableStores);
+        return switchableBeanFactory;
+    }
+
     @Bean
     public SerializingGameRepository serializingGameRepository(SwitchableBeanFactory<GameStore> gameStore) {
         return new SerializingGameRepository(gameStore.getBean());
+    }
+
+    @Bean
+    public SerializingPlayerRepository serializingPlayerRepository(SwitchableBeanFactory<PlayerStore> playerStore) {
+        return new SerializingPlayerRepository(playerStore.getBean());
+    }
+
+    @Bean
+    public SerializingTableRepository serializingTableRepository(SwitchableBeanFactory<TableStore> tableStore) {
+        return new SerializingTableRepository(tableStore.getBean());
     }
 
     @Bean
