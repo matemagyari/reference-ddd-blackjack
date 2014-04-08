@@ -7,6 +7,10 @@ import java.util.Map;
 import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.infrastructure.persistence.game.SerializingGameRepository;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
+import org.home.blackjack.core.infrastructure.persistence.player.SerializingPlayerRepository;
+import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
+import org.home.blackjack.core.infrastructure.persistence.table.SerializingTableRepository;
+import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.util.SwitchableBeanFactory;
 import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
@@ -57,7 +61,7 @@ public class BlackjackCoreAppLevelConfig {
 
     @Bean(name = "playerStore")
     public SwitchableBeanFactory<PlayerStore> playerStore(@Value("${blackjack.persistence.type}") String type) {
-        SwitchableBeanFactory<PlayerStore> switchableBeanFactory = new SwitchableBeanFactory<GameStore>();
+        SwitchableBeanFactory<PlayerStore> switchableBeanFactory = new SwitchableBeanFactory<PlayerStore>();
         switchableBeanFactory.setUseBean(type);
         Map<String, String> playerStores = new HashMap<String, String>();
         playerStores.put("memory","inMemoryPlayerStore");
@@ -69,7 +73,7 @@ public class BlackjackCoreAppLevelConfig {
 
     @Bean(name = "tableStore")
     public SwitchableBeanFactory<TableStore> tableStore(@Value("${blackjack.persistence.type}") String type) {
-        SwitchableBeanFactory<TableStore> switchableBeanFactory = new SwitchableBeanFactory<GameStore>();
+        SwitchableBeanFactory<TableStore> switchableBeanFactory = new SwitchableBeanFactory<TableStore>();
         switchableBeanFactory.setUseBean(type);
         Map<String, String> tableStores = new HashMap<String, String>();
         tableStores.put("memory","inMemoryTableStore");
@@ -80,17 +84,17 @@ public class BlackjackCoreAppLevelConfig {
     }
 
     @Bean
-    public SerializingGameRepository serializingGameRepository(SwitchableBeanFactory<GameStore> gameStore) {
+    public SerializingGameRepository serializingGameRepository(@Qualifier("gameStore") SwitchableBeanFactory<GameStore> gameStore) {
         return new SerializingGameRepository(gameStore.getBean());
     }
 
     @Bean
-    public SerializingPlayerRepository serializingPlayerRepository(SwitchableBeanFactory<PlayerStore> playerStore) {
+    public SerializingPlayerRepository serializingPlayerRepository(@Qualifier("playerStore") SwitchableBeanFactory<PlayerStore> playerStore) {
         return new SerializingPlayerRepository(playerStore.getBean());
     }
 
     @Bean
-    public SerializingTableRepository serializingTableRepository(SwitchableBeanFactory<TableStore> tableStore) {
+    public SerializingTableRepository serializingTableRepository(@Qualifier("tableStore") SwitchableBeanFactory<TableStore> tableStore) {
         return new SerializingTableRepository(tableStore.getBean());
     }
 
