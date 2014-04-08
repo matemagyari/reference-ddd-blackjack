@@ -1,6 +1,9 @@
 package org.home.blackjack.core.infrastructure.persistence.player.store.mongo;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
@@ -12,6 +15,7 @@ import org.home.blackjack.core.infrastructure.persistence.shared.MongoStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
 
+import com.google.common.collect.Maps;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
@@ -68,6 +72,14 @@ public class MongoPlayerStore extends MongoStore implements PlayerStore {
     public List<PersistenceObject<Player>> findAllSortedByWinNumber() {
         //TODO implement
         throw new RuntimeException();
+    }
+    
+    protected final ConcurrentMap<PlayerID, Lock> locks = Maps.newConcurrentMap();
+    @Override
+    public Lock getLockForKey(PlayerID key) {
+        //TODO implement it properly
+        locks.putIfAbsent(key, new ReentrantLock());
+        return locks.get(key);
     }
 
 }

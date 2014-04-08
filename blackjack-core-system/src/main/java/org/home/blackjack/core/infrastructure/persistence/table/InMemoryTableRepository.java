@@ -7,7 +7,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
-import javax.inject.Named;
 
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
@@ -19,7 +18,6 @@ import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-@Named
 public class InMemoryTableRepository implements TableRepository, FinegrainedLockable<TableID>,  DrivingAdapter<TableRepository> {
 	
 	private final Map<TableID, Table> map = Maps.newHashMap();

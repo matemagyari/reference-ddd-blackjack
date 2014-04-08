@@ -1,13 +1,9 @@
 package org.home.blackjack.core.infrastructure.persistence.shared;
 
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
-import org.home.blackjack.core.domain.game.core.GameID;
 
 import com.google.common.collect.Lists;
 import com.mongodb.BasicDBObject;
@@ -90,12 +86,6 @@ public abstract class MongoStore {
     
     protected void create(DBObject mongoDoc) {
         collection().save(mongoDoc, writeConcern);
-    }
-
-    
-    public Lock getLockForKey(GameID key) {
-        //TODO implement it properly
-        return new ReentrantLock();
     }
 
     

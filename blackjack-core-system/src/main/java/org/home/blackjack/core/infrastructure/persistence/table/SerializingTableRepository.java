@@ -1,6 +1,7 @@
 package org.home.blackjack.core.infrastructure.persistence.table;
 
 import java.util.List;
+import java.util.concurrent.locks.Lock;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -13,11 +14,12 @@ import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAsse
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
+import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
 import com.google.common.collect.Lists;
 
-public class SerializingTableRepository implements TableRepository, DrivingAdapter<TableRepository> {
+public class SerializingTableRepository implements TableRepository, FinegrainedLockable<TableID>, DrivingAdapter<TableRepository> {
 	
 	private final TableStore tableStore;
 	private final PersistenceAssembler<Table, PersistenceObject<Table>> tableStoreAssembler;
@@ -73,6 +75,11 @@ public class SerializingTableRepository implements TableRepository, DrivingAdapt
             tables.add(tableStoreAssembler.toDomain(persistenceObject));
         }
         return tables;
+    }
+    
+    @Override
+    public Lock getLockForKey(TableID key) {
+        return tableStore.getLockForKey(key);
     }
 	
 }

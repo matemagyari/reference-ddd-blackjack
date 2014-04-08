@@ -1,6 +1,9 @@
 package org.home.blackjack.core.infrastructure.persistence.table.store.mongo;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
@@ -13,6 +16,7 @@ import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObje
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
@@ -72,6 +76,15 @@ public class MongoTableStore extends MongoStore implements TableStore {
             result.add(new MongoPersistenceTable(dbObject.toString()));
         }
         return result;
+    }
+    
+    
+    protected final ConcurrentMap<TableID, Lock> locks = Maps.newConcurrentMap();
+    @Override
+    public Lock getLockForKey(TableID key) {
+        //TODO implement it properly
+        locks.putIfAbsent(key, new ReentrantLock());
+        return locks.get(key);
     }
 
 
