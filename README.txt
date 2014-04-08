@@ -70,6 +70,15 @@ ACLs:
 * ACLs are implemented by Adapters. Adapters contain the technology-specific logic (e.g CometD) and the assemblers that 
   translate data between the layers. Driven Adapters are implemented by Camel routes and JAX-RS, Driving Adapters by 
   various technologies (Mongo, Hazelcast, ...).
+* 3 ACLs in Blackjack Core
+  ** Between Client->Application: all the commands/queries coming from clients pass through this ACL. Json messages are
+     transformed to Message objects defined in Blackjack Messaging Client library, then the Message objects are 
+     transformed to Command/Query DTOs the Application Services consume 
+  ** Between Application->Client: all the domain events that are meant for the client are transformed to Messages 
+     (defined in Blackjack Messaging Client library), then to JSON
+  ** Between Domain<->persistence: the domain objects are serialized to json before saved in the DB. Gson provides tools
+     to define custom (de)serializers so different versions of data can be managed. See an example in 
+     GameGsonProvider.java
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
@@ -136,11 +145,16 @@ The general client flow
 Architectural notes
 
 Hexagonal (Ports and Adapters) Architecture
+The interaction points with the application are organized around Ports and Adapters.
 
 Event-Driven Architecture
 Domain events are published by Aggregate Roots, sometimes by Domain Services. The events are consumed by event handlers
 (classes extending org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber), which send them out or interact
-with the domain, lending a declarative-like programmatic style.
+with the domain, lending a declarative-like programmatic style to the app. For example the rule
+'When a table is full Then start a new game' is implemented by:
+1. the Table aggregate root dispatches a TableIsFullEvent when it's full
+2. TableIsFullEventEventHandler will consume the event and create a new Game instance tied to the table
+Each event handler is invoked on a separate thread.
 
 Command&Query separation
 * the clients can send either commands, or queries. The commands change the state of the application and usually events 
