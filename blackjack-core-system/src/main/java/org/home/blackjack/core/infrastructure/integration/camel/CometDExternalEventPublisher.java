@@ -11,7 +11,6 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
-//@Named
 public class CometDExternalEventPublisher implements ExternalEventPublisher, DrivingAdapter<ExternalEventPublisher> {
 
 	@Resource
