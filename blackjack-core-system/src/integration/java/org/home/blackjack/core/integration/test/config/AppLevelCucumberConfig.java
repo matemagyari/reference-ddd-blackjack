@@ -1,6 +1,9 @@
 package org.home.blackjack.core.integration.test.config;
 
+import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.config.BlackjackCoreAppLevelConfig;
+import org.home.blackjack.core.domain.cashier.WalletService;
+import org.home.blackjack.core.domain.game.DeckFactory;
 import org.home.blackjack.core.integration.test.fakes.FakeDeckFactory;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
 import org.home.blackjack.core.integration.test.fakes.FakeWalletService;
@@ -17,19 +20,19 @@ public class AppLevelCucumberConfig {
 
     @Bean
     @Primary
-    public FakeWalletService walletService(){
+    public WalletService walletService(){
         return new FakeWalletService();
     }
 
     @Bean
     @Primary
-    public FakeExternalEventPublisher externalEventPublisher(){
+    public ExternalEventPublisher externalEventPublisher(){
         return new FakeExternalEventPublisher();
     }
 
     @Bean
     @Primary
-    public FakeDeckFactory deckFactory(){
+    public DeckFactory deckFactory(){
         return new FakeDeckFactory();
     }
 }

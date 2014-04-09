@@ -3,6 +3,8 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 import java.util.List;
 import java.util.Map;
 
+import org.home.blackjack.core.domain.cashier.WalletService;
+import org.home.blackjack.core.domain.game.DeckFactory;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.PlayerRepository;
 import org.home.blackjack.core.domain.player.core.PlayerName;
@@ -37,10 +39,10 @@ public abstract class  TestAgent {
     }
 
     protected void initDependencies() {
-    	fakeDeckFactory = cucumberService().getBean(FakeDeckFactory.class);
+    	fakeDeckFactory = (FakeDeckFactory)cucumberService().getBean(DeckFactory.class);
     	tableRepository = cucumberService().getBean(TableRepository.class);
     	playerRepository = cucumberService().getBean(PlayerRepository.class);
-    	fakeWalletService = cucumberService().getBean(FakeWalletService.class);
+    	fakeWalletService = (FakeWalletService)cucumberService().getBean(WalletService.class);
     }
     
     protected abstract CucumberService cucumberService();

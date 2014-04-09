@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
+import org.home.blackjack.core.domain.cashier.WalletService;
 import org.home.blackjack.core.domain.game.DeckFactory;
 import org.home.blackjack.core.infrastructure.integration.camel.CometDExternalEventPublisher;
 import org.home.blackjack.core.infrastructure.persistence.game.SerializingGameRepository;
@@ -135,7 +136,7 @@ public class BlackjackCoreAppLevelConfig {
     }
 
     @Bean
-    public RestBasedWalletService walletService(){
+    public WalletService walletService(){
         return new RestBasedWalletService();
     }
 }
