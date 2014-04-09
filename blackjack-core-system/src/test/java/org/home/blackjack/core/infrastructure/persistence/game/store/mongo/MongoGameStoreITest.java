@@ -11,6 +11,7 @@ import org.home.blackjack.core.domain.game.Game;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,6 +24,7 @@ import de.flapdoodle.embed.mongo.config.MongodConfig;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 
+@Ignore
 @ContextConfiguration("classpath:META-INF/applicationContext-blackjack-core.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MongoGameStoreITest {
