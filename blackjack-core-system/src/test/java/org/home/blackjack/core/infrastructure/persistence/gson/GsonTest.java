@@ -4,14 +4,23 @@ import static org.junit.Assert.assertEquals;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameFixture;
-import org.home.blackjack.core.infrastructure.persistence.game.store.inmemory.InMemoryGamePersistenceAssembler;
 import org.junit.Test;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class GsonTest {
 	
-	@Test
+    @Test
+    public void stringToSjon() {
+       String str = "{ \"name\" : \"John\"}"; 
+       JsonElement element = new Gson().fromJson (str, JsonElement.class);
+       JsonObject jsonObj = element.getAsJsonObject();
+       assertEquals("John", jsonObj.get("name").getAsString());
+    }
+    
+    @Test
 	public void newGame() {
 		Game game = GameFixture.aGame();
 		assertIdenticalTransformBackAndForth(game);

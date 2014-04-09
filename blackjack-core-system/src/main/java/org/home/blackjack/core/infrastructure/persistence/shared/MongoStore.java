@@ -51,8 +51,8 @@ public abstract class MongoStore {
         List<DBObject> result = Lists.newArrayList();
         DBCursor cursor = null;
         try {
-            cursor = collection().find().slaveOk();
-            if (cursor.hasNext()) {
+            cursor = collection().find(new BasicDBObject()).slaveOk();
+            while (cursor.hasNext()) {
                 result.add(cursor.next());
             }
         } finally {

@@ -4,6 +4,7 @@ import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class MongoPersistenceTable implements PersistenceObject<Table> {
@@ -20,8 +21,9 @@ public class MongoPersistenceTable implements PersistenceObject<Table> {
 	    
 	}
     private static MongoPersistenceTableId getId(String json) {
-        JsonObject jsonObject = (JsonObject) new Gson().toJsonTree(json);
-	    String strId = jsonObject.get("id").toString();
+        JsonElement element = new Gson().fromJson (json, JsonElement.class);
+        JsonObject jsonObject = element.getAsJsonObject();
+	    String strId = jsonObject.get("id").getAsJsonObject().get("internal").getAsString();
 	    return new MongoPersistenceTableId(strId);
     }
 	

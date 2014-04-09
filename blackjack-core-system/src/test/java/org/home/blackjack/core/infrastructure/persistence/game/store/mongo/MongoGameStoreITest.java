@@ -1,5 +1,7 @@
 package org.home.blackjack.core.infrastructure.persistence.game.store.mongo;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
 import javax.annotation.Resource;
@@ -13,8 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.mongodb.Mongo;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
@@ -30,17 +30,12 @@ public class MongoGameStoreITest {
 	@Resource(name = "mongoGameStore")
 	private MongoGameStore store;
 
-	private static final String LOCALHOST = "127.0.0.1";
-	private static final String DB_NAME = "game";
-	private static final int MONGO_TEST_PORT = 27017;
 	private static MongodProcess mongodProcess;
 	private static MongodExecutable mongodExecutable;
-	private static Mongo mongo;
 
 	@BeforeClass
 	public static void initializeDB() throws IOException {
 	    
-		//System.setProperty("blackjack.persistence.type", "mongo");
 		/*
 		IStreamProcessor stream = new NullProcessor();
         MongodStarter runtime = MongodStarter.getInstance(new RuntimeConfigBuilder()
@@ -62,12 +57,10 @@ public class MongoGameStoreITest {
         
         mongodExecutable = runtime.prepare(mongodConfig);
         mongodProcess = mongodExecutable.start();
-        //mongo = new Mongo(LOCALHOST, MONGO_TEST_PORT);
 	}
 
 	@AfterClass
 	public static void shutdownDB() throws InterruptedException {
-		//mongo.close();
 		mongodProcess.stop();
 		mongodExecutable.stop();
 	}
@@ -89,6 +82,8 @@ public class MongoGameStoreITest {
 		MongoPersistenceGame retrievedPGame = store.find(persistenceGame.id());
 
 		Game retrievedGame = assembler.toDomain(retrievedPGame);
+		
+		assertEquals(aGame.getID(), retrievedGame.getID());
 	}
 
 }
