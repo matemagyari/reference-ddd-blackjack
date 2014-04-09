@@ -1,7 +1,6 @@
 package org.home.blackjack.core.infrastructure.integration.camel;
 
 import javax.annotation.Resource;
-import javax.inject.Named;
 
 import org.apache.camel.ProducerTemplate;
 import org.home.blackjack.core.app.dto.QueryResponse;
@@ -12,7 +11,7 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
-@Named
+//@Named
 public class CometDExternalEventPublisher implements ExternalEventPublisher, DrivingAdapter<ExternalEventPublisher> {
 
 	@Resource

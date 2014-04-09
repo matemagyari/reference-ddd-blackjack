@@ -7,18 +7,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 @Import(BlackjackCoreConfig.class)
 @EnableAspectJAutoProxy
 public class EndToEndCucumberConfig {
 
-    @Bean(name = "walletService")
-    public FakeWalletService fakeWalletService(){
+
+    @Bean
+    @Primary
+    public FakeWalletService walletService(){
         return new FakeWalletService();
     }
 
-    @Bean(name = "deckFactory")
+    @Bean
+    @Primary
     public FakeDeckFactory deckFactory(){
         return new FakeDeckFactory();
     }

@@ -1,25 +1,25 @@
 package org.home.blackjack.core.config;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.CamelContextAware;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spring.javaconfig.CamelConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
-
-import java.util.List;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan("org.home.blackjack.core")
-@Import({CamelConfiguration.class, BlackjackCoreAppLevelConfig.class})
-public class BlackjackCoreConfig extends CamelConfiguration{
+@Import({CamelConfiguration.class, BlackjackCoreAppLevelConfig.class, BlackjackCoreMongoConfig.class})
+public class BlackjackCoreConfig {
 
-    @Autowired private CamelContext camelContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
-    @Bean(name = "template")
-    public ProducerTemplate createProducerTemplate() {
-        return camelContext.createProducerTemplate();
+    @Bean
+    public ProducerTemplate template() throws Exception{
+        return applicationContext.getBean(CamelContext.class).createProducerTemplate();
     }
 }

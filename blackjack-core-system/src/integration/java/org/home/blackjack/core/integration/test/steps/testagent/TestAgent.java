@@ -28,7 +28,7 @@ public abstract class  TestAgent {
 	protected FakeDeckFactory fakeDeckFactory;
 	protected TableRepository tableRepository;
 	protected PlayerRepository playerRepository;
-	protected FakeWalletService walletService;
+	protected FakeWalletService fakeWalletService;
 	
 	protected Map<String, PlayerID> playerIdNameMap = Maps.newHashMap();
 	
@@ -40,7 +40,7 @@ public abstract class  TestAgent {
     	fakeDeckFactory = cucumberService().getBean(FakeDeckFactory.class);
     	tableRepository = cucumberService().getBean(TableRepository.class);
     	playerRepository = cucumberService().getBean(PlayerRepository.class);
-    	walletService = cucumberService().getBean(FakeWalletService.class);
+    	fakeWalletService = cucumberService().getBean(FakeWalletService.class);
     }
     
     protected abstract CucumberService cucumberService();
@@ -49,7 +49,7 @@ public abstract class  TestAgent {
     	fakeDeckFactory.reset();
     	tableRepository.clear();
     	playerRepository.clear();
-    	walletService.reset();
+    	fakeWalletService.reset();
     	playerIdNameMap.clear();
     }
     
@@ -95,15 +95,15 @@ public abstract class  TestAgent {
 	
 
 	public void thenPlayerIsDebited(Integer playerId, Integer amount) {
-		walletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.ENTRYFEE);
+		fakeWalletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.ENTRYFEE);
 	}
 
 	public void thenPlayerIsCredited(Integer playerId, Integer amount) {
-		walletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.WIN);
+		fakeWalletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.WIN);
 	}
 	
 	public void thenPlayerHasANewAccount(String name) {
-		walletService.assertLastAct(playerIdNameMap.get(name), FakeWalletService.WalletAct.OPEN_ACCOUNT);
+		fakeWalletService.assertLastAct(playerIdNameMap.get(name), FakeWalletService.WalletAct.OPEN_ACCOUNT);
 	}
 
 	protected static PlayerID convertPlayerId(Integer playerId) {
