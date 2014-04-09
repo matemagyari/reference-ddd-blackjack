@@ -156,6 +156,11 @@ with the domain, lending a declarative-like programmatic style to the app. For e
 2. TableIsFullEventEventHandler will consume the event and create a new Game instance tied to the table
 Each event handler is invoked on a separate thread.
 
+The published events get buffered on the internal event bus and flushed at the end of the "transaction". The reason is 
+that if an event is dispatched then an exception happens down the line we can't rollback, since we cannot "call back"
+the event. Therefore we buffer them and flush the event bus only after everything is done. This requires some 
+"ThreadLocal magic" in LightweightEventBus, so concurrent threads don't flush or clear each others' buffers.
+
 Command&Query separation
 * the clients can send either commands, or queries. The commands change the state of the application and usually events 
   are sent out as a consequence. The queries never change the state and the answers are sent out asynchronously, 
@@ -171,6 +176,7 @@ Stuff missing:
 
 * the Wallet component is very lean, no error handling, no complete anti-corruption layers. It's purpose is to demonstrate how can two remote Bounded Contexts interact
 * CometD - very simplistic implementation, no error handling, no security. Currently all clients could subscribe to each others private channels
+* do not refresh the browser because you'll lose your session
 
 The project extensively uses marker interfaces for Hexagonal Architecture/DDD building blocks/patterns/concepts to make the intentions clearer. 
 They are under the *.util.marker package. Other way could have been to use annotations.
