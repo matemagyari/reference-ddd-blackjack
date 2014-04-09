@@ -9,7 +9,6 @@ import org.home.blackjack.core.domain.game.Game;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,22 +16,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mongodb.Mongo;
 
-import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.ArtifactStoreBuilder;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.config.RuntimeConfigBuilder;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
 import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.config.io.ProcessOutput;
-import de.flapdoodle.embed.process.extract.UserTempNaming;
-import de.flapdoodle.embed.process.io.IStreamProcessor;
-import de.flapdoodle.embed.process.io.NullProcessor;
 import de.flapdoodle.embed.process.runtime.Network;
 
-@Ignore
 @ContextConfiguration("classpath:META-INF/applicationContext-blackjack-core.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MongoGameStoreITest {
@@ -49,7 +39,9 @@ public class MongoGameStoreITest {
 
 	@BeforeClass
 	public static void initializeDB() throws IOException {
-		System.setProperty("blackjack.persistence.type", "mongo");
+	    
+		//System.setProperty("blackjack.persistence.type", "mongo");
+		/*
 		IStreamProcessor stream = new NullProcessor();
         MongodStarter runtime = MongodStarter.getInstance(new RuntimeConfigBuilder()
             .defaults(Command.MongoD)
@@ -63,14 +55,19 @@ public class MongoGameStoreITest {
             .version(Version.Main.PRODUCTION)
             .net(new Net(MONGO_TEST_PORT, Network.localhostIsIPv6()))
             .build());
-         
+         */
+		
+        MongodStarter runtime = MongodStarter.getDefaultInstance();
+        MongodConfig mongodConfig = new MongodConfig(Version.V2_4_1, 27017, Network.localhostIsIPv6());
+        
+        mongodExecutable = runtime.prepare(mongodConfig);
         mongodProcess = mongodExecutable.start();
-        mongo = new Mongo(LOCALHOST, MONGO_TEST_PORT);
+        //mongo = new Mongo(LOCALHOST, MONGO_TEST_PORT);
 	}
 
 	@AfterClass
 	public static void shutdownDB() throws InterruptedException {
-		mongo.close();
+		//mongo.close();
 		mongodProcess.stop();
 		mongodExecutable.stop();
 	}
