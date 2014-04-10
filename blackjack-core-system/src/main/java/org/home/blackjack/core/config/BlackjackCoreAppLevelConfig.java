@@ -6,10 +6,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.domain.cashier.WalletService;
 import org.home.blackjack.core.domain.game.DeckFactory;
-import org.home.blackjack.core.infrastructure.integration.camel.CometDExternalEventPublisher;
 import org.home.blackjack.core.infrastructure.persistence.game.SerializingGameRepository;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.core.infrastructure.persistence.player.SerializingPlayerRepository;
@@ -34,9 +32,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 @Configuration
-//@Lazy
-//@ComponentScan({"org.home.blackjack.core.domain", "org.home.blackjack.core.app", "org.home.blackjack.core.infrastructure.persistence"})
-@ImportResource("classpath:META-INF/applicationContext-blackjack-core-scan.xml")
+@ImportResource("classpath:META-INF/applicationContext-blackjack-core-app-scan.xml")
 @EnableAspectJAutoProxy
 public class BlackjackCoreAppLevelConfig {
 
@@ -123,11 +119,6 @@ public class BlackjackCoreAppLevelConfig {
     @Bean
     public EventBusManager eventBusManager() {
         return new EventBusManager();
-    }
-
-    @Bean
-    public ExternalEventPublisher externalEventPublisher(){
-        return new CometDExternalEventPublisher();
     }
 
     @Bean
