@@ -156,10 +156,18 @@ with the domain, lending a declarative-like programmatic style to the app. For e
 2. TableIsFullEventEventHandler will consume the event and create a new Game instance tied to the table
 Each event handler is invoked on a separate thread.
 
+Event-publishing mechanism
+
 The published events get buffered on the internal event bus and flushed at the end of the "transaction". The reason is 
 that if an event is dispatched then an exception happens down the line we can't rollback, since we cannot "call back"
-the event. Therefore we buffer them and flush the event bus only after everything is done. This requires some 
-"ThreadLocal magic" in LightweightEventBus, so concurrent threads don't flush or clear each others' buffers.
+the event. Imagine the situation when we do not buffer, but send out the event to the client immediately, then when we 
+try to save the updated aggregate to the DB, it fails (network/versioning/contention/... problem). Now the client is
+in an inconsistent state, since she was told a state-update has happened, but it has not.
+Therefore we buffer the events and flush the event bus only after everything is done. It is some very simple form of
+distributed transaction handling. This requires some "ThreadLocal magic" in LightweightEventBus, so concurrent threads 
+don't flush or clear each others' buffers. Whenever a requests arrives we reset the bus instance of the thread (so if
+the thread was being used before and for some reason the bus hasn't got flushed, we get rid of those pending events), 
+then after the update finished we flush it.
 
 Command&Query separation
 * the clients can send either commands, or queries. The commands change the state of the application and usually events 
