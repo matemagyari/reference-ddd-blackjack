@@ -9,7 +9,7 @@
 	<name>Blackjack Parent</name>
 
 	<properties>
-		<camel.version>2.11.0</camel.version>
+		<camel.version>2.13.0</camel.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
 		<cucumber-jvm.version>1.1.5</cucumber-jvm.version>
 		<hazelcast.version>3.1.5</hazelcast.version>
@@ -98,6 +98,11 @@
 			<artifactId>camel-core</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-javaconfig</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
 
 		<!-- SLF4 dependencies -->
 
