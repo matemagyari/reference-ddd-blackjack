@@ -81,6 +81,19 @@
 
 
 	<build>
+
+        <testResources>
+            <testResource>
+                <directory>src/main/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>src/integration/resources</directory>
+            </testResource>
+        </testResources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.tindalos.principle</groupId>
@@ -126,7 +139,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>

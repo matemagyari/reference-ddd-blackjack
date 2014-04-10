@@ -3,6 +3,8 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 import java.util.List;
 import java.util.Map;
 
+import org.home.blackjack.core.domain.cashier.WalletService;
+import org.home.blackjack.core.domain.game.DeckFactory;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.PlayerRepository;
 import org.home.blackjack.core.domain.player.core.PlayerName;
@@ -23,12 +25,12 @@ import org.junit.Assert;
 import com.google.common.collect.Maps;
 
 
-public abstract class TestAgent {
+public abstract class  TestAgent {
 	
 	protected FakeDeckFactory fakeDeckFactory;
 	protected TableRepository tableRepository;
 	protected PlayerRepository playerRepository;
-	protected FakeWalletService walletService;
+	protected FakeWalletService fakeWalletService;
 	
 	protected Map<String, PlayerID> playerIdNameMap = Maps.newHashMap();
 	
@@ -37,10 +39,10 @@ public abstract class TestAgent {
     }
 
     protected void initDependencies() {
-    	fakeDeckFactory = cucumberService().getBean(FakeDeckFactory.class);
+    	fakeDeckFactory = (FakeDeckFactory)cucumberService().getBean(DeckFactory.class);
     	tableRepository = cucumberService().getBean(TableRepository.class);
     	playerRepository = cucumberService().getBean(PlayerRepository.class);
-    	walletService = cucumberService().getBean(FakeWalletService.class);
+    	fakeWalletService = (FakeWalletService)cucumberService().getBean(WalletService.class);
     }
     
     protected abstract CucumberService cucumberService();
@@ -49,7 +51,7 @@ public abstract class TestAgent {
     	fakeDeckFactory.reset();
     	tableRepository.clear();
     	playerRepository.clear();
-    	walletService.reset();
+    	fakeWalletService.reset();
     	playerIdNameMap.clear();
     }
     
@@ -95,15 +97,15 @@ public abstract class TestAgent {
 	
 
 	public void thenPlayerIsDebited(Integer playerId, Integer amount) {
-		walletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.ENTRYFEE);
+		fakeWalletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.ENTRYFEE);
 	}
 
 	public void thenPlayerIsCredited(Integer playerId, Integer amount) {
-		walletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.WIN);
+		fakeWalletService.assertLastAct(convertPlayerId(playerId), FakeWalletService.WalletAct.WIN);
 	}
 	
 	public void thenPlayerHasANewAccount(String name) {
-		walletService.assertLastAct(playerIdNameMap.get(name), FakeWalletService.WalletAct.OPEN_ACCOUNT);
+		fakeWalletService.assertLastAct(playerIdNameMap.get(name), FakeWalletService.WalletAct.OPEN_ACCOUNT);
 	}
 
 	protected static PlayerID convertPlayerId(Integer playerId) {
