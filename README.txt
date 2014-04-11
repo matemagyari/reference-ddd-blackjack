@@ -145,7 +145,8 @@ The general client flow
 Architectural notes
 
 Hexagonal (Ports and Adapters) Architecture
-The interaction points with the application are organized around Ports and Adapters.
+The interaction points with the application are organized around Ports and Adapters. 
+See http://alistair.cockburn.us/Hexagonal+architecture
 
 Event-Driven Architecture
 Domain events are published by Aggregate Roots, sometimes by Domain Services. The events are consumed by event handlers
