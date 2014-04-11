@@ -37,10 +37,10 @@ import org.springframework.core.io.Resource;
 public class BlackjackCoreAppLevelConfig {
 
     @Value("${blackjack.persistence.type}")
-    String type;
+    private String type;
 
     @Inject
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     @Bean(name = "lockAspect")
     public PessimisticLockingAspect lockAspect() {
