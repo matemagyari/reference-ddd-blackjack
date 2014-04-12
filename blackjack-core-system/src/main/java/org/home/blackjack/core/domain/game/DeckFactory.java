@@ -1,7 +1,5 @@
 package org.home.blackjack.core.domain.game;
 
-import javax.inject.Named;
-
 import org.home.blackjack.core.domain.game.core.Card;
 
 /**
@@ -12,7 +10,6 @@ import org.home.blackjack.core.domain.game.core.Card;
  * @author Mate
  * 
  */
-@Named
 public class DeckFactory {
 
 	public Deck createNew() {

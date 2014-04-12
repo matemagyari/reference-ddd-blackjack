@@ -70,6 +70,15 @@ ACLs:
 * ACLs are implemented by Adapters. Adapters contain the technology-specific logic (e.g CometD) and the assemblers that 
   translate data between the layers. Driven Adapters are implemented by Camel routes and JAX-RS, Driving Adapters by 
   various technologies (Mongo, Hazelcast, ...).
+* 3 ACLs in Blackjack Core
+  ** Between Client->Application: all the commands/queries coming from clients pass through this ACL. Json messages are
+     transformed to Message objects defined in Blackjack Messaging Client library, then the Message objects are 
+     transformed to Command/Query DTOs the Application Services consume 
+  ** Between Application->Client: all the domain events that are meant for the client are transformed to Messages 
+     (defined in Blackjack Messaging Client library), then to JSON
+  ** Between Domain<->persistence: the domain objects are serialized to json before saved in the DB. Gson provides tools
+     to define custom (de)serializers so different versions of data can be managed. See an example in 
+     GameGsonProvider.java
 
 Domain events:
 * inner domain events - events consumed by the Domain: e.g. TableIsFullEvent
@@ -136,11 +145,30 @@ The general client flow
 Architectural notes
 
 Hexagonal (Ports and Adapters) Architecture
+The interaction points with the application are organized around Ports and Adapters. 
+See http://alistair.cockburn.us/Hexagonal+architecture
 
 Event-Driven Architecture
 Domain events are published by Aggregate Roots, sometimes by Domain Services. The events are consumed by event handlers
 (classes extending org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber), which send them out or interact
-with the domain, lending a declarative-like programmatic style.
+with the domain, lending a declarative-like programmatic style to the app. For example the rule
+'When a table is full Then start a new game' is implemented by:
+1. the Table aggregate root dispatches a TableIsFullEvent when it's full
+2. TableIsFullEventEventHandler will consume the event and create a new Game instance tied to the table
+Each event handler is invoked on a separate thread.
+
+Event-publishing mechanism
+
+The published events get buffered on the internal event bus and flushed at the end of the "transaction". The reason is 
+that if an event is dispatched then an exception happens down the line we can't rollback, since we cannot "call back"
+the event. Imagine the situation when we do not buffer, but send out the event to the client immediately, then when we 
+try to save the updated aggregate to the DB, it fails (network/versioning/contention/... problem). Now the client is
+in an inconsistent state, since she was told a state-update has happened, but it has not.
+Therefore we buffer the events and flush the event bus only after everything is done. It is some very simple form of
+distributed transaction handling. This requires some "ThreadLocal magic" in LightweightEventBus, so concurrent threads 
+don't flush or clear each others' buffers. Whenever a requests arrives we reset the bus instance of the thread (so if
+the thread was being used before and for some reason the bus hasn't got flushed, we get rid of those pending events), 
+then after the update finished we flush it.
 
 Command&Query separation
 * the clients can send either commands, or queries. The commands change the state of the application and usually events 
@@ -157,6 +185,7 @@ Stuff missing:
 
 * the Wallet component is very lean, no error handling, no complete anti-corruption layers. It's purpose is to demonstrate how can two remote Bounded Contexts interact
 * CometD - very simplistic implementation, no error handling, no security. Currently all clients could subscribe to each others private channels
+* do not refresh the browser because you'll lose your session
 
 The project extensively uses marker interfaces for Hexagonal Architecture/DDD building blocks/patterns/concepts to make the intentions clearer. 
 They are under the *.util.marker package. Other way could have been to use annotations.

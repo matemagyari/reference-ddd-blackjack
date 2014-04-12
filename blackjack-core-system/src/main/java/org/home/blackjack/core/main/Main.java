@@ -1,15 +1,16 @@
 package org.home.blackjack.core.main;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.home.blackjack.core.config.BlackjackCoreConfig;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
 public class Main {
 
-	static ClassPathXmlApplicationContext applicationContext;
+    public static AnnotationConfigApplicationContext applicationContext;
 
 	public static void main(String[] args) {
-		
-		applicationContext = new ClassPathXmlApplicationContext("classpath:META-INF/applicationContext-blackjack-core.xml");
+
+        applicationContext = new AnnotationConfigApplicationContext(BlackjackCoreConfig.class);
 		applicationContext.registerShutdownHook();
 		
 		System.out.println("Blackjack started");

@@ -47,7 +47,7 @@
 		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
-			<version>1.42</version>
+			<version>1.31</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- CometD -->
@@ -81,6 +81,19 @@
 
 
 	<build>
+
+        <testResources>
+            <testResource>
+                <directory>src/main/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>src/integration/resources</directory>
+            </testResource>
+        </testResources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.tindalos.principle</groupId>
@@ -102,11 +115,11 @@
 								<violationsThreshold>0</violationsThreshold>
 							</adp>
 							<sdp>
-								<violationsThreshold>6</violationsThreshold>
+								<violationsThreshold>7</violationsThreshold>
 							</sdp>
 							<sap>
 								<maxDistance>0.5</maxDistance>
-								<violationsThreshold>8</violationsThreshold>
+								<violationsThreshold>9</violationsThreshold>
 							</sap>
 							<racd>
 								<threshold>0.50</threshold>
@@ -126,7 +139,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
