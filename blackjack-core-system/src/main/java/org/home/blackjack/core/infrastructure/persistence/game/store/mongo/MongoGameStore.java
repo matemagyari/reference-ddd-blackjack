@@ -10,9 +10,9 @@ import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.MongoStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.mongo.MongoStore;
 
 import com.google.common.collect.Maps;
 import com.mongodb.BasicDBObject;

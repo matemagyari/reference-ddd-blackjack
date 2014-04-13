@@ -18,9 +18,9 @@ public class RegisterService {
 	private Cashier cashier;
 	
 	public PlayerID registerPlayer(PlayerName playerName) {
-		PlayerID playerID = new PlayerID();
-		playerRepository.create(new Player(playerID , playerName));
-		cashier.createAccount(playerID);
-		return playerID;
+		Player player = new Player(playerName);
+		playerRepository.create(player);
+		cashier.createAccount(player.getID());
+		return player.getID();
 	}
 }

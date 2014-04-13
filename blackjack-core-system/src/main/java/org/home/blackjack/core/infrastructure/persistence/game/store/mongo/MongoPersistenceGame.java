@@ -1,7 +1,7 @@
 package org.home.blackjack.core.infrastructure.persistence.game.store.mongo;
 
 import org.home.blackjack.core.domain.game.Game;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

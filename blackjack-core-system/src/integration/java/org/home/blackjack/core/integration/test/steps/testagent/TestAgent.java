@@ -12,13 +12,13 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
+import org.home.blackjack.core.integration.test.cucumber.CucumberService;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
 import org.home.blackjack.core.integration.test.dto.PlayerDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeDeckFactory;
 import org.home.blackjack.core.integration.test.fakes.FakeWalletService;
-import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
 import org.junit.Assert;
 

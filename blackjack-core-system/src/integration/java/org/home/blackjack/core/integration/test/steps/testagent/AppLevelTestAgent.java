@@ -21,14 +21,14 @@ import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
+import org.home.blackjack.core.integration.test.cucumber.AppLevelCucumberService;
+import org.home.blackjack.core.integration.test.cucumber.CucumberService;
 import org.home.blackjack.core.integration.test.dto.CardDO;
 import org.home.blackjack.core.integration.test.dto.LeaderboardDO;
 import org.home.blackjack.core.integration.test.dto.PlayerDO;
 import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
-import org.home.blackjack.core.integration.test.util.AppLevelCucumberService;
-import org.home.blackjack.core.integration.test.util.CucumberService;
 import org.home.blackjack.core.integration.test.util.Util;
 import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
 

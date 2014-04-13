@@ -1,7 +1,7 @@
 package org.home.blackjack.core.infrastructure.persistence.table.store.inmemory;
 
 import org.home.blackjack.core.domain.table.Table;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 
 public class InMemoryPersistenceTable implements PersistenceObject<Table> {
 	

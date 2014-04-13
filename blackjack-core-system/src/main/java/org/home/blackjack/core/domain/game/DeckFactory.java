@@ -3,11 +3,8 @@ package org.home.blackjack.core.domain.game;
 import org.home.blackjack.core.domain.game.core.Card;
 
 /**
- * Domain Service functioning as a Factory.
- * 
+ * Factory. Not a real member of the Domain, rather a technical necessity.
  * Currently it only creates a {@link Deck} of 52 {@link Card}-s, but could be a {@link Deck} of multiple decks.
- * 
- * @author Mate
  * 
  */
 public class DeckFactory {

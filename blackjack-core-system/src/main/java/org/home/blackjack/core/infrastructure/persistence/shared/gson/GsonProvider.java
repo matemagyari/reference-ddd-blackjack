@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.persistence.shared;
+package org.home.blackjack.core.infrastructure.persistence.shared.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

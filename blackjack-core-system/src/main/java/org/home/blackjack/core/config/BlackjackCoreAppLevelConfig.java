@@ -8,11 +8,11 @@ import javax.inject.Inject;
 
 import org.home.blackjack.core.domain.cashier.WalletService;
 import org.home.blackjack.core.domain.game.DeckFactory;
-import org.home.blackjack.core.infrastructure.persistence.game.SerializingGameRepository;
+import org.home.blackjack.core.infrastructure.persistence.game.repository.SerializingGameRepository;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
-import org.home.blackjack.core.infrastructure.persistence.player.SerializingPlayerRepository;
+import org.home.blackjack.core.infrastructure.persistence.player.repository.SerializingPlayerRepository;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
-import org.home.blackjack.core.infrastructure.persistence.table.SerializingTableRepository;
+import org.home.blackjack.core.infrastructure.persistence.table.repository.SerializingTableRepository;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.core.infrastructure.wallet.RestBasedWalletService;
 import org.home.blackjack.util.SwitchableBeanFactory;

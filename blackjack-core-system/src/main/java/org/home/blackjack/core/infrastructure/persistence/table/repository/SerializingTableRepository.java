@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.persistence.table;
+package org.home.blackjack.core.infrastructure.persistence.table.repository;
 
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -10,8 +10,8 @@ import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableNotFoundException;
 import org.home.blackjack.core.domain.table.TableRepository;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
 import org.home.blackjack.util.locking.FinegrainedLockable;
@@ -59,6 +59,12 @@ public class SerializingTableRepository implements TableRepository, FinegrainedL
 	@Override
 	public void clear() {
 		tableStore.clear();
+	}
+	
+
+	@Override
+	public boolean isEmpty() {
+		return tableStore.isEmpty();
 	}
 	
     private Table toDomain(PersistenceObject<Table> po) {

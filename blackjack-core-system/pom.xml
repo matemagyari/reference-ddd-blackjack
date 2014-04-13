@@ -119,7 +119,7 @@
 							</sdp>
 							<sap>
 								<maxDistance>0.5</maxDistance>
-								<violationsThreshold>9</violationsThreshold>
+								<violationsThreshold>10</violationsThreshold>
 							</sap>
 							<racd>
 								<threshold>0.50</threshold>

@@ -3,7 +3,7 @@ package org.home.blackjack.core.infrastructure.persistence.game.store.inmemory;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.core.domain.game.core.GameID;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
 
 public class InMemoryPersistenceGameId implements PersistenceObjectId<GameID> {
 	

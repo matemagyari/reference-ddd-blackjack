@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.persistence.player;
+package org.home.blackjack.core.infrastructure.persistence.player.repository;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,8 +12,8 @@ import org.home.blackjack.core.domain.player.PlayerNotFoundException;
 import org.home.blackjack.core.domain.player.PlayerRepository;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 

@@ -10,9 +10,10 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
-import org.home.blackjack.core.infrastructure.persistence.shared.MongoStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.mongo.MongoStore;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 
 import com.google.common.collect.Lists;
@@ -78,6 +79,11 @@ public class MongoTableStore extends MongoStore implements TableStore {
         return result;
     }
     
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty();
+	}
+    
     
     protected final ConcurrentMap<TableID, Lock> locks = Maps.newConcurrentMap();
     @Override
@@ -86,6 +92,4 @@ public class MongoTableStore extends MongoStore implements TableStore {
         locks.putIfAbsent(key, new ReentrantLock());
         return locks.get(key);
     }
-
-
 }

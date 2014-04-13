@@ -3,9 +3,9 @@ package org.home.blackjack.core.infrastructure.persistence.table.store.inmemory;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.table.Table;
-import org.home.blackjack.core.infrastructure.persistence.shared.GsonBasedAssembler;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceAssembler;
-import org.home.blackjack.core.infrastructure.persistence.table.json.TableGsonProvider;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.gson.GsonBasedAssembler;
+import org.home.blackjack.core.infrastructure.persistence.table.store.json.TableGsonProvider;
 import org.home.blackjack.util.ddd.pattern.ID;
 
 @Named

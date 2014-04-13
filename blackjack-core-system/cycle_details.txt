@@ -1,26 +1,7 @@
 
-Example cycles caused by org.home.blackjack.core.domain
+Example cycles caused by org.home.blackjack.core.integration.test.config
 
-org.home.blackjack.core.app -->
-org.home.blackjack.core.domain -->
--------------------------------
-
-org.home.blackjack.core.app.events -->
-org.home.blackjack.core.domain -->
--------------------------------
-
-Example cycles caused by org.home.blackjack.core.domain.game
-
-org.home.blackjack.core.app -->
-org.home.blackjack.core.domain -->
-org.home.blackjack.core.domain.game -->
--------------------------------
-
-org.home.blackjack.core.app -->
-org.home.blackjack.core.domain.game -->
--------------------------------
-
-org.home.blackjack.core.app.events -->
-org.home.blackjack.core.domain -->
-org.home.blackjack.core.domain.game -->
+org.home.blackjack.core.integration.test.fakes -->
+org.home.blackjack.core.integration.test.util -->
+org.home.blackjack.core.integration.test.config -->
 -------------------------------

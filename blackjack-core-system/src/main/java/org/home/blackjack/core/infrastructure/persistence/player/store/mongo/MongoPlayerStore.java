@@ -11,9 +11,9 @@ import javax.inject.Named;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.MongoStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.mongo.MongoStore;
 
 import com.google.common.collect.Maps;
 import com.mongodb.BasicDBObject;

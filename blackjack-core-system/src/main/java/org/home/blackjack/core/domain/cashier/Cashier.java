@@ -8,8 +8,7 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- * Domain Service
- *
+ * Domain Service. Fully implemented in Domain.
  */
 @Named
 public class Cashier {

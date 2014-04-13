@@ -1,0 +1,444 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.home.blackjack:blackjack:jar:0.1-SNAPSHOT
+[WARNING] 'build.plugins.plugin.(groupId:artifactId)' must be unique but found duplicate declaration of plugin org.apache.maven.plugins:maven-compiler-plugin @ line 202, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Blackjack 0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] The artifact org.apache.commons:commons-io:jar:1.3.2 has been relocated to commons-io:commons-io:jar:1.3.2
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ blackjack ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] 
+[INFO] --- build-helper-maven-plugin:1.5:add-test-source (add-test-source) @ blackjack ---
+[INFO] Test Source directory: c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\src\integration\java added.
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ blackjack ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- principle:0.24:check (default) @ blackjack ---
+[INFO] LayerViolationDetector is running.
+[INFO] CycleDetector is running.
+[INFO] SDPViolationDetector is running.
+[INFO] SAPViolationDetector is running.
+[INFO] ACDDetector is running.
+[INFO] 
+==============================================================
+	Layering violations (0 of allowed 0 )	
+==============================================================
+No violations.
+==============================================================
+
+[INFO] 
+==============================================================
+	Acyclic Package Dependency Principle violations (0 of the allowed 0)	
+==============================================================
+==============================================================
+No violations.
+==============================================================
+
+[INFO] 
+==============================================================
+	Stable Dependencies Principle violations (6 of allowed 7 )	
+==============================================================
+
+ org.home.blackjack.core.app.events.external[0.54545456] --> org.home.blackjack.core.domain.player.event[0.6666667] 
+
+ org.home.blackjack.core.app.service.registration[0.75] --> org.home.blackjack.core.domain[0.7777778] 
+
+ org.home.blackjack.core.domain.game[0.6] --> org.home.blackjack.core.domain.game.exception[0.6666667] 
+
+ org.home.blackjack.core.domain.player[0.61538464] --> org.home.blackjack.core.domain.player.event[0.6666667] 
+
+ org.home.blackjack.core.domain.table[0.53333336] --> org.home.blackjack.core.domain.table.event[0.625] 
+
+ org.home.blackjack.core.infrastructure.integration.camel[0.9411765] --> org.home.blackjack.core.infrastructure.messaging.assembler[0.95238096] 
+==============================================================
+
+[INFO] 
+==============================================================
+	Stable Abstractions Principle violations (9 of allowed 9 )	
+==============================================================
+org.home.blackjack.core.domain.game.core 0.8
+org.home.blackjack.core.domain.game.view 1.0
+org.home.blackjack.core.domain.player.core 0.625
+org.home.blackjack.core.domain.shared 0.93939394
+org.home.blackjack.core.infrastructure.persistence.game.store 0.5555556
+org.home.blackjack.core.infrastructure.persistence.player.store 0.5555556
+org.home.blackjack.core.infrastructure.persistence.player.store.json 0.6666666
+org.home.blackjack.core.infrastructure.persistence.table.store.json 0.6666666
+org.home.blackjack.core.infrastructure.persistence.table.store 0.5555556
+==============================================================
+
+[INFO] 
+==============================================================
+Component Dependency Metrics	
+==============================================================
+Average Component Dependency:		8.152173913043478( allowed 999.0)
+Relative Average Component Dependency:	0.1772211720226843( allowed 0.5)
+==============================================================
+
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ blackjack ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] Copying 1 resource
+[INFO] Copying 3 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ blackjack ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.4.3:test (default-test) @ blackjack ---
+[INFO] Surefire report directory: c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.home.blackjack.core.integration.test.scan.MessagingAcceptanceTests_IT
+2014-04-13 11:26:34 INFO  ClassPathBeanDefinitionScanner:230 - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+2014-04-13 11:26:34 INFO  AnnotationConfigApplicationContext:510 - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@18b30f3: startup date [Sun Apr 13 11:26:34 BST 2014]; root of context hierarchy
+2014-04-13 11:26:34 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [META-INF/applicationContext-blackjack-core-app-scan.xml]
+2014-04-13 11:26:35 INFO  ClassPathBeanDefinitionScanner:230 - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+2014-04-13 11:26:35 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [META-INF/applicationContext-blackjack-core-scan.xml]
+2014-04-13 11:26:35 INFO  ClassPathBeanDefinitionScanner:230 - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+2014-04-13 11:26:36 INFO  DefaultListableBeanFactory:644 - Overriding bean definition for bean 'deckFactory': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.home.blackjack.core.config.BlackjackCoreAppLevelConfig; factoryMethodName=deckFactory; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/home/blackjack/core/config/BlackjackCoreAppLevelConfig.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=true; factoryBeanName=endToEndCucumberConfig; factoryMethodName=deckFactory; initMethodName=null; destroyMethodName=(inferred); defined in class org.home.blackjack.core.integration.test.config.EndToEndCucumberConfig]
+2014-04-13 11:26:36 INFO  DefaultListableBeanFactory:644 - Overriding bean definition for bean 'walletService': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.home.blackjack.core.config.BlackjackCoreAppLevelConfig; factoryMethodName=walletService; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/home/blackjack/core/config/BlackjackCoreAppLevelConfig.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=true; factoryBeanName=endToEndCucumberConfig; factoryMethodName=walletService; initMethodName=null; destroyMethodName=(inferred); defined in class org.home.blackjack.core.integration.test.config.EndToEndCucumberConfig]
+2014-04-13 11:26:36 INFO  ClassPathBeanDefinitionScanner:230 - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+2014-04-13 11:26:36 INFO  AnnotationConfigApplicationContext:510 - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@2b2083d9: startup date [Sun Apr 13 11:26:36 BST 2014]; root of context hierarchy
+2014-04-13 11:26:36 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [META-INF/applicationContext-blackjack-core-app-scan.xml]
+2014-04-13 11:26:36 INFO  ClassPathBeanDefinitionScanner:230 - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+2014-04-13 11:26:36 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [META-INF/applicationContext-blackjack-core-scan.xml]
+2014-04-13 11:26:37 INFO  ClassPathBeanDefinitionScanner:230 - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+2014-04-13 11:26:37 INFO  DefaultListableBeanFactory:644 - Overriding bean definition for bean 'deckFactory': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.home.blackjack.core.config.BlackjackCoreAppLevelConfig; factoryMethodName=deckFactory; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/home/blackjack/core/config/BlackjackCoreAppLevelConfig.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=true; factoryBeanName=endToEndCucumberConfig; factoryMethodName=deckFactory; initMethodName=null; destroyMethodName=(inferred); defined in class org.home.blackjack.core.integration.test.config.EndToEndCucumberConfig]
+2014-04-13 11:26:37 INFO  DefaultListableBeanFactory:644 - Overriding bean definition for bean 'walletService': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.home.blackjack.core.config.BlackjackCoreAppLevelConfig; factoryMethodName=walletService; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/home/blackjack/core/config/BlackjackCoreAppLevelConfig.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=true; factoryBeanName=endToEndCucumberConfig; factoryMethodName=walletService; initMethodName=null; destroyMethodName=(inferred); defined in class org.home.blackjack.core.integration.test.config.EndToEndCucumberConfig]
+
+2 Scenarios ([31m2 failed[0m)
+33 Steps ([31m2 failed[0m, [36m31 skipped[0m)
+0m4.223s
+
+java.lang.IllegalStateException: Cannot load configuration class: org.home.blackjack.core.config.BlackjackCoreInfLevelConfig
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.enhanceConfigurationClasses(ConfigurationClassPostProcessor.java:366)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanFactory(ConfigurationClassPostProcessor.java:242)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:694)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:633)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:461)
+	at org.springframework.context.annotation.AnnotationConfigApplicationContext.<init>(AnnotationConfigApplicationContext.java:73)
+	at org.home.blackjack.core.integration.test.cucumber.CucumberService.<init>(CucumberService.java:20)
+	at org.home.blackjack.core.integration.test.cucumber.EndToEndCucumberService.<init>(EndToEndCucumberService.java:9)
+	at org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent.initDependencies(MessagingTestAgent.java:49)
+	at org.home.blackjack.core.integration.test.steps.testagent.TestAgent.<init>(TestAgent.java:38)
+	at org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent.<init>(MessagingTestAgent.java:35)
+	at org.home.blackjack.core.integration.test.steps.base.GameStep.<init>(GameStep.java:30)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.picocontainer.injectors.AbstractInjector.newInstance(AbstractInjector.java:145)
+	at org.picocontainer.injectors.ConstructorInjector$1.run(ConstructorInjector.java:342)
+	at org.picocontainer.injectors.AbstractInjector$ThreadLocalCyclicDependencyGuard.observe(AbstractInjector.java:270)
+	at org.picocontainer.injectors.ConstructorInjector.getComponentInstance(ConstructorInjector.java:364)
+	at org.picocontainer.behaviors.AbstractBehavior.getComponentInstance(AbstractBehavior.java:64)
+	at org.picocontainer.behaviors.Stored.getComponentInstance(Stored.java:91)
+	at org.picocontainer.DefaultPicoContainer.getInstance(DefaultPicoContainer.java:698)
+	at org.picocontainer.DefaultPicoContainer.getComponent(DefaultPicoContainer.java:646)
+	at org.picocontainer.DefaultPicoContainer.getComponent(DefaultPicoContainer.java:677)
+	at cucumber.runtime.java.picocontainer.PicoFactory.getInstance(PicoFactory.java:35)
+	at cucumber.runtime.java.JavaStepDefinition.execute(JavaStepDefinition.java:35)
+	at cucumber.runtime.StepDefinitionMatch.runStep(StepDefinitionMatch.java:38)
+	at cucumber.runtime.Runtime.runStep(Runtime.java:289)
+	at cucumber.runtime.model.StepContainer.runStep(StepContainer.java:44)
+	at cucumber.runtime.model.StepContainer.runSteps(StepContainer.java:39)
+	at cucumber.runtime.model.CucumberScenario.run(CucumberScenario.java:40)
+	at cucumber.runtime.junit.ExecutionUnitRunner.run(ExecutionUnitRunner.java:83)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:63)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:18)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at cucumber.runtime.junit.FeatureRunner.run(FeatureRunner.java:70)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:82)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:41)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at cucumber.api.junit.Cucumber.run(Cucumber.java:87)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+	at ?.When player 'John' registers(registration.feature:5)
+Caused by: java.lang.NoClassDefFoundError: org/apache/camel/RoutesBuilder
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Class.java:2483)
+	at java.lang.Class.getDeclaredConstructors(Class.java:1891)
+	at org.springframework.cglib.proxy.Enhancer.generateClass(Enhancer.java:447)
+	at org.springframework.cglib.core.DefaultGeneratorStrategy.generate(DefaultGeneratorStrategy.java:25)
+	at org.springframework.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:216)
+	at org.springframework.cglib.proxy.Enhancer.createHelper(Enhancer.java:377)
+	at org.springframework.cglib.proxy.Enhancer.createClass(Enhancer.java:317)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.createClass(ConfigurationClassEnhancer.java:147)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.enhance(ConfigurationClassEnhancer.java:106)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.enhanceConfigurationClasses(ConfigurationClassPostProcessor.java:356)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanFactory(ConfigurationClassPostProcessor.java:242)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:694)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:633)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:461)
+	at org.springframework.context.annotation.AnnotationConfigApplicationContext.<init>(AnnotationConfigApplicationContext.java:73)
+	at org.home.blackjack.core.integration.test.cucumber.CucumberService.<init>(CucumberService.java:20)
+	at org.home.blackjack.core.integration.test.cucumber.EndToEndCucumberService.<init>(EndToEndCucumberService.java:9)
+	at org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent.initDependencies(MessagingTestAgent.java:49)
+	at org.home.blackjack.core.integration.test.steps.testagent.TestAgent.<init>(TestAgent.java:38)
+	at org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent.<init>(MessagingTestAgent.java:35)
+	at org.home.blackjack.core.integration.test.steps.base.GameStep.<init>(GameStep.java:30)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.picocontainer.injectors.AbstractInjector.newInstance(AbstractInjector.java:145)
+	at org.picocontainer.injectors.ConstructorInjector$1.run(ConstructorInjector.java:342)
+	at org.picocontainer.injectors.AbstractInjector$ThreadLocalCyclicDependencyGuard.observe(AbstractInjector.java:270)
+	at org.picocontainer.injectors.ConstructorInjector.getComponentInstance(ConstructorInjector.java:364)
+	at org.picocontainer.behaviors.AbstractBehavior.getComponentInstance(AbstractBehavior.java:64)
+	at org.picocontainer.behaviors.Stored.getComponentInstance(Stored.java:91)
+	at org.picocontainer.DefaultPicoContainer.getInstance(DefaultPicoContainer.java:698)
+	at org.picocontainer.DefaultPicoContainer.getComponent(DefaultPicoContainer.java:646)
+	at org.picocontainer.DefaultPicoContainer.getComponent(DefaultPicoContainer.java:677)
+	at cucumber.runtime.java.picocontainer.PicoFactory.getInstance(PicoFactory.java:35)
+	at cucumber.runtime.java.JavaStepDefinition.execute(JavaStepDefinition.java:35)
+	at cucumber.runtime.StepDefinitionMatch.runStep(StepDefinitionMatch.java:38)
+	at cucumber.runtime.Runtime.runStep(Runtime.java:289)
+	at cucumber.runtime.model.StepContainer.runStep(StepContainer.java:44)
+	at cucumber.runtime.model.StepContainer.runSteps(StepContainer.java:39)
+	at cucumber.runtime.model.CucumberScenario.run(CucumberScenario.java:40)
+	at cucumber.runtime.junit.ExecutionUnitRunner.run(ExecutionUnitRunner.java:83)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:63)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:18)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at cucumber.runtime.junit.FeatureRunner.run(FeatureRunner.java:70)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:82)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:41)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at cucumber.api.junit.Cucumber.run(Cucumber.java:87)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+Caused by: java.lang.ClassNotFoundException: org.apache.camel.RoutesBuilder
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 71 more
+
+java.lang.IllegalStateException: Cannot load configuration class: org.home.blackjack.core.config.BlackjackCoreInfLevelConfig
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.enhanceConfigurationClasses(ConfigurationClassPostProcessor.java:366)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanFactory(ConfigurationClassPostProcessor.java:242)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:694)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:633)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:461)
+	at org.springframework.context.annotation.AnnotationConfigApplicationContext.<init>(AnnotationConfigApplicationContext.java:73)
+	at org.home.blackjack.core.integration.test.cucumber.CucumberService.<init>(CucumberService.java:20)
+	at org.home.blackjack.core.integration.test.cucumber.EndToEndCucumberService.<init>(EndToEndCucumberService.java:9)
+	at org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent.initDependencies(MessagingTestAgent.java:49)
+	at org.home.blackjack.core.integration.test.steps.testagent.TestAgent.<init>(TestAgent.java:38)
+	at org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent.<init>(MessagingTestAgent.java:35)
+	at org.home.blackjack.core.integration.test.steps.base.GameStep.<init>(GameStep.java:30)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.picocontainer.injectors.AbstractInjector.newInstance(AbstractInjector.java:145)
+	at org.picocontainer.injectors.ConstructorInjector$1.run(ConstructorInjector.java:342)
+	at org.picocontainer.injectors.AbstractInjector$ThreadLocalCyclicDependencyGuard.observe(AbstractInjector.java:270)
+	at org.picocontainer.injectors.ConstructorInjector.getComponentInstance(ConstructorInjector.java:364)
+	at org.picocontainer.behaviors.AbstractBehavior.getComponentInstance(AbstractBehavior.java:64)
+	at org.picocontainer.behaviors.Stored.getComponentInstance(Stored.java:91)
+	at org.picocontainer.DefaultPicoContainer.getInstance(DefaultPicoContainer.java:698)
+	at org.picocontainer.DefaultPicoContainer.getComponent(DefaultPicoContainer.java:646)
+	at org.picocontainer.DefaultPicoContainer.getComponent(DefaultPicoContainer.java:677)
+	at cucumber.runtime.java.picocontainer.PicoFactory.getInstance(PicoFactory.java:35)
+	at cucumber.runtime.java.JavaStepDefinition.execute(JavaStepDefinition.java:35)
+	at cucumber.runtime.StepDefinitionMatch.runStep(StepDefinitionMatch.java:38)
+	at cucumber.runtime.Runtime.runStep(Runtime.java:289)
+	at cucumber.runtime.model.StepContainer.runStep(StepContainer.java:44)
+	at cucumber.runtime.model.StepContainer.runSteps(StepContainer.java:39)
+	at cucumber.runtime.model.CucumberScenario.run(CucumberScenario.java:40)
+	at cucumber.runtime.junit.ExecutionUnitRunner.run(ExecutionUnitRunner.java:83)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:63)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:18)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at cucumber.runtime.junit.FeatureRunner.run(FeatureRunner.java:70)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:82)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:41)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at cucumber.api.junit.Cucumber.run(Cucumber.java:87)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+	at ?.Given registered players(sitdown_and_playblackjack.feature:5)
+Caused by: java.lang.NoClassDefFoundError: org/apache/camel/RoutesBuilder
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Class.java:2483)
+	at java.lang.Class.getDeclaredConstructors(Class.java:1891)
+	at org.springframework.cglib.proxy.Enhancer.generateClass(Enhancer.java:447)
+	at org.springframework.cglib.core.DefaultGeneratorStrategy.generate(DefaultGeneratorStrategy.java:25)
+	at org.springframework.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:216)
+	at org.springframework.cglib.proxy.Enhancer.createHelper(Enhancer.java:377)
+	at org.springframework.cglib.proxy.Enhancer.createClass(Enhancer.java:317)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.createClass(ConfigurationClassEnhancer.java:147)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.enhance(ConfigurationClassEnhancer.java:106)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.enhanceConfigurationClasses(ConfigurationClassPostProcessor.java:356)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanFactory(ConfigurationClassPostProcessor.java:242)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:694)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:633)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:461)
+	at org.springframework.context.annotation.AnnotationConfigApplicationContext.<init>(AnnotationConfigApplicationContext.java:73)
+	at org.home.blackjack.core.integration.test.cucumber.CucumberService.<init>(CucumberService.java:20)
+	at org.home.blackjack.core.integration.test.cucumber.EndToEndCucumberService.<init>(EndToEndCucumberService.java:9)
+	at org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent.initDependencies(MessagingTestAgent.java:49)
+	at org.home.blackjack.core.integration.test.steps.testagent.TestAgent.<init>(TestAgent.java:38)
+	at org.home.blackjack.core.integration.test.steps.testagent.MessagingTestAgent.<init>(MessagingTestAgent.java:35)
+	at org.home.blackjack.core.integration.test.steps.base.GameStep.<init>(GameStep.java:30)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.picocontainer.injectors.AbstractInjector.newInstance(AbstractInjector.java:145)
+	at org.picocontainer.injectors.ConstructorInjector$1.run(ConstructorInjector.java:342)
+	at org.picocontainer.injectors.AbstractInjector$ThreadLocalCyclicDependencyGuard.observe(AbstractInjector.java:270)
+	at org.picocontainer.injectors.ConstructorInjector.getComponentInstance(ConstructorInjector.java:364)
+	at org.picocontainer.behaviors.AbstractBehavior.getComponentInstance(AbstractBehavior.java:64)
+	at org.picocontainer.behaviors.Stored.getComponentInstance(Stored.java:91)
+	at org.picocontainer.DefaultPicoContainer.getInstance(DefaultPicoContainer.java:698)
+	at org.picocontainer.DefaultPicoContainer.getComponent(DefaultPicoContainer.java:646)
+	at org.picocontainer.DefaultPicoContainer.getComponent(DefaultPicoContainer.java:677)
+	at cucumber.runtime.java.picocontainer.PicoFactory.getInstance(PicoFactory.java:35)
+	at cucumber.runtime.java.JavaStepDefinition.execute(JavaStepDefinition.java:35)
+	at cucumber.runtime.StepDefinitionMatch.runStep(StepDefinitionMatch.java:38)
+	at cucumber.runtime.Runtime.runStep(Runtime.java:289)
+	at cucumber.runtime.model.StepContainer.runStep(StepContainer.java:44)
+	at cucumber.runtime.model.StepContainer.runSteps(StepContainer.java:39)
+	at cucumber.runtime.model.CucumberScenario.run(CucumberScenario.java:40)
+	at cucumber.runtime.junit.ExecutionUnitRunner.run(ExecutionUnitRunner.java:83)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:63)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:18)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at cucumber.runtime.junit.FeatureRunner.run(FeatureRunner.java:70)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:82)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:41)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at cucumber.api.junit.Cucumber.run(Cucumber.java:87)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+Caused by: java.lang.ClassNotFoundException: org.apache.camel.RoutesBuilder
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 71 more
+
+Tests run: 35, Failures: 0, Errors: 4, Skipped: 31, Time elapsed: 4.717 sec <<< FAILURE!
+
+Results :
+
+Tests in error: 
+  When player 'John' registers(Scenario: player registers. An account will be opened for her.)
+  Scenario: player registers. An account will be opened for her.
+  Given registered players(Scenario: players sit down and play. One wins)
+  Scenario: players sit down and play. One wins
+
+Tests run: 35, Failures: 0, Errors: 4, Skipped: 31
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 18.501s
+[INFO] Finished at: Sun Apr 13 11:26:37 BST 2014
+[INFO] Final Memory: 19M/267M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.4.3:test (default-test) on project blackjack: There are test failures.
+[ERROR] 
+[ERROR] Please refer to c:\Users\Mate\Documents\gitrepos\blackjack\blackjack-core-system\target\surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

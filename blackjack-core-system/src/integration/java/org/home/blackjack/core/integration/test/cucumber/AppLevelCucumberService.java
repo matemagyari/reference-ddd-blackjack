@@ -1,4 +1,4 @@
-package org.home.blackjack.core.integration.test.util;
+package org.home.blackjack.core.integration.test.cucumber;
 
 
 import org.home.blackjack.core.integration.test.config.AppLevelCucumberConfig;

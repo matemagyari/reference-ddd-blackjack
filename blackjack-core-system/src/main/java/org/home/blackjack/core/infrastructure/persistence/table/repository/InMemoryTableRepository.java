@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.persistence.table;
+package org.home.blackjack.core.infrastructure.persistence.table.repository;
 
 import java.util.List;
 import java.util.Map;
@@ -52,6 +52,11 @@ public class InMemoryTableRepository implements TableRepository, FinegrainedLock
 	public void clear() {
 		map.clear();
 		locks.clear();
+	}
+	
+	@Override
+	public boolean isEmpty() {
+		return map.isEmpty();
 	}
 
 	@Override

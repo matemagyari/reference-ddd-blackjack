@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.persistence.shared;
+package org.home.blackjack.core.infrastructure.persistence.shared.core;
 
 public interface PersistenceStore<DOMAIN, PO extends PersistenceObject<DOMAIN>, POID extends PersistenceObjectId> {
 	

@@ -17,5 +17,7 @@ public interface TableRepository extends Repository<TableID, Table> {
 
 	void clear();
 
+	boolean isEmpty();
+
 
 }

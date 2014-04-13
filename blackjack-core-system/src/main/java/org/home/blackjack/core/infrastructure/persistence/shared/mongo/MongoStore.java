@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.persistence.shared;
+package org.home.blackjack.core.infrastructure.persistence.shared.mongo;
 
 import java.util.List;
 
@@ -62,6 +62,10 @@ public abstract class MongoStore {
         }
         return result;
     }
+    
+    protected boolean isEmpty() {
+		return collection().count() == 0;
+	}
     
     protected DBObject find(BasicDBObject query) {
         DBCursor cursor = null;

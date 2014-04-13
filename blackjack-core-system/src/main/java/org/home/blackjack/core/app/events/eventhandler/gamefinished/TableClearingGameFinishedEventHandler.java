@@ -6,6 +6,7 @@ import javax.inject.Named;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
+import org.home.blackjack.util.locking.aspect.WithPessimisticLock;
 
 @Named
 public class TableClearingGameFinishedEventHandler extends GameFinishedEventHandler {
@@ -14,6 +15,7 @@ public class TableClearingGameFinishedEventHandler extends GameFinishedEventHand
 	private TableRepository tableRepository;
 
 	@Override
+	@WithPessimisticLock(repository=TableRepository.class, lockMethod="getTableId")
 	public void handleEvent(GameFinishedEvent event) {
         Table table = tableRepository.find(event.getTableID());
         table.clearTable();

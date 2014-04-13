@@ -1,7 +1,7 @@
 package org.home.blackjack.core.infrastructure.persistence.game.store.inmemory;
 
 import org.home.blackjack.core.domain.game.Game;
-import org.home.blackjack.core.infrastructure.persistence.shared.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 
 public class InMemoryPersistenceGame implements PersistenceObject<Game> {
 	

@@ -13,8 +13,7 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
 
 /**
- * Domain Service
- *
+ * Domain Service. Fully implemented in Domain.
  */
 @Named
 public class Dealer {
