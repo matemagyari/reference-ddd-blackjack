@@ -15,7 +15,7 @@ public class TableClearingGameFinishedEventHandler extends GameFinishedEventHand
 	private TableRepository tableRepository;
 
 	@Override
-	@WithPessimisticLock(repository=TableRepository.class, lockMethod="getTableId")
+	@WithPessimisticLock(repository=TableRepository.class, lockMethod="getTableID")
 	public void handleEvent(GameFinishedEvent event) {
         Table table = tableRepository.find(event.getTableID());
         table.clearTable();
