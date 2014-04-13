@@ -1,5 +1,71 @@
 package org.home.blackjack.core.infrastructure.persistence.game.store.hazelcast;
 
-public class HazelcastGameStore {
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import javax.annotation.Resource;
+
+import org.home.blackjack.core.domain.game.Game;
+import org.home.blackjack.core.domain.game.core.GameID;
+import org.home.blackjack.core.domain.shared.TableID;
+import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+
+import com.google.common.collect.Maps;
+
+public class HazelcastGameStore  implements GameStore {
+	
+	private final Map<HZPersistenceGameId, String> jsonMap = Maps.newHashMap();
+	private final ConcurrentMap<GameID, Lock> locks = Maps.newConcurrentMap();
+
+	@Resource
+	private HZGamePersistenceAssembler gameStoreAssembler;
+	
+	@Override
+	public HZGamePersistenceAssembler assembler() {
+		return gameStoreAssembler;
+	}
+
+	@Override
+	public HZPersistenceGame find(PersistenceObjectId<GameID> id) {
+		HZPersistenceGameId gameID = (HZPersistenceGameId) id;
+		String json = jsonMap.get(gameID);
+		return new HZPersistenceGame(gameID, json);
+	}
+	
+
+	@Override
+	public PersistenceObject<Game> find(TableID tableId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(PersistenceObject<Game> po) {
+		HZPersistenceGame mpg = (HZPersistenceGame) po;
+		jsonMap.put(mpg.id(), mpg.getJson());
+	}
+
+    @Override
+    public void create(PersistenceObject<Game> po) {
+        HZPersistenceGame mpg = (HZPersistenceGame) po;
+        jsonMap.put(mpg.id(), mpg.getJson());
+    }
+
+    @Override
+    public Lock getLockForKey(GameID key) {
+        locks.putIfAbsent(key, new ReentrantLock());
+        return locks.get(key);
+    }
+
+	@Override
+	public void clear() {
+		jsonMap.clear();
+		locks.clear();
+	}
+
 
 }
