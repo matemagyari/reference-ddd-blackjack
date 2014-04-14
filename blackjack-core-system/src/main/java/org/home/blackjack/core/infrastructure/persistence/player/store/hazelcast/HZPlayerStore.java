@@ -14,17 +14,24 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.hazelcast.core.HazelcastInstance;
 
 public class HZPlayerStore  implements PlayerStore {
 	
-	private final Map<HZPersistencePlayerId, String> jsonMap = Maps.newHashMap();
+	private final Map<HZPersistencePlayerId, String> jsonMap;
 	private final ConcurrentMap<PlayerID, Lock> locks = Maps.newConcurrentMap();
 
 	@Resource
 	private HZPlayerPersistenceAssembler playerStoreAssembler;
+	
+    @Autowired
+    public HZPlayerStore(HazelcastInstance hzInstance) {
+        jsonMap = hzInstance.getMap("playerHZMap");
+    }
 	
 	@Override
 	public HZPlayerPersistenceAssembler assembler() {

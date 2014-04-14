@@ -11,23 +11,27 @@ import javax.annotation.Resource;
 
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
-import org.home.blackjack.core.infrastructure.persistence.table.store.inmemory.InMemoryPersistenceTable;
-import org.home.blackjack.core.infrastructure.persistence.table.store.inmemory.InMemoryPersistenceTableId;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.hazelcast.core.HazelcastInstance;
 
 public class HZTableStore  implements TableStore {
 	
-	private final Map<HZPersistenceTableId, String> jsonMap = Maps.newHashMap();
+	private final Map<HZPersistenceTableId, String> jsonMap;
 	private final ConcurrentMap<TableID, Lock> locks = Maps.newConcurrentMap();
 
 	@Resource
 	private HZTablePersistenceAssembler playerStoreAssembler;
+	
+    @Autowired
+    public HZTableStore(HazelcastInstance hzInstance) {
+        jsonMap = hzInstance.getMap("tableHZMap");
+    }
 	
 	@Override
 	public HZTablePersistenceAssembler assembler() {

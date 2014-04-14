@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * 
  * @author michele.sollecito
  */
-public abstract class ValueObject {
+public abstract class ValueObject implements Domain {
 
 	@Override
 	public final boolean equals(final Object other) {

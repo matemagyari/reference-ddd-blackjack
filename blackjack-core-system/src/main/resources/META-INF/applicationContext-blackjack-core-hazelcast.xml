@@ -41,6 +41,14 @@
 				eviction-percentage="80" read-backup-data="false" cache-value="false"
 				storage-type="HEAP" max-idle-seconds="0" eviction-policy="NONE"
 				merge-policy="hz.ADD_NEW_ENTRY" />
+			<hz:map name="playerHZMap" backup-count="1" max-size="0"
+				eviction-percentage="80" read-backup-data="false" cache-value="false"
+				storage-type="HEAP" max-idle-seconds="0" eviction-policy="NONE"
+				merge-policy="hz.ADD_NEW_ENTRY" />
+			<hz:map name="tableHZMap" backup-count="1" max-size="0"
+				eviction-percentage="80" read-backup-data="false" cache-value="false"
+				storage-type="HEAP" max-idle-seconds="0" eviction-policy="NONE"
+				merge-policy="hz.ADD_NEW_ENTRY" />
 		</hz:config>
 	</hz:hazelcast>
 </beans>

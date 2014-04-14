@@ -1,6 +1,8 @@
 package org.home.blackjack.core.infrastructure.persistence.shared.core;
 
-public interface PersistenceStore<DOMAIN, PO extends PersistenceObject<DOMAIN>, POID extends PersistenceObjectId> {
+import org.home.blackjack.util.ddd.pattern.Domain;
+
+public interface PersistenceStore<DOMAIN extends Domain, PO extends PersistenceObject<DOMAIN>, POID extends PersistenceObjectId> {
 	
 	<PA extends PersistenceAssembler<DOMAIN, PO>> PA  assembler();
 	PO find(POID id);

@@ -9,7 +9,7 @@ import org.home.blackjack.core.infrastructure.persistence.shared.core.Persistenc
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceStore;
 
-public interface GameStore extends  PersistenceStore<Game, PersistenceObject<Game>, PersistenceObjectId<GameID>> {
+public interface GameStore extends PersistenceStore<Game, PersistenceObject<Game>, PersistenceObjectId<GameID>> {
 
 	Lock getLockForKey(GameID key);
 

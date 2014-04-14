@@ -47,14 +47,6 @@ import org.home.blackjack.util.ddd.util.DomainException;
  * 
  * Difference 4: players can stand any time, regardless of the value of their hands
  * 
- * 
- * What's missing:
- * 
- * 1. GameID - will be calculated by the Repository 2. GameBuilder
- * 
- * 
- * @author Mate
- * 
  */
 public class Game extends AggregateRoot<GameID> {
 

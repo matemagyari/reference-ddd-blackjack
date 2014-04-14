@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
  * 
  * @author michele.sollecito
  */
-public abstract class Entity<T extends ID> {
+public abstract class Entity<T extends ID> implements Domain {
 
 	private T id;
 
