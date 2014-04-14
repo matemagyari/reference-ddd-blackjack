@@ -5,41 +5,40 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
-import org.home.blackjack.core.infrastructure.persistence.game.store.json.GameGsonProvider;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
-import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
-import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
-import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 
 import com.google.common.collect.Maps;
 
-public class InMemoryGameStore implements GameStore {
+@Named(value="inMemoryGameStore")
+public class InMemoryGameStoreOld implements GameStore {
 	
-	private final Map<StringPersistenceId<GameID>, String> jsonMap = Maps.newHashMap();
+	private final Map<InMemoryPersistenceGameId, String> jsonMap = Maps.newHashMap();
 	private final ConcurrentMap<GameID, Lock> locks = Maps.newConcurrentMap();
 
-	private JsonPersistenceAssembler<Game> gameStoreAssembler = new JsonPersistenceAssembler<Game>(Game.class, new GameGsonProvider());
+	@Resource
+	private InMemoryGamePersistenceAssembler gameStoreAssembler;
 	
-	public InMemoryGameStore() {
+	public InMemoryGameStoreOld() {
     }
 	
 	@Override
-	public JsonPersistenceAssembler<Game> assembler() {
+	public InMemoryGamePersistenceAssembler assembler() {
 		return gameStoreAssembler;
 	}
 
 	@Override
-	public JsonPersistenceObject<Game> find(PersistenceObjectId<GameID> id) {
-		StringPersistenceId<GameID> gameID = (StringPersistenceId<GameID>) id;
+	public InMemoryPersistenceGame find(PersistenceObjectId<GameID> id) {
+		InMemoryPersistenceGameId gameID = (InMemoryPersistenceGameId) id;
 		String json = jsonMap.get(gameID);
-		return new JsonPersistenceObject<Game>(json);
+		return new InMemoryPersistenceGame(gameID, json);
 	}
 	
 
@@ -51,14 +50,14 @@ public class InMemoryGameStore implements GameStore {
 
 	@Override
 	public void update(PersistenceObject<Game> po) {
-		JsonPersistenceObject<Game> mpg = (JsonPersistenceObject<Game>) po;
-		jsonMap.put((StringPersistenceId<GameID>)mpg.id(), mpg.getJson());
+		InMemoryPersistenceGame mpg = (InMemoryPersistenceGame) po;
+		jsonMap.put(mpg.id(), mpg.getJson());
 	}
 
     @Override
     public void create(PersistenceObject<Game> po) {
-        JsonPersistenceObject<Game> mpg = (JsonPersistenceObject<Game>) po;
-        jsonMap.put((StringPersistenceId<GameID>)mpg.id(), mpg.getJson());
+        InMemoryPersistenceGame mpg = (InMemoryPersistenceGame) po;
+        jsonMap.put(mpg.id(), mpg.getJson());
     }
 
     @Override

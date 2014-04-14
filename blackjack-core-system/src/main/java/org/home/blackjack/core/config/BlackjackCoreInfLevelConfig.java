@@ -1,9 +1,6 @@
 package org.home.blackjack.core.config;
 
-import java.util.List;
-
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spring.javaconfig.CamelConfiguration;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.infrastructure.integration.camel.CometDExternalEventPublisher;

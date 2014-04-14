@@ -1,33 +1,37 @@
-package org.home.blackjack.core.infrastructure.persistence.game.store.inmemory;
+package org.home.blackjack.core.infrastructure.persistence.game.store.hazelcast;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.inject.Named;
+import javax.annotation.Resource;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
-import org.home.blackjack.core.infrastructure.persistence.game.store.json.GameGsonProvider;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Maps;
+import com.hazelcast.core.HazelcastInstance;
 
-public class InMemoryGameStore implements GameStore {
+public class HZGameStore2 implements GameStore {
 	
-	private final Map<StringPersistenceId<GameID>, String> jsonMap = Maps.newHashMap();
+	private final Map<StringPersistenceId<GameID>, String> jsonMap;
 	private final ConcurrentMap<GameID, Lock> locks = Maps.newConcurrentMap();
 
-	private JsonPersistenceAssembler<Game> gameStoreAssembler = new JsonPersistenceAssembler<Game>(Game.class, new GameGsonProvider());
+	@Resource
+	private JsonPersistenceAssembler<Game> gameStoreAssembler;
 	
-	public InMemoryGameStore() {
+    @Autowired
+    public HZGameStore2(HazelcastInstance hzInstance) {
+        jsonMap = hzInstance.getMap("gameHZMap");
     }
 	
 	@Override
@@ -52,12 +56,12 @@ public class InMemoryGameStore implements GameStore {
 	@Override
 	public void update(PersistenceObject<Game> po) {
 		JsonPersistenceObject<Game> mpg = (JsonPersistenceObject<Game>) po;
-		jsonMap.put((StringPersistenceId<GameID>)mpg.id(), mpg.getJson());
+		jsonMap.put((StringPersistenceId<GameID>) mpg.id(), mpg.getJson());
 	}
 
     @Override
     public void create(PersistenceObject<Game> po) {
-        JsonPersistenceObject<Game> mpg = (JsonPersistenceObject<Game>) po;
+    	JsonPersistenceObject<Game> mpg = (JsonPersistenceObject<Game>) po;
         jsonMap.put((StringPersistenceId<GameID>)mpg.id(), mpg.getJson());
     }
 
@@ -72,5 +76,6 @@ public class InMemoryGameStore implements GameStore {
 		jsonMap.clear();
 		locks.clear();
 	}
+
 
 }
