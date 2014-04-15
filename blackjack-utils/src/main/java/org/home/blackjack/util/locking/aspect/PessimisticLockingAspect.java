@@ -19,7 +19,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import com.google.common.collect.Lists;
-import com.hazelcast.util.StringUtil;
 
 @Aspect
 public class PessimisticLockingAspect implements ApplicationContextAware {

@@ -1,13 +1,16 @@
 package org.home.blackjack.core.infrastructure.persistence.shared.json;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
 import org.home.blackjack.util.ddd.pattern.ID;
 
-public class StringPersistenceId <T extends ID> implements PersistenceObjectId<T> {
+public class StringPersistenceId <T extends ID> implements PersistenceObjectId<T>, Serializable {
 
-	private final String id;
+    private static final long serialVersionUID = 2988235216767497988L;
+    private final String id;
 	
 	public StringPersistenceId(String id) {
 		this.id = id;
