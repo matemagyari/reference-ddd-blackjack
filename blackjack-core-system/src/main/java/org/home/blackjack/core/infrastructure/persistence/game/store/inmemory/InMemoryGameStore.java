@@ -20,6 +20,7 @@ import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPers
 
 import com.google.common.collect.Maps;
 
+@Named
 public class InMemoryGameStore implements GameStore {
 	
 	private final Map<StringPersistenceId<GameID>, String> jsonMap = Maps.newHashMap();

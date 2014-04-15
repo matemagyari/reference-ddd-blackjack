@@ -7,13 +7,15 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.Resource;
-
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
+import org.home.blackjack.core.infrastructure.persistence.player.store.json.PlayerGsonProvider;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
@@ -22,11 +24,10 @@ import com.hazelcast.core.HazelcastInstance;
 
 public class HZPlayerStore  implements PlayerStore {
 	
-	private final Map<HZPersistencePlayerId, String> jsonMap;
+	private final Map<StringPersistenceId<PlayerID>, String> jsonMap;
 	private final ConcurrentMap<PlayerID, Lock> locks = Maps.newConcurrentMap();
 
-	@Resource
-	private HZPlayerPersistenceAssembler playerStoreAssembler;
+	private JsonPersistenceAssembler<Player> playerStoreAssembler = new JsonPersistenceAssembler<Player>(Player.class, new PlayerGsonProvider());
 	
     @Autowired
     public HZPlayerStore(HazelcastInstance hzInstance) {
@@ -34,27 +35,27 @@ public class HZPlayerStore  implements PlayerStore {
     }
 	
 	@Override
-	public HZPlayerPersistenceAssembler assembler() {
+	public JsonPersistenceAssembler<Player> assembler() {
 		return playerStoreAssembler;
 	}
 
 	@Override
-	public HZPersistencePlayer find(PersistenceObjectId<PlayerID> id) {
-		HZPersistencePlayerId playerID = (HZPersistencePlayerId) id;
+	public JsonPersistenceObject<Player> find(PersistenceObjectId<PlayerID> id) {
+		StringPersistenceId<PlayerID> playerID = (StringPersistenceId<PlayerID>) id;
 		String json = jsonMap.get(playerID);
-		return new HZPersistencePlayer(playerID, json);
+		return new JsonPersistenceObject<Player>(json);
 	}
 	
 	@Override
 	public void update(PersistenceObject<Player> po) {
-		HZPersistencePlayer mpg = (HZPersistencePlayer) po;
-		jsonMap.put(mpg.id(), mpg.getJson());
+		JsonPersistenceObject<Player> mpg = (JsonPersistenceObject<Player>) po;
+		jsonMap.put((StringPersistenceId<PlayerID>)mpg.id(), mpg.getJson());
 	}
 
     @Override
     public void create(PersistenceObject<Player> po) {
-        HZPersistencePlayer mpg = (HZPersistencePlayer) po;
-        jsonMap.put(mpg.id(), mpg.getJson());
+        JsonPersistenceObject<Player> mpg = (JsonPersistenceObject<Player>) po;
+        jsonMap.put((StringPersistenceId<PlayerID>)mpg.id(), mpg.getJson());
     }
 
     @Override
@@ -72,8 +73,8 @@ public class HZPlayerStore  implements PlayerStore {
     @Override
     public List<PersistenceObject<Player>> findAllSortedByWinNumber() {
         List<PersistenceObject<Player>> result = Lists.newArrayList();
-        for(Entry<HZPersistencePlayerId, String> entry : jsonMap.entrySet()) {
-            result.add(new HZPersistencePlayer(entry.getKey(), entry.getValue()));
+        for(Entry<StringPersistenceId<PlayerID>, String> entry : jsonMap.entrySet()) {
+            result.add(new JsonPersistenceObject<Player>(entry.getValue()));
         }
         return result;
     }

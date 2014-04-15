@@ -5,6 +5,7 @@ import org.home.blackjack.core.infrastructure.persistence.shared.core.Persistenc
 import org.home.blackjack.util.ddd.pattern.Domain;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class JsonPersistenceObject <T extends Domain> implements PersistenceObject<T> {
@@ -18,8 +19,9 @@ public class JsonPersistenceObject <T extends Domain> implements PersistenceObje
 	    
 	}
     private static StringPersistenceId<?> getId(String json) {
-        JsonObject jsonObject = (JsonObject) new Gson().toJsonTree(json);
-	    String strId = jsonObject.get("id").toString();
+        JsonElement element = new Gson().fromJson (json, JsonElement.class);
+        JsonObject jsonObject = element.getAsJsonObject();
+        String strId = jsonObject.get("id").getAsJsonObject().get("internal").getAsString();
 	    return new StringPersistenceId(strId);
     }
 	

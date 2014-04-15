@@ -4,14 +4,18 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.Resource;
+import javax.inject.Named;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
+import org.home.blackjack.core.infrastructure.persistence.game.store.json.GameGsonProvider;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 import org.home.blackjack.core.infrastructure.persistence.shared.mongo.MongoStore;
 
 import com.google.common.collect.Maps;
@@ -19,41 +23,40 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-//@Named
+@Named
 public class MongoGameStore extends MongoStore implements GameStore {
 
-    @Resource
-    private MongoGamePersistenceAssembler gameStoreAssembler;
+    private JsonPersistenceAssembler<Game> gameStoreAssembler = new JsonPersistenceAssembler<Game>(Game.class, new GameGsonProvider());
 
     public MongoGameStore() {
         super("blackjack", "game");
     }
 
     @Override
-    public MongoGamePersistenceAssembler assembler() {
+    public JsonPersistenceAssembler<Game> assembler() {
         return gameStoreAssembler;
     }
 
     @Override
-    public MongoPersistenceGame find(PersistenceObjectId<GameID> id) {
-        MongoPersistenceGameId gameID = (MongoPersistenceGameId) id;
+    public JsonPersistenceObject<Game> find(PersistenceObjectId<GameID> id) {
+    	StringPersistenceId<GameID> gameID = (StringPersistenceId<GameID>) id;
         DBObject dbObject = super.find(idQuery(gameID));
-        return new MongoPersistenceGame(gameID, dbObject.toString());
+        return new JsonPersistenceObject<Game>(dbObject.toString());
     }
     
     @Override
-    public MongoPersistenceGame find(TableID id) {
+    public JsonPersistenceObject<Game> find(TableID id) {
         BasicDBObject query = new BasicDBObject();
         query.put("tableId", id.toString());
         DBObject dbObject = super.find(query);
-        return new MongoPersistenceGame(dbObject.toString());
+        return new JsonPersistenceObject<Game>(dbObject.toString());
     }
 
     @Override
     public void update(PersistenceObject<Game> po) {
-        MongoPersistenceGame mpg = (MongoPersistenceGame) po;
+    	JsonPersistenceObject<Game> mpg = (JsonPersistenceObject<Game>) po;
         DBObject mongoDoc = toDoc(po);
-        BasicDBObject query = idQuery(mpg.id());
+        BasicDBObject query = idQuery((StringPersistenceId<GameID>) mpg.id());
         super.update(query, mongoDoc);
 
     }
@@ -65,11 +68,11 @@ public class MongoGameStore extends MongoStore implements GameStore {
     }
 
     private static DBObject toDoc(PersistenceObject<Game> po) {
-        MongoPersistenceGame mpg = (MongoPersistenceGame) po;
+    	JsonPersistenceObject<Game> mpg = (JsonPersistenceObject<Game>) po;
         return (DBObject) JSON.parse(mpg.getJson());
     }
 
-    private static BasicDBObject idQuery(MongoPersistenceGameId gameID) {
+    private static BasicDBObject idQuery(StringPersistenceId<GameID> gameID) {
         BasicDBObject query = new BasicDBObject();
         query.put("id.internal", gameID.getId());
         return query;

@@ -7,15 +7,17 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
+import org.home.blackjack.core.infrastructure.persistence.table.store.json.TableGsonProvider;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -23,39 +25,34 @@ import com.google.common.collect.Maps;
 @Named
 public class InMemoryTableStore implements TableStore {
 	
-	private final Map<InMemoryPersistenceTableId, String> jsonMap = Maps.newHashMap();
+	private final Map<StringPersistenceId<TableID>, String> jsonMap = Maps.newHashMap();
 	private final ConcurrentMap<TableID, Lock> locks = Maps.newConcurrentMap();
 
-	private final InMemoryTablePersistenceAssembler playerStoreAssembler;
-	
-	@Inject
-	public InMemoryTableStore(InMemoryTablePersistenceAssembler playerStoreAssembler) {
-		this.playerStoreAssembler = playerStoreAssembler;
-	}
+	 private JsonPersistenceAssembler<Table> playerStoreAssembler = new JsonPersistenceAssembler<Table>(Table.class, new TableGsonProvider());
 	
 	@Override
-	public InMemoryTablePersistenceAssembler assembler() {
+	public JsonPersistenceAssembler<Table> assembler() {
 		return playerStoreAssembler;
 	}
 
 	@Override
-	public InMemoryPersistenceTable find(PersistenceObjectId<TableID> id) {
-		InMemoryPersistenceTableId playerID = (InMemoryPersistenceTableId) id;
+	public JsonPersistenceObject<Table> find(PersistenceObjectId<TableID> id) {
+		StringPersistenceId<TableID> playerID = (StringPersistenceId<TableID>) id;
 		String json = jsonMap.get(playerID);
-		return new InMemoryPersistenceTable(playerID, json);
+		return new JsonPersistenceObject<Table>(json);
 	}
 	
 
 	@Override
 	public void update(PersistenceObject<Table> po) {
-		InMemoryPersistenceTable mpg = (InMemoryPersistenceTable) po;
-		jsonMap.put(mpg.id(), mpg.getJson());
+		JsonPersistenceObject<Table> mpg = (JsonPersistenceObject<Table>) po;
+		jsonMap.put((StringPersistenceId<TableID>)mpg.id(), mpg.getJson());
 	}
 
 	@Override
 	public void create(PersistenceObject<Table> po) {
-		InMemoryPersistenceTable mpg = (InMemoryPersistenceTable) po;
-		jsonMap.put(mpg.id(), mpg.getJson());
+		JsonPersistenceObject<Table> mpg = (JsonPersistenceObject<Table>) po;
+		jsonMap.put((StringPersistenceId<TableID>)mpg.id(), mpg.getJson());
 	}
 	
 	@Override
@@ -66,8 +63,8 @@ public class InMemoryTableStore implements TableStore {
     @Override
     public List<PersistenceObject<Table>> findAll() {
         List<PersistenceObject<Table>> result = Lists.newArrayList();
-        for(Entry<InMemoryPersistenceTableId, String> entry : jsonMap.entrySet()) {
-            result.add( new InMemoryPersistenceTable(entry.getKey(), entry.getValue()));
+        for(Entry<StringPersistenceId<TableID>, String> entry : jsonMap.entrySet()) {
+            result.add( new JsonPersistenceObject<Table>(entry.getValue()));
         }
         return result;
     }

@@ -7,13 +7,15 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.Resource;
-
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
+import org.home.blackjack.core.infrastructure.persistence.table.store.json.TableGsonProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
@@ -22,11 +24,10 @@ import com.hazelcast.core.HazelcastInstance;
 
 public class HZTableStore  implements TableStore {
 	
-	private final Map<HZPersistenceTableId, String> jsonMap;
+	private final Map<StringPersistenceId<TableID>, String> jsonMap;
 	private final ConcurrentMap<TableID, Lock> locks = Maps.newConcurrentMap();
 
-	@Resource
-	private HZTablePersistenceAssembler playerStoreAssembler;
+	private JsonPersistenceAssembler<Table> tableStoreAssembler = new JsonPersistenceAssembler<Table>(Table.class, new TableGsonProvider());
 	
     @Autowired
     public HZTableStore(HazelcastInstance hzInstance) {
@@ -34,27 +35,27 @@ public class HZTableStore  implements TableStore {
     }
 	
 	@Override
-	public HZTablePersistenceAssembler assembler() {
-		return playerStoreAssembler;
+	public JsonPersistenceAssembler<Table> assembler() {
+		return tableStoreAssembler;
 	}
 
 	@Override
-	public HZPersistenceTable find(PersistenceObjectId<TableID> id) {
-		HZPersistenceTableId playerID = (HZPersistenceTableId) id;
+	public JsonPersistenceObject<Table> find(PersistenceObjectId<TableID> id) {
+		StringPersistenceId<TableID> playerID = (StringPersistenceId<TableID>) id;
 		String json = jsonMap.get(playerID);
-		return new HZPersistenceTable(playerID, json);
+		return new JsonPersistenceObject<Table>(json);
 	}
 	
 	@Override
 	public void update(PersistenceObject<Table> po) {
-		HZPersistenceTable mpg = (HZPersistenceTable) po;
-		jsonMap.put(mpg.id(), mpg.getJson());
+		JsonPersistenceObject<Table> mpg = (JsonPersistenceObject<Table>) po;
+		jsonMap.put((StringPersistenceId<TableID>)mpg.id(), mpg.getJson());
 	}
 
     @Override
     public void create(PersistenceObject<Table> po) {
-        HZPersistenceTable mpg = (HZPersistenceTable) po;
-        jsonMap.put(mpg.id(), mpg.getJson());
+        JsonPersistenceObject<Table> mpg = (JsonPersistenceObject<Table>) po;
+        jsonMap.put((StringPersistenceId<TableID>)mpg.id(), mpg.getJson());
     }
 
     @Override
@@ -72,8 +73,8 @@ public class HZTableStore  implements TableStore {
 	@Override
 	public List<PersistenceObject<Table>> findAll() {
         List<PersistenceObject<Table>> result = Lists.newArrayList();
-        for(Entry<HZPersistenceTableId, String> entry : jsonMap.entrySet()) {
-            result.add( new HZPersistenceTable(entry.getKey(), entry.getValue()));
+        for(Entry<StringPersistenceId<TableID>, String> entry : jsonMap.entrySet()) {
+            result.add( new JsonPersistenceObject<Table>(entry.getValue()));
         }
         return result;
 	}

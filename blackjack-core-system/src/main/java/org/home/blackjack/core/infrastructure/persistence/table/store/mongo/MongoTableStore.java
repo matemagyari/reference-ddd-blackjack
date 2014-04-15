@@ -5,16 +5,18 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 import org.home.blackjack.core.infrastructure.persistence.shared.mongo.MongoStore;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
+import org.home.blackjack.core.infrastructure.persistence.table.store.json.TableGsonProvider;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -25,30 +27,29 @@ import com.mongodb.util.JSON;
 @Named
 public class MongoTableStore extends MongoStore implements TableStore {
 
-    @Resource
-    private MongoTablePersistenceAssembler tableStoreAssembler;
+    private JsonPersistenceAssembler<Table> tableStoreAssembler = new JsonPersistenceAssembler<Table>(Table.class, new TableGsonProvider());
 
     public MongoTableStore() {
         super("blackjack", "table");
     }
 
     @Override
-    public MongoTablePersistenceAssembler assembler() {
+    public JsonPersistenceAssembler<Table> assembler() {
         return tableStoreAssembler;
     }
 
     @Override
-    public MongoPersistenceTable find(PersistenceObjectId<TableID> id) {
-        MongoPersistenceTableId playerId = (MongoPersistenceTableId) id;
+    public JsonPersistenceObject<Table> find(PersistenceObjectId<TableID> id) {
+        StringPersistenceId<TableID> playerId = (StringPersistenceId<TableID>) id;
         DBObject dbObject = super.find(idQuery(playerId));
-        return new MongoPersistenceTable(playerId, dbObject.toString());
+        return new JsonPersistenceObject<Table>(dbObject.toString());
     }
     
     @Override
     public void update(PersistenceObject<Table> po) {
-        MongoPersistenceTable mpg = (MongoPersistenceTable) po;
+        JsonPersistenceObject<Table> mpg = (JsonPersistenceObject<Table>) po;
         DBObject mongoDoc = toDoc(po);
-        BasicDBObject query = idQuery(mpg.id());
+        BasicDBObject query = idQuery((StringPersistenceId<TableID>)mpg.id());
         super.update(query, mongoDoc);
 
     }
@@ -60,11 +61,11 @@ public class MongoTableStore extends MongoStore implements TableStore {
     }
 
     private static DBObject toDoc(PersistenceObject<Table> po) {
-        MongoPersistenceTable mpg = (MongoPersistenceTable) po;
+        JsonPersistenceObject<Table> mpg = (JsonPersistenceObject<Table>) po;
         return (DBObject) JSON.parse(mpg.getJson());
     }
 
-    private static BasicDBObject idQuery(MongoPersistenceTableId gameID) {
+    private static BasicDBObject idQuery(StringPersistenceId<TableID> gameID) {
         BasicDBObject query = new BasicDBObject();
         query.put("id.internal", gameID.getId());
         return query;
@@ -74,7 +75,7 @@ public class MongoTableStore extends MongoStore implements TableStore {
     public List<PersistenceObject<Table>> findAll() {
         List<PersistenceObject<Table>> result = Lists.newArrayList();
         for(DBObject dbObject : super.basicfindAll()) {
-            result.add(new MongoPersistenceTable(dbObject.toString()));
+            result.add(new JsonPersistenceObject<Table>(dbObject.toString()));
         }
         return result;
     }

@@ -7,14 +7,17 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
+import org.home.blackjack.core.infrastructure.persistence.player.store.json.PlayerGsonProvider;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
+import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -22,47 +25,43 @@ import com.google.common.collect.Maps;
 @Named
 public class InMemoryPlayerStore implements PlayerStore {
 	
-	private final Map<InMemoryPersistencePlayerId, String> jsonMap = Maps.newHashMap();
+	private final Map<StringPersistenceId<PlayerID>, String> jsonMap = Maps.newHashMap();
 
-	private final InMemoryPlayerPersistenceAssembler playerStoreAssembler;
+	private JsonPersistenceAssembler<Player> playerStoreAssembler = new JsonPersistenceAssembler<Player>(Player.class, new PlayerGsonProvider());
 	
-	@Inject
-	public InMemoryPlayerStore(InMemoryPlayerPersistenceAssembler playerStoreAssembler) {
-		this.playerStoreAssembler = playerStoreAssembler;
-	}
 	
 	@Override
-	public InMemoryPlayerPersistenceAssembler assembler() {
+	public JsonPersistenceAssembler<Player> assembler() {
 		return playerStoreAssembler;
 	}
 
 	@Override
-	public InMemoryPersistencePlayer find(PersistenceObjectId<PlayerID> id) {
-		InMemoryPersistencePlayerId playerID = (InMemoryPersistencePlayerId) id;
+	public JsonPersistenceObject<Player> find(PersistenceObjectId<PlayerID> id) {
+		StringPersistenceId<PlayerID> playerID = (StringPersistenceId<PlayerID>) id;
 		String json = jsonMap.get(playerID);
-		return new InMemoryPersistencePlayer(playerID, json);
+		return new JsonPersistenceObject<Player>(json);
 	}
 	
 	//TODO it's not sorted here
     @Override
     public List<PersistenceObject<Player>> findAllSortedByWinNumber() {
         List<PersistenceObject<Player>> result = Lists.newArrayList();
-        for(Entry<InMemoryPersistencePlayerId, String> entry : jsonMap.entrySet()) {
-            result.add(new InMemoryPersistencePlayer(entry.getKey(), entry.getValue()));
+        for(Entry<StringPersistenceId<PlayerID>, String> entry : jsonMap.entrySet()) {
+            result.add(new JsonPersistenceObject<Player>(entry.getValue()));
         }
         return result;
     }
 
 	@Override
 	public void update(PersistenceObject<Player> po) {
-		InMemoryPersistencePlayer mpg = (InMemoryPersistencePlayer) po;
-		jsonMap.put(mpg.id(), mpg.getJson());
+		JsonPersistenceObject<Player> mpg = (JsonPersistenceObject<Player>) po;
+		jsonMap.put((StringPersistenceId<PlayerID>)mpg.id(), mpg.getJson());
 	}
 
 	@Override
 	public void create(PersistenceObject<Player> po) {
-		InMemoryPersistencePlayer mpg = (InMemoryPersistencePlayer) po;
-		jsonMap.put(mpg.id(), mpg.getJson());
+		JsonPersistenceObject<Player> mpg = (JsonPersistenceObject<Player>) po;
+		jsonMap.put((StringPersistenceId<PlayerID>)mpg.id(), mpg.getJson());
 	}
 	
 	@Override
