@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.inject.Named;
+
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
@@ -22,6 +24,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.hazelcast.core.HazelcastInstance;
 
+@Named
 public class HZTableStore  implements TableStore {
 	
 	private final Map<StringPersistenceId<TableID>, String> jsonMap;

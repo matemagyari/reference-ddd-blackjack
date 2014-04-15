@@ -62,7 +62,7 @@ public class BlackjackCoreAppLevelConfig {
         switchableBeanFactory.setUseBean(type);
         Map<String, String> gameStores = new HashMap<String, String>();
         gameStores.put("memory","inMemoryGameStore");
-        gameStores.put("hazelcast","hazelcastGameStore");
+        gameStores.put("hazelcast","HZGameStore");
         gameStores.put("mongo","mongoGameStore");
         switchableBeanFactory.setMappings(gameStores);
         switchableBeanFactory.setApplicationContext(applicationContext);
@@ -75,7 +75,7 @@ public class BlackjackCoreAppLevelConfig {
         switchableBeanFactory.setUseBean(type);
         Map<String, String> playerStores = new HashMap<String, String>();
         playerStores.put("memory","inMemoryPlayerStore");
-        playerStores.put("hazelcast","hazelcastPlayerStore");
+        playerStores.put("hazelcast","HZPlayerStore");
         playerStores.put("mongo","mongoPlayerStore");
         switchableBeanFactory.setMappings(playerStores);
         switchableBeanFactory.setApplicationContext(applicationContext);
@@ -88,7 +88,7 @@ public class BlackjackCoreAppLevelConfig {
         switchableBeanFactory.setUseBean(type);
         Map<String, String> tableStores = new HashMap<String, String>();
         tableStores.put("memory","inMemoryTableStore");
-        tableStores.put("hazelcast","hazelcastTableStore");
+        tableStores.put("hazelcast","HZTableStore");
         tableStores.put("mongo","mongoTableStore");
         switchableBeanFactory.setMappings(tableStores);
         switchableBeanFactory.setApplicationContext(applicationContext);

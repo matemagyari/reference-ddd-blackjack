@@ -1,6 +1,8 @@
 package org.home.blackjack.core.infrastructure.persistence.shared.core;
 
-public interface PersistenceObject<DOMAIN> {
+import org.home.blackjack.util.ddd.pattern.Domain;
+
+public interface PersistenceObject<DOMAIN extends Domain> {
 	
 	PersistenceObjectId id();
 	

@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.inject.Named;
+
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
@@ -22,6 +24,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.hazelcast.core.HazelcastInstance;
 
+@Named
 public class HZPlayerStore  implements PlayerStore {
 	
 	private final Map<StringPersistenceId<PlayerID>, String> jsonMap;
