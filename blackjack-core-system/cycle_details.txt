@@ -1,7 +1,0 @@
-
-Example cycles caused by org.home.blackjack.core.integration.test.config
-
-org.home.blackjack.core.integration.test.fakes -->
-org.home.blackjack.core.integration.test.util -->
-org.home.blackjack.core.integration.test.config -->
--------------------------------

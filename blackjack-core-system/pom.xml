@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<parent>
 		<groupId>org.home.blackjack</groupId>
@@ -31,8 +30,7 @@
 			<artifactId>jersey-client</artifactId>
 			<version>1.18</version>
 		</dependency>
-		<!-- Mongo <dependency> <groupId>org.mongodb</groupId> <artifactId>mongo-java-driver</artifactId> 
-			<version>2.11.4</version> </dependency> -->
+		<!-- Mongo <dependency> <groupId>org.mongodb</groupId> <artifactId>mongo-java-driver</artifactId> <version>2.11.4</version> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
@@ -82,17 +80,17 @@
 
 	<build>
 
-        <testResources>
-            <testResource>
-                <directory>src/main/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>src/integration/resources</directory>
-            </testResource>
-        </testResources>
+		<testResources>
+			<testResource>
+				<directory>src/main/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/integration/resources</directory>
+			</testResource>
+		</testResources>
 
 		<plugins>
 			<plugin>
@@ -115,16 +113,20 @@
 								<violationsThreshold>0</violationsThreshold>
 							</adp>
 							<sdp>
-								<violationsThreshold>7</violationsThreshold>
+								<violationsThreshold>8</violationsThreshold>
 							</sdp>
 							<sap>
 								<maxDistance>0.5</maxDistance>
 								<violationsThreshold>10</violationsThreshold>
 							</sap>
 							<racd>
-								<threshold>0.50</threshold>
+								<threshold>0.20</threshold>
 							</racd>
 						</packageCoupling>
+						<submodulesBlueprint>
+							<location>src/main/resources/blackjack_blueprint.yaml</location>
+							<violationsThreshold>0</violationsThreshold>
+						</submodulesBlueprint>
 					</checks>
 				</configuration>
 				<executions>

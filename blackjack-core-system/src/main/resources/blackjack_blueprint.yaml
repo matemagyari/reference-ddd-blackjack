@@ -1,0 +1,17 @@
+# Map submodules to packages 
+
+  subdmodule-definitions: 
+  
+    SHARED: [domain.shared, app.dto, infrastructure.persistence.shared]
+    GAME: [domain.game, app.service.game, infrastructure.persistence.game]
+    TABLE: [domain.table, app.service.seating, app.service.query, infrastructure.persistence.table]
+    PLAYER: [domain.player, app.service.registration, infrastructure.persistence.player]
+
+# Define dependencies between submodules
+
+  subdmodule-dependencies: 
+
+    SHARED: []
+    GAME: [SHARED]
+    TABLE: [SHARED]
+    PLAYER: [SHARED]

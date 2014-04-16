@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
-import org.home.blackjack.core.domain.game.GameRepository;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
 import org.home.blackjack.util.marker.hexagonal.DrivenPort;
@@ -18,8 +17,6 @@ public class QueryingApplicationService implements DrivenPort {
 
 	@Resource
 	private TableRepository tableRepository;
-	@Resource
-	private GameRepository gameRepository;
 	@Resource
 	private ExternalEventPublisher externalEventPublisher;
 	
