@@ -22,7 +22,7 @@ public class JsonPersistenceObject <T extends Domain> implements PersistenceObje
     private static <I extends ID> StringPersistenceId<I> getId(String json) {
         JsonElement element = new Gson().fromJson (json, JsonElement.class);
         JsonObject jsonObject = element.getAsJsonObject();
-        String strId = jsonObject.get("id").getAsJsonObject().get("internal").getAsString();
+        String strId = jsonObject.get("id").getAsJsonObject().get("value").getAsString();
 	    return new StringPersistenceId<I>(strId);
     }
 	

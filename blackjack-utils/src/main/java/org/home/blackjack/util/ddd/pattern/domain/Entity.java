@@ -1,6 +1,5 @@
 package org.home.blackjack.util.ddd.pattern.domain;
 
-import org.joda.time.DateTime;
 
 /**
  * Class defining behaviour of Entities, that is to say having an id and equals and hashCode based on that id.
@@ -13,16 +12,17 @@ import org.joda.time.DateTime;
 public abstract class Entity<T extends ID> implements Domain {
 
 	private T id;
+	//private final DateTime creationDate;
 
 	protected Entity(final T id) {
-
 		setID(id);
+		//creationDate = DateTime.now();
 	}
-
-	public final DateTime getCreationDate() {
-
-		return id.getCreationDate();
+/*
+	public DateTime getCreationDate() {
+		return creationDate;
 	}
+	*/
 
 	@Override
 	public final boolean equals(final Object other) {

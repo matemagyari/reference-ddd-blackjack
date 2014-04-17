@@ -1,6 +1,7 @@
 package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
@@ -78,7 +79,7 @@ public class AppLevelTestAgent extends TestAgent {
 	@Override
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
 
-		PlayerID playerID = new PlayerID();
+		PlayerID playerID = PlayerID.createFrom(UUID.randomUUID().toString());
 		queryingApplicationService.getTables(new TablesQuery(playerID.toString()));
 		TablesDTO tablesDTO = Util.convert(tables, playerID);
 		fakeExternalEventPublisher.assertArrived(tablesDTO);

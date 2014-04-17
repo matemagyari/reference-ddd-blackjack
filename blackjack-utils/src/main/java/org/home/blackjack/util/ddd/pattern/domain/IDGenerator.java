@@ -7,7 +7,7 @@ import java.util.UUID;
  * 
  * @author michele.sollecito
  */
-public interface IDGenerationStrategy {
+public interface IDGenerator {
 
 	/**
 	 * Generates a UUID.
@@ -15,4 +15,5 @@ public interface IDGenerationStrategy {
 	 * @return the generated UUID
 	 */
 	UUID generate();
+	String generate2();
 }

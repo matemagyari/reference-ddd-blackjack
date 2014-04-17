@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.home.blackjack.core.domain.cashier.WalletService;
 import org.home.blackjack.core.domain.game.DeckFactory;
+import org.home.blackjack.core.infrastructure.JUGIDGenerationStrategy;
 import org.home.blackjack.core.infrastructure.persistence.game.repository.SerializingGameRepository;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.core.infrastructure.persistence.player.repository.SerializingPlayerRepository;
@@ -17,6 +18,7 @@ import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore
 import org.home.blackjack.core.infrastructure.wallet.RestBasedWalletService;
 import org.home.blackjack.util.SwitchableBeanFactory;
 import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;
+import org.home.blackjack.util.ddd.pattern.domain.IDGenerator;
 import org.home.blackjack.util.ddd.pattern.infrastructure.event.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.aspect.PessimisticLockingAspect;
 import org.springframework.beans.factory.annotation.Value;
@@ -93,6 +95,11 @@ public class BlackjackCoreAppLevelConfig {
         switchableBeanFactory.setMappings(tableStores);
         switchableBeanFactory.setApplicationContext(applicationContext);
         return switchableBeanFactory.getBean();
+    }
+    
+    @Bean
+    public IDGenerator idGenerator() {
+        return new JUGIDGenerationStrategy();
     }
 
     @Bean

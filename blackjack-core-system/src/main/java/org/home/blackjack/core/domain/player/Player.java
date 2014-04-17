@@ -28,11 +28,6 @@ public class Player extends AggregateRoot<PlayerID> {
 		this.name = name;
 	}
 
-	public Player(final PlayerName name) {
-		super(new PlayerID());
-		this.name = name;
-	}
-	
 	public void recordWin() {
 		winNumber++;
 	}

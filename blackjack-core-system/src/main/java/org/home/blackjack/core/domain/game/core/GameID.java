@@ -3,10 +3,8 @@ package org.home.blackjack.core.domain.game.core;
 import org.home.blackjack.util.ddd.pattern.domain.ID;
 
 public class GameID extends ID {
-	public GameID() {
-		super();
-	}
-	private GameID(String id) {
+
+    private GameID(String id) {
 		super(id);
 	}
 

@@ -10,9 +10,6 @@ import org.home.blackjack.util.ddd.pattern.domain.ID;
  */
 public class PlayerID extends ID {
 
-	public PlayerID() {
-		super();
-	}
 	private PlayerID(String id) {
 		super(id);
 	}

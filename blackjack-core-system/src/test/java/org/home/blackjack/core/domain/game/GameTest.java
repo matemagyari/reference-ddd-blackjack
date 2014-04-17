@@ -8,25 +8,17 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.home.blackjack.core.EventPublisherStub;
-import org.home.blackjack.core.ReflectionHelper;
-import org.home.blackjack.core.domain.game.Deck;
-import org.home.blackjack.core.domain.game.DeckFactory;
-import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.Card;
-import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.core.Card.Rank;
 import org.home.blackjack.core.domain.game.core.Card.Suite;
+import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.exception.PlayerActionOutOfTurnException;
 import org.home.blackjack.core.domain.game.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.core.infrastructure.JUGIDGenerationStrategy;
-import org.home.blackjack.util.ddd.pattern.domain.ID;
-import org.home.blackjack.util.ddd.pattern.domain.IDGenerationStrategy;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -51,21 +43,12 @@ public class GameTest {
 
 	private Game testObj;
 
-	@Mock
-	private IDGenerationStrategy idGenerationStrategy;
-
 	private PlayerID dealer = GameFixture.aPlayerID();
 	private PlayerID player = GameFixture.aPlayerID();
 	private GameID gameID = GameFixture.aGameID();
 	private TableID tableID = GameFixture.aTableID();
 
 	private AtomicInteger actionCounter = new AtomicInteger();
-
-	@BeforeClass
-	public static void setUpStatic() throws NoSuchFieldException, IllegalAccessException {
-
-		ReflectionHelper.setField("idGenerationStrategy", new JUGIDGenerationStrategy(), ID.class);
-	}
 
 	@Before
 	public void setUp() {

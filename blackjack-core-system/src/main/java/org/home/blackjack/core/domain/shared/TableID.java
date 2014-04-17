@@ -4,10 +4,6 @@ import org.home.blackjack.util.ddd.pattern.domain.ID;
 
 public class TableID extends ID {
 	
-	public TableID() {
-		super();
-	}
-	
 	private TableID(String id) {
 		super(id);
 	}

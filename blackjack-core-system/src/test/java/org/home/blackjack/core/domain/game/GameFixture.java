@@ -1,7 +1,7 @@
 package org.home.blackjack.core.domain.game;
 
-import org.home.blackjack.core.domain.game.DeckFactory;
-import org.home.blackjack.core.domain.game.Game;
+import java.util.UUID;
+
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
@@ -12,18 +12,18 @@ import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisher;
 public class GameFixture {
 	
 	public static Game aGame() {
-		return new Game(new GameID(), new TableID(), new PlayerID(), new PlayerID(), new DeckFactory(), eventPublisherDummy());
+		return new Game(aGameID(), aTableID(), aPlayerID(), aPlayerID(), new DeckFactory(), eventPublisherDummy());
 	}
 	
 	public static TableID aTableID() {
-		return new TableID();
+		return TableID.createFrom(UUID.randomUUID().toString());
 	}
 	public static PlayerID aPlayerID() {
-		return new PlayerID();
+		return  PlayerID.createFrom(UUID.randomUUID().toString());
 	}
 
 	public static GameID aGameID() {
-		return new GameID();
+		return GameID.createFrom(UUID.randomUUID().toString());
 	}
 
 	private static DomainEventPublisher eventPublisherDummy() {

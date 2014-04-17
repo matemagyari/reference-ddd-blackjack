@@ -1,6 +1,7 @@
 package org.home.blackjack.core.integration.test.steps.testagent;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.home.blackjack.core.app.service.query.TablesDTO;
 import org.home.blackjack.core.domain.game.core.GameID;
@@ -69,7 +70,7 @@ public class MessagingTestAgent extends TestAgent {
 
 	@Override
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
-		PlayerID randomPlayer = new PlayerID();
+		PlayerID randomPlayer = PlayerID.createFrom(UUID.randomUUID().toString());
 		TablesDTO tablesDTO = Util.convert(tables, randomPlayer);
 		TablesResponseMessage message = new TablesResponseMessage(tablesDTO.getTablesWithPlayers());
 		String command = new Gson().toJson(new TablesQueryMessage(randomPlayer.toString()));
