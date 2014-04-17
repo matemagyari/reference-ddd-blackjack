@@ -8,7 +8,7 @@ import javax.inject.Named;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisherFactory;
 
 /**
  * Factory. Not a real member of the Domain, rather a technical necessity.

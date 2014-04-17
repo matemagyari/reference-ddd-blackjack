@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableRepository;
-import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisherFactory;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 

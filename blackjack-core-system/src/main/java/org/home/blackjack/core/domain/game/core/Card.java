@@ -1,7 +1,7 @@
 package org.home.blackjack.core.domain.game.core;
 
 import org.apache.commons.lang3.Validate;
-import org.home.blackjack.util.ddd.pattern.ValueObject;
+import org.home.blackjack.util.ddd.pattern.domain.ValueObject;
 
 public class Card extends ValueObject {
 

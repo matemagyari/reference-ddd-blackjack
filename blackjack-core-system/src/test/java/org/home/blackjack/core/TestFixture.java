@@ -7,8 +7,8 @@ import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisher;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisher;
 
 public class TestFixture {
 	

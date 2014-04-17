@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.home.blackjack.util.ddd.pattern.ID;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
+import org.home.blackjack.util.ddd.pattern.domain.ID;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObjectId;
 
 public class StringPersistenceId <T extends ID> implements PersistenceObjectId<T>, Serializable {
 

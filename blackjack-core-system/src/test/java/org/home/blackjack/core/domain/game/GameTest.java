@@ -22,8 +22,8 @@ import org.home.blackjack.core.domain.game.exception.PlayerTriedToActAfterStandE
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.JUGIDGenerationStrategy;
-import org.home.blackjack.util.ddd.pattern.ID;
-import org.home.blackjack.util.ddd.pattern.IDGenerationStrategy;
+import org.home.blackjack.util.ddd.pattern.domain.ID;
+import org.home.blackjack.util.ddd.pattern.domain.IDGenerationStrategy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;

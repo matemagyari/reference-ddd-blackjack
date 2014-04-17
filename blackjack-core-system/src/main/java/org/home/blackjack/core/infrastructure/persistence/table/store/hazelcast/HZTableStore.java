@@ -16,8 +16,8 @@ import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersis
 import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.core.infrastructure.persistence.table.store.json.TableGsonProvider;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;

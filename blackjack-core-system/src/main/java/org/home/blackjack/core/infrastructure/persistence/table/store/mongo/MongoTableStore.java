@@ -15,8 +15,8 @@ import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPers
 import org.home.blackjack.core.infrastructure.persistence.shared.mongo.MongoStore;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.core.infrastructure.persistence.table.store.json.TableGsonProvider;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObjectId;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

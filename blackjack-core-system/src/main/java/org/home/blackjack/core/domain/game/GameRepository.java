@@ -2,7 +2,7 @@ package org.home.blackjack.core.domain.game;
 
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.Repository;
+import org.home.blackjack.util.ddd.pattern.domain.Repository;
 
 public interface GameRepository extends Repository<GameID, Game> {
 

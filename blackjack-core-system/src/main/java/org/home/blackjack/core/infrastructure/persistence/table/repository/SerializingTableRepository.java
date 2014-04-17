@@ -11,9 +11,9 @@ import org.home.blackjack.core.domain.table.Table;
 import org.home.blackjack.core.domain.table.TableNotFoundException;
 import org.home.blackjack.core.domain.table.TableRepository;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
-import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceAssembler;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisherFactory;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceAssembler;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObject;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 

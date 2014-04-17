@@ -1,4 +1,4 @@
-package org.home.blackjack.util.ddd.pattern;
+package org.home.blackjack.util.ddd.pattern.domain;
 
 import org.home.blackjack.util.marker.hexagonal.DrivingPort;
 

@@ -1,6 +1,6 @@
-package org.home.blackjack.util.ddd.pattern;
+package org.home.blackjack.util.ddd.pattern.domain;
 
-import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisher;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisher;
 
 /**
  * Class defining common behaviour for Aggregate Roots. Created to be addressed by Repositories.

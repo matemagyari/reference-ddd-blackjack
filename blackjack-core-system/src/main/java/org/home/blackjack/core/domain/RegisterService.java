@@ -9,6 +9,10 @@ import org.home.blackjack.core.domain.player.PlayerRepository;
 import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
 
+/**
+ * Domain Service
+ *
+ */
 @Named
 public class RegisterService {
 	

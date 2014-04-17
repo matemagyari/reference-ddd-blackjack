@@ -30,7 +30,7 @@ import org.home.blackjack.core.integration.test.dto.TableDO;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher;
 import org.home.blackjack.core.integration.test.fakes.FakeExternalEventPublisher.DomainEventMatcher;
 import org.home.blackjack.core.integration.test.util.Util;
-import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
+import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;
 
 public class AppLevelTestAgent extends TestAgent {
 

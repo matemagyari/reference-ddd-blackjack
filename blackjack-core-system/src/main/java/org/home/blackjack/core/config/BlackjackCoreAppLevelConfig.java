@@ -16,8 +16,8 @@ import org.home.blackjack.core.infrastructure.persistence.table.repository.Seria
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.core.infrastructure.wallet.RestBasedWalletService;
 import org.home.blackjack.util.SwitchableBeanFactory;
-import org.home.blackjack.util.ddd.pattern.events.EventBusManager;
-import org.home.blackjack.util.ddd.pattern.events.LightweightDomainEventBus;
+import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;
+import org.home.blackjack.util.ddd.pattern.infrastructure.event.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.aspect.PessimisticLockingAspect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;

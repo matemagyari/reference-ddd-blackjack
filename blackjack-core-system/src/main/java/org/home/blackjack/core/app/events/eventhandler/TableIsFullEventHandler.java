@@ -5,8 +5,8 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.domain.Dealer;
 import org.home.blackjack.core.domain.table.event.TableIsFullEvent;
-import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
+import org.home.blackjack.util.ddd.pattern.app.event.DomainEventSubscriber;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
 
 @Named
 public class TableIsFullEventHandler implements DomainEventSubscriber<TableIsFullEvent> {

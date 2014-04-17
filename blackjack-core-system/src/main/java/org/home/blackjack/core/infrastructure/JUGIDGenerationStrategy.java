@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import javax.inject.Named;
 
-import org.home.blackjack.util.ddd.pattern.IDGenerationStrategy;
+import org.home.blackjack.util.ddd.pattern.domain.IDGenerationStrategy;
 
 import com.fasterxml.uuid.EthernetAddress;
 import com.fasterxml.uuid.Generators;

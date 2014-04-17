@@ -3,7 +3,7 @@ package org.home.blackjack.core.domain.player;
 import java.util.List;
 
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.util.ddd.pattern.Repository;
+import org.home.blackjack.util.ddd.pattern.domain.Repository;
 
 public interface PlayerRepository extends Repository<PlayerID, Player> {
 

@@ -3,7 +3,7 @@ package org.home.blackjack.core.domain.player;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.util.ddd.pattern.AggregateRoot;
+import org.home.blackjack.util.ddd.pattern.domain.AggregateRoot;
 
 /**
  * An aggregate root of a single entity. It is eventually consistent with the aggregated content of {@link Game}

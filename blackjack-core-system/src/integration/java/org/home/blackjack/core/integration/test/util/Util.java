@@ -18,7 +18,7 @@ import org.home.blackjack.messaging.common.Message;
 import org.home.blackjack.messaging.event.InitialCardsDealtEventMessage;
 import org.home.blackjack.messaging.event.LeaderBoardChangedEventMessage;
 import org.home.blackjack.messaging.event.LeaderBoardChangedEventMessage.LeaderBoardRecordMessage;
-import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
 import org.junit.Assert;
 
 import com.google.common.base.Function;

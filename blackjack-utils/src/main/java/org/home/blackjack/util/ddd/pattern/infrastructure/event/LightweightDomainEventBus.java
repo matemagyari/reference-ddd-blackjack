@@ -12,7 +12,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-package org.home.blackjack.util.ddd.pattern.events;
+package org.home.blackjack.util.ddd.pattern.infrastructure.event;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -21,6 +21,10 @@ import java.util.concurrent.Executors;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.home.blackjack.util.ddd.pattern.app.event.DomainEventSubscriber;
+import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisher;
 
 import com.google.common.collect.Lists;
 

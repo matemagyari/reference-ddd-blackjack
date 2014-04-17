@@ -15,8 +15,8 @@ import org.home.blackjack.core.infrastructure.persistence.game.store.json.GameGs
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObjectId;
 
 import com.google.common.collect.Maps;
 

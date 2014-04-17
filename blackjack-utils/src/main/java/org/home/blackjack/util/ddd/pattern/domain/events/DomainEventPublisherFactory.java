@@ -1,4 +1,4 @@
-package org.home.blackjack.util.ddd.pattern.events;
+package org.home.blackjack.util.ddd.pattern.domain.events;
 
 public interface DomainEventPublisherFactory {
 

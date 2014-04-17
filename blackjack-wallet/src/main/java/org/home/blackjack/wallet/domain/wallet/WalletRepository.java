@@ -1,6 +1,6 @@
 package org.home.blackjack.wallet.domain.wallet;
 
-import org.home.blackjack.util.ddd.pattern.Repository;
+import org.home.blackjack.util.ddd.pattern.domain.Repository;
 
 public interface WalletRepository extends Repository<WalletId, Wallet> {
 

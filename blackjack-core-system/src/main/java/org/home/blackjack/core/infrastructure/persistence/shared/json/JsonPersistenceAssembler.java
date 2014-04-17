@@ -2,9 +2,9 @@ package org.home.blackjack.core.infrastructure.persistence.shared.json;
 
 import org.home.blackjack.core.infrastructure.persistence.shared.gson.GsonBasedAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.gson.GsonProvider;
-import org.home.blackjack.util.ddd.pattern.Domain;
-import org.home.blackjack.util.ddd.pattern.ID;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceAssembler;
+import org.home.blackjack.util.ddd.pattern.domain.Domain;
+import org.home.blackjack.util.ddd.pattern.domain.ID;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceAssembler;
 
 public class JsonPersistenceAssembler <T extends Domain> 
 	extends GsonBasedAssembler 

@@ -10,7 +10,7 @@ import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
-import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
+import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.Bean;

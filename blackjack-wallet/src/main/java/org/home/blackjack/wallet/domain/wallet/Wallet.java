@@ -1,7 +1,7 @@
 package org.home.blackjack.wallet.domain.wallet;
 
 
-import org.home.blackjack.util.ddd.pattern.AggregateRoot;
+import org.home.blackjack.util.ddd.pattern.domain.AggregateRoot;
 import org.home.blackjack.util.ddd.util.Validator;
 
 public class Wallet extends AggregateRoot<WalletId> {

@@ -7,8 +7,8 @@ import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.domain.game.event.GameEvent;
 import org.home.blackjack.core.domain.game.event.PlayerCardDealtEvent;
-import org.home.blackjack.util.ddd.pattern.events.DomainEvent;
-import org.home.blackjack.util.ddd.pattern.events.DomainEventSubscriber;
+import org.home.blackjack.util.ddd.pattern.app.event.DomainEventSubscriber;
+import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
 
 @Named
 public class GameEventHandler implements DomainEventSubscriber<GameEvent> {
