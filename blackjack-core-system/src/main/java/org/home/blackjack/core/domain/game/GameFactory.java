@@ -9,8 +9,8 @@ import javax.inject.Named;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.domain.IDGenerator;
 import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisherFactory;
+import org.home.blackjack.util.ddd.pattern.domain.idgeneration.IDGenerator;
 
 /**
  * Factory. Not a real member of the Domain, rather a technical necessity.
@@ -30,7 +30,7 @@ public class GameFactory {
     }
 
     private Game createNew2PlayerGame(TableID tableId, PlayerID dealer, PlayerID player) {
-        GameID gameId = GameID.createFrom(idGenerator.generate2());
+        GameID gameId = GameID.createFrom(idGenerator.generate());
         return new Game(gameId , tableId, dealer, player, deckFactory, domainEventPublisherFactory.domainEventPublisherInstance());
     }
 

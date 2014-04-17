@@ -9,7 +9,7 @@ import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.PlayerRepository;
 import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.util.ddd.pattern.domain.IDGenerator;
+import org.home.blackjack.util.ddd.pattern.domain.idgeneration.IDGenerator;
 
 /**
  * Domain Service
@@ -26,7 +26,7 @@ public class RegisterService {
     private IDGenerator idGenerator;
 
     public PlayerID registerPlayer(PlayerName playerName) {
-        PlayerID playerId = PlayerID.createFrom(idGenerator.generate2());
+        PlayerID playerId = PlayerID.createFrom(idGenerator.generate());
         Player player = new Player(playerId, playerName);
         playerRepository.create(player);
         cashier.createAccount(player.getID());

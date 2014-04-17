@@ -16,9 +16,8 @@ import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerSto
 import org.home.blackjack.core.infrastructure.persistence.table.repository.SerializingTableRepository;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.core.infrastructure.wallet.RestBasedWalletService;
-import org.home.blackjack.util.SwitchableBeanFactory;
 import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;
-import org.home.blackjack.util.ddd.pattern.domain.IDGenerator;
+import org.home.blackjack.util.ddd.pattern.domain.idgeneration.IDGenerator;
 import org.home.blackjack.util.ddd.pattern.infrastructure.event.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.aspect.PessimisticLockingAspect;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,41 +59,29 @@ public class BlackjackCoreAppLevelConfig {
 
     @Bean
     public GameStore gameStore() {
-        SwitchableBeanFactory<GameStore> switchableBeanFactory = new SwitchableBeanFactory<GameStore>();
-        switchableBeanFactory.setUseBean(type);
-        Map<String, String> gameStores = new HashMap<String, String>();
-        gameStores.put("memory","inMemoryGameStore");
-        gameStores.put("hazelcast","HZGameStore");
-        gameStores.put("mongo","mongoGameStore");
-        switchableBeanFactory.setMappings(gameStores);
-        switchableBeanFactory.setApplicationContext(applicationContext);
-        return switchableBeanFactory.getBean();
+        Map<String, String> beanMap = new HashMap<String, String>();
+        beanMap.put("memory","inMemoryGameStore");
+        beanMap.put("hazelcast","HZGameStore");
+        beanMap.put("mongo","mongoGameStore");
+        return (GameStore) applicationContext.getBean(beanMap.get(type));
     }
 
     @Bean
     public PlayerStore playerStore() {
-        SwitchableBeanFactory<PlayerStore> switchableBeanFactory = new SwitchableBeanFactory<PlayerStore>();
-        switchableBeanFactory.setUseBean(type);
-        Map<String, String> playerStores = new HashMap<String, String>();
-        playerStores.put("memory","inMemoryPlayerStore");
-        playerStores.put("hazelcast","HZPlayerStore");
-        playerStores.put("mongo","mongoPlayerStore");
-        switchableBeanFactory.setMappings(playerStores);
-        switchableBeanFactory.setApplicationContext(applicationContext);
-        return switchableBeanFactory.getBean();
+        Map<String, String> beanMap = new HashMap<String, String>();
+        beanMap.put("memory","inMemoryPlayerStore");
+        beanMap.put("hazelcast","HZPlayerStore");
+        beanMap.put("mongo","mongoPlayerStore");
+        return (PlayerStore) applicationContext.getBean(beanMap.get(type));
     }
 
     @Bean
     public TableStore tableStore() {
-        SwitchableBeanFactory<TableStore> switchableBeanFactory = new SwitchableBeanFactory<TableStore>();
-        switchableBeanFactory.setUseBean(type);
-        Map<String, String> tableStores = new HashMap<String, String>();
-        tableStores.put("memory","inMemoryTableStore");
-        tableStores.put("hazelcast","HZTableStore");
-        tableStores.put("mongo","mongoTableStore");
-        switchableBeanFactory.setMappings(tableStores);
-        switchableBeanFactory.setApplicationContext(applicationContext);
-        return switchableBeanFactory.getBean();
+        Map<String, String> beanMap = new HashMap<String, String>();
+        beanMap.put("memory","inMemoryTableStore");
+        beanMap.put("hazelcast","HZTableStore");
+        beanMap.put("mongo","mongoTableStore");
+        return (TableStore) applicationContext.getBean(beanMap.get(type));
     }
     
     @Bean

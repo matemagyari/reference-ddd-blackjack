@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.domain.IDGenerator;
+import org.home.blackjack.util.ddd.pattern.domain.idgeneration.IDGenerator;
 
 /**
  * Domain service. Responsible for creating tables.
@@ -23,7 +23,7 @@ public class LobbyManager {
 
 		if (tableRepository.isEmpty()) {
 			for (int i = 0; i < NUM_OF_TABLES; i++) {
-				TableID tableID = TableID.createFrom(idGenerator.generate2());
+				TableID tableID = TableID.createFrom(idGenerator.generate());
                 tableRepository.create(new Table(tableID));
 			}
 		}
