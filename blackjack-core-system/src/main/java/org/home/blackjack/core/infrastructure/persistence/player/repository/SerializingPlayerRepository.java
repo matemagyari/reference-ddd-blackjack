@@ -12,9 +12,9 @@ import org.home.blackjack.core.domain.player.PlayerNotFoundException;
 import org.home.blackjack.core.domain.player.PlayerRepository;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.persistence.player.store.PlayerStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceAssembler;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
 import com.google.common.collect.Lists;

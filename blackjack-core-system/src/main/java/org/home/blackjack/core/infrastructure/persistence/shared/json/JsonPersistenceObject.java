@@ -1,9 +1,9 @@
 package org.home.blackjack.core.infrastructure.persistence.shared.json;
 
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
 import org.home.blackjack.util.ddd.pattern.Domain;
 import org.home.blackjack.util.ddd.pattern.ID;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

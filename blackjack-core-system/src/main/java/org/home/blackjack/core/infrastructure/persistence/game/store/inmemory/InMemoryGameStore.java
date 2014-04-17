@@ -12,11 +12,11 @@ import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
 import org.home.blackjack.core.infrastructure.persistence.game.store.json.GameGsonProvider;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
 
 import com.google.common.collect.Maps;
 

@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.persistence.shared.core;
+package org.home.blackjack.util.ddd.pattern.persistence;
 
 import org.home.blackjack.util.ddd.pattern.Domain;
 

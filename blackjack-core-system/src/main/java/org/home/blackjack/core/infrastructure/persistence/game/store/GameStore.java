@@ -5,9 +5,9 @@ import java.util.concurrent.locks.Lock;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceStore;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceStore;
 
 public interface GameStore extends PersistenceStore<Game, PersistenceObject<Game>, PersistenceObjectId<GameID>> {
 

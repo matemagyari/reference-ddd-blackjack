@@ -10,9 +10,9 @@ import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.exception.GameNotFoundException;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.persistence.game.store.GameStore;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceAssembler;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
 import org.home.blackjack.util.ddd.pattern.events.DomainEventPublisherFactory;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceAssembler;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
 import org.home.blackjack.util.locking.FinegrainedLockable;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 

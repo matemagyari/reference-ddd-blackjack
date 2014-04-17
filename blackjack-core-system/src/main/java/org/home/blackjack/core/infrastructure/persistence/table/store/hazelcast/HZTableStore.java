@@ -11,13 +11,13 @@ import javax.inject.Named;
 
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.domain.table.Table;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObject;
-import org.home.blackjack.core.infrastructure.persistence.shared.core.PersistenceObjectId;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceAssembler;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.JsonPersistenceObject;
 import org.home.blackjack.core.infrastructure.persistence.shared.json.StringPersistenceId;
 import org.home.blackjack.core.infrastructure.persistence.table.store.TableStore;
 import org.home.blackjack.core.infrastructure.persistence.table.store.json.TableGsonProvider;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObject;
+import org.home.blackjack.util.ddd.pattern.persistence.PersistenceObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
