@@ -17,7 +17,7 @@ public class LobbyManager {
 	@Inject
 	private TableRepository tableRepository;
 	@Inject
-	private IDGenerator idGenerator;
+	private IDGenerator<String> idGenerator;
 
 	public void setupLobbyBeforePlayersCome() {
 

@@ -8,7 +8,7 @@ import com.fasterxml.uuid.EthernetAddress;
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedGenerator;
 
-public class JUGIDGenerationStrategy implements IDGenerator {
+public class JUGIDGenerationStrategy implements IDGenerator<String> {
 
 	private UUID generateUUID() {
 

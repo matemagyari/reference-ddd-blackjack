@@ -23,7 +23,7 @@ public class GameFactory {
     @Resource
     private DomainEventPublisherFactory domainEventPublisherFactory;
     @Inject
-    private IDGenerator idGenerator;
+    private IDGenerator<String> idGenerator;
 
     public Game createNewGame(TableID tableId, List<PlayerID> players) {
         return createNew2PlayerGame(tableId, players.get(0), players.get(1));

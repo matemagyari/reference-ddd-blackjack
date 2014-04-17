@@ -3,10 +3,10 @@ package org.home.blackjack.util.ddd.pattern.infrastructure.persistence;
 import org.home.blackjack.util.ddd.pattern.domain.Domain;
 import org.home.blackjack.util.ddd.pattern.domain.ID;
 
-public interface PersistenceAssembler<DOMAIN extends Domain, PO extends PersistenceObject<DOMAIN>> {
+public interface PersistenceAssembler<D extends Domain, P extends PersistenceObject<D>> {
 	
-	DOMAIN toDomain(PO persistenceObject);
-	PO toPersistence(DOMAIN domainObject);
+	D toDomain(P persistenceObject);
+	P toPersistence(D domainObject);
 	PersistenceObjectId toPersistence(ID id);
 
 }

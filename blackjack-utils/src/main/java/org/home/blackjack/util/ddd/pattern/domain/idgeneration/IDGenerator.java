@@ -1,7 +1,7 @@
 package org.home.blackjack.util.ddd.pattern.domain.idgeneration;
 
 
-public interface IDGenerator {
+public interface IDGenerator<T> {
 
-	String generate();
+	T generate();
 }

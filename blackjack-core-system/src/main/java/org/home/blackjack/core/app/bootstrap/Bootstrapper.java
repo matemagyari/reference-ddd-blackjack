@@ -14,7 +14,7 @@ public class Bootstrapper {
 	@Inject
 	private LobbyManager lobbyManager;
 	
-	@PostConstruct
+    @PostConstruct @SuppressWarnings("unused")
 	private void setupLobby() {
 		lobbyManager.setupLobbyBeforePlayersCome();
 	}

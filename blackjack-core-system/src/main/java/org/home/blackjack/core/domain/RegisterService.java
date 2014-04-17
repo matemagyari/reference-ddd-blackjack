@@ -23,7 +23,7 @@ public class RegisterService {
     @Resource
     private Cashier cashier;
     @Inject
-    private IDGenerator idGenerator;
+    private IDGenerator<String> idGenerator;
 
     public PlayerID registerPlayer(PlayerName playerName) {
         PlayerID playerId = PlayerID.createFrom(idGenerator.generate());
