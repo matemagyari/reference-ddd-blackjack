@@ -3,8 +3,8 @@ package org.home.blackjack.core.domain.player.event;
 import java.util.List;
 
 import org.home.blackjack.core.domain.player.core.PlayerName;
-import org.home.blackjack.util.ddd.pattern.domain.ValueObject;
-import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.model.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.model.ValueObject;
 
 import com.google.common.collect.Lists;
 

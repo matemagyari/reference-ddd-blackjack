@@ -1,7 +1,7 @@
 package org.home.blackjack.wallet.domain.transaction;
 
-import org.home.blackjack.util.ddd.pattern.domain.ValueObject;
-import org.home.blackjack.util.ddd.util.Validator;
+import org.home.blackjack.util.ddd.pattern.domain.model.ValueObject;
+import org.home.blackjack.util.ddd.pattern.domain.validation.Validator;
 import org.home.blackjack.wallet.domain.wallet.CashAmount;
 
 public class TransactionCommand extends ValueObject {

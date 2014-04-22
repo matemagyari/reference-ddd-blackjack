@@ -1,4 +1,4 @@
-package org.home.blackjack.util.ddd.util;
+package org.home.blackjack.util.ddd.pattern.domain.exception;
 
 @SuppressWarnings("serial")
 public class DomainException extends RuntimeException {

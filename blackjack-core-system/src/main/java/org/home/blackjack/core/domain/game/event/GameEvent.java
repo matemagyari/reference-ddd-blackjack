@@ -3,9 +3,9 @@ package org.home.blackjack.core.domain.game.event;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.domain.ValueObject;
-import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
-import org.home.blackjack.util.ddd.util.Validator;
+import org.home.blackjack.util.ddd.pattern.domain.model.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.model.ValueObject;
+import org.home.blackjack.util.ddd.pattern.domain.validation.Validator;
 
 /**
  * Domain Event (Value Object)

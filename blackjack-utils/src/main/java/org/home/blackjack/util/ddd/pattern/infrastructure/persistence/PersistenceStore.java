@@ -1,6 +1,6 @@
 package org.home.blackjack.util.ddd.pattern.infrastructure.persistence;
 
-import org.home.blackjack.util.ddd.pattern.domain.Domain;
+import org.home.blackjack.util.ddd.pattern.domain.model.Domain;
 
 public interface PersistenceStore<D extends Domain, P extends PersistenceObject<D>, PI extends PersistenceObjectId> {
 	

@@ -1,7 +1,7 @@
 package org.home.blackjack.core.domain.table;
 
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.util.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.exception.DomainException;
 
 @SuppressWarnings("serial")
 public class TableNotFoundException extends DomainException {

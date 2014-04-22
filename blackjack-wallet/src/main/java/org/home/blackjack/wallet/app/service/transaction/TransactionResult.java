@@ -1,6 +1,6 @@
 package org.home.blackjack.wallet.app.service.transaction;
 
-import org.home.blackjack.util.ddd.pattern.domain.ValueObject;
+import org.home.blackjack.util.ddd.pattern.domain.model.ValueObject;
 import org.home.blackjack.wallet.domain.transaction.TransactionId;
 import org.home.blackjack.wallet.domain.wallet.CashAmount;
 

@@ -7,8 +7,8 @@ import org.apache.commons.lang3.Validate;
 import org.home.blackjack.core.domain.game.core.Card;
 import org.home.blackjack.core.domain.game.core.Card.Rank;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.util.ddd.pattern.domain.Entity;
-import org.home.blackjack.util.ddd.util.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.exception.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.model.Entity;
 
 import com.google.common.collect.Lists;
 

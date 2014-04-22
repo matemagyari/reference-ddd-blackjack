@@ -1,6 +1,6 @@
 package org.home.blackjack.core.domain.cashier;
 
-import org.home.blackjack.util.ddd.pattern.domain.ValueObject;
+import org.home.blackjack.util.ddd.pattern.domain.model.ValueObject;
 
 public class Reason extends ValueObject {
 

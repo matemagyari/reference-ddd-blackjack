@@ -14,7 +14,7 @@ import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameStartedEvent;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.integration.test.util.Util;
-import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.model.DomainEvent;
 import org.junit.Assert;
 
 import com.google.common.collect.Lists;

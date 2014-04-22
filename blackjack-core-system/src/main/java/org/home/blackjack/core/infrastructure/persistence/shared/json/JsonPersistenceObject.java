@@ -1,7 +1,7 @@
 package org.home.blackjack.core.infrastructure.persistence.shared.json;
 
-import org.home.blackjack.util.ddd.pattern.domain.Domain;
-import org.home.blackjack.util.ddd.pattern.domain.ID;
+import org.home.blackjack.util.ddd.pattern.domain.model.Domain;
+import org.home.blackjack.util.ddd.pattern.domain.model.ID;
 import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObject;
 import org.home.blackjack.util.ddd.pattern.infrastructure.persistence.PersistenceObjectId;
 

@@ -1,4 +1,4 @@
-package org.home.blackjack.util.ddd.pattern.domain;
+package org.home.blackjack.util.ddd.pattern.domain.model;
 
 
 /**

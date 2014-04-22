@@ -1,6 +1,6 @@
 package org.home.blackjack.wallet.domain.wallet;
 
-import org.home.blackjack.util.ddd.pattern.domain.ID;
+import org.home.blackjack.util.ddd.pattern.domain.model.ID;
 
 public class WalletId extends ID {
 

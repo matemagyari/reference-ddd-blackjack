@@ -8,7 +8,7 @@ import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
 import org.home.blackjack.core.app.events.external.ExternalDomainEvent.Addressee;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
 import org.home.blackjack.core.domain.shared.PlayerID;
-import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.model.DomainEvent;
 import org.home.blackjack.util.marker.hexagonal.DrivingAdapter;
 
 public class CometDExternalEventPublisher implements ExternalEventPublisher, DrivingAdapter<ExternalEventPublisher> {

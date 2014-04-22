@@ -2,8 +2,8 @@ package org.home.blackjack.wallet.domain.wallet;
 
 import java.math.BigDecimal;
 
-import org.home.blackjack.util.ddd.pattern.domain.ValueObject;
-import org.home.blackjack.util.ddd.util.Validator;
+import org.home.blackjack.util.ddd.pattern.domain.model.ValueObject;
+import org.home.blackjack.util.ddd.pattern.domain.validation.Validator;
 
 public class CashAmount extends ValueObject {
 	

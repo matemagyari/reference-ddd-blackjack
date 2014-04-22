@@ -2,7 +2,7 @@ package org.home.blackjack.core.domain.game.exception;
 
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.util.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.exception.DomainException;
 
 @SuppressWarnings("serial")
 public class GameNotFoundException extends DomainException {

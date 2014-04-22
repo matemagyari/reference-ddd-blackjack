@@ -1,4 +1,6 @@
-package org.home.blackjack.util.ddd.util;
+package org.home.blackjack.util.ddd.pattern.domain.validation;
+
+import org.home.blackjack.util.ddd.pattern.domain.exception.DomainException;
 
 
 @SuppressWarnings("serial")

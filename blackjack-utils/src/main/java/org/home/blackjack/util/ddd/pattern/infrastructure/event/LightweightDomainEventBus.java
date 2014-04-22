@@ -23,8 +23,8 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.home.blackjack.util.ddd.pattern.app.event.DomainEventSubscriber;
 import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;
-import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
 import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisher;
+import org.home.blackjack.util.ddd.pattern.domain.model.DomainEvent;
 
 import com.google.common.collect.Lists;
 

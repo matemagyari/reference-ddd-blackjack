@@ -8,8 +8,8 @@ import org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent;
 import org.home.blackjack.core.domain.table.event.TableEvent;
 import org.home.blackjack.core.domain.table.event.TableIsFullEvent;
 import org.home.blackjack.core.domain.table.event.TableSeatingChangedEvent;
-import org.home.blackjack.util.ddd.pattern.domain.AggregateRoot;
-import org.home.blackjack.util.ddd.util.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.exception.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.model.AggregateRoot;
 
 import com.google.common.collect.Lists;
 

@@ -1,6 +1,6 @@
 package org.home.blackjack.wallet.domain.wallet;
 
-import org.home.blackjack.util.ddd.util.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.exception.DomainException;
 
 @SuppressWarnings("serial")
 public class CurrencyMismatchException extends DomainException {

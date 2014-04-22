@@ -16,9 +16,9 @@ import org.home.blackjack.core.domain.game.exception.PlayerActionOutOfTurnExcept
 import org.home.blackjack.core.domain.game.exception.PlayerTriedToActAfterStandException;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.domain.AggregateRoot;
 import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisher;
-import org.home.blackjack.util.ddd.util.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.exception.DomainException;
+import org.home.blackjack.util.ddd.pattern.domain.model.AggregateRoot;
 
 /**
  * Aggregate Root

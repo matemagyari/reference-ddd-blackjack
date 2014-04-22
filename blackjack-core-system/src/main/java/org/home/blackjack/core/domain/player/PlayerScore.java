@@ -1,6 +1,6 @@
 package org.home.blackjack.core.domain.player;
 
-import org.home.blackjack.util.ddd.pattern.domain.ValueObject;
+import org.home.blackjack.util.ddd.pattern.domain.model.ValueObject;
 
 /**
  * The score of a player playing Black Jack.

@@ -1,6 +1,6 @@
 package org.home.blackjack.core.domain.game.core;
 
-import org.home.blackjack.util.ddd.pattern.domain.ID;
+import org.home.blackjack.util.ddd.pattern.domain.model.ID;
 
 public class GameID extends ID {
 

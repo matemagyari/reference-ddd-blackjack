@@ -3,7 +3,7 @@ package org.home.blackjack.core.app.events.external;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.domain.events.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.model.DomainEvent;
 
 /**
  * Contains the Domain event, plus routing information. Which tables and which player to notify.
