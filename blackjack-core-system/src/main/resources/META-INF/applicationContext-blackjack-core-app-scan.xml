@@ -6,6 +6,6 @@
 	<context:component-scan
 			base-package="org.home.blackjack.core.domain
 		,org.home.blackjack.core.app
-		,org.home.blackjack.core.infrastructure.persistence" />
+		,org.home.blackjack.core.infrastructure.adapters.driving.persistence" />
 
 </beans>

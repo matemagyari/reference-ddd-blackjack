@@ -102,6 +102,8 @@
 					<checks>
 						<layering>
 							<layers>
+							    <param>main</param>
+							    <param>config</param>
 								<param>infrastructure</param>
 								<param>app</param>
 								<param>domain</param>

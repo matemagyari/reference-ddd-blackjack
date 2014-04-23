@@ -70,11 +70,11 @@ org.home.blackjack.core.domain.game.core 0.8
 org.home.blackjack.core.domain.game.view 1.0
 org.home.blackjack.core.domain.player.core 0.625
 org.home.blackjack.core.domain.shared 0.93939394
-org.home.blackjack.core.infrastructure.persistence.game.store 0.5555556
-org.home.blackjack.core.infrastructure.persistence.player.store 0.5555556
-org.home.blackjack.core.infrastructure.persistence.player.store.json 0.6666666
-org.home.blackjack.core.infrastructure.persistence.table.store.json 0.6666666
-org.home.blackjack.core.infrastructure.persistence.table.store 0.5555556
+org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store 0.5555556
+org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store 0.5555556
+org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store.json 0.6666666
+org.home.blackjack.core.infrastructure.adapters.driving.persistence.table.store.json 0.6666666
+org.home.blackjack.core.infrastructure.adapters.driving.persistence.table.store 0.5555556
 ==============================================================
 
 [INFO] 
