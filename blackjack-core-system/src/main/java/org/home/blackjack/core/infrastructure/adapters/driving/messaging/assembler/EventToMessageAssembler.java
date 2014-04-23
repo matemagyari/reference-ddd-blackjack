@@ -5,7 +5,7 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.home.blackjack.core.app.events.eventhandler.PublicPlayerCardDealtEvent;
-import org.home.blackjack.core.app.service.query.TablesDTO;
+import org.home.blackjack.core.app.service.query.TableListViewDTO;
 import org.home.blackjack.core.domain.game.core.Card;
 import org.home.blackjack.core.domain.game.event.GameFinishedEvent;
 import org.home.blackjack.core.domain.game.event.GameStartedEvent;
@@ -89,7 +89,7 @@ public class EventToMessageAssembler {
         return new LeaderBoardChangedEventMessage(records);
     }
 
-    public TablesResponseMessage assemble(TablesDTO tablesDTO) {
-        return new TablesResponseMessage(tablesDTO.getTablesWithPlayers());
+    public TablesResponseMessage assemble(TableListViewDTO tableListViewDTO) {
+        return new TablesResponseMessage(tableListViewDTO.getTablesWithPlayers());
     }
 }

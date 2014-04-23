@@ -26,7 +26,7 @@ public class QueryingApplicationService implements DrivenPort {
 		for (Table table : tables) {
 			tableViewDTOs.add(new TableViewDTO(table.getID(),  table.getPlayers()));
 		}
-		externalEventPublisher.publish(new TablesDTO(tablesQuery.getPlayerID(), tableViewDTOs));
+		externalEventPublisher.publish(new TableListViewDTO(tablesQuery.getPlayerID(), tableViewDTOs));
 	}
 	
 }

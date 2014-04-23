@@ -9,11 +9,11 @@ import org.home.blackjack.core.domain.shared.PlayerID;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class TablesDTO extends QueryResponse {
+public class TableListViewDTO extends QueryResponse {
 
 	private final Map<String, List<String>> tablesWithPlayers;
 
-	public TablesDTO(PlayerID playerID, List<TableViewDTO> tables) {
+	public TableListViewDTO(PlayerID playerID, List<TableViewDTO> tables) {
 		super(playerID);
 		tablesWithPlayers = Maps.newHashMap();
 		for (TableViewDTO table : tables) {

@@ -9,7 +9,7 @@ import java.util.List;
 import org.home.blackjack.core.app.dto.QueryResponse;
 import org.home.blackjack.core.app.events.external.ExternalDomainEvent;
 import org.home.blackjack.core.app.events.external.ExternalEventPublisher;
-import org.home.blackjack.core.app.service.query.TablesDTO;
+import org.home.blackjack.core.app.service.query.TableListViewDTO;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.game.event.GameStartedEvent;
 import org.home.blackjack.core.domain.shared.TableID;
@@ -78,12 +78,12 @@ public class FakeExternalEventPublisher implements ExternalEventPublisher {
 		boolean match(T event);
 	}
 
-	public TablesDTO assertArrived(TablesDTO tablesDTO) {
+	public TableListViewDTO assertArrived(TableListViewDTO tableListViewDTO) {
 		Util.sleep(100);
 		for (QueryResponse response : responses) {
-			if (response.equals(tablesDTO)) {
+			if (response.equals(tableListViewDTO)) {
 				responses.remove(response);
-				return (TablesDTO) response;
+				return (TableListViewDTO) response;
 			}
 		}
 		throw new IllegalStateException("Response  event not found");

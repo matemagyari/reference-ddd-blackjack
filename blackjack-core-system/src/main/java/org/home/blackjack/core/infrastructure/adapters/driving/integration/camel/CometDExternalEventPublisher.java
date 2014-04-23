@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.adapters.driving.integration.cometd;
+package org.home.blackjack.core.infrastructure.adapters.driving.integration.camel;
 
 import javax.annotation.Resource;
 

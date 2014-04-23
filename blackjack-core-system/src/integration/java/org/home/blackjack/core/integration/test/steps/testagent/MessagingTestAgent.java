@@ -3,7 +3,7 @@ package org.home.blackjack.core.integration.test.steps.testagent;
 import java.util.List;
 import java.util.UUID;
 
-import org.home.blackjack.core.app.service.query.TablesDTO;
+import org.home.blackjack.core.app.service.query.TableListViewDTO;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.player.core.PlayerName;
@@ -71,8 +71,8 @@ public class MessagingTestAgent extends TestAgent {
 	@Override
 	public void thenTablesSeenInLobby(List<TableDO> tables) {
 		PlayerID randomPlayer = PlayerID.createFrom(UUID.randomUUID().toString());
-		TablesDTO tablesDTO = Util.convert(tables, randomPlayer);
-		TablesResponseMessage message = new TablesResponseMessage(tablesDTO.getTablesWithPlayers());
+		TableListViewDTO tableListViewDTO = Util.convert(tables, randomPlayer);
+		TablesResponseMessage message = new TablesResponseMessage(tableListViewDTO.getTablesWithPlayers());
 		String command = new Gson().toJson(new TablesQueryMessage(randomPlayer.toString()));
 		String responseChannel = playerQueryResponseChannel(randomPlayer.toString());
 		cometDClient.subscribeToChannel(responseChannel);

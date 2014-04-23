@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.home.blackjack.core.app.service.query.TableViewDTO;
-import org.home.blackjack.core.app.service.query.TablesDTO;
+import org.home.blackjack.core.app.service.query.TableListViewDTO;
 import org.home.blackjack.core.domain.game.core.Card;
 import org.home.blackjack.core.domain.player.core.PlayerName;
 import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
@@ -81,13 +81,13 @@ public class Util {
         return result;
     }
     
-    public static TablesDTO convert(List<TableDO> tables, PlayerID playerID) {
+    public static TableListViewDTO convert(List<TableDO> tables, PlayerID playerID) {
         List<TableViewDTO> tableViews = Lists.newArrayList();
         for (TableDO tableDO : tables) {
             List<PlayerID> players = Util.splitToPlayerIds(tableDO.players);
             tableViews.add(new TableViewDTO(TableID.createFrom(tableDO.tableId), players));
         }
-        return new TablesDTO(playerID, tableViews);
+        return new TableListViewDTO(playerID, tableViews);
     }
 
 	public static boolean dataMatch(List<LeaderboardDO> leaderboard, LeaderBoardChangedEventMessage anEvent) {

@@ -8,7 +8,7 @@ import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.game.GameActionType;
 import org.home.blackjack.core.app.service.game.GameCommand;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
-import org.home.blackjack.core.app.service.query.TablesDTO;
+import org.home.blackjack.core.app.service.query.TableListViewDTO;
 import org.home.blackjack.core.app.service.query.TablesQuery;
 import org.home.blackjack.core.app.service.registration.RegistrationApplicationService;
 import org.home.blackjack.core.app.service.registration.RegistrationCommand;
@@ -81,8 +81,8 @@ public class AppLevelTestAgent extends TestAgent {
 
 		PlayerID playerID = PlayerID.createFrom(UUID.randomUUID().toString());
 		queryingApplicationService.getTables(new TablesQuery(playerID.toString()));
-		TablesDTO tablesDTO = Util.convert(tables, playerID);
-		fakeExternalEventPublisher.assertArrived(tablesDTO);
+		TableListViewDTO tableListViewDTO = Util.convert(tables, playerID);
+		fakeExternalEventPublisher.assertArrived(tableListViewDTO);
 
 	}
 
