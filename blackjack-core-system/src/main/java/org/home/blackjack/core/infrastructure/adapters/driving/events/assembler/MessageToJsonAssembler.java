@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.adapters.driving.messaging.assembler;
+package org.home.blackjack.core.infrastructure.adapters.driving.events.assembler;
 
 import javax.inject.Named;
 

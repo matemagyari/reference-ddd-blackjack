@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.adapters.driving.messaging.assembler;
+package org.home.blackjack.core.infrastructure.adapters.driving.events.assembler;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import org.home.blackjack.core.domain.player.event.LeaderBoardChangedEvent;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.table.event.PlayerIsSeatedEvent;
 import org.home.blackjack.core.domain.table.event.TableSeatingChangedEvent;
-import org.home.blackjack.core.infrastructure.adapters.driving.integration.camel.EventRouteBuilder;
+import org.home.blackjack.core.infrastructure.adapters.driving.events.integration.camel.EventRouteBuilder;
 import org.home.blackjack.messaging.event.CardDTOMessage;
 import org.home.blackjack.messaging.event.GameFinishedEventMessage;
 import org.home.blackjack.messaging.event.GameStartedEventMessage;

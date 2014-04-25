@@ -1,11 +1,11 @@
-package org.home.blackjack.core.infrastructure.adapters.driving.integration.camel;
+package org.home.blackjack.core.infrastructure.adapters.driving.events.integration.camel;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
 
 import org.apache.camel.spring.SpringRouteBuilder;
-import org.home.blackjack.core.infrastructure.adapters.driving.messaging.assembler.EventToMessageAssembler;
-import org.home.blackjack.core.infrastructure.adapters.driving.messaging.assembler.MessageToJsonAssembler;
+import org.home.blackjack.core.infrastructure.adapters.driving.events.assembler.EventToMessageAssembler;
+import org.home.blackjack.core.infrastructure.adapters.driving.events.assembler.MessageToJsonAssembler;
 import org.home.blackjack.messaging.common.Message;
 import org.springframework.beans.factory.annotation.Value;
 
