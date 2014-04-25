@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.json;
+package org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.serializing;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.gson.GsonProvider;

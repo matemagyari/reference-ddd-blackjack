@@ -10,7 +10,7 @@ import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.TableID;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.GameStore;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.json.GameGsonProvider;
+import org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.serializing.GameGsonProvider;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.json.JsonPersistenceAssembler;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.json.JsonPersistenceObject;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.json.StringPersistenceId;

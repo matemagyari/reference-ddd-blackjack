@@ -10,7 +10,7 @@ import javax.inject.Named;
 import org.home.blackjack.core.domain.player.Player;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store.PlayerStore;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store.json.PlayerGsonProvider;
+import org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store.serializing.PlayerGsonProvider;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.json.JsonPersistenceAssembler;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.json.JsonPersistenceObject;
 import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.json.StringPersistenceId;

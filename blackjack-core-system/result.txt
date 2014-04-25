@@ -72,8 +72,8 @@ org.home.blackjack.core.domain.player.core 0.625
 org.home.blackjack.core.domain.shared 0.93939394
 org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store 0.5555556
 org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store 0.5555556
-org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store.json 0.6666666
-org.home.blackjack.core.infrastructure.adapters.driving.persistence.table.store.json 0.6666666
+org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store.serializing 0.6666666
+org.home.blackjack.core.infrastructure.adapters.driving.persistence.table.store.serializing 0.6666666
 org.home.blackjack.core.infrastructure.adapters.driving.persistence.table.store 0.5555556
 ==============================================================
 

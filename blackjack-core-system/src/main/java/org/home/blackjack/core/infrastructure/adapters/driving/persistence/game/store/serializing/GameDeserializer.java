@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.json;
+package org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.serializing;
 
 import java.lang.reflect.Type;
 
