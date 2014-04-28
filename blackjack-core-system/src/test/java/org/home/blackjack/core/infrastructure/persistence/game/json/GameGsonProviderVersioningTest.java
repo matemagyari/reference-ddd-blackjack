@@ -12,7 +12,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameFixture;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.serializing.GameGsonProvider;
+import org.home.blackjack.core.infrastructure.adapters.driving.gamerepository.store.serializing.GameGsonProvider;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

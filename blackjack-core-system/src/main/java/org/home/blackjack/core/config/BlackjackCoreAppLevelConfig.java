@@ -8,12 +8,12 @@ import javax.inject.Inject;
 
 import org.home.blackjack.core.domain.cashier.WalletService;
 import org.home.blackjack.core.domain.game.DeckFactory;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.repository.SerializingGameRepository;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.GameStore;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.repository.SerializingPlayerRepository;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.player.store.PlayerStore;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.table.repository.SerializingTableRepository;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.table.store.TableStore;
+import org.home.blackjack.core.infrastructure.adapters.driving.gamerepository.repository.SerializingGameRepository;
+import org.home.blackjack.core.infrastructure.adapters.driving.gamerepository.store.GameStore;
+import org.home.blackjack.core.infrastructure.adapters.driving.playerrepository.repository.SerializingPlayerRepository;
+import org.home.blackjack.core.infrastructure.adapters.driving.playerrepository.store.PlayerStore;
+import org.home.blackjack.core.infrastructure.adapters.driving.tablerepository.repository.SerializingTableRepository;
+import org.home.blackjack.core.infrastructure.adapters.driving.tablerepository.store.TableStore;
 import org.home.blackjack.core.infrastructure.adapters.driving.wallet.RestBasedWalletService;
 import org.home.blackjack.core.infrastructure.service.JUGIDGenerationStrategy;
 import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;

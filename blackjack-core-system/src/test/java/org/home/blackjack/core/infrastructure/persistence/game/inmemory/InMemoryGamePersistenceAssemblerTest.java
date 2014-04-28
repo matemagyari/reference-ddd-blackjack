@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.home.blackjack.core.domain.game.Game;
 import org.home.blackjack.core.domain.game.GameFixture;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.game.store.serializing.GameGsonProvider;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.json.JsonPersistenceAssembler;
-import org.home.blackjack.core.infrastructure.adapters.driving.persistence.shared.json.JsonPersistenceObject;
+import org.home.blackjack.core.infrastructure.adapters.driving.gamerepository.store.serializing.GameGsonProvider;
+import org.home.blackjack.core.infrastructure.adapters.util.persistence.json.JsonPersistenceAssembler;
+import org.home.blackjack.core.infrastructure.adapters.util.persistence.json.JsonPersistenceObject;
 import org.junit.Test;
 
 public class InMemoryGamePersistenceAssemblerTest {
