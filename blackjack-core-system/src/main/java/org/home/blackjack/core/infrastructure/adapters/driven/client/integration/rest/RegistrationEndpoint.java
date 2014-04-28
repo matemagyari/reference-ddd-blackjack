@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.adapters.driven.integration.rest;
+package org.home.blackjack.core.infrastructure.adapters.driven.client.integration.rest;
 
 import javax.annotation.Resource;
 import javax.inject.Named;

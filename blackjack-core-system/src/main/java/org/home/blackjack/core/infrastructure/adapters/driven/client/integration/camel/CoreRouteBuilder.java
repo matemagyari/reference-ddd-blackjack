@@ -1,4 +1,4 @@
-package org.home.blackjack.core.infrastructure.adapters.driven.integration.camel;
+package org.home.blackjack.core.infrastructure.adapters.driven.client.integration.camel;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
@@ -8,7 +8,7 @@ import org.apache.camel.spring.SpringRouteBuilder;
 import org.home.blackjack.core.app.service.game.GameActionApplicationService;
 import org.home.blackjack.core.app.service.query.QueryingApplicationService;
 import org.home.blackjack.core.app.service.seating.SeatingApplicationService;
-import org.home.blackjack.core.infrastructure.adapters.driven.messaging.assembler.MessageToDTOAssembler;
+import org.home.blackjack.core.infrastructure.adapters.driven.client.messaging.assembler.MessageToDTOAssembler;
 import org.home.blackjack.messaging.command.GameCommandMessage;
 import org.home.blackjack.messaging.command.SeatingCommandMessage;
 import org.home.blackjack.messaging.query.TablesQueryMessage;
