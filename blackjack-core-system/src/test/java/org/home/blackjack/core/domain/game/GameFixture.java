@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.home.blackjack.core.domain.game.core.GameID;
 import org.home.blackjack.core.domain.shared.PlayerID;
 import org.home.blackjack.core.domain.shared.TableID;
-import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisher;
 import org.home.blackjack.util.ddd.pattern.domain.model.DomainEvent;
+import org.home.blackjack.util.ddd.pattern.domain.model.DomainEventPublisher;
 
 
 public class GameFixture {

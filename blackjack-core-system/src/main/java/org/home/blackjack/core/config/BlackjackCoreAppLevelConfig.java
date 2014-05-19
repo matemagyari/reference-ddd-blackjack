@@ -16,8 +16,8 @@ import org.home.blackjack.core.infrastructure.adapters.driving.tablerepository.r
 import org.home.blackjack.core.infrastructure.adapters.driving.tablerepository.store.TableStore;
 import org.home.blackjack.core.infrastructure.adapters.driving.wallet.RestBasedWalletService;
 import org.home.blackjack.core.infrastructure.service.JUGIDGenerationStrategy;
-import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;
 import org.home.blackjack.util.ddd.pattern.domain.idgeneration.IDGenerator;
+import org.home.blackjack.util.ddd.pattern.infrastructure.event.EventBusManager;
 import org.home.blackjack.util.ddd.pattern.infrastructure.event.LightweightDomainEventBus;
 import org.home.blackjack.util.locking.aspect.PessimisticLockingAspect;
 import org.springframework.beans.factory.annotation.Value;

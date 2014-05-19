@@ -1,10 +1,9 @@
-package org.home.blackjack.util.ddd.pattern.app.event;
+package org.home.blackjack.util.ddd.pattern.infrastructure.event;
 
 import javax.annotation.Resource;
 
-import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisher;
 import org.home.blackjack.util.ddd.pattern.domain.events.DomainEventPublisherFactory;
-import org.home.blackjack.util.ddd.pattern.infrastructure.event.LightweightDomainEventBus;
+import org.home.blackjack.util.ddd.pattern.domain.model.DomainEventPublisher;
 import org.springframework.context.ApplicationContext;
 
 public class EventBusManager implements DomainEventPublisherFactory {

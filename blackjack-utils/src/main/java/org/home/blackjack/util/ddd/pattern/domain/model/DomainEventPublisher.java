@@ -1,6 +1,5 @@
-package org.home.blackjack.util.ddd.pattern.domain.events;
+package org.home.blackjack.util.ddd.pattern.domain.model;
 
-import org.home.blackjack.util.ddd.pattern.domain.model.DomainEvent;
 
 
 /**

@@ -12,7 +12,7 @@ import org.home.blackjack.core.infrastructure.adapters.driven.client.messaging.a
 import org.home.blackjack.messaging.command.GameCommandMessage;
 import org.home.blackjack.messaging.command.SeatingCommandMessage;
 import org.home.blackjack.messaging.query.TablesQueryMessage;
-import org.home.blackjack.util.ddd.pattern.app.event.EventBusManager;
+import org.home.blackjack.util.ddd.pattern.infrastructure.event.EventBusManager;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
